@@ -3,7 +3,7 @@
   "page_name": "checkbox",
   "elements": {
     "home_checkbox_icon": {
-      "id": "ac425e98-d6b3-4598-a9e2-b88714da0170",
+      "id": "ad3c5ae4-01d6-47f6-8f86-6c8554dc18a1",
       "app_id": "demo-qa-app",
       "page_name": "checkbox",
       "element_name": "home_checkbox_icon",
@@ -98,39 +98,23 @@
         "valid_against_hints": true,
         "history": [
           {
-            "timestamp": "2026-03-22T20:17:46.063549+00:00",
+            "timestamp": "2026-03-22T23:42:46.918231+00:00",
             "strategy_id": "rag_suggest",
-            "overall_score": 0.888,
-            "stability_score": 0.72,
+            "overall_score": 0.912,
+            "stability_score": 0.78,
             "similarity_score": 1.0,
             "uniqueness_score": 1.0
           },
           {
-            "timestamp": "2026-03-22T22:49:47.160900+00:00",
+            "timestamp": "2026-03-22T23:46:38.108130+00:00",
             "strategy_id": "rag_suggest",
-            "overall_score": 0.752,
+            "overall_score": 0.782,
             "stability_score": 0.78,
-            "similarity_score": 0.2,
+            "similarity_score": 0.35,
             "uniqueness_score": 1.0
           },
           {
-            "timestamp": "2026-03-22T23:00:13.930445+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.728,
-            "stability_score": 0.72,
-            "similarity_score": 0.2,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-22T23:21:59.301863+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.752,
-            "stability_score": 0.78,
-            "similarity_score": 0.2,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-22T23:31:36.800221+00:00",
+            "timestamp": "2026-03-22T23:46:43.639310+00:00",
             "overall_score": 0.782,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
@@ -139,9 +123,9 @@
           }
         ]
       },
-      "last_seen": "2026-03-22T23:31:36.749905+00:00",
-      "success_count": 5,
-      "fail_count": 1
+      "last_seen": "2026-03-22T23:46:43.543545+00:00",
+      "success_count": 3,
+      "fail_count": 0
     }
   },
   "page_index": null

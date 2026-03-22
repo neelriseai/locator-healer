@@ -3,7 +3,7 @@
   "page_name": "text_box",
   "elements": {
     "full_name": {
-      "id": "47058e9d-b050-422b-9cd7-fe510b70ac72",
+      "id": "1234ae8b-2509-4d7b-9c11-e99d557ee3a2",
       "app_id": "demo-qa-app",
       "page_name": "text_box",
       "element_name": "full_name",
@@ -100,7 +100,7 @@
         "valid_against_hints": true,
         "history": [
           {
-            "timestamp": "2026-03-22T20:16:00.004723+00:00",
+            "timestamp": "2026-03-22T23:41:13.937991+00:00",
             "strategy_id": "rag_suggest",
             "overall_score": 0.936,
             "stability_score": 0.84,
@@ -108,7 +108,7 @@
             "uniqueness_score": 1.0
           },
           {
-            "timestamp": "2026-03-22T22:49:20.992807+00:00",
+            "timestamp": "2026-03-22T23:46:08.957737+00:00",
             "strategy_id": "rag_suggest",
             "overall_score": 0.916,
             "stability_score": 0.84,
@@ -116,31 +116,7 @@
             "uniqueness_score": 1.0
           },
           {
-            "timestamp": "2026-03-22T22:59:28.338804+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-22T23:04:34.237563+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-22T23:21:30.609684+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-22T23:30:04.846448+00:00",
+            "timestamp": "2026-03-22T23:46:19.328417+00:00",
             "overall_score": 0.916,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
@@ -149,12 +125,12 @@
           }
         ]
       },
-      "last_seen": "2026-03-22T23:30:04.802567+00:00",
-      "success_count": 6,
+      "last_seen": "2026-03-22T23:46:19.236512+00:00",
+      "success_count": 3,
       "fail_count": 0
     },
     "email": {
-      "id": "97c5f0ba-1e3a-442c-92d8-267b7c59dd8c",
+      "id": "3e3ee778-bcbf-44b4-a138-00a438ec2828",
       "app_id": "demo-qa-app",
       "page_name": "text_box",
       "element_name": "email",
@@ -245,13 +221,13 @@
           "validated"
         ],
         "strategy_id": "rag_suggest",
-        "strategy_score": 0.78,
+        "strategy_score": 0.95,
         "locator_kind": "css",
         "locator_value": "[id=\"userEmail\"]",
         "valid_against_hints": true,
         "history": [
           {
-            "timestamp": "2026-03-22T20:16:07.106099+00:00",
+            "timestamp": "2026-03-22T23:41:20.408481+00:00",
             "strategy_id": "rag_suggest",
             "overall_score": 0.936,
             "stability_score": 0.84,
@@ -259,7 +235,7 @@
             "uniqueness_score": 1.0
           },
           {
-            "timestamp": "2026-03-22T22:49:26.258125+00:00",
+            "timestamp": "2026-03-22T23:46:13.711217+00:00",
             "strategy_id": "rag_suggest",
             "overall_score": 0.916,
             "stability_score": 0.84,
@@ -267,31 +243,7 @@
             "uniqueness_score": 1.0
           },
           {
-            "timestamp": "2026-03-22T22:59:34.229869+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-22T23:04:38.687710+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-22T23:21:36.102356+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.964,
-            "stability_score": 0.96,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-22T23:30:10.754732+00:00",
+            "timestamp": "2026-03-22T23:46:22.887744+00:00",
             "overall_score": 0.916,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
@@ -300,12 +252,12 @@
           }
         ]
       },
-      "last_seen": "2026-03-22T23:30:10.706274+00:00",
-      "success_count": 6,
+      "last_seen": "2026-03-22T23:46:22.784717+00:00",
+      "success_count": 3,
       "fail_count": 0
     },
     "current_address": {
-      "id": "899e288c-276a-4092-b3f2-6c25ed05c136",
+      "id": "24fdbff4-687b-44ca-acd2-69f455f09dfc",
       "app_id": "demo-qa-app",
       "page_name": "text_box",
       "element_name": "current_address",
@@ -401,7 +353,7 @@
         "valid_against_hints": true,
         "history": [
           {
-            "timestamp": "2026-03-22T20:16:10.669111+00:00",
+            "timestamp": "2026-03-22T23:41:23.419373+00:00",
             "strategy_id": "rag_suggest",
             "overall_score": 0.924,
             "stability_score": 0.81,
@@ -409,7 +361,7 @@
             "uniqueness_score": 1.0
           },
           {
-            "timestamp": "2026-03-22T22:49:29.659821+00:00",
+            "timestamp": "2026-03-22T23:46:17.051986+00:00",
             "strategy_id": "rag_suggest",
             "overall_score": 0.904,
             "stability_score": 0.81,
@@ -417,31 +369,7 @@
             "uniqueness_score": 1.0
           },
           {
-            "timestamp": "2026-03-22T22:59:37.409924+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-22T23:04:41.389491+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-22T23:21:39.295690+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-22T23:30:14.118861+00:00",
+            "timestamp": "2026-03-22T23:46:25.642879+00:00",
             "overall_score": 0.904,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
@@ -450,12 +378,12 @@
           }
         ]
       },
-      "last_seen": "2026-03-22T23:30:14.074917+00:00",
-      "success_count": 6,
+      "last_seen": "2026-03-22T23:46:25.536933+00:00",
+      "success_count": 3,
       "fail_count": 0
     },
     "permanent_address": {
-      "id": "bc74e7ad-2d2d-4a2f-b1a0-83592a44cbee",
+      "id": "6364ce30-59e5-4881-a022-de46a29581a5",
       "app_id": "demo-qa-app",
       "page_name": "text_box",
       "element_name": "permanent_address",
@@ -549,7 +477,7 @@
         "valid_against_hints": true,
         "history": [
           {
-            "timestamp": "2026-03-22T20:16:13.805780+00:00",
+            "timestamp": "2026-03-22T23:41:26.071237+00:00",
             "strategy_id": "rag_suggest",
             "overall_score": 0.912,
             "stability_score": 0.78,
@@ -557,7 +485,7 @@
             "uniqueness_score": 1.0
           },
           {
-            "timestamp": "2026-03-22T22:49:32.390300+00:00",
+            "timestamp": "2026-03-22T23:46:21.566322+00:00",
             "strategy_id": "rag_suggest",
             "overall_score": 0.782,
             "stability_score": 0.78,
@@ -565,31 +493,7 @@
             "uniqueness_score": 1.0
           },
           {
-            "timestamp": "2026-03-22T22:59:41.145151+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.782,
-            "stability_score": 0.78,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-22T23:04:44.018747+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.782,
-            "stability_score": 0.78,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-22T23:21:42.987550+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.782,
-            "stability_score": 0.78,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-22T23:30:17.207050+00:00",
+            "timestamp": "2026-03-22T23:46:28.669090+00:00",
             "overall_score": 0.782,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
@@ -598,12 +502,12 @@
           }
         ]
       },
-      "last_seen": "2026-03-22T23:30:17.165172+00:00",
-      "success_count": 6,
+      "last_seen": "2026-03-22T23:46:28.570514+00:00",
+      "success_count": 3,
       "fail_count": 0
     },
     "submit": {
-      "id": "8a0f0165-0acc-4ec7-bea4-6bbe8329722f",
+      "id": "99dd94af-d886-4607-852c-042b9bfb0b0d",
       "app_id": "demo-qa-app",
       "page_name": "text_box",
       "element_name": "submit",
@@ -705,7 +609,7 @@
         "valid_against_hints": true,
         "history": [
           {
-            "timestamp": "2026-03-22T20:17:06.836132+00:00",
+            "timestamp": "2026-03-22T23:42:18.059005+00:00",
             "strategy_id": "rag_suggest",
             "overall_score": 0.972,
             "stability_score": 0.93,
@@ -713,7 +617,7 @@
             "uniqueness_score": 1.0
           },
           {
-            "timestamp": "2026-03-22T22:49:36.645899+00:00",
+            "timestamp": "2026-03-22T23:46:25.705618+00:00",
             "strategy_id": "rag_suggest",
             "overall_score": 0.952,
             "stability_score": 0.93,
@@ -721,31 +625,7 @@
             "uniqueness_score": 1.0
           },
           {
-            "timestamp": "2026-03-22T22:59:43.717549+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-22T23:04:47.834883+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-22T23:21:46.472785+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.952,
-            "stability_score": 0.93,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-22T23:31:09.676662+00:00",
+            "timestamp": "2026-03-22T23:46:31.760450+00:00",
             "overall_score": 0.952,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
@@ -754,8 +634,8 @@
           }
         ]
       },
-      "last_seen": "2026-03-22T23:30:44.998176+00:00",
-      "success_count": 6,
+      "last_seen": "2026-03-22T23:46:31.664283+00:00",
+      "success_count": 3,
       "fail_count": 0
     }
   },
