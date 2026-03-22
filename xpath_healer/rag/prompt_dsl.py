@@ -14,6 +14,7 @@ def build_prompt_dsl(
     context_candidates: list[dict[str, Any]],
     dom_context: list[dict[str, Any]],
     deep_graph: bool = False,
+    prefer_actionable: bool = False,
 ) -> str:
     lines: list[str] = []
     # Symbol DSL (compact, deterministic, low-token format):
@@ -43,15 +44,22 @@ def build_prompt_dsl(
     lines.append(f"D {_compact_dom(dom_signature, limit=540 if deep_graph else 220)}")
     if deep_graph:
         lines.append("GD on")
-    lines.extend(
-        [
-            "R prefer stable attrs; prefer css/role when unique; avoid absolute/deep-index xpath; max 5",
-            "R stay grounded in C, H and D; if evidence weak set needs_more_context=true",
-            "R role candidates must use value as role only; put accessible name and exact in options",
-            "R for checkbox/radio/switch controls, prefer visible label or wrapper text over hidden native input when both appear",
-            "O JSON only: [{\"kind\":\"css|xpath|role|text|pw\",\"value\":\"...\",\"options\":{},\"confidence\":0.0,\"reason\":\"...\",\"needs_more_context\":false}]",
-        ]
+    rules = [
+        "R prefer stable attrs; prefer css/role when unique; avoid absolute/deep-index xpath; max 5",
+        "R stay grounded in C, H and D; if evidence weak set needs_more_context=true",
+        "R role candidates must use value as role only; put accessible name and exact in options",
+        "R for checkbox/radio/switch: PREFER visible icon/svg/label/wrapper over hidden native input[type=checkbox/radio]",
+        "R actionability required: every candidate must target a visible+interactable element; never suggest input[type=hidden]",
+    ]
+    if prefer_actionable:
+        rules.append(
+            "R STRICT ACTIONABILITY: prior attempt failed not_visible; shift ALL candidates to visible wrapper/icon/label; "
+            "penalise any pure input[type=checkbox] or input[type=radio] selector with confidence<=0.3"
+        )
+    rules.append(
+        "O JSON only: [{\"kind\":\"css|xpath|role|text|pw\",\"value\":\"...\",\"options\":{},\"confidence\":0.0,\"reason\":\"...\",\"needs_more_context\":false}]"
     )
+    lines.extend(rules)
     return "\n".join(lines).strip()
 
 

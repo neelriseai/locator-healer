@@ -142,6 +142,9 @@ class HealingService:
                 trace_entries=trace[trace_start:],
                 min_confidence=min_confidence,
             )
+            # Detect not_visible failure so the retry can request visible-element-first candidates.
+            failure_codes = self._rag_failure_reason_codes(trace[trace_start:])
+            prefer_actionable = "not_visible" in failure_codes
             deep_attempt = 0
             while deep_retry_enabled and deep_attempt < deep_retry_max and retry_reason:
                 deep_attempt += 1
@@ -155,14 +158,21 @@ class HealingService:
                         "retry_type": "deep_graph",
                         "attempt": deep_attempt,
                         "reason": retry_reason,
+                        "prefer_actionable": prefer_actionable,
                     },
                 )
                 trace_start = len(trace)
-                rag_candidates = await self._rag_candidates(ctx, inp, deep_graph=True, pass_name=f"deep_{deep_attempt}")
+                rag_candidates = await self._rag_candidates(
+                    ctx, inp, deep_graph=True, pass_name=f"deep_{deep_attempt}",
+                    prefer_actionable=prefer_actionable,
+                )
                 success = await self._evaluate_candidates(ctx, inp, rag_candidates, trace)
                 if success:
                     candidate, validation = success
                     return await self._on_success(ctx, inp, candidate, validation, trace)
+                # Propagate prefer_actionable across retries once not_visible is detected.
+                failure_codes = self._rag_failure_reason_codes(trace[trace_start:])
+                prefer_actionable = prefer_actionable or ("not_visible" in failure_codes)
                 retry_reason = self._rag_retry_reason(
                     candidates=rag_candidates,
                     trace_entries=trace[trace_start:],
@@ -810,6 +820,7 @@ class HealingService:
         inp: BuildInput,
         deep_graph: bool = False,
         pass_name: str = "light",
+        prefer_actionable: bool = False,
     ) -> list[CandidateSpec]:
         if not ctx.rag_assist:
             return []
@@ -820,6 +831,7 @@ class HealingService:
                 html,
                 top_k=ctx.config.rag.top_k,
                 deep_graph=deep_graph,
+                prefer_actionable=prefer_actionable,
             )
         except TypeError:
             suggestions = await ctx.rag_assist.suggest(inp, html, top_k=ctx.config.rag.top_k)
