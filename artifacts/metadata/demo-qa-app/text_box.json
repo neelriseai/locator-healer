@@ -52,9 +52,21 @@
         "strict_single_match": true
       },
       "locator_variants": {
+        "live_css": {
+          "kind": "css",
+          "value": "#userName",
+          "options": {},
+          "scope": null
+        },
         "last_good": {
           "kind": "css",
           "value": "[id=\"userName\"]",
+          "options": {},
+          "scope": null
+        },
+        "live_xpath": {
+          "kind": "xpath",
+          "value": "//*[@id=\"userName\"]",
           "options": {},
           "scope": null
         },
@@ -69,25 +81,13 @@
           "value": "//*[@placeholder='Full Name']",
           "options": {},
           "scope": null
-        },
-        "live_xpath": {
-          "kind": "xpath",
-          "value": "//*[@id=\"userName\"]",
-          "options": {},
-          "scope": null
-        },
-        "live_css": {
-          "kind": "css",
-          "value": "#userName",
-          "options": {},
-          "scope": null
         }
       },
       "quality_metrics": {
         "uniqueness_score": 1.0,
         "stability_score": 0.84,
-        "similarity_score": 1.0,
-        "overall_score": 0.936,
+        "similarity_score": 0.9,
+        "overall_score": 0.916,
         "matched_count": 1,
         "chosen_index": 0,
         "validation_reasons": [
@@ -101,16 +101,56 @@
         "history": [
           {
             "timestamp": "2026-03-22T20:16:00.004723+00:00",
+            "strategy_id": "rag_suggest",
             "overall_score": 0.936,
+            "stability_score": 0.84,
+            "similarity_score": 1.0,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T22:49:20.992807+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T22:59:28.338804+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T23:04:34.237563+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T23:21:30.609684+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T23:30:04.846448+00:00",
+            "overall_score": 0.916,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
             "stability_score": 0.84,
-            "similarity_score": 1.0
+            "similarity_score": 0.9
           }
         ]
       },
-      "last_seen": "2026-03-22T20:15:59.958458+00:00",
-      "success_count": 1,
+      "last_seen": "2026-03-22T23:30:04.802567+00:00",
+      "success_count": 6,
       "fail_count": 0
     },
     "email": {
@@ -121,7 +161,7 @@
       "field_type": "textbox",
       "last_good_locator": {
         "kind": "css",
-        "value": "input#userEmail",
+        "value": "[id=\"userEmail\"]",
         "options": {},
         "scope": null
       },
@@ -163,9 +203,21 @@
         "strict_single_match": true
       },
       "locator_variants": {
+        "live_css": {
+          "kind": "css",
+          "value": "#userEmail",
+          "options": {},
+          "scope": null
+        },
         "last_good": {
           "kind": "css",
-          "value": "input#userEmail",
+          "value": "[id=\"userEmail\"]",
+          "options": {},
+          "scope": null
+        },
+        "live_xpath": {
+          "kind": "xpath",
+          "value": "//*[@id=\"userEmail\"]",
           "options": {},
           "scope": null
         },
@@ -180,48 +232,76 @@
           "value": "//*[@placeholder='name@example.com']",
           "options": {},
           "scope": null
-        },
-        "live_xpath": {
-          "kind": "xpath",
-          "value": "//*[@id=\"userEmail\"]",
-          "options": {},
-          "scope": null
-        },
-        "live_css": {
-          "kind": "css",
-          "value": "#userEmail",
-          "options": {},
-          "scope": null
         }
       },
       "quality_metrics": {
         "uniqueness_score": 1.0,
         "stability_score": 0.84,
-        "similarity_score": 1.0,
-        "overall_score": 0.936,
+        "similarity_score": 0.9,
+        "overall_score": 0.916,
         "matched_count": 1,
         "chosen_index": 0,
         "validation_reasons": [
           "validated"
         ],
         "strategy_id": "rag_suggest",
-        "strategy_score": 1.0,
+        "strategy_score": 0.78,
         "locator_kind": "css",
-        "locator_value": "input#userEmail",
+        "locator_value": "[id=\"userEmail\"]",
         "valid_against_hints": true,
         "history": [
           {
             "timestamp": "2026-03-22T20:16:07.106099+00:00",
+            "strategy_id": "rag_suggest",
             "overall_score": 0.936,
+            "stability_score": 0.84,
+            "similarity_score": 1.0,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T22:49:26.258125+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T22:59:34.229869+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T23:04:38.687710+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T23:21:36.102356+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.964,
+            "stability_score": 0.96,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T23:30:10.754732+00:00",
+            "overall_score": 0.916,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
             "stability_score": 0.84,
-            "similarity_score": 1.0
+            "similarity_score": 0.9
           }
         ]
       },
-      "last_seen": "2026-03-22T20:16:07.063408+00:00",
-      "success_count": 1,
+      "last_seen": "2026-03-22T23:30:10.706274+00:00",
+      "success_count": 6,
       "fail_count": 0
     },
     "current_address": {
@@ -273,9 +353,21 @@
         "strict_single_match": true
       },
       "locator_variants": {
+        "live_css": {
+          "kind": "css",
+          "value": "#currentAddress",
+          "options": {},
+          "scope": null
+        },
         "last_good": {
           "kind": "css",
           "value": "[id=\"currentAddress\"]",
+          "options": {},
+          "scope": null
+        },
+        "live_xpath": {
+          "kind": "xpath",
+          "value": "//*[@id=\"currentAddress\"]",
           "options": {},
           "scope": null
         },
@@ -290,25 +382,13 @@
           "value": "//*[@placeholder='Current Address']",
           "options": {},
           "scope": null
-        },
-        "live_xpath": {
-          "kind": "xpath",
-          "value": "//*[@id=\"currentAddress\"]",
-          "options": {},
-          "scope": null
-        },
-        "live_css": {
-          "kind": "css",
-          "value": "#currentAddress",
-          "options": {},
-          "scope": null
         }
       },
       "quality_metrics": {
         "uniqueness_score": 1.0,
         "stability_score": 0.81,
-        "similarity_score": 1.0,
-        "overall_score": 0.924,
+        "similarity_score": 0.9,
+        "overall_score": 0.904,
         "matched_count": 1,
         "chosen_index": 0,
         "validation_reasons": [
@@ -322,16 +402,56 @@
         "history": [
           {
             "timestamp": "2026-03-22T20:16:10.669111+00:00",
+            "strategy_id": "rag_suggest",
             "overall_score": 0.924,
+            "stability_score": 0.81,
+            "similarity_score": 1.0,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T22:49:29.659821+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T22:59:37.409924+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T23:04:41.389491+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T23:21:39.295690+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T23:30:14.118861+00:00",
+            "overall_score": 0.904,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
             "stability_score": 0.81,
-            "similarity_score": 1.0
+            "similarity_score": 0.9
           }
         ]
       },
-      "last_seen": "2026-03-22T20:16:10.625904+00:00",
-      "success_count": 1,
+      "last_seen": "2026-03-22T23:30:14.074917+00:00",
+      "success_count": 6,
       "fail_count": 0
     },
     "permanent_address": {
@@ -342,7 +462,7 @@
       "field_type": "textbox",
       "last_good_locator": {
         "kind": "css",
-        "value": "[id=\"permanentAddress\"]",
+        "value": "#permanentAddress",
         "options": {},
         "scope": null
       },
@@ -381,9 +501,21 @@
         "strict_single_match": true
       },
       "locator_variants": {
+        "live_css": {
+          "kind": "css",
+          "value": "#permanentAddress",
+          "options": {},
+          "scope": null
+        },
         "last_good": {
           "kind": "css",
-          "value": "[id=\"permanentAddress\"]",
+          "value": "#permanentAddress",
+          "options": {},
+          "scope": null
+        },
+        "live_xpath": {
+          "kind": "xpath",
+          "value": "//*[@id=\"permanentAddress\"]",
           "options": {},
           "scope": null
         },
@@ -398,48 +530,76 @@
           "value": "//*[@id=\"permanentAddress\"]",
           "options": {},
           "scope": null
-        },
-        "live_xpath": {
-          "kind": "xpath",
-          "value": "//*[@id=\"permanentAddress\"]",
-          "options": {},
-          "scope": null
-        },
-        "live_css": {
-          "kind": "css",
-          "value": "#permanentAddress",
-          "options": {},
-          "scope": null
         }
       },
       "quality_metrics": {
         "uniqueness_score": 1.0,
         "stability_score": 0.78,
-        "similarity_score": 1.0,
-        "overall_score": 0.912,
+        "similarity_score": 0.35,
+        "overall_score": 0.782,
         "matched_count": 1,
         "chosen_index": 0,
         "validation_reasons": [
           "validated"
         ],
         "strategy_id": "rag_suggest",
-        "strategy_score": 0.95,
+        "strategy_score": 0.98,
         "locator_kind": "css",
-        "locator_value": "[id=\"permanentAddress\"]",
+        "locator_value": "#permanentAddress",
         "valid_against_hints": true,
         "history": [
           {
             "timestamp": "2026-03-22T20:16:13.805780+00:00",
+            "strategy_id": "rag_suggest",
             "overall_score": 0.912,
+            "stability_score": 0.78,
+            "similarity_score": 1.0,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T22:49:32.390300+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T22:59:41.145151+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T23:04:44.018747+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T23:21:42.987550+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T23:30:17.207050+00:00",
+            "overall_score": 0.782,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
             "stability_score": 0.78,
-            "similarity_score": 1.0
+            "similarity_score": 0.35
           }
         ]
       },
-      "last_seen": "2026-03-22T20:16:13.759799+00:00",
-      "success_count": 1,
+      "last_seen": "2026-03-22T23:30:17.165172+00:00",
+      "success_count": 6,
       "fail_count": 0
     },
     "submit": {
@@ -494,6 +654,12 @@
         "strict_single_match": true
       },
       "locator_variants": {
+        "live_css": {
+          "kind": "css",
+          "value": "#submit",
+          "options": {},
+          "scope": null
+        },
         "last_good": {
           "kind": "role",
           "value": "button",
@@ -501,6 +667,12 @@
             "name": "Submit",
             "exact": true
           },
+          "scope": null
+        },
+        "live_xpath": {
+          "kind": "xpath",
+          "value": "//*[@id=\"submit\"]",
+          "options": {},
           "scope": null
         },
         "robust_css": {
@@ -514,25 +686,13 @@
           "value": "//button[contains(normalize-space(), 'submit')]",
           "options": {},
           "scope": null
-        },
-        "live_xpath": {
-          "kind": "xpath",
-          "value": "//*[@id=\"submit\"]",
-          "options": {},
-          "scope": null
-        },
-        "live_css": {
-          "kind": "css",
-          "value": "#submit",
-          "options": {},
-          "scope": null
         }
       },
       "quality_metrics": {
         "uniqueness_score": 1.0,
         "stability_score": 0.93,
-        "similarity_score": 1.0,
-        "overall_score": 0.972,
+        "similarity_score": 0.9,
+        "overall_score": 0.952,
         "matched_count": 1,
         "chosen_index": 0,
         "validation_reasons": [
@@ -546,16 +706,56 @@
         "history": [
           {
             "timestamp": "2026-03-22T20:17:06.836132+00:00",
+            "strategy_id": "rag_suggest",
             "overall_score": 0.972,
+            "stability_score": 0.93,
+            "similarity_score": 1.0,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T22:49:36.645899+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.952,
+            "stability_score": 0.93,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T22:59:43.717549+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T23:04:47.834883+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T23:21:46.472785+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.952,
+            "stability_score": 0.93,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-22T23:31:09.676662+00:00",
+            "overall_score": 0.952,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
             "stability_score": 0.93,
-            "similarity_score": 1.0
+            "similarity_score": 0.9
           }
         ]
       },
-      "last_seen": "2026-03-22T20:16:42.072510+00:00",
-      "success_count": 1,
+      "last_seen": "2026-03-22T23:30:44.998176+00:00",
+      "success_count": 6,
       "fail_count": 0
     }
   },

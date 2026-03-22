@@ -258,6 +258,7 @@ class _DomContextParser(HTMLParser):
         "aria-label",
         "href",
         "for",
+        "class",
     )
 
     def __init__(self, max_entities: int) -> None:
@@ -335,7 +336,7 @@ class _DomContextParser(HTMLParser):
                 "attrs": {
                     key: value
                     for key, value in attrs.items()
-                    if key in {"id", "name", "placeholder", "type", "data-testid", "aria-label", "href"}
+                    if key in {"id", "name", "placeholder", "type", "data-testid", "aria-label", "href", "class", "for"}
                 },
             }
             if control_type:
@@ -359,6 +360,10 @@ class _DomContextParser(HTMLParser):
         tag_norm = tag.lower()
         if tag_norm in {"input", "textarea", "select", "button", "a", "label"}:
             return True
+        class_norm = (attrs.get("class") or "").strip().casefold()
+        if tag_norm in {"span", "div", "svg", "i", "li"} and class_norm:
+            if any(token in class_norm for token in ("checkbox", "radio", "switch", "toggle", "btn", "button", "icon")):
+                return True
         return bool(attrs.get("role"))
 
     def _resolve_label(self, index: int, attrs: dict[str, str]) -> str:

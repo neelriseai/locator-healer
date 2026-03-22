@@ -40,6 +40,7 @@ class RagAssist:
         prefer_actionable: bool = False,
     ) -> list[LocatorSpec]:
         use_deep_graph = self.graph_deep_default if deep_graph is None else bool(deep_graph)
+        use_actionable = prefer_actionable or self._prefer_actionable(inp)
         dom_signature = build_dom_signature(dom_snippet, deep_graph=use_deep_graph)
         query = self._build_query(inp, dom_signature)
         embedding = await self.embedder.embed_text(query)
@@ -69,7 +70,7 @@ class RagAssist:
             context_candidates=context,
             dom_context=dom_context,
             deep_graph=use_deep_graph,
-            prefer_actionable=prefer_actionable,
+            prefer_actionable=use_actionable,
         )
         payload_json = json.dumps(payload, ensure_ascii=True, separators=(",", ":"))
         dsl_prompt = str(payload.get("dsl_prompt") or "")
@@ -89,12 +90,13 @@ class RagAssist:
             "dom_context_count": len(payload.get("dom_context") or []),
             "payload_chars": len(payload_json),
             "embedding_dims": len(embedding),
+            "prefer_actionable": bool(use_actionable),
         }
         rules = payload.setdefault("rules", {})
         rules["prefer_compact_dsl"] = True
         rules["max_candidates"] = max(1, min(5, top_k))
         rules["min_confidence_for_accept"] = self.min_confidence_for_accept
-        if prefer_actionable:
+        if use_actionable:
             rules["require_actionable"] = True
             rules["avoid_hidden_native_inputs_for_toggles"] = True
         raw = await self.llm.suggest_locators(payload)
@@ -104,7 +106,7 @@ class RagAssist:
             allowed_context=allowed_context,
             min_confidence_for_accept=self.min_confidence_for_accept,
             field_type=inp.field_type,
-            prefer_actionable=prefer_actionable,
+            prefer_actionable=use_actionable,
         )
         if top_k > 0:
             return suggestions[:top_k]
@@ -113,7 +115,20 @@ class RagAssist:
     @staticmethod
     def _build_query(inp: BuildInput, dom_signature: str) -> str:
         tags = []
-        for key in ("id", "data-testid", "name", "role", "type", "placeholder"):
+        for key in (
+            "id",
+            "data-testid",
+            "name",
+            "role",
+            "type",
+            "placeholder",
+            "target",
+            "container",
+            "parent",
+            "section",
+            "anchor",
+            "class",
+        ):
             value = str(inp.vars.get(key) or "").strip()
             if value:
                 tags.append(f"{key}={value}")
@@ -130,6 +145,14 @@ class RagAssist:
             f"dom_sig={dom_signature[:320]}",
         ]
         return " | ".join(part for part in parts if part)
+
+    @staticmethod
+    def _prefer_actionable(inp: BuildInput) -> bool:
+        field_type = str(inp.field_type or "").strip().casefold()
+        if field_type in {"checkbox", "radio", "switch"}:
+            return True
+        target = str(inp.vars.get("target") or "").strip().casefold()
+        return target in {"icon", "proxy", "wrapper", "label", "toggle"}
 
     @staticmethod
     def _rerank_context(
@@ -182,6 +205,9 @@ class RagAssist:
             inp.vars.get("container"),
             inp.vars.get("parent"),
             inp.vars.get("section"),
+            inp.vars.get("target"),
+            inp.vars.get("anchor"),
+            inp.vars.get("class"),
         ]
         for raw in seeds:
             if not raw:
@@ -583,6 +609,13 @@ class RagAssist:
         role_norm = (role or "").strip().casefold()
         tag_norm = (tag or "").strip().casefold()
         type_norm = str(attrs.get("type") or "").strip().casefold()
+        class_norm = str(attrs.get("class") or "").strip().casefold()
+        if any(token in class_norm for token in ("checkbox", "rct-checkbox")):
+            return "checkbox"
+        if "radio" in class_norm:
+            return "radio"
+        if any(token in class_norm for token in ("switch", "toggle")):
+            return "switch"
         if role_norm:
             return role_norm
         if tag_norm == "textarea":
@@ -609,6 +642,21 @@ class RagAssist:
             value = str(attrs.get(key) or "").strip()
             if value:
                 out.append(LocatorSpec(kind="css", value=f'[{key}="{value}"]'))
+        label_for = str(attrs.get("for") or "").strip()
+        if label_for:
+            out.append(LocatorSpec(kind="css", value=f'label[for="{label_for}"]'))
+        tag = str(entity.get("tag") or "").strip().casefold()
+        class_raw = str(attrs.get("class") or "").strip()
+        class_tokens = [token for token in class_raw.split() if re.fullmatch(r"[a-zA-Z_][a-zA-Z0-9_-]*", token)]
+        class_candidates = [
+            token
+            for token in class_tokens
+            if any(marker in token.casefold() for marker in ("checkbox", "radio", "switch", "toggle", "icon", "btn"))
+        ][:2]
+        for token in class_candidates:
+            if tag:
+                out.append(LocatorSpec(kind="css", value=f'{tag}[class*="{token}"]'))
+            out.append(LocatorSpec(kind="css", value=f'[class*="{token}"]'))
         role = str(entity.get("role") or "").strip().casefold()
         label = str(entity.get("label") or "").strip()
         text = str(entity.get("text") or "").strip()
@@ -638,7 +686,17 @@ class RagAssist:
         query_tokens: set[str],
     ) -> float:
         candidate_tokens: set[str] = set()
-        for raw in [field_type, label, text, attrs.get("name"), attrs.get("placeholder"), attrs.get("aria-label")]:
+        for raw in [
+            field_type,
+            label,
+            text,
+            attrs.get("name"),
+            attrs.get("placeholder"),
+            attrs.get("aria-label"),
+            attrs.get("class"),
+            attrs.get("id"),
+            attrs.get("data-testid"),
+        ]:
             candidate_tokens.update(_token_set(raw))
         if not candidate_tokens or not query_tokens:
             return 0.0
@@ -658,8 +716,8 @@ class RagAssist:
             "input": {"input", "textbox"},
             "button": {"button"},
             "link": {"link"},
-            "checkbox": {"checkbox"},
-            "radio": {"radio"},
+            "checkbox": {"checkbox", "switch", "toggle"},
+            "radio": {"radio", "toggle"},
             "dropdown": {"combobox", "select", "dropdown"},
             "combobox": {"combobox", "select", "dropdown"},
             "text": {"text", "gridcell", "cell", "generic"},

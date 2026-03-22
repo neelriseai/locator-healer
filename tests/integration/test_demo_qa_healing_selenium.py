@@ -39,13 +39,26 @@ def _broken_fallback(name: str) -> LocatorSpec:
 
 
 def _chrome_driver(settings: IntegrationSettings) -> Any:
-    options = webdriver.ChromeOptions()
-    if settings.headless:
-        options.add_argument("--headless=new")
-    options.add_argument("--window-size=1440,1200")
-    if settings.selenium_binary_path:
-        options.binary_location = settings.selenium_binary_path
-    return webdriver.Chrome(options=options)
+    base_args = [
+        "--window-size=1440,1200",
+        "--disable-dev-shm-usage",
+        "--no-sandbox",
+        "--disable-gpu",
+        "--remote-debugging-pipe",
+    ]
+    headless_variants = [["--headless"], ["--headless=new"]] if settings.headless else [[]]
+    errors: list[str] = []
+    for variant in headless_variants:
+        options = webdriver.ChromeOptions()
+        for arg in base_args + variant:
+            options.add_argument(arg)
+        if settings.selenium_binary_path:
+            options.binary_location = settings.selenium_binary_path
+        try:
+            return webdriver.Chrome(options=options)
+        except Exception as exc:
+            errors.append(f"args={base_args + variant}: {exc}")
+    raise RuntimeError("; ".join(errors))
 
 
 def _edge_driver(settings: IntegrationSettings) -> Any:

@@ -96,6 +96,11 @@ def _compact_attr_tokens(inp: BuildInput) -> str:
         "role",
         "type",
         "href",
+        "target",
+        "container",
+        "parent",
+        "section",
+        "class",
     )
     key_symbol = {
         "id": "ID",
@@ -107,6 +112,11 @@ def _compact_attr_tokens(inp: BuildInput) -> str:
         "role": "RL",
         "type": "TP",
         "href": "HF",
+        "target": "TG",
+        "container": "CT",
+        "parent": "PR",
+        "section": "SC",
+        "class": "CL",
     }
     for key in preferred_keys:
         value = inp.vars.get(key)
@@ -115,8 +125,11 @@ def _compact_attr_tokens(inp: BuildInput) -> str:
             tokens.append(f'{symbol}="{value}"')
 
     tag_hint = normalize_text(inp.vars.get("tag"))
+    target_hint = normalize_text(inp.vars.get("target"))
     if tag_hint:
         tokens.append(f"T={tag_hint}")
+    elif inp.field_type.casefold() == "checkbox" and target_hint in {"icon", "wrapper", "proxy"}:
+        tokens.append("T=span")
     elif inp.field_type.casefold() in {"button", "link", "textbox", "input", "checkbox"}:
         inferred = {
             "button": "button",
@@ -179,6 +192,9 @@ def _dom_entity_line(entity: dict[str, Any]) -> str:
         if value:
             token = key.replace("-", "_")
             parts.append(f'{token}="{value}"')
+    class_name = _prompt_text(attrs.get("class"))
+    if class_name:
+        parts.append(f'class="{class_name}"')
     return safe_join(parts, sep=" ")
 
 
