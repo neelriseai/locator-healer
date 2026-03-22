@@ -37,6 +37,7 @@ class RagAssist:
         dom_snippet: str,
         top_k: int = 5,
         deep_graph: bool | None = None,
+        prefer_actionable: bool = False,
     ) -> list[LocatorSpec]:
         use_deep_graph = self.graph_deep_default if deep_graph is None else bool(deep_graph)
         dom_signature = build_dom_signature(dom_snippet, deep_graph=use_deep_graph)
@@ -68,6 +69,7 @@ class RagAssist:
             context_candidates=context,
             dom_context=dom_context,
             deep_graph=use_deep_graph,
+            prefer_actionable=prefer_actionable,
         )
         payload_json = json.dumps(payload, ensure_ascii=True, separators=(",", ":"))
         dsl_prompt = str(payload.get("dsl_prompt") or "")
@@ -92,12 +94,17 @@ class RagAssist:
         rules["prefer_compact_dsl"] = True
         rules["max_candidates"] = max(1, min(5, top_k))
         rules["min_confidence_for_accept"] = self.min_confidence_for_accept
+        if prefer_actionable:
+            rules["require_actionable"] = True
+            rules["avoid_hidden_native_inputs_for_toggles"] = True
         raw = await self.llm.suggest_locators(payload)
         allowed_context = self._allowed_context_keys(context)
         suggestions = self._parse_suggestions(
             raw,
             allowed_context=allowed_context,
             min_confidence_for_accept=self.min_confidence_for_accept,
+            field_type=inp.field_type,
+            prefer_actionable=prefer_actionable,
         )
         if top_k > 0:
             return suggestions[:top_k]
@@ -238,6 +245,8 @@ class RagAssist:
         raw: list[dict[str, Any]],
         allowed_context: set[str] | None = None,
         min_confidence_for_accept: float = 0.65,
+        field_type: str = "",
+        prefer_actionable: bool = False,
     ) -> list[LocatorSpec]:
         allowed = {item.casefold() for item in (allowed_context or set()) if item}
         dedup: dict[str, tuple[float, int, LocatorSpec]] = {}
@@ -286,7 +295,14 @@ class RagAssist:
                 stable = RagAssist._dedupe_key(candidate)
                 effective_confidence = confidence
                 if allowed and not grounded:
-                    effective_confidence = max(0.0, confidence - 0.10)
+                    effective_confidence = max(0.0, effective_confidence - 0.10)
+                # Penalise pure native-input selectors for toggle field types: custom UI
+                # libraries typically CSS-hide the native input and render a visible icon/
+                # wrapper instead.  Targeting the raw input will fail not_visible at runtime.
+                if RagAssist._is_native_toggle_selector(candidate, field_type):
+                    penalty = 0.35 if prefer_actionable else 0.15
+                    effective_confidence = max(0.0, effective_confidence - penalty)
+                    candidate.options["_native_toggle_penalty"] = True
                 rank = (effective_confidence, -idx)
                 previous = dedup.get(stable)
                 if previous is None or rank > (previous[0], previous[1]):
@@ -390,6 +406,34 @@ class RagAssist:
                 if len(indexed_steps) >= 3 and not stable_attr:
                     return True
             return False
+        return False
+
+    @staticmethod
+    def _is_native_toggle_selector(locator: LocatorSpec, field_type: str) -> bool:
+        """Return True when the locator targets a native checkbox/radio input directly.
+
+        Custom UI libraries (DemoQA, Material, Ant-design, etc.) CSS-hide the native
+        input and render a visible icon/wrapper. Pointing directly at the raw input
+        reliably fails the not_visible validation check.  We apply a confidence penalty
+        so that wrapper/label/icon alternatives rank higher.
+        """
+        ft = (field_type or "").strip().casefold()
+        if ft not in {"checkbox", "radio", "switch"}:
+            return False
+        value = (locator.value or "").strip()
+        if locator.kind == "css":
+            # Patterns like: input[type="checkbox"], input[type='radio'],
+            # input[type=checkbox], input.some-class (tag=input with no wrapper context)
+            value_lower = value.casefold()
+            if re.match(r'^input\[type\s*=\s*["\']?(checkbox|radio)["\']?\]', value_lower):
+                return True
+            # Bare input tag selector (no ancestor path) is also suspect for toggle types
+            if re.match(r'^input(\.|#|\[|$)', value_lower) and ">" not in value and " " not in value.strip():
+                return True
+        if locator.kind == "xpath":
+            value_lower = value.casefold()
+            if re.search(r'//input\[@type\s*=\s*["\']?(checkbox|radio)["\']?\]', value_lower):
+                return True
         return False
 
     @staticmethod

@@ -17,6 +17,7 @@ def build_prompt_payload(
     context_candidates: list[dict[str, Any]],
     dom_context: list[dict[str, Any]] | None = None,
     deep_graph: bool = False,
+    prefer_actionable: bool = False,
 ) -> dict[str, Any]:
     dom_signature = build_dom_signature(dom_snippet, deep_graph=deep_graph)
     compact_context = _compact_context_candidates(context_candidates)
@@ -32,6 +33,7 @@ def build_prompt_payload(
             compact_context,
             dom_context,
             deep_graph=deep_graph,
+            prefer_actionable=prefer_actionable,
         ),
         "context": compact_context,
         "dom_context": dom_context,
@@ -51,6 +53,8 @@ def build_prompt_payload(
                 "options": {"exact": False},
             },
             "prefer_visible_proxy_for_toggles": True,
+            "require_actionable": prefer_actionable,
+            "avoid_hidden_native_inputs_for_toggles": prefer_actionable,
             "max_candidates": 5,
             "output_schema": {
                 "kind": "css|xpath|role|text|pw",
