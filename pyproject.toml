@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xpath-healer"
+version = "0.1.0"
+description = "Deterministic-first locator healing engine with configurable automation adapters"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary" }
+authors = [{ name = "XPath Healer Team" }]
+dependencies = [
+  "fastapi>=0.116.0",
+  "uvicorn>=0.33.0",
+  "playwright>=1.43.0",
+  "selenium>=4.29.0",
+]
+
+[project.optional-dependencies]
+similarity = ["rapidfuzz>=3.9.0"]
+dom = ["beautifulsoup4>=4.12.0", "lxml>=5.2.0"]
+db = ["asyncpg>=0.30.0", "chromadb>=0.5.0"]
+llm = ["openai>=1.66.0"]
+dev = [
+  "pytest>=8.3.0",
+  "pytest-asyncio>=0.25.0",
+  "pytest-bdd>=8.1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["xpath_healer*", "service*", "adapters*"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = [
+  "integration: marks browser/network-backed integration tests",
+  "negative: marks intentionally failing negative-path tests",
+]

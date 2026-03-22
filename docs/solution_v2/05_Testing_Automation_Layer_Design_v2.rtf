@@ -1,0 +1,77 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0 Calibri;}}
+\fs22
+\b \fs32 Layer 5 Design: Testing and Automation \b0\fs22\par
+\par
+Date: 2026-03-02\par
+Layer: Testing/Automation\par
+Depends on: all layers\par
+\par
+\b \fs28 1) Objective \b0\fs22\par
+Validate full solution via unit, contract, integration, and BDD regression.\par
+\par
+\b \fs28 2) Existing BDD Scope \b0\fs22\par
+Feature: `tests/integration/features/demo_qa_healing.feature`\par
+- TC1: text-box fill + submit\par
+- TC2: checkbox Home icon select + message verify\par
+- TC3: webtables first-row verification\par
+- TC4: intentional negative raw invalid fallback xpath\par
+\par
+\b \fs28 3) Testing Code Graph \b0\fs22\par
+\par
+\par
+pytest -> unit tests (core/store/rag)\par
+pytest-bdd -> integration steps\par
+  -> Playwright browser/page fixtures\par
+  -> XPathHealerFacade recover calls\par
+  -> artifacts (screenshots/videos/reports/logs/metadata)\par
+\par
+\par
+\b \fs28 4) Commands (Canonical) \b0\fs22\par
+\par
+\b \fs24 4.1 Compile check \b0\fs22\par
+\par
+python -m compileall -q .\par
+\par
+\par
+\b \fs24 4.2 Unit tests \b0\fs22\par
+\par
+python -m pytest -q tests\\unit\par
+\par
+\par
+\b \fs24 4.3 Integration BDD \b0\fs22\par
+\par
+python -m pytest -q -rs -m integration tests\\integration\\test_demo_qa_healing_bdd.py --cucumberjson=artifacts/reports/cucumber.json\par
+\par
+\par
+Expected baseline:\par
+- `3 passed`\par
+- `1 failed` (intentional TC4 negative)\par
+\par
+\b \fs28 5) Artifacts to Verify \b0\fs22\par
+- `artifacts/reports/integration-junit.xml`\par
+- `artifacts/reports/cucumber.json`\par
+- `artifacts/reports/steps.jsonl`\par
+- `artifacts/reports/healing-calls.jsonl`\par
+- `artifacts/reports/integration-report.html`\par
+- `artifacts/logs/integration.log`\par
+- `artifacts/logs/healing-flow.log`\par
+- `artifacts/screenshots/*.png`\par
+- `artifacts/videos/*.webm`\par
+\par
+\b \fs28 6) Exact Implementation Prompt (Testing) \b0\fs22\par
+\par
+Implement full testing stack for xpath-healer.\par
+1) Keep unit tests for core/store/rag modules.\par
+2) Keep pytest-bdd integration feature with TC1..TC4.\par
+3) Ensure broken fallback xpath is used to trigger healer in positive scenarios.\par
+4) Ensure step screenshots and one video per test are captured.\par
+5) Generate junit, cucumber json, steps jsonl, healing-calls jsonl, and custom html report.\par
+6) Keep TC4 as intentional negative scenario to demonstrate raw xpath failure reporting.\par
+7) Add contract tests for PG repository and API response schemas.\par
+\par
+\par
+\b \fs28 7) Release Exit Criteria \b0\fs22\par
+- All non-negative tests green.\par
+- No high-severity defects open.\par
+- Logs and reports include traceability from request to healed locator.\par
+}

@@ -1,0 +1,34 @@
+Title: Integration and Automation Layer Test and Debugging Prompts
+
+Use this prompt with AI assistant:
+
+Integration test prompts:
+1. Positive scenario: text box fill, submit, output verify.
+2. Positive scenario: checkbox icon click and message verify.
+3. Positive scenario: web table row first/last name verify through healed locators.
+4. Negative scenario: raw invalid fallback xpath without healer must fail and log reason.
+
+Verification prompts:
+1. Verify trace contains expected stage path for each healed element.
+2. Verify reports contain selected locator and strategy details.
+3. Verify one video file per test case.
+4. Verify screenshots exist per step and on failures.
+
+Debugging prompts:
+1. If stage assertions fail:
+   - verify current stage profile in environment.
+2. If integration scenario fails intermittently:
+   - inspect screenshot timeline and `integration.log`.
+3. If DB hit/miss behavior is inconsistent:
+   - compare requested key tuple with stored metadata keys.
+4. If RAG behavior is unclear:
+   - inspect `healing-flow.log` for `rag_context`, `rag`, `rag_retry`, `rag_hallucination`.
+
+Preferred execution command:
+1. `python -m pytest -q -rs -m integration tests\integration\test_demo_qa_healing_bdd.py --cucumberjson=artifacts/reports/cucumber.json`
+
+Acceptance criteria:
+1. Integration suite provides deterministic evidence of behavior.
+2. Negative test remains intentionally failing and clearly reported.
+3. Artifacts are sufficient for root-cause debugging.
+

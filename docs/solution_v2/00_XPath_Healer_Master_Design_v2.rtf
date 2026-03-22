@@ -1,0 +1,139 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0 Calibri;}}
+\fs22
+\b \fs32 XPath Healer Solution Design v2 (Ordered Layer Architecture) \b0\fs22\par
+\par
+Date: 2026-03-02\par
+Audience: Core, DB, Service, AI/Model, QA/Automation teams\par
+Version: 2.0\par
+\par
+\b \fs28 Architecture Diagram (Start Here) \b0\fs22\par
+\par
+\par
++----------------------------------------------------------------------------------+\par
+|                              TEST CLIENTS / USERS                               |\par
+|  Playwright BDD | API clients (Postman/cURL) | CI pipelines                      |\par
++------------------------------------------+---------------------------------------+\par
+                                           |\par
+                                           v\par
++----------------------------------------------------------------------------------+\par
+|                            FASTAPI SERVICE LAYER                                 |\par
+|  service/main.py + DTO mapping + request validation + correlation logging        |\par
++------------------------------------------+---------------------------------------+\par
+                                           |\par
+                                           v\par
++----------------------------------------------------------------------------------+\par
+|                            APPLICATION ORCHESTRATOR                              |\par
+|  XPathHealerFacade -> HealingService -> StrategyRegistry -> Validator            |\par
++-----------------------+---------------------+--------------------+---------------+\par
+                        |                     |                    |\par
+                        v                     v                    v\par
+              +----------------+    +------------------+   +--------------------+\par
+              | STORE LAYER    |    | DOM/SIGNATURE    |   | OPTIONAL RAG LAYER |\par
+              | (Memory/JSON/  |    | + SIMILARITY     |   | Embedder+Retriever |\par
+              | Postgres)      |    | extraction/scoring|  | + LLM suggestions  |\par
+              +----------------+    +------------------+   +--------------------+\par
+                        |                                           |\par
+                        v                                           |\par
+              +-----------------------+                             |\par
+              | PostgreSQL + pgvector |<----------------------------+\par
+              | elements/events/docs  |\par
+              +-----------------------+\par
+\par
+\par
+\b \fs28 1) Correct Layer Order (Implementation Sequence) \b0\fs22\par
+1. Layer 0: Setup and prerequisites.\par
+2. Layer 1: Core deterministic xpath-healer engine.\par
+3. Layer 2: DB layer (schema + repository + CRUD/events).\par
+4. Layer 3: Service layer (FastAPI API and runtime wiring).\par
+5. Layer 4: Model layer (OpenAI embedder/retriever/LLM + RAG assist).\par
+6. Layer 5: End-to-end testing, regression, performance, release.\par
+\par
+Rationale:\par
+- Core contracts are the base.\par
+- DB depends on core models.\par
+- Service depends on core + DB.\par
+- Model/RAG depends on core + DB + service config.\par
+- Full testing is final integration gate.\par
+\par
+\b \fs28 2) Prior Setup Required (All Teams) \b0\fs22\par
+- Python 3.11+\par
+- `python -m pip` package management\par
+- Playwright + browser runtime\par
+- pytest + pytest-asyncio + pytest-bdd\par
+- FastAPI + uvicorn\par
+- PostgreSQL 15+\par
+- pgvector enabled\par
+- asyncpg + pgvector python package\par
+- OpenAI SDK (for Layer 4)\par
+\par
+\b \fs28 3) Whole Solution Code Graph \b0\fs22\par
+\par
+\par
+service.main.create_app\par
+  -> xpath_healer.api.facade.XPathHealerFacade\par
+     -> core.context.StrategyContext\par
+     -> core.healing_service.HealingService.recover_locator\par
+        -> core.builder.XPathBuilder.build_all_candidates\par
+           -> core.strategy_registry.StrategyRegistry.evaluate_all\par
+              -> core.strategies.*.build\par
+        -> core.validator.XPathValidator.validate_candidate\par
+        -> core.signature.SignatureExtractor.capture/build_robust_*\par
+        -> core.similarity.SimilarityService.score\par
+        -> store.repository.MetadataRepository (find/upsert/find_candidates/log_event)\par
+           -> store.memory_repository / store.json_repository / store.pg_repository\par
+        -> rag.rag_assist.RagAssist.suggest (optional)\par
+           -> rag.embedder.Embedder\par
+           -> rag.retriever.Retriever\par
+           -> rag.llm.LLM\par
+\par
+\par
+\b \fs28 4) Public Contract Freeze (Do Not Break) \b0\fs22\par
+- `XPathHealerFacade.recover_locator(...) -> Recovered`\par
+- `XPathHealerFacade.generate_locator_async(...) -> LocatorSpec`\par
+- `MetadataRepository.find/upsert/find_candidates_by_page/log_event`\par
+- `LocatorSpec/ElementMeta/Recovered/StrategyTrace` schema fields\par
+- `/health`, `/generate`, `/heal` response envelopes\par
+\par
+\b \fs28 5) Canonical Project Structure \b0\fs22\par
+\par
+\par
+xpath_healer/\par
+  api/facade.py\par
+  core/(models,config,context,builder,strategy_registry,validator,signature,similarity,healing_service,strategies/*)\par
+  store/(repository,memory_repository,json_repository,pg_repository)\par
+  dom/(snapshot,mine)\par
+  rag/(embedder,retriever,llm,rag_assist)\par
+  utils/(text,ids,timing,logging)\par
+service/main.py\par
+tests/unit/*\par
+tests/integration/*\par
+\par
+\par
+\b \fs28 6) Integration Contracts Between Layers \b0\fs22\par
+- Core -> DB: serializes `ElementMeta.to_dict()` and expects lossless `from_dict()` on read.\par
+- Service -> Core: maps JSON request into `LocatorSpec` + vars/hints and returns `Recovered` envelope.\par
+- Core -> Model: sends bounded prompt payload; model returns locator candidates only.\par
+- Model -> Core: candidate suggestions are always re-validated by validator before acceptance.\par
+\par
+\b \fs28 7) Manual Verification Paths \b0\fs22\par
+- DB layer: DbVisualizer + SQL query pack (see DB doc).\par
+- Service layer: Postman collection and cURL/PowerShell commands (see Service doc).\par
+- Full suite: pytest unit + integration bdd command pack (see Testing doc).\par
+\par
+\b \fs28 8) Doc Set Produced \b0\fs22\par
+- `00_XPath_Healer_Master_Design_v2.docx`\par
+- `01_Core_Layer_Design_v2.docx`\par
+- `02_DB_Layer_Design_v2.docx`\par
+- `03_Service_Layer_Design_v2.docx`\par
+- `04_Model_RAG_Layer_Design_v2.docx`\par
+- `05_Testing_Automation_Layer_Design_v2.docx`\par
+\par
+\b \fs28 9) Prompt Governance \b0\fs22\par
+Each layer document includes:\par
+- strict implementation prompt\par
+- file/method checklist\par
+- acceptance criteria\par
+- integration checks\par
+\par
+Use prompts layer-by-layer in sequence only.\par
+}

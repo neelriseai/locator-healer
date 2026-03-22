@@ -1,0 +1,123 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0 Calibri;}}
+\fs22
+\b \fs32 Layer 3 Design: Service Layer (FastAPI) \b0\fs22\par
+\par
+Date: 2026-03-02\par
+Layer: Service\par
+Depends on: core + DB\par
+Required by: API clients and test automation\par
+\par
+\b \fs28 1) Objective \b0\fs22\par
+Provide stable HTTP API for generate/heal flows and operational endpoints.\par
+\par
+\b \fs28 2) Current Baseline \b0\fs22\par
+Existing endpoints in `service/main.py`:\par
+- `GET /health`\par
+- `POST /generate`\par
+- `POST /heal` (requires page resolver and session id)\par
+\par
+\b \fs28 3) Recommended Service Modules \b0\fs22\par
+- `service/main.py`\par
+- `service/schemas.py`\par
+- `service/deps.py`\par
+- `service/settings.py`\par
+- `service/sessions.py`\par
+- `service/middleware.py`\par
+\par
+\b \fs28 4) Service Code Graph \b0\fs22\par
+\par
+\par
+HTTP Request\par
+ -> FastAPI route\par
+   -> Pydantic DTO parse\par
+   -> dependency injection (settings/repo/facade/page resolver)\par
+   -> XPathHealerFacade call\par
+   -> response mapper\par
+\par
+\par
+\b \fs28 5) Exact Implementation Prompt (Service) \b0\fs22\par
+\par
+Implement service layer for xpath-healer with modular FastAPI architecture.\par
+Requirements:\par
+1) Keep /health, /generate, /heal compatible with existing payload structure.\par
+2) Add optional session endpoints: /sessions/open and /sessions/\{id\}/close.\par
+3) Add middleware for correlation-id and consistent error envelope.\par
+4) Use dependency injection to swap repository backends (JSON/PG).\par
+5) Return trace-rich payloads from /heal.\par
+6) Add endpoint tests for success and failure paths.\par
+\par
+\par
+\b \fs28 6) Manual Service Testing (Postman) \b0\fs22\par
+\par
+\b \fs24 6.1 Start service \b0\fs22\par
+\par
+python -m uvicorn service.main:app --host 127.0.0.1 --port 8000 --reload\par
+\par
+\par
+\b \fs24 6.2 Health request \b0\fs22\par
+- Method: GET\par
+- URL: `http://127.0.0.1:8000/health`\par
+- Expected: `\{"status":"ok"\}`\par
+\par
+\b \fs24 6.3 Generate request \b0\fs22\par
+- Method: POST\par
+- URL: `http://127.0.0.1:8000/generate`\par
+- JSON body:\par
+\par
+\{\par
+  "page_name": "text_box",\par
+  "element_name": "full_name",\par
+  "field_type": "textbox",\par
+  "vars": \{"label":"Full Name","name":"userName"\},\par
+  "hints": null\par
+\}\par
+\par
+- Expected: `locator_spec` payload with kind/value/options\par
+\par
+\b \fs24 6.4 Heal request (baseline behavior) \b0\fs22\par
+- Method: POST\par
+- URL: `http://127.0.0.1:8000/heal`\par
+- JSON body:\par
+\par
+\{\par
+  "app_id": "demo-qa-app",\par
+  "page_name": "text_box",\par
+  "element_name": "full_name",\par
+  "field_type": "textbox",\par
+  "fallback": \{"kind":"xpath","value":"//xh-never-match[@id='full_name-broken']","options":\{\},"scope":null\},\par
+  "vars": \{"label":"Full Name"\},\par
+  "session_id": "demo-session-1"\par
+\}\par
+\par
+- If no page resolver configured: expected `503` with detail message.\par
+- With resolver configured: expected `200` and `status/trace/locator_spec`.\par
+\par
+\b \fs28 7) Manual Service Testing (CMD/PowerShell) \b0\fs22\par
+\par
+\b \fs24 7.1 Ping host \b0\fs22\par
+\par
+ping 127.0.0.1\par
+\par
+\par
+\b \fs24 7.2 curl health \b0\fs22\par
+\par
+curl http://127.0.0.1:8000/health\par
+\par
+\par
+\b \fs24 7.3 curl generate \b0\fs22\par
+\par
+curl -X POST http://127.0.0.1:8000/generate ^\par
+  -H "Content-Type: application/json" ^\par
+  -d "\{\\"page_name\\":\\"text_box\\",\\"element_name\\":\\"submit\\",\\"field_type\\":\\"button\\",\\"vars\\":\{\\"text\\":\\"Submit\\"\}\}"\par
+\par
+\par
+\b \fs24 7.4 PowerShell Invoke-RestMethod \b0\fs22\par
+\par
+Invoke-RestMethod -Method Get -Uri "http://127.0.0.1:8000/health"\par
+\par
+\par
+\b \fs28 8) Acceptance Criteria \b0\fs22\par
+- `/health` and `/generate` work without browser session.\par
+- `/heal` returns clear error without page resolver and succeeds with resolver.\par
+- All response schemas are stable and documented.\par
+}

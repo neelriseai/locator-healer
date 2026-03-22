@@ -1,0 +1,163 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0 Calibri;}}
+\fs22
+\b \fs32 Layer 2 Design: DB Layer (PostgreSQL + pgvector) \b0\fs22\par
+\par
+Date: 2026-03-02\par
+Layer: DB\par
+Depends on: core models\par
+Required by: service and model layers\par
+\par
+\b \fs28 1) Objective \b0\fs22\par
+Implement persistent metadata/event storage with schema, migrations, and repository contract compliance.\par
+\par
+\b \fs28 2) Tech Stack \b0\fs22\par
+- PostgreSQL 15+\par
+- pgvector extension\par
+- asyncpg\par
+- pgvector python\par
+\par
+\b \fs28 3) Repository Contract (Must Match) \b0\fs22\par
+- `find(app_id, page_name, element_name) -> ElementMeta | None`\par
+- `upsert(meta: ElementMeta) -> None`\par
+- `find_candidates_by_page(app_id, page_name, field_type, limit=25) -> list[ElementMeta]`\par
+- `log_event(event: dict[str, Any]) -> None`\par
+\par
+\b \fs28 4) Schema (Required) \b0\fs22\par
+\par
+\par
+CREATE EXTENSION IF NOT EXISTS vector;\par
+\par
+CREATE TABLE IF NOT EXISTS elements (\par
+  id uuid PRIMARY KEY,\par
+  app_id text NOT NULL,\par
+  page_name text NOT NULL,\par
+  element_name text NOT NULL,\par
+  field_type text NOT NULL,\par
+  last_good_locator jsonb,\par
+  robust_locator jsonb,\par
+  strategy_id text,\par
+  signature jsonb,\par
+  signature_embedding vector(1536),\par
+  hints jsonb,\par
+  locator_variants jsonb,\par
+  quality_metrics jsonb,\par
+  last_seen timestamptz NOT NULL DEFAULT now(),\par
+  success_count int NOT NULL DEFAULT 0,\par
+  fail_count int NOT NULL DEFAULT 0,\par
+  UNIQUE(app_id, page_name, element_name)\par
+);\par
+\par
+CREATE TABLE IF NOT EXISTS events (\par
+  id bigserial PRIMARY KEY,\par
+  correlation_id text NOT NULL,\par
+  timestamp timestamptz NOT NULL DEFAULT now(),\par
+  app_id text,\par
+  page_name text,\par
+  element_name text,\par
+  field_type text,\par
+  stage text,\par
+  status text,\par
+  score double precision,\par
+  details jsonb\par
+);\par
+\par
+\par
+\b \fs28 5) DB Code Graph \b0\fs22\par
+\par
+\par
+HealingService\par
+ -> MetadataRepository interface\par
+    -> PostgresMetadataRepository\par
+       -> asyncpg pool\par
+       -> elements/events CRUD\par
+\par
+\par
+\b \fs28 6) Exact Implementation Prompt (DB) \b0\fs22\par
+\par
+Implement PostgresMetadataRepository in xpath_healer/store/pg_repository.py.\par
+Requirements:\par
+1) Add connect(), close(), init_schema().\par
+2) Implement find/upsert/find_candidates_by_page/log_event exactly per MetadataRepository.\par
+3) Use ElementMeta.to_dict()/from_dict() without schema drift.\par
+4) Persist locator_variants and quality_metrics jsonb.\par
+5) Ensure upsert by unique(app_id,page_name,element_name).\par
+6) Add tests proving behavior parity with JsonMetadataRepository.\par
+7) Keep method signatures unchanged.\par
+\par
+\par
+\b \fs28 7) Manual DB Testing in DbVisualizer \b0\fs22\par
+\par
+\b \fs24 7.1 Connect \b0\fs22\par
+1. Open DbVisualizer.\par
+2. Create new PostgreSQL connection.\par
+3. JDBC URL: `jdbc:postgresql://localhost:5432/xpath_healer`.\par
+4. Username/password: your local DB user.\par
+5. Test connection and save.\par
+\par
+\b \fs24 7.2 Apply schema \b0\fs22\par
+Run schema SQL above or call your migration scripts.\par
+\par
+\b \fs24 7.3 Verify tables \b0\fs22\par
+\par
+SELECT table_name\par
+FROM information_schema.tables\par
+WHERE table_schema='public' AND table_name IN ('elements','events');\par
+\par
+\par
+\b \fs24 7.4 Insert sample element row \b0\fs22\par
+\par
+INSERT INTO elements (\par
+  id, app_id, page_name, element_name, field_type,\par
+  last_good_locator, robust_locator, strategy_id,\par
+  signature, hints, locator_variants, quality_metrics,\par
+  success_count, fail_count\par
+)\par
+VALUES (\par
+  gen_random_uuid(),\par
+  'demo-qa-app','text_box','full_name','textbox',\par
+  '\{"kind":"xpath","value":"//*[@id=\\"userName\\"]","options":\{\},"scope":null\}'::jsonb,\par
+  '\{"kind":"css","value":"#userName","options":\{\},"scope":null\}'::jsonb,\par
+  'metadata.last_good',\par
+  '\{"tag":"input","stable_attrs":\{"id":"userName"\},"short_text":"","container_path":[],"component_kind":null\}'::jsonb,\par
+  '\{"attr_priority_order":["data-testid","aria-label","name"],"threshold":null,"visibility_pref":true,"aliases":\{\},"defaults":\{\},"allow_position_fallback":false,"strict_single_match":true\}'::jsonb,\par
+  '\{"last_good":\{"kind":"xpath","value":"//*[@id=\\"userName\\"]","options":\{\},"scope":null\}\}'::jsonb,\par
+  '\{"uniqueness_score":1.0,"stability_score":0.9,"similarity_score":1.0,"overall_score":0.95\}'::jsonb,\par
+  1,0\par
+);\par
+\par
+\par
+\b \fs24 7.5 Query candidate retrieval behavior \b0\fs22\par
+\par
+SELECT app_id,page_name,element_name,field_type,success_count,last_seen\par
+FROM elements\par
+WHERE app_id='demo-qa-app' AND page_name='text_box' AND field_type='textbox'\par
+ORDER BY success_count DESC, last_seen DESC\par
+LIMIT 25;\par
+\par
+\par
+\b \fs24 7.6 Insert event and verify \b0\fs22\par
+\par
+INSERT INTO events(correlation_id,app_id,page_name,element_name,field_type,stage,status,score,details)\par
+VALUES ('corr-001','demo-qa-app','text_box','full_name','textbox','metadata','ok',0.91,'\{"source":"manual_test"\}'::jsonb);\par
+\par
+SELECT correlation_id, stage, status, score, timestamp\par
+FROM events\par
+ORDER BY id DESC\par
+LIMIT 20;\par
+\par
+\par
+\b \fs24 7.7 Optional pgvector smoke \b0\fs22\par
+\par
+ALTER TABLE elements ALTER COLUMN signature_embedding TYPE vector(3);\par
+UPDATE elements SET signature_embedding='[0.1,0.2,0.3]' WHERE signature_embedding IS NULL;\par
+SELECT id, 1 - (signature_embedding <=> '[0.1,0.2,0.3]') AS similarity\par
+FROM elements\par
+ORDER BY signature_embedding <=> '[0.1,0.2,0.3]'\par
+LIMIT 5;\par
+\par
+\par
+\b \fs28 8) Acceptance Criteria \b0\fs22\par
+- CRUD and event logging work from repository.\par
+- Contract tests pass.\par
+- DbVisualizer manual queries confirm data persists correctly.\par
+}

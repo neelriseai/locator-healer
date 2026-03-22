@@ -1,0 +1,75 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0 Calibri;}}
+\fs22
+\b \fs32 Layer 4 Design: Model Layer (OpenAI + RAG Assist) \b0\fs22\par
+\par
+Date: 2026-03-02\par
+Layer: Model/RAG\par
+Depends on: core + DB + service config\par
+\par
+\b \fs28 1) Objective \b0\fs22\par
+Provide optional AI-assisted locator suggestions as a last resort, without breaking deterministic guarantees.\par
+\par
+\b \fs28 2) Tech Stack \b0\fs22\par
+- OpenAI Python SDK\par
+- Embeddings model: `text-embedding-3-large`\par
+- LLM model: `gpt-4.1`\par
+- pgvector retrieval\par
+\par
+\b \fs28 3) Required Interfaces \b0\fs22\par
+- `Embedder.embed_text(text) -> list[float]`\par
+- `Retriever.retrieve(query_embedding, top_k=5) -> list[dict]`\par
+- `LLM.suggest_locators(prompt_payload) -> list[dict]`\par
+- `RagAssist.suggest(inp, dom_snippet, top_k) -> list[LocatorSpec]`\par
+\par
+\b \fs28 4) Model Layer Code Graph \b0\fs22\par
+\par
+\par
+HealingService (rag stage)\par
+ -> RagAssist.suggest\par
+    -> OpenAIEmbedder.embed_text\par
+    -> PgVectorRetriever.retrieve\par
+    -> OpenAILLM.suggest_locators\par
+    -> parse/sanitize -> LocatorSpec list\par
+ -> validator.validate_candidate for each candidate\par
+\par
+\par
+\b \fs28 5) Prompt Design (Strict) \b0\fs22\par
+System prompt:\par
+\par
+You are a locator suggestion engine.\par
+Return only JSON array.\par
+Each item: \{"kind":"css|xpath|role|text|pw","value":"...","options":\{...\}\}.\par
+Prefer stable attributes; avoid absolute/deep index XPath.\par
+No markdown, no explanation.\par
+\par
+\par
+User payload fields:\par
+- `field_type`\par
+- `intent`\par
+- `vars`\par
+- `dom_snippet` (bounded)\par
+- `context` (retrieved examples)\par
+\par
+\b \fs28 6) Exact Implementation Prompt (Model) \b0\fs22\par
+\par
+Implement optional model layer adapters for xpath-healer.\par
+1) Create openai_embedder.py implementing Embedder.\par
+2) Create pgvector_retriever.py implementing Retriever.\par
+3) Create openai_llm.py implementing LLM.\par
+4) Add prompt_builder.py with strict JSON-only prompt templates.\par
+5) Add retries/timeouts and robust JSON parsing.\par
+6) Drop invalid/unsafe locators before returning.\par
+7) Ensure deterministic fallback path if model/API unavailable.\par
+8) Add unit tests with mocked OpenAI client.\par
+\par
+\par
+\b \fs28 7) Integration Rules \b0\fs22\par
+- RAG is disabled by default (`XH_RAG_ENABLED=false`).\par
+- Missing `OPENAI_API_KEY` must not fail deterministic healing.\par
+- AI suggestions are candidate-only; validator decides acceptance.\par
+\par
+\b \fs28 8) Acceptance Criteria \b0\fs22\par
+- With RAG disabled: identical behavior to deterministic baseline.\par
+- With RAG enabled: stage trace includes rag attempts.\par
+- Invalid model outputs do not break request flow.\par
+}

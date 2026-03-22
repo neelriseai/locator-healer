@@ -1,0 +1,247 @@
+{
+  "app_id": "demo-qa-app",
+  "page_name": "webtables",
+  "elements": {
+    "row1_first_name": {
+      "id": "2d3124fc-068b-4731-89d3-4b419fbb599e",
+      "app_id": "demo-qa-app",
+      "page_name": "webtables",
+      "element_name": "row1_first_name",
+      "field_type": "text",
+      "last_good_locator": {
+        "kind": "role",
+        "value": "gridcell",
+        "options": {
+          "name": "Cierra",
+          "exact": true
+        },
+        "scope": null
+      },
+      "robust_locator": {
+        "kind": "css",
+        "value": "div.col-12.mt-4:nth-of-type(2) > div.web-tables-wrapper:nth-of-type(2) > div.ReactTable.-striped:nth-of-type(3) > div.rt-table:nth-of-type(1) > div.rt-tbody:nth-of-type(2) > div.rt-tr-group:nth-of-type(1) > div.rt-tr.-odd:nth-of-type(1) > div.rt-td:nth-of-type(1)",
+        "options": {},
+        "scope": null
+      },
+      "strategy_id": "rag_suggest",
+      "signature": {
+        "tag": "div",
+        "stable_attrs": {
+          "role": "gridcell"
+        },
+        "short_text": "cierra",
+        "container_path": [
+          "role:row",
+          "role:rowgroup",
+          "role:grid"
+        ],
+        "component_kind": null
+      },
+      "hints": {
+        "attr_priority_order": [
+          "data-testid",
+          "aria-label",
+          "name",
+          "formcontrolname",
+          "placeholder",
+          "role",
+          "href",
+          "col-id",
+          "aria-colindex",
+          "class"
+        ],
+        "threshold": null,
+        "visibility_pref": true,
+        "aliases": {},
+        "defaults": {},
+        "allow_position_fallback": false,
+        "strict_single_match": true
+      },
+      "locator_variants": {
+        "last_good": {
+          "kind": "role",
+          "value": "gridcell",
+          "options": {
+            "name": "Cierra",
+            "exact": true
+          },
+          "scope": null
+        },
+        "robust_css": {
+          "kind": "css",
+          "value": "div.col-12.mt-4:nth-of-type(2) > div.web-tables-wrapper:nth-of-type(2) > div.ReactTable.-striped:nth-of-type(3) > div.rt-table:nth-of-type(1) > div.rt-tbody:nth-of-type(2) > div.rt-tr-group:nth-of-type(1) > div.rt-tr.-odd:nth-of-type(1) > div.rt-td:nth-of-type(1)",
+          "options": {},
+          "scope": null
+        },
+        "robust_xpath": {
+          "kind": "xpath",
+          "value": "//*[@role='gridcell' and contains(translate(normalize-space(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'cierra')]",
+          "options": {},
+          "scope": null
+        },
+        "live_xpath": {
+          "kind": "xpath",
+          "value": "/html[1]/body[1]/div[2]/div[1]/div[1]/div[1]/div[2]/div[2]/div[3]/div[1]/div[2]/div[1]/div[1]/div[1]",
+          "options": {},
+          "scope": null
+        },
+        "live_css": {
+          "kind": "css",
+          "value": "div.col-12.mt-4:nth-of-type(2) > div.web-tables-wrapper:nth-of-type(2) > div.ReactTable.-striped:nth-of-type(3) > div.rt-table:nth-of-type(1) > div.rt-tbody:nth-of-type(2) > div.rt-tr-group:nth-of-type(1) > div.rt-tr.-odd:nth-of-type(1) > div.rt-td:nth-of-type(1)",
+          "options": {},
+          "scope": null
+        }
+      },
+      "quality_metrics": {
+        "uniqueness_score": 1.0,
+        "stability_score": 0.93,
+        "similarity_score": 1.0,
+        "overall_score": 0.972,
+        "matched_count": 1,
+        "chosen_index": 0,
+        "validation_reasons": [
+          "validated"
+        ],
+        "strategy_id": "rag_suggest",
+        "strategy_score": 0.95,
+        "locator_kind": "role",
+        "locator_value": "gridcell",
+        "valid_against_hints": true,
+        "history": [
+          {
+            "timestamp": "2026-03-22T20:18:00.828669+00:00",
+            "overall_score": 0.972,
+            "strategy_id": "rag_suggest",
+            "uniqueness_score": 1.0,
+            "stability_score": 0.93,
+            "similarity_score": 1.0
+          }
+        ]
+      },
+      "last_seen": "2026-03-22T20:17:55.154723+00:00",
+      "success_count": 1,
+      "fail_count": 0
+    },
+    "row1_last_name_vega": {
+      "id": "7896da95-6eaa-498e-a10e-655e4c37d583",
+      "app_id": "demo-qa-app",
+      "page_name": "webtables",
+      "element_name": "row1_last_name_vega",
+      "field_type": "text",
+      "last_good_locator": {
+        "kind": "role",
+        "value": "gridcell",
+        "options": {
+          "name": "Vega",
+          "exact": true
+        },
+        "scope": null
+      },
+      "robust_locator": {
+        "kind": "css",
+        "value": "div.col-12.mt-4:nth-of-type(2) > div.web-tables-wrapper:nth-of-type(2) > div.ReactTable.-striped:nth-of-type(3) > div.rt-table:nth-of-type(1) > div.rt-tbody:nth-of-type(2) > div.rt-tr-group:nth-of-type(1) > div.rt-tr.-odd:nth-of-type(1) > div.rt-td:nth-of-type(2)",
+        "options": {},
+        "scope": null
+      },
+      "strategy_id": "rag_suggest",
+      "signature": {
+        "tag": "div",
+        "stable_attrs": {
+          "role": "gridcell"
+        },
+        "short_text": "vega",
+        "container_path": [
+          "role:row",
+          "role:rowgroup",
+          "role:grid"
+        ],
+        "component_kind": null
+      },
+      "hints": {
+        "attr_priority_order": [
+          "data-testid",
+          "aria-label",
+          "name",
+          "formcontrolname",
+          "placeholder",
+          "role",
+          "href",
+          "col-id",
+          "aria-colindex",
+          "class"
+        ],
+        "threshold": null,
+        "visibility_pref": true,
+        "aliases": {},
+        "defaults": {},
+        "allow_position_fallback": false,
+        "strict_single_match": true
+      },
+      "locator_variants": {
+        "last_good": {
+          "kind": "role",
+          "value": "gridcell",
+          "options": {
+            "name": "Vega",
+            "exact": true
+          },
+          "scope": null
+        },
+        "robust_css": {
+          "kind": "css",
+          "value": "div.col-12.mt-4:nth-of-type(2) > div.web-tables-wrapper:nth-of-type(2) > div.ReactTable.-striped:nth-of-type(3) > div.rt-table:nth-of-type(1) > div.rt-tbody:nth-of-type(2) > div.rt-tr-group:nth-of-type(1) > div.rt-tr.-odd:nth-of-type(1) > div.rt-td:nth-of-type(2)",
+          "options": {},
+          "scope": null
+        },
+        "robust_xpath": {
+          "kind": "xpath",
+          "value": "//*[@role='gridcell' and contains(translate(normalize-space(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'vega')]",
+          "options": {},
+          "scope": null
+        },
+        "live_xpath": {
+          "kind": "xpath",
+          "value": "/html[1]/body[1]/div[2]/div[1]/div[1]/div[1]/div[2]/div[2]/div[3]/div[1]/div[2]/div[1]/div[1]/div[2]",
+          "options": {},
+          "scope": null
+        },
+        "live_css": {
+          "kind": "css",
+          "value": "div.col-12.mt-4:nth-of-type(2) > div.web-tables-wrapper:nth-of-type(2) > div.ReactTable.-striped:nth-of-type(3) > div.rt-table:nth-of-type(1) > div.rt-tbody:nth-of-type(2) > div.rt-tr-group:nth-of-type(1) > div.rt-tr.-odd:nth-of-type(1) > div.rt-td:nth-of-type(2)",
+          "options": {},
+          "scope": null
+        }
+      },
+      "quality_metrics": {
+        "uniqueness_score": 1.0,
+        "stability_score": 0.93,
+        "similarity_score": 1.0,
+        "overall_score": 0.972,
+        "matched_count": 1,
+        "chosen_index": 0,
+        "validation_reasons": [
+          "validated"
+        ],
+        "strategy_id": "rag_suggest",
+        "strategy_score": 0.95,
+        "locator_kind": "role",
+        "locator_value": "gridcell",
+        "valid_against_hints": true,
+        "history": [
+          {
+            "timestamp": "2026-03-22T20:18:30.104049+00:00",
+            "overall_score": 0.972,
+            "strategy_id": "rag_suggest",
+            "uniqueness_score": 1.0,
+            "stability_score": 0.93,
+            "similarity_score": 1.0
+          }
+        ]
+      },
+      "last_seen": "2026-03-22T20:18:24.403442+00:00",
+      "success_count": 1,
+      "fail_count": 0
+    }
+  },
+  "page_index": null
+}

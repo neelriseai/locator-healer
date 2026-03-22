@@ -1,0 +1,50 @@
+$env:XH_HEADLESS='true'
+$env:XH_STAGE_PROFILE='full'
+$env:XH_RAG_ENABLED='true'
+$env:XH_STAGE_RAG_ENABLED='true'
+$env:XH_STAGE_FALLBACK_ENABLED='true'
+$env:XH_STAGE_METADATA_ENABLED='true'
+$env:XH_STAGE_RULES_ENABLED='true'
+$env:XH_STAGE_FINGERPRINT_ENABLED='true'
+$env:XH_STAGE_PAGE_INDEX_ENABLED='true'
+$env:XH_STAGE_SIGNATURE_ENABLED='true'
+$env:XH_STAGE_DOM_MINING_ENABLED='true'
+$env:XH_STAGE_DEFAULTS_ENABLED='true'
+$env:XH_STAGE_POSITION_ENABLED='true'
+python -m pytest -q -rs -m integration tests\integration\test_demo_qa_healing_bdd.py --cucumberjson=artifacts/reports/cucumber.json
+
+
+
+
+$env:XH_STAGE_PROFILE='llm_only'
+$env:XH_RAG_ENABLED='true'
+$env:XH_STAGE_RAG_ENABLED='true'
+
+$env:XH_STAGE_FALLBACK_ENABLED='false'
+$env:XH_STAGE_METADATA_ENABLED='false'
+$env:XH_STAGE_RULES_ENABLED='false'
+$env:XH_STAGE_FINGERPRINT_ENABLED='false'
+$env:XH_STAGE_PAGE_INDEX_ENABLED='false'
+$env:XH_STAGE_SIGNATURE_ENABLED='false'
+$env:XH_STAGE_DOM_MINING_ENABLED='false'
+$env:XH_STAGE_DEFAULTS_ENABLED='false'
+$env:XH_STAGE_POSITION_ENABLED='false'
+$env:XH_FINGERPRINT_ENABLED='false'
+
+$env:XH_HEADLESS='false'   # optional, remove or set true for headless
+python -m pytest -q -rs -m integration tests\integration\test_demo_qa_healing_bdd.py --cucumberjson=artifacts/reports/cucumber.json
+
+
+Set (user-scope, persistent):
+
+setx OPENAI_API_KEY "YOUR_NEW_KEY"
+setx XH_PG_DSN "postgresql://postgres:YOUR_PASSWORD@localhost:5432/postgres"
+setx XH_OPENAI_MODEL "gpt-4.1"
+setx XH_OPENAI_EMBED_MODEL "text-embedding-3-large"
+
+
+Immediate use (current session only — no restart required):
+$env:OPENAI_API_KEY = "YOUR_NEW_KEY"
+
+
+

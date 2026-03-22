@@ -1,0 +1,120 @@
+{
+  "app_id": "demo-qa-app",
+  "page_name": "checkbox",
+  "elements": {
+    "home_checkbox_icon": {
+      "id": "ac425e98-d6b3-4598-a9e2-b88714da0170",
+      "app_id": "demo-qa-app",
+      "page_name": "checkbox",
+      "element_name": "home_checkbox_icon",
+      "field_type": "checkbox",
+      "last_good_locator": {
+        "kind": "text",
+        "value": "Home",
+        "options": {
+          "exact": true
+        },
+        "scope": null
+      },
+      "robust_locator": {
+        "kind": "css",
+        "value": "div.col-12.mt-4:nth-of-type(2) > div.check-box-tree-wrapper:nth-of-type(2) > div.react-checkbox-tree.rct-icons-fa4:nth-of-type(1) > ol:nth-of-type(1) > li.rct-node.rct-node-parent:nth-of-type(1) > span.rct-text:nth-of-type(1) > label:nth-of-type(1) > span.rct-title:nth-of-type(3)",
+        "options": {},
+        "scope": null
+      },
+      "strategy_id": "rag_suggest",
+      "signature": {
+        "tag": "span",
+        "stable_attrs": {},
+        "short_text": "home",
+        "container_path": [],
+        "component_kind": null
+      },
+      "hints": {
+        "attr_priority_order": [
+          "data-testid",
+          "aria-label",
+          "name",
+          "formcontrolname",
+          "placeholder",
+          "role",
+          "href",
+          "col-id",
+          "aria-colindex",
+          "class"
+        ],
+        "threshold": null,
+        "visibility_pref": true,
+        "aliases": {},
+        "defaults": {},
+        "allow_position_fallback": false,
+        "strict_single_match": true
+      },
+      "locator_variants": {
+        "last_good": {
+          "kind": "text",
+          "value": "Home",
+          "options": {
+            "exact": true
+          },
+          "scope": null
+        },
+        "robust_css": {
+          "kind": "css",
+          "value": "div.col-12.mt-4:nth-of-type(2) > div.check-box-tree-wrapper:nth-of-type(2) > div.react-checkbox-tree.rct-icons-fa4:nth-of-type(1) > ol:nth-of-type(1) > li.rct-node.rct-node-parent:nth-of-type(1) > span.rct-text:nth-of-type(1) > label:nth-of-type(1) > span.rct-title:nth-of-type(3)",
+          "options": {},
+          "scope": null
+        },
+        "robust_xpath": {
+          "kind": "xpath",
+          "value": "//span[contains(normalize-space(), 'home')]",
+          "options": {},
+          "scope": null
+        },
+        "live_xpath": {
+          "kind": "xpath",
+          "value": "/html[1]/body[1]/div[2]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/ol[1]/li[1]/span[1]/label[1]/span[3]",
+          "options": {},
+          "scope": null
+        },
+        "live_css": {
+          "kind": "css",
+          "value": "div.col-12.mt-4:nth-of-type(2) > div.check-box-tree-wrapper:nth-of-type(2) > div.react-checkbox-tree.rct-icons-fa4:nth-of-type(1) > ol:nth-of-type(1) > li.rct-node.rct-node-parent:nth-of-type(1) > span.rct-text:nth-of-type(1) > label:nth-of-type(1) > span.rct-title:nth-of-type(3)",
+          "options": {},
+          "scope": null
+        }
+      },
+      "quality_metrics": {
+        "uniqueness_score": 1.0,
+        "stability_score": 0.72,
+        "similarity_score": 1.0,
+        "overall_score": 0.888,
+        "matched_count": 1,
+        "chosen_index": 0,
+        "validation_reasons": [
+          "validated_label_proxy_toggle",
+          "validated"
+        ],
+        "strategy_id": "rag_suggest",
+        "strategy_score": 0.85,
+        "locator_kind": "text",
+        "locator_value": "Home",
+        "valid_against_hints": true,
+        "history": [
+          {
+            "timestamp": "2026-03-22T20:17:46.063549+00:00",
+            "overall_score": 0.888,
+            "strategy_id": "rag_suggest",
+            "uniqueness_score": 1.0,
+            "stability_score": 0.72,
+            "similarity_score": 1.0
+          }
+        ]
+      },
+      "last_seen": "2026-03-22T20:17:46.001939+00:00",
+      "success_count": 1,
+      "fail_count": 0
+    }
+  },
+  "page_index": null
+}

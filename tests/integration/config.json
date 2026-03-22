@@ -1,0 +1,33 @@
+{
+  "base_url": "https://demo-qa-app.azurewebsites.net",
+  "browser": {
+    "engine": "chromium",
+    "playwright_browser": "chromium",
+    "playwright_channel": null,
+    "selenium_browser": "chrome",
+    "selenium_binary": null,
+    "channel": null,
+    "headless": true
+  },
+  "artifacts": {
+    "root_dir": "artifacts",
+    "reports_dir": "artifacts/reports",
+    "logs_dir": "artifacts/logs",
+    "screenshots_dir": "artifacts/screenshots",
+    "videos_dir": "artifacts/videos",
+    "metadata_dir": "artifacts/metadata",
+    "cucumber_json": "artifacts/reports/cucumber.json",
+    "step_report_jsonl": "artifacts/reports/steps.jsonl",
+    "healing_calls_jsonl": "artifacts/reports/healing-calls.jsonl",
+    "junit_xml": "artifacts/reports/integration-junit.xml",
+    "html_report": "artifacts/reports/integration-report.html"
+  },
+  "capture": {
+    "screenshot_each_test": true,
+    "screenshot_on_failure": true,
+    "screenshot_each_step": true,
+    "video_each_test": true,
+    "video_width": 640,
+    "video_height": 360
+  }
+}
