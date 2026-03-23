@@ -210,10 +210,15 @@ class BaseHealerFacade:
         if not self.config.rag.enabled:
             return None
 
-        api_key = (os.getenv("OPENAI_API_KEY") or "").strip()
+        default_api_key = (os.getenv("OPENAI_API_KEY") or "").strip()
+        llm_api_key = (os.getenv("XH_OPENAI_LLM_API_KEY") or default_api_key).strip()
+        embed_api_key = (os.getenv("XH_OPENAI_EMBED_API_KEY") or default_api_key).strip()
         pg_dsn = (os.getenv("XH_PG_DSN") or "").strip()
-        if not api_key or "placeholder" in api_key.casefold() or api_key.startswith("<"):
-            self.logger.warning("RAG disabled: OPENAI_API_KEY is missing or placeholder.")
+        if not llm_api_key or "placeholder" in llm_api_key.casefold() or llm_api_key.startswith("<"):
+            self.logger.warning("RAG disabled: XH_OPENAI_LLM_API_KEY/OPENAI_API_KEY is missing or placeholder.")
+            return None
+        if not embed_api_key or "placeholder" in embed_api_key.casefold() or embed_api_key.startswith("<"):
+            self.logger.warning("RAG disabled: XH_OPENAI_EMBED_API_KEY/OPENAI_API_KEY is missing or placeholder.")
             return None
         if not pg_dsn:
             self.logger.warning("RAG disabled: XH_PG_DSN is not configured.")
@@ -228,9 +233,9 @@ class BaseHealerFacade:
             chat_model = (os.getenv("XH_OPENAI_MODEL") or "gpt-4.1").strip()
             prompt_top_n_raw = (os.getenv("XH_RAG_PROMPT_TOP_N") or "3").strip()
             prompt_top_n = max(1, int(prompt_top_n_raw or "3"))
-            embedder = OpenAIEmbedder(api_key=api_key, model=embed_model, dimensions=embed_dim)
+            embedder = OpenAIEmbedder(api_key=embed_api_key, model=embed_model, dimensions=embed_dim)
             retriever = ChromaRetriever()
-            llm = OpenAILLM(api_key=api_key, model=chat_model)
+            llm = OpenAILLM(api_key=llm_api_key, model=chat_model)
             return RagAssist(
                 embedder=embedder,
                 retriever=retriever,

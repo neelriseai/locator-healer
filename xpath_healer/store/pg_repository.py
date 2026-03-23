@@ -983,7 +983,8 @@ class PostgresMetadataRepository(MetadataRepository):
             return self._embedder
         self._embedder_resolved = True
 
-        api_key = (os.getenv("OPENAI_API_KEY") or "").strip()
+        default_api_key = (os.getenv("OPENAI_API_KEY") or "").strip()
+        api_key = (os.getenv("XH_OPENAI_EMBED_API_KEY") or default_api_key).strip()
         if not api_key or "placeholder" in api_key.casefold() or api_key.startswith("<"):
             return None
         model = (os.getenv("XH_OPENAI_EMBED_MODEL") or "text-embedding-3-small").strip()

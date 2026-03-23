@@ -63,6 +63,8 @@ Create an `.env` (or set shell env vars) with placeholders:
 
 ```bash
 OPENAI_API_KEY=<your-openai-key-placeholder>
+XH_OPENAI_LLM_API_KEY=
+XH_OPENAI_EMBED_API_KEY=
 XH_PG_DSN=postgresql://<user>:<password>@<host>:5432/<db>
 XH_CHROMA_PATH=artifacts/chroma
 XH_CHROMA_RAG_COLLECTION=xh_rag_documents
@@ -103,6 +105,7 @@ XH_RETRY_REASON_CODES=locator_error,locator_timeout,stale_element,not_visible
 Notes:
 - RAG is off by default.
 - Adapter selection defaults to `playwright_python`.
+- If set, `XH_OPENAI_LLM_API_KEY` and `XH_OPENAI_EMBED_API_KEY` override `OPENAI_API_KEY` for chat and embedding calls respectively.
 - Selenium validation/recovery retries include `stale_element` and `locator_timeout` transient errors by default.
 - Stage profile `XH_STAGE_PROFILE=llm_only` disables all deterministic layers and leaves only RAG/LLM stage enabled.
 - If `XH_PG_DSN` is set, facade uses dual metadata mode:
