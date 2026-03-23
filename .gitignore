@@ -34,3 +34,6 @@ Thumbs.db
 # Env files
 .env
 .env.local
+
+# Generated runtime artifacts
+artifacts/chroma/
