@@ -213,6 +213,16 @@ class BaseHealerFacade:
         default_api_key = (os.getenv("OPENAI_API_KEY") or "").strip()
         llm_api_key = (os.getenv("XH_OPENAI_LLM_API_KEY") or default_api_key).strip()
         embed_api_key = (os.getenv("XH_OPENAI_EMBED_API_KEY") or default_api_key).strip()
+        provider_raw = (os.getenv("XH_OPENAI_PROVIDER") or "").strip().casefold()
+        azure_hint = any(
+            bool((os.getenv(name) or "").strip())
+            for name in (
+                "XH_AZURE_OPENAI_ENDPOINT",
+                "XH_AZURE_OPENAI_CHAT_ENDPOINT",
+                "XH_AZURE_OPENAI_EMBED_ENDPOINT",
+            )
+        )
+        provider = provider_raw or ("azure" if azure_hint else "openai")
         pg_dsn = (os.getenv("XH_PG_DSN") or "").strip()
         if not llm_api_key or "placeholder" in llm_api_key.casefold() or llm_api_key.startswith("<"):
             self.logger.warning("RAG disabled: XH_OPENAI_LLM_API_KEY/OPENAI_API_KEY is missing or placeholder.")
@@ -233,9 +243,69 @@ class BaseHealerFacade:
             chat_model = (os.getenv("XH_OPENAI_MODEL") or "gpt-4.1").strip()
             prompt_top_n_raw = (os.getenv("XH_RAG_PROMPT_TOP_N") or "3").strip()
             prompt_top_n = max(1, int(prompt_top_n_raw or "3"))
-            embedder = OpenAIEmbedder(api_key=embed_api_key, model=embed_model, dimensions=embed_dim)
+
+            chat_endpoint = (
+                os.getenv("XH_AZURE_OPENAI_CHAT_ENDPOINT")
+                or os.getenv("XH_AZURE_OPENAI_ENDPOINT")
+                or ""
+            ).strip()
+            chat_api_version = (
+                os.getenv("XH_AZURE_OPENAI_CHAT_API_VERSION")
+                or os.getenv("XH_AZURE_OPENAI_API_VERSION")
+                or ""
+            ).strip()
+            chat_deployment = (
+                os.getenv("XH_AZURE_OPENAI_CHAT_DEPLOYMENT")
+                or os.getenv("XH_AZURE_OPENAI_DEPLOYMENT")
+                or ""
+            ).strip()
+
+            embed_endpoint = (
+                os.getenv("XH_AZURE_OPENAI_EMBED_ENDPOINT")
+                or os.getenv("XH_AZURE_OPENAI_ENDPOINT")
+                or ""
+            ).strip()
+            embed_api_version = (
+                os.getenv("XH_AZURE_OPENAI_EMBED_API_VERSION")
+                or os.getenv("XH_AZURE_OPENAI_API_VERSION")
+                or ""
+            ).strip()
+            embed_deployment = (
+                os.getenv("XH_AZURE_OPENAI_EMBED_DEPLOYMENT")
+                or os.getenv("XH_AZURE_OPENAI_DEPLOYMENT")
+                or ""
+            ).strip()
+
+            if provider == "azure":
+                if not chat_endpoint or not embed_endpoint:
+                    self.logger.warning(
+                        "RAG disabled: Azure provider selected but chat/embed endpoints are missing."
+                    )
+                    return None
+                if not chat_api_version or not embed_api_version:
+                    self.logger.warning(
+                        "RAG disabled: Azure provider selected but chat/embed api versions are missing."
+                    )
+                    return None
+
+            embedder = OpenAIEmbedder(
+                api_key=embed_api_key,
+                model=embed_model,
+                dimensions=embed_dim,
+                provider=provider,
+                azure_endpoint=embed_endpoint,
+                api_version=embed_api_version,
+                deployment=embed_deployment,
+            )
             retriever = ChromaRetriever()
-            llm = OpenAILLM(api_key=llm_api_key, model=chat_model)
+            llm = OpenAILLM(
+                api_key=llm_api_key,
+                model=chat_model,
+                provider=provider,
+                azure_endpoint=chat_endpoint,
+                api_version=chat_api_version,
+                deployment=chat_deployment,
+            )
             return RagAssist(
                 embedder=embedder,
                 retriever=retriever,

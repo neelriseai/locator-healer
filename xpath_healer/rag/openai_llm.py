@@ -10,8 +10,9 @@ import logging
 from xpath_healer.rag.llm import LLM
 
 try:
-    from openai import AsyncOpenAI
+    from openai import AsyncAzureOpenAI, AsyncOpenAI
 except Exception:  # pragma: no cover - optional dependency
+    AsyncAzureOpenAI = None  # type: ignore[assignment]
     AsyncOpenAI = None  # type: ignore[assignment]
 
 
@@ -19,14 +20,43 @@ _JSON_BLOCK_RE = re.compile(r"(\{.*\}|\[.*\])", flags=re.DOTALL)
 
 
 class OpenAILLM(LLM):
-    def __init__(self, api_key: str, model: str = "gpt-4.1") -> None:
+    def __init__(
+        self,
+        api_key: str,
+        model: str = "gpt-4.1",
+        provider: str = "openai",
+        azure_endpoint: str = "",
+        api_version: str = "",
+        deployment: str = "",
+    ) -> None:
         if AsyncOpenAI is None:
             raise RuntimeError("openai is not installed. Install with: python -m pip install openai")
         self.api_key = (api_key or "").strip()
-        self.model = model
+        self.provider = (provider or "openai").strip().casefold()
+        self.model = (model or "gpt-4.1").strip()
+        self.azure_endpoint = (azure_endpoint or "").strip()
+        self.api_version = (api_version or "").strip()
+        self.deployment = (deployment or "").strip()
         if not self.api_key:
             raise ValueError("OPENAI_API_KEY is required for OpenAILLM.")
-        self.client = AsyncOpenAI(api_key=self.api_key)
+
+        if self.provider == "azure":
+            if AsyncAzureOpenAI is None:
+                raise RuntimeError("openai Azure client is unavailable. Upgrade openai package.")
+            if not self.azure_endpoint:
+                raise ValueError("azure_endpoint is required when provider='azure'.")
+            if not self.api_version:
+                raise ValueError("api_version is required when provider='azure'.")
+            self.client = AsyncAzureOpenAI(
+                api_key=self.api_key,
+                azure_endpoint=self.azure_endpoint,
+                api_version=self.api_version,
+            )
+            # Azure expects deployment name in the model field. If deployment is not
+            # provided explicitly, fallback to model for compatibility with existing envs.
+            self.model = self.deployment or self.model
+        else:
+            self.client = AsyncOpenAI(api_key=self.api_key)
         self.logger = logging.getLogger("xpath_healer.rag.openai_llm")
 
     async def suggest_locators(self, prompt_payload: dict[str, Any]) -> list[dict[str, Any]]:
@@ -50,7 +80,12 @@ class OpenAILLM(LLM):
         )
         payload_json = json.dumps(prompt_payload, ensure_ascii=True, separators=(",", ":"))
         try:
-            self.logger.info("OpenAI chat request: model=%s payload_chars=%d", self.model, len(payload_json))
+            self.logger.info(
+                "OpenAI chat request: provider=%s model=%s payload_chars=%d",
+                self.provider,
+                self.model,
+                len(payload_json),
+            )
             response = await self.client.chat.completions.create(
                 model=self.model,
                 temperature=0.0,
@@ -60,7 +95,7 @@ class OpenAILLM(LLM):
                 ],
             )
         except Exception:
-            self.logger.exception("OpenAI chat request failed: model=%s", self.model)
+            self.logger.exception("OpenAI chat request failed: provider=%s model=%s", self.provider, self.model)
             raise
         try:
             content = response.choices[0].message.content if response.choices else ""

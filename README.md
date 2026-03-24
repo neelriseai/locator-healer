@@ -65,6 +65,17 @@ Create an `.env` (or set shell env vars) with placeholders:
 OPENAI_API_KEY=<your-openai-key-placeholder>
 XH_OPENAI_LLM_API_KEY=
 XH_OPENAI_EMBED_API_KEY=
+XH_OPENAI_PROVIDER=openai
+# Azure OpenAI optional:
+XH_AZURE_OPENAI_ENDPOINT=
+XH_AZURE_OPENAI_API_VERSION=
+XH_AZURE_OPENAI_DEPLOYMENT=
+XH_AZURE_OPENAI_CHAT_ENDPOINT=
+XH_AZURE_OPENAI_CHAT_API_VERSION=
+XH_AZURE_OPENAI_CHAT_DEPLOYMENT=
+XH_AZURE_OPENAI_EMBED_ENDPOINT=
+XH_AZURE_OPENAI_EMBED_API_VERSION=
+XH_AZURE_OPENAI_EMBED_DEPLOYMENT=
 XH_PG_DSN=postgresql://<user>:<password>@<host>:5432/<db>
 XH_CHROMA_PATH=artifacts/chroma
 XH_CHROMA_RAG_COLLECTION=xh_rag_documents
@@ -106,10 +117,12 @@ Notes:
 - RAG is off by default.
 - Adapter selection defaults to `playwright_python`.
 - If set, `XH_OPENAI_LLM_API_KEY` and `XH_OPENAI_EMBED_API_KEY` override `OPENAI_API_KEY` for chat and embedding calls respectively.
+- Set `XH_OPENAI_PROVIDER=azure` to use Azure OpenAI; then configure endpoint/api-version vars (shared or separate chat/embed).
+- For Azure, deployment can be passed via `XH_AZURE_OPENAI_*_DEPLOYMENT`; if omitted, model name is used as fallback.
 - Selenium validation/recovery retries include `stale_element` and `locator_timeout` transient errors by default.
 - Stage profile `XH_STAGE_PROFILE=llm_only` disables all deterministic layers and leaves only RAG/LLM stage enabled.
 - If `XH_PG_DSN` is set, facade uses dual metadata mode:
   Postgres primary read/write + JSON fallback/backup under `XH_METADATA_JSON_DIR`.
 - Fingerprint matching is on by default and runs before signature/vector/LLM fallback.
-- When `XH_RAG_ENABLED=true`, facade auto-wires OpenAI + ChromaDB adapters only if both `OPENAI_API_KEY` and `XH_PG_DSN` are valid.
+- When `XH_RAG_ENABLED=true`, facade auto-wires LLM/embedder + ChromaDB adapters only if API keys and `XH_PG_DSN` are valid.
 - Retry is lightweight: it only triggers for configured transient reason codes.
