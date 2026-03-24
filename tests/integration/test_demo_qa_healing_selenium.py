@@ -107,7 +107,8 @@ def selenium_driver(
 ) -> Any:
     driver = _build_selenium_driver(integration_settings)
     driver.set_page_load_timeout(20)
-    driver.implicitly_wait(2)
+    # Temporarily disable implicit polling wait for timing diagnostics.
+    driver.implicitly_wait(0)
     try:
         if not integration_settings.headless:
             driver.maximize_window()

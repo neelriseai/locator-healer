@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="4" time="142.488" timestamp="2026-03-24T11:52:30.377793+05:30" hostname="Satyaom"><testcase classname="tests.integration.test_demo_qa_healing_selenium" name="test_selenium_text_box_form_fill_and_submit" time="94.646" /><testcase classname="tests.integration.test_demo_qa_healing_selenium" name="test_selenium_checkbox_home_icon_select_and_message_verify" time="13.442" /><testcase classname="tests.integration.test_demo_qa_healing_selenium" name="test_selenium_webtables_first_row_verification" time="24.325"><failure message="asyncpg.exceptions.InvalidPasswordError: password authentication failed for user &quot;postgres&quot;">runtime = AsyncRuntime(loop=&lt;ProactorEventLoop running=False closed=False debug=False&gt;)
-selenium_driver = &lt;selenium.webdriver.chrome.webdriver.WebDriver (session="23f47367383ccbeac0b96adf57d71f9d")&gt;
-selenium_healer = &lt;adapters.selenium_python.facade.SeleniumHealerFacade object at 0x000001A9A68AD450&gt;
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="4" time="98.922" timestamp="2026-03-24T12:24:01.786496+05:30" hostname="Satyaom"><testcase classname="tests.integration.test_demo_qa_healing_selenium" name="test_selenium_text_box_form_fill_and_submit" time="37.163" /><testcase classname="tests.integration.test_demo_qa_healing_selenium" name="test_selenium_checkbox_home_icon_select_and_message_verify" time="27.684" /><testcase classname="tests.integration.test_demo_qa_healing_selenium" name="test_selenium_webtables_first_row_verification" time="25.690"><failure message="asyncpg.exceptions.InvalidPasswordError: password authentication failed for user &quot;postgres&quot;">runtime = AsyncRuntime(loop=&lt;ProactorEventLoop running=False closed=False debug=False&gt;)
+selenium_driver = &lt;selenium.webdriver.chrome.webdriver.WebDriver (session="e3d4d6c69bd87e1fe3f4f3ce56d343ee")&gt;
+selenium_healer = &lt;adapters.selenium_python.facade.SeleniumHealerFacade object at 0x000001AB894B5590&gt;
 integration_settings = IntegrationSettings(base_url='https://demo-qa-app.azurewebsites.net', playwright_browser='chromium', playwright_channe...=True, screenshot_on_failure=True, screenshot_each_step=True, video_each_test=True, video_width=1280, video_height=720)
 
     def test_selenium_webtables_first_row_verification(
@@ -48,9 +48,9 @@ integration_settings = IntegrationSettings(base_url='https://demo-qa-app.azurewe
                     },
                 )
 
-tests\integration\test_demo_qa_healing_selenium.py:322: 
+tests\integration\test_demo_qa_healing_selenium.py:323: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-tests\integration\test_demo_qa_healing_selenium.py:155: in _recover
+tests\integration\test_demo_qa_healing_selenium.py:156: in _recover
     recovered = runtime.run(
 tests\integration\conftest.py:69: in run
     return self.loop.run_until_complete(awaitable)
@@ -144,4 +144,4 @@ params_input = ConnectionParameters(user='postgres', password='Narayan@15', data
 &gt;           await connected
 E           asyncpg.exceptions.InvalidPasswordError: password authentication failed for user "postgres"
 
-.venv\Lib\site-packages\asyncpg\connect_utils.py:1102: InvalidPasswordError</failure></testcase><testcase classname="tests.integration.test_demo_qa_healing_selenium" name="test_selenium_raw_invalid_fallback_without_healer" time="9.149" /></testsuite></testsuites>
+.venv\Lib\site-packages\asyncpg\connect_utils.py:1102: InvalidPasswordError</failure></testcase><testcase classname="tests.integration.test_demo_qa_healing_selenium" name="test_selenium_raw_invalid_fallback_without_healer" time="7.200" /></testsuite></testsuites>

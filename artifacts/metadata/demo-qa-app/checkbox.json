@@ -98,14 +98,6 @@
         "valid_against_hints": true,
         "history": [
           {
-            "timestamp": "2026-03-22T23:42:46.918231+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.912,
-            "stability_score": 0.78,
-            "similarity_score": 1.0,
-            "uniqueness_score": 1.0
-          },
-          {
             "timestamp": "2026-03-22T23:46:38.108130+00:00",
             "strategy_id": "rag_suggest",
             "overall_score": 0.782,
@@ -256,11 +248,19 @@
             "uniqueness_score": 1.0,
             "stability_score": 0.78,
             "similarity_score": 0.35
+          },
+          {
+            "timestamp": "2026-03-24T06:55:04.025621+00:00",
+            "overall_score": 0.782,
+            "strategy_id": "rag_suggest",
+            "uniqueness_score": 1.0,
+            "stability_score": 0.78,
+            "similarity_score": 0.35
           }
         ]
       },
-      "last_seen": "2026-03-24T06:24:15.851789+00:00",
-      "success_count": 20,
+      "last_seen": "2026-03-24T06:55:03.978331+00:00",
+      "success_count": 21,
       "fail_count": 0
     }
   },

@@ -100,14 +100,6 @@
         "valid_against_hints": true,
         "history": [
           {
-            "timestamp": "2026-03-22T23:46:19.328417+00:00",
-            "overall_score": 0.916,
-            "strategy_id": "rag_suggest",
-            "uniqueness_score": 1.0,
-            "stability_score": 0.84,
-            "similarity_score": 0.9
-          },
-          {
             "timestamp": "2026-03-23T15:48:42.427838+00:00",
             "overall_score": 0.916,
             "strategy_id": "rag_suggest",
@@ -258,11 +250,19 @@
             "uniqueness_score": 1.0,
             "stability_score": 0.84,
             "similarity_score": 0.9
+          },
+          {
+            "timestamp": "2026-03-24T06:54:16.807364+00:00",
+            "overall_score": 0.916,
+            "strategy_id": "rag_suggest",
+            "uniqueness_score": 1.0,
+            "stability_score": 0.84,
+            "similarity_score": 0.9
           }
         ]
       },
-      "last_seen": "2026-03-24T06:22:43.481690+00:00",
-      "success_count": 22,
+      "last_seen": "2026-03-24T06:54:16.449746+00:00",
+      "success_count": 23,
       "fail_count": 0
     },
     "email": {
@@ -362,14 +362,6 @@
         "locator_value": "[id=\"userEmail\"]",
         "valid_against_hints": true,
         "history": [
-          {
-            "timestamp": "2026-03-22T23:46:22.887744+00:00",
-            "overall_score": 0.916,
-            "strategy_id": "rag_suggest",
-            "uniqueness_score": 1.0,
-            "stability_score": 0.84,
-            "similarity_score": 0.9
-          },
           {
             "timestamp": "2026-03-23T15:48:51.552285+00:00",
             "overall_score": 0.916,
@@ -521,11 +513,19 @@
             "uniqueness_score": 1.0,
             "stability_score": 0.84,
             "similarity_score": 0.9
+          },
+          {
+            "timestamp": "2026-03-24T06:54:22.247456+00:00",
+            "overall_score": 0.916,
+            "strategy_id": "rag_suggest",
+            "uniqueness_score": 1.0,
+            "stability_score": 0.84,
+            "similarity_score": 0.9
           }
         ]
       },
-      "last_seen": "2026-03-24T06:22:49.902584+00:00",
-      "success_count": 22,
+      "last_seen": "2026-03-24T06:54:22.198763+00:00",
+      "success_count": 23,
       "fail_count": 0
     },
     "current_address": {
@@ -624,14 +624,6 @@
         "locator_value": "[id=\"currentAddress\"]",
         "valid_against_hints": true,
         "history": [
-          {
-            "timestamp": "2026-03-22T23:46:25.642879+00:00",
-            "overall_score": 0.904,
-            "strategy_id": "rag_suggest",
-            "uniqueness_score": 1.0,
-            "stability_score": 0.81,
-            "similarity_score": 0.9
-          },
           {
             "timestamp": "2026-03-23T15:49:00.232740+00:00",
             "overall_score": 0.904,
@@ -783,11 +775,19 @@
             "uniqueness_score": 1.0,
             "stability_score": 0.81,
             "similarity_score": 0.9
+          },
+          {
+            "timestamp": "2026-03-24T06:54:26.223307+00:00",
+            "overall_score": 0.904,
+            "strategy_id": "rag_suggest",
+            "uniqueness_score": 1.0,
+            "stability_score": 0.81,
+            "similarity_score": 0.9
           }
         ]
       },
-      "last_seen": "2026-03-24T06:22:53.312801+00:00",
-      "success_count": 22,
+      "last_seen": "2026-03-24T06:54:26.179025+00:00",
+      "success_count": 23,
       "fail_count": 0
     },
     "permanent_address": {
@@ -884,14 +884,6 @@
         "locator_value": "#permanentAddress",
         "valid_against_hints": true,
         "history": [
-          {
-            "timestamp": "2026-03-22T23:46:28.669090+00:00",
-            "overall_score": 0.782,
-            "strategy_id": "rag_suggest",
-            "uniqueness_score": 1.0,
-            "stability_score": 0.78,
-            "similarity_score": 0.35
-          },
           {
             "timestamp": "2026-03-23T15:49:07.324337+00:00",
             "overall_score": 0.782,
@@ -1043,11 +1035,19 @@
             "uniqueness_score": 1.0,
             "stability_score": 0.78,
             "similarity_score": 0.35
+          },
+          {
+            "timestamp": "2026-03-24T06:54:31.983818+00:00",
+            "overall_score": 0.782,
+            "strategy_id": "rag_suggest",
+            "uniqueness_score": 1.0,
+            "stability_score": 0.78,
+            "similarity_score": 0.35
           }
         ]
       },
-      "last_seen": "2026-03-24T06:22:56.677471+00:00",
-      "success_count": 22,
+      "last_seen": "2026-03-24T06:54:31.934848+00:00",
+      "success_count": 23,
       "fail_count": 0
     },
     "submit": {
@@ -1152,14 +1152,6 @@
         "locator_value": "button",
         "valid_against_hints": true,
         "history": [
-          {
-            "timestamp": "2026-03-22T23:46:25.705618+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.952,
-            "stability_score": 0.93,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
           {
             "timestamp": "2026-03-22T23:46:31.760450+00:00",
             "overall_score": 0.952,
@@ -1311,11 +1303,19 @@
             "uniqueness_score": 1.0,
             "stability_score": 0.93,
             "similarity_score": 0.9
+          },
+          {
+            "timestamp": "2026-03-24T06:54:36.240310+00:00",
+            "overall_score": 0.952,
+            "strategy_id": "rag_suggest",
+            "uniqueness_score": 1.0,
+            "stability_score": 0.93,
+            "similarity_score": 0.9
           }
         ]
       },
-      "last_seen": "2026-03-24T06:23:25.475973+00:00",
-      "success_count": 21,
+      "last_seen": "2026-03-24T06:54:35.930740+00:00",
+      "success_count": 22,
       "fail_count": 0
     }
   },
