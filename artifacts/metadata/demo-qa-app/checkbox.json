@@ -131,6 +131,86 @@
           },
           {
             "timestamp": "2026-03-24T16:00:41.752518+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T16:03:56.511494+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T16:07:31.062520+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T16:11:25.393045+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T16:16:26.620741+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T16:22:53.765477+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T16:27:13.667404+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T16:30:45.518458+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T17:05:18.255718+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T17:16:00.102174+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T17:18:18.166265+00:00",
             "overall_score": 0.782,
             "strategy_id": "metadata.last_good",
             "uniqueness_score": 1.0,
@@ -139,8 +219,8 @@
           }
         ]
       },
-      "last_seen": "2026-03-24T16:00:41.656851+00:00",
-      "success_count": 5,
+      "last_seen": "2026-03-24T17:18:18.058269+00:00",
+      "success_count": 15,
       "fail_count": 0
     }
   },

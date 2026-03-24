@@ -109,6 +109,55 @@ def _capture_dom_paths(runtime: AsyncRuntime, locator: Any) -> dict[str, str]:
         return {}
 
 
+def _try_highlight_table_cell(
+    runtime: AsyncRuntime,
+    locator: Any,
+    *,
+    expected_text: str | None = None,
+    hold_ms: int = 2000,
+) -> None:
+    try:
+        count = runtime.run(locator.count())
+        if count <= 0:
+            return
+        target = locator.nth(0)
+        if expected_text:
+            needle = expected_text.strip().casefold()
+            for idx in range(count):
+                current = locator.nth(idx)
+                current_text = runtime.run(
+                    current.evaluate("el => (el.innerText || el.textContent || '').trim()")
+                )
+                if str(current_text or "").strip().casefold() == needle:
+                    target = current
+                    break
+        runtime.run(
+            target.evaluate(
+                """(el, meta) => {
+                    const hold = (meta && Number(meta.hold_ms)) || 900;
+                    const prevBg = el.style.backgroundColor;
+                    const prevOutline = el.style.outline;
+                    const prevOutlineOffset = el.style.outlineOffset;
+                    const prevTransition = el.style.transition;
+                    el.style.transition = 'background-color 120ms ease-in-out, outline 120ms ease-in-out';
+                    el.style.backgroundColor = '#fff59d';
+                    el.style.outline = '2px solid #fbc02d';
+                    el.style.outlineOffset = '1px';
+                    setTimeout(() => {
+                      el.style.backgroundColor = prevBg;
+                      el.style.outline = prevOutline;
+                      el.style.outlineOffset = prevOutlineOffset;
+                      el.style.transition = prevTransition;
+                    }, hold);
+                    return true;
+                }""",
+                {"hold_ms": hold_ms},
+            )
+        )
+    except Exception:
+        return
+
+
 def _broken_fallback(name: str) -> LocatorSpec:
     return LocatorSpec(kind="xpath", value=f"//xh-never-match[@id='{name}-broken']")
 
@@ -452,6 +501,7 @@ def verify_row_first_name(
         },
     )
     assert runtime.run(first_name_locator.count()) > 0
+    _try_highlight_table_cell(runtime, first_name_locator, expected_text=first_name, hold_ms=2000)
 
 
 @then("I heal and verify the first row last name is one of:")
@@ -495,6 +545,7 @@ def verify_row_last_name_from_table(
                 },
             )
             if runtime.run(locator.count()) > 0:
+                _try_highlight_table_cell(runtime, locator, expected_text=candidate, hold_ms=2000)
                 found = candidate
                 break
         except AssertionError:
