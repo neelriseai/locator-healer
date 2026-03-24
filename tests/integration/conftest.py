@@ -84,21 +84,29 @@ def _resolve_playwright_launch(playwright: Any, settings: IntegrationSettings) -
         browser_type = getattr(playwright, browser, playwright.chromium)
         if settings.playwright_channel:
             launch_kwargs["channel"] = settings.playwright_channel
+        if not settings.headless and browser == "chromium":
+            launch_kwargs["args"] = ["--start-maximized"]
         return browser_type, launch_kwargs, browser
 
     if browser in {"chrome", "google-chrome"}:
         browser_type = playwright.chromium
         launch_kwargs["channel"] = settings.playwright_channel or "chrome"
+        if not settings.headless:
+            launch_kwargs["args"] = ["--start-maximized"]
         return browser_type, launch_kwargs, "chrome"
 
     if browser in {"edge", "msedge"}:
         browser_type = playwright.chromium
         launch_kwargs["channel"] = settings.playwright_channel or "msedge"
+        if not settings.headless:
+            launch_kwargs["args"] = ["--start-maximized"]
         return browser_type, launch_kwargs, "msedge"
 
     browser_type = playwright.chromium
     if settings.playwright_channel:
         launch_kwargs["channel"] = settings.playwright_channel
+    if not settings.headless:
+        launch_kwargs["args"] = ["--start-maximized"]
     return browser_type, launch_kwargs, browser
 
 
@@ -465,6 +473,9 @@ def page(
         pytest.skip(f"Playwright browser unavailable: {exc}")
 
     context_kwargs: dict[str, Any] = {}
+    if not integration_settings.headless:
+        # Use native browser window size (paired with --start-maximized above).
+        context_kwargs["viewport"] = None
     if integration_settings.video_each_test:
         context_kwargs["record_video_dir"] = str(integration_settings.videos_dir)
         context_kwargs["record_video_size"] = {

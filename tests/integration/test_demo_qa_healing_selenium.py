@@ -108,6 +108,12 @@ def selenium_driver(
     driver = _build_selenium_driver(integration_settings)
     driver.set_page_load_timeout(20)
     driver.implicitly_wait(2)
+    try:
+        if not integration_settings.headless:
+            driver.maximize_window()
+    except Exception:
+        # Some driver/headless combinations may not support maximize.
+        pass
     integration_logger.info(
         "browser_started framework=selenium browser=%s headless=%s binary=%s",
         integration_settings.selenium_browser,
@@ -237,18 +243,22 @@ def test_selenium_text_box_form_fill_and_submit(
         ).runtime_locator
     ).send_keys("Mysuru, India")
 
-    _first(
-        _recover(
-            runtime,
-            selenium_driver,
-            selenium_healer,
-            integration_settings,
-            page_name="text_box",
-            element_name="submit",
-            field_type="button",
-            vars_map={"text": "Submit", "match_mode": "exact", "strict_single_match": "false"},
-        ).runtime_locator
-    ).click()
+    submit_locator = _recover(
+        runtime,
+        selenium_driver,
+        selenium_healer,
+        integration_settings,
+        page_name="text_box",
+        element_name="submit",
+        field_type="button",
+        vars_map={"text": "Submit", "match_mode": "exact", "strict_single_match": "false"},
+    ).runtime_locator.nth(0)
+    runtime.run(
+        submit_locator.evaluate(
+            "el => { el.scrollIntoView({block: 'center', inline: 'nearest'}); return true; }"
+        )
+    )
+    runtime.run(submit_locator.evaluate("el => { el.click(); return true; }"))
 
     output = selenium_driver.find_element(By.CSS_SELECTOR, "#output").text.casefold()
     assert "neela user" in output
@@ -257,7 +267,7 @@ def test_selenium_text_box_form_fill_and_submit(
     assert "mysuru, india" in output
 
 
-def test_selenium_checkbox_and_webtable_healing(
+def test_selenium_checkbox_home_icon_select_and_message_verify(
     runtime: AsyncRuntime,
     selenium_driver: Any,
     selenium_healer: SeleniumHealerFacade,
@@ -280,6 +290,13 @@ def test_selenium_checkbox_and_webtable_healing(
     assert "you have selected" in message
     assert "home" in message
 
+
+def test_selenium_webtables_first_row_verification(
+    runtime: AsyncRuntime,
+    selenium_driver: Any,
+    selenium_healer: SeleniumHealerFacade,
+    integration_settings: IntegrationSettings,
+) -> None:
     selenium_driver.get(f"{integration_settings.base_url}/webtables")
     first_name = _recover(
         runtime,

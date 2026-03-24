@@ -1,7 +1,15 @@
 README.md
 pyproject.toml
+adapters/__init__.py
+adapters/playwright_python/__init__.py
+adapters/playwright_python/adapter.py
+adapters/playwright_python/facade.py
+adapters/selenium_python/__init__.py
+adapters/selenium_python/adapter.py
+adapters/selenium_python/facade.py
 service/__init__.py
 service/main.py
+service/session_registry.py
 xpath_healer/__init__.py
 xpath_healer.egg-info/PKG-INFO
 xpath_healer.egg-info/SOURCES.txt
@@ -9,8 +17,11 @@ xpath_healer.egg-info/dependency_links.txt
 xpath_healer.egg-info/requires.txt
 xpath_healer.egg-info/top_level.txt
 xpath_healer/api/__init__.py
+xpath_healer/api/base.py
 xpath_healer/api/facade.py
+xpath_healer/api/factory.py
 xpath_healer/core/__init__.py
+xpath_healer/core/automation.py
 xpath_healer/core/builder.py
 xpath_healer/core/config.py
 xpath_healer/core/context.py
@@ -39,6 +50,7 @@ xpath_healer/dom/__init__.py
 xpath_healer/dom/mine.py
 xpath_healer/dom/snapshot.py
 xpath_healer/rag/__init__.py
+xpath_healer/rag/chroma_retriever.py
 xpath_healer/rag/embedder.py
 xpath_healer/rag/llm.py
 xpath_healer/rag/openai_embedder.py

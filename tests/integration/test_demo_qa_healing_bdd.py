@@ -367,7 +367,11 @@ def heal_and_click_submit(
         field_type="button",
         vars_map={"text": "Submit", "match_mode": "exact", "strict_single_match": "false"},
     )
-    runtime.run(submit.click())
+    runtime.run(submit.scroll_into_view_if_needed())
+    try:
+        runtime.run(submit.click())
+    except Exception:
+        runtime.run(submit.evaluate("el => el.click()"))
 
 
 @then("I should see submitted text-box output values")
