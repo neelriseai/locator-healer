@@ -1,11 +1,12 @@
-Master Design - XPath Healer (Current Solution Baseline)
+﻿Master Design - XPath Healer (Current Solution Baseline)
 
 1. Project Overview
 
 XPath Healer is a Python, deterministic-first locator healing framework with optional RAG/LLM recovery.
 It is library-first (`xpath_healer/*`) with a thin FastAPI wrapper (`service/main.py`) and Playwright BDD integration tests (`tests/integration/*`).
 When a locator breaks, the system runs a staged healing cascade, validates candidates on live DOM, scores quality, persists metadata, and emits traceable logs.
-Storage is dual-mode: Postgres primary (with pgvector) plus JSON fallback backup.
+Storage is dual-mode: Postgres primary plus JSON fallback backup.
+Vector retrieval is backed by ChromaDB, while `PgVectorRetriever` is kept as a compatibility alias.
 RAG is optional and is used as final fallback unless stage profile is explicitly set to `llm_only`.
 
 2. Core Principles
@@ -44,7 +45,7 @@ System Layers
    Repository abstraction with in-memory, JSON, Postgres, and dual-write/dual-read repository behavior.
 
 4. RAG/Model Layer (`xpath_healer/rag`)
-   Embedding, retrieval (pgvector), compact DSL prompt construction, LLM suggestion parsing, anti-hallucination checks.
+   Embedding, retrieval (ChromaDB), compact DSL prompt construction, LLM suggestion parsing, anti-hallucination checks.
 
 5. Service Layer (`service/main.py`)
    FastAPI endpoints: `/health`, `/generate`, `/heal`.
@@ -101,7 +102,7 @@ Storage Modules
 - `xpath_healer/store/repository.py`: repository interface contract.
 - `xpath_healer/store/memory_repository.py`: standalone mode backend.
 - `xpath_healer/store/json_repository.py`: local metadata backup (`artifacts/metadata`).
-- `xpath_healer/store/pg_repository.py`: Postgres + pgvector backend.
+- `xpath_healer/store/pg_repository.py`: Postgres backend with Chroma collection sync hooks.
 - `xpath_healer/store/dual_repository.py`: DB-first + JSON fallback behavior.
 
 RAG Modules
@@ -110,7 +111,7 @@ RAG Modules
   - `suggest(...)`: retrieve + prompt + LLM suggest + parse/ground/dedupe.
 - `xpath_healer/rag/prompt_builder.py` and `prompt_dsl.py`
   - Compact, graph-aware prompt payload with DOM signature and constrained candidate context.
-- `xpath_healer/rag/openai_embedder.py`, `openai_llm.py`, `pgvector_retriever.py`
+- `xpath_healer/rag/openai_embedder.py`, `openai_llm.py`, `chroma_retriever.py`, `pgvector_retriever.py`
   - Provider adapters for embeddings/chat and vector retrieval.
 
 Service Modules
@@ -120,10 +121,10 @@ Service Modules
 
 Data Contract (Postgres Schema)
 
-- Extensions: `vector`, `pgcrypto`
+- Extensions: `pgcrypto`
 - Tables:
   - `elements`
-    - locator/signature state per element (`last_good_locator`, `robust_locator`, `signature_embedding vector(1536)`, counters).
+    - locator/signature state per element (`last_good_locator`, `robust_locator`, counters, quality metadata).
   - `locator_variants`
     - normalized locator variants keyed by `variant_key`.
   - `quality_metrics`
@@ -137,7 +138,17 @@ Data Contract (Postgres Schema)
   - `healing_events`
     - run-oriented healing outcomes.
   - `rag_documents`
-    - retrievable chunks + embeddings (`embedding vector(1536)`).
+    - retrievable chunks + metadata for RAG context.
+
+Vector Store (ChromaDB)
+
+- Collections:
+  - `xh_rag_documents`
+  - `xh_elements`
+- Default local path:
+  - `artifacts/chroma` (configurable via `XH_CHROMA_PATH`)
+- Collection bootstrap:
+  - Auto-created by `PostgresMetadataRepository._ensure_chroma_collections()`.
 
 6. Project Structure
 
@@ -207,6 +218,9 @@ Phase 2 - Deterministic Core
 Phase 3 - Storage
 - Implement repository interface + memory/json/postgres/dual repositories.
 - Implement schema initialization and CRUD/upsert logic for metadata/events/page index.
+- Add operational reset automation:
+  - `tools/reset_db_and_chroma.ps1`
+  - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
 
 Phase 4 - RAG Layer
 - Implement embedder/retriever/LLM interfaces and OpenAI/pgvector adapters.
@@ -230,6 +244,7 @@ Constraints
 - Keep secret values outside source code (`OPENAI_API_KEY`, `XH_PG_DSN`).
 - Keep repository contract backward compatible across backends.
 - Avoid introducing UI-test-framework specifics into core modules (core must stay library-first).
+- Keep DB reset/recreate runbook and script aligned with active schema in `xpath_healer/store/pg_repository.py`.
 
 9. Observability and Logging
 
@@ -281,4 +296,14 @@ Rules:
 8. Add pytest unit tests and pytest-bdd Playwright integration tests with logs/screenshots/video/cucumber+junit reports.
 9. Preserve structured logging fields and artifact locations from this design.
 10. Do not hardcode secrets; use environment variables only.
+## Mandatory Operational Baseline
+
+- Before implementation, run:
+  - `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1`
+- Use this runbook as the source of truth for DB/index/Chroma reset and recreate steps:
+  - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
+- Keep vector retrieval instructions aligned with current implementation:
+  - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
+  - `PgVectorRetriever` is compatibility alias only
+- Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
 

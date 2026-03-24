@@ -1,4 +1,4 @@
-Title: Global Analysis and Debugging Approach
+﻿Title: Global Analysis and Debugging Approach
 
 Purpose:
 - Define how to reason, diagnose, and stabilize the solution while building each layer.
@@ -42,4 +42,14 @@ Quality gate before moving to next layer:
 1. Unit tests for changed logic pass.
 2. Integration scenario for affected behavior passes or has expected intentional failure.
 3. Logs clearly prove why the result is correct.
+## Mandatory Operational Baseline
+
+- Before implementation, run:
+  - `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1`
+- Use this runbook as the source of truth for DB/index/Chroma reset and recreate steps:
+  - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
+- Keep vector retrieval instructions aligned with current implementation:
+  - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
+  - `PgVectorRetriever` is compatibility alias only
+- Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
 

@@ -1,4 +1,4 @@
-Title: Model and RAG Layer Architecture Prompt
+﻿Title: Model and RAG Layer Architecture Prompt
 
 Layer objective:
 - Provide optional, controlled AI-assisted locator suggestions when deterministic stages fail.
@@ -28,4 +28,14 @@ Acceptance criteria:
 2. Prompt size is compact and telemetry-captured.
 3. Weak or ungrounded suggestions are filtered before core validation.
 4. Deep retry is bounded and reason-based.
+## Mandatory Operational Baseline
+
+- Before implementation, run:
+  - `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1`
+- Use this runbook as the source of truth for DB/index/Chroma reset and recreate steps:
+  - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
+- Keep vector retrieval instructions aligned with current implementation:
+  - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
+  - `PgVectorRetriever` is compatibility alias only
+- Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
 

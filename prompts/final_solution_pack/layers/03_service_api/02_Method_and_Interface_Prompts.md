@@ -1,4 +1,4 @@
-Title: Service API Layer Method and Interface Prompts
+﻿Title: Service API Layer Method and Interface Prompts
 
 Use this prompt with AI assistant:
 
@@ -47,4 +47,14 @@ High-level behavior example:
 1. Client sends broken locator + context to `/heal`.
 2. Service resolves page and delegates to facade.
 3. Response includes status, trace, and healed locator when successful.
+## Mandatory Operational Baseline
+
+- Before implementation, run:
+  - `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1`
+- Use this runbook as the source of truth for DB/index/Chroma reset and recreate steps:
+  - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
+- Keep vector retrieval instructions aligned with current implementation:
+  - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
+  - `PgVectorRetriever` is compatibility alias only
+- Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
 

@@ -1,4 +1,4 @@
-Title: Whole Solution Code Graph
+﻿Title: Whole Solution Code Graph
 
 Purpose:
 - Visualize end-to-end component flow before implementation.
@@ -70,4 +70,14 @@ How to use this graph:
 1. Build layer by layer from top to bottom.
 2. Keep each arrow contract stable.
 3. Add test coverage at each boundary before moving to next layer.
+## Mandatory Operational Baseline
+
+- Before implementation, run:
+  - `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1`
+- Use this runbook as the source of truth for DB/index/Chroma reset and recreate steps:
+  - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
+- Keep vector retrieval instructions aligned with current implementation:
+  - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
+  - `PgVectorRetriever` is compatibility alias only
+- Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
 

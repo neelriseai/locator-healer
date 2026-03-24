@@ -1,4 +1,4 @@
-Prompt Structure and Execution Order
+﻿Prompt Structure and Execution Order
 
 Source of truth:
 - Always align every prompt with `prompts/01_Master_Design_for_xpath_healer.md`.
@@ -38,6 +38,11 @@ prompts/
 `-- tasks/
     `-- runbook_validation.md
 
+Operational docs/scripts required for reproducible setup
+
+- `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
+- `tools/reset_db_and_chroma.ps1`
+
 Execution order
 
 1. `tasks/create_structure.md`
@@ -62,7 +67,21 @@ Authoring rules for all prompt files
 5. Include constraints to prevent unrelated refactors.
 6. Keep secrets in env vars only (`OPENAI_API_KEY`, `XH_PG_DSN`).
 7. Preserve stage names and order used by healing traces.
+8. Include DB reset/recreate validation using:
+   - `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1`
+9. Keep prompts aligned with Chroma-backed retrieval (`xh_rag_documents`, `xh_elements`).
 
 Detailed execution pack generated:
 - `prompts/final_solution_pack/`
 - Start with `prompts/final_solution_pack/99_Execution_Order.md`
+## Mandatory Operational Baseline
+
+- Before implementation, run:
+  - `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1`
+- Use this runbook as the source of truth for DB/index/Chroma reset and recreate steps:
+  - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
+- Keep vector retrieval instructions aligned with current implementation:
+  - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
+  - `PgVectorRetriever` is compatibility alias only
+- Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
+

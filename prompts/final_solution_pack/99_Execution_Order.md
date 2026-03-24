@@ -1,4 +1,4 @@
-Title: Final Execution Order for Full Solution Build
+﻿Title: Final Execution Order for Full Solution Build
 
 Important:
 - Follow this exact sequence on a new machine.
@@ -61,3 +61,14 @@ Phase G: End-to-end validation
 2. Run integration suite with desired stage profile.
 3. Confirm logs, reports, screenshots, videos, metadata persistence.
 4. Freeze configuration baseline for target environment.
+## Mandatory Operational Baseline
+
+- Before implementation, run:
+  - `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1`
+- Use this runbook as the source of truth for DB/index/Chroma reset and recreate steps:
+  - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
+- Keep vector retrieval instructions aligned with current implementation:
+  - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
+  - `PgVectorRetriever` is compatibility alias only
+- Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
+

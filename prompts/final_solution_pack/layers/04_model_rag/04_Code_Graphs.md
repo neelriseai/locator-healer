@@ -1,4 +1,4 @@
-Title: Model and RAG Layer Code Graphs
+﻿Title: Model and RAG Layer Code Graphs
 
 Layer graph:
 
@@ -41,4 +41,14 @@ Graph usage:
 1. Use this graph to isolate failures quickly:
    retrieval issue vs prompt issue vs parse/filter issue.
 2. Use this graph to tune token size and suggestion quality without changing core orchestration.
+## Mandatory Operational Baseline
+
+- Before implementation, run:
+  - `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1`
+- Use this runbook as the source of truth for DB/index/Chroma reset and recreate steps:
+  - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
+- Keep vector retrieval instructions aligned with current implementation:
+  - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
+  - `PgVectorRetriever` is compatibility alias only
+- Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
 

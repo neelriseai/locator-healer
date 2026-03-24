@@ -1,4 +1,4 @@
-Title: Phase Definitions (A to G)
+﻿Title: Phase Definitions (A to G)
 
 Purpose:
 - Define what each phase means so an AI assistant can map tasks correctly before implementation.
@@ -33,4 +33,14 @@ Phase G: End-to-end validation
 
 Fast-track mapping:
 1. Core + automation-only path = Phase A -> Phase B -> Phase F -> selective Phase G.
+## Mandatory Operational Baseline
+
+- Before implementation, run:
+  - `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1`
+- Use this runbook as the source of truth for DB/index/Chroma reset and recreate steps:
+  - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
+- Keep vector retrieval instructions aligned with current implementation:
+  - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
+  - `PgVectorRetriever` is compatibility alias only
+- Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
 
