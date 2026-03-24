@@ -222,7 +222,4498 @@
       "last_seen": "2026-03-24T17:18:18.058269+00:00",
       "success_count": 15,
       "fail_count": 0
+    },
+    "home_expand_button": {
+      "id": "5b29e75f-dc92-4aed-937e-9444b6ffb875",
+      "app_id": "demo-qa-app",
+      "page_name": "checkbox",
+      "element_name": "home_expand_button",
+      "field_type": "button",
+      "last_good_locator": {
+        "kind": "css",
+        "value": "button.rct-collapse.rct-collapse-btn[aria-label='Toggle']",
+        "options": {},
+        "scope": null
+      },
+      "robust_locator": {
+        "kind": "css",
+        "value": "[aria-label=\"Toggle\"]",
+        "options": {},
+        "scope": null
+      },
+      "strategy_id": "rag_suggest",
+      "signature": {
+        "tag": "button",
+        "stable_attrs": {
+          "aria-label": "Toggle",
+          "type": "button"
+        },
+        "short_text": "",
+        "container_path": [],
+        "component_kind": null
+      },
+      "hints": {
+        "attr_priority_order": [
+          "data-testid",
+          "aria-label",
+          "name",
+          "formcontrolname",
+          "placeholder",
+          "role",
+          "href",
+          "col-id",
+          "aria-colindex",
+          "class"
+        ],
+        "threshold": null,
+        "visibility_pref": true,
+        "aliases": {},
+        "defaults": {},
+        "allow_position_fallback": false,
+        "strict_single_match": true
+      },
+      "locator_variants": {
+        "live_css": {
+          "kind": "css",
+          "value": "div.row:nth-of-type(1) > div.col-12.mt-4:nth-of-type(2) > div.check-box-tree-wrapper:nth-of-type(2) > div.react-checkbox-tree.rct-icons-fa4:nth-of-type(1) > ol:nth-of-type(1) > li.rct-node.rct-node-parent:nth-of-type(1) > span.rct-text:nth-of-type(1) > button.rct-collapse.rct-collapse-btn:nth-of-type(1)",
+          "options": {},
+          "scope": null
+        },
+        "last_good": {
+          "kind": "css",
+          "value": "button.rct-collapse.rct-collapse-btn[aria-label='Toggle']",
+          "options": {},
+          "scope": null
+        },
+        "live_xpath": {
+          "kind": "xpath",
+          "value": "/html[1]/body[1]/div[2]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/ol[1]/li[1]/span[1]/button[1]",
+          "options": {},
+          "scope": null
+        },
+        "robust_css": {
+          "kind": "css",
+          "value": "[aria-label=\"Toggle\"]",
+          "options": {},
+          "scope": null
+        },
+        "robust_xpath": {
+          "kind": "xpath",
+          "value": "//*[@aria-label='Toggle']",
+          "options": {},
+          "scope": null
+        }
+      },
+      "quality_metrics": {
+        "uniqueness_score": 1.0,
+        "stability_score": 0.94,
+        "similarity_score": 0.9,
+        "overall_score": 0.956,
+        "matched_count": 1,
+        "chosen_index": 0,
+        "validation_reasons": [
+          "validated_toggle_button",
+          "validated"
+        ],
+        "strategy_id": "rag_suggest",
+        "strategy_score": 0.97,
+        "locator_kind": "css",
+        "locator_value": "button.rct-collapse.rct-collapse-btn[aria-label='Toggle']",
+        "valid_against_hints": true,
+        "history": [
+          {
+            "timestamp": "2026-03-24T18:21:49.844759+00:00",
+            "strategy_id": "label_proximity_interactable",
+            "overall_score": 0.92,
+            "stability_score": 0.8,
+            "similarity_score": 1.0,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T18:23:11.181965+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.9,
+            "stability_score": 0.8,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T18:27:50.206526+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.964,
+            "stability_score": 0.96,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T18:30:21.561081+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.964,
+            "stability_score": 0.96,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T18:33:10.087575+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.964,
+            "stability_score": 0.96,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T18:57:08.760346+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.964,
+            "stability_score": 0.96,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:10:15.358195+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.964,
+            "stability_score": 0.96,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:24:37.134162+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.964,
+            "stability_score": 0.96,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:31:05.388256+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.956,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:45:04.987818+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.956,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:47:39.467515+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.956,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:51:56.840245+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.956,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:53:55.876733+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.956,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:58:28.624409+00:00",
+            "overall_score": 0.956,
+            "strategy_id": "rag_suggest",
+            "uniqueness_score": 1.0,
+            "stability_score": 0.94,
+            "similarity_score": 0.9
+          }
+        ]
+      },
+      "last_seen": "2026-03-24T19:58:28.533254+00:00",
+      "success_count": 14,
+      "fail_count": 0
+    },
+    "desktop_checkbox_icon": {
+      "id": "01ba6bf5-42dd-4cbd-a5b0-d6ebfb1b8592",
+      "app_id": "demo-qa-app",
+      "page_name": "checkbox",
+      "element_name": "desktop_checkbox_icon",
+      "field_type": "checkbox",
+      "last_good_locator": {
+        "kind": "xpath",
+        "value": "//*[contains(@class,'rct-title') and (normalize-space()='Desktop' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'desktop'))]/ancestor::*[contains(@class,'rct-text')][1]//*[contains(@class,'rct-checkbox')][1]",
+        "options": {},
+        "scope": null
+      },
+      "robust_locator": {
+        "kind": "css",
+        "value": "div.react-checkbox-tree.rct-icons-fa4:nth-of-type(1) > ol:nth-of-type(1) > li.rct-node.rct-node-parent:nth-of-type(1) > ol:nth-of-type(1) > li.rct-node.rct-node-parent:nth-of-type(1) > span.rct-text:nth-of-type(1) > label:nth-of-type(1) > span.rct-checkbox:nth-of-type(1)",
+        "options": {},
+        "scope": null
+      },
+      "strategy_id": "rag_suggest",
+      "signature": {
+        "tag": "span",
+        "stable_attrs": {},
+        "short_text": "",
+        "container_path": [],
+        "component_kind": null
+      },
+      "hints": {
+        "attr_priority_order": [
+          "data-testid",
+          "aria-label",
+          "name",
+          "formcontrolname",
+          "placeholder",
+          "role",
+          "href",
+          "col-id",
+          "aria-colindex",
+          "class"
+        ],
+        "threshold": null,
+        "visibility_pref": true,
+        "aliases": {},
+        "defaults": {},
+        "allow_position_fallback": false,
+        "strict_single_match": true
+      },
+      "locator_variants": {
+        "live_css": {
+          "kind": "css",
+          "value": "div.react-checkbox-tree.rct-icons-fa4:nth-of-type(1) > ol:nth-of-type(1) > li.rct-node.rct-node-parent:nth-of-type(1) > ol:nth-of-type(1) > li.rct-node.rct-node-parent:nth-of-type(1) > span.rct-text:nth-of-type(1) > label:nth-of-type(1) > span.rct-checkbox:nth-of-type(1)",
+          "options": {},
+          "scope": null
+        },
+        "last_good": {
+          "kind": "xpath",
+          "value": "//*[contains(@class,'rct-title') and (normalize-space()='Desktop' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'desktop'))]/ancestor::*[contains(@class,'rct-text')][1]//*[contains(@class,'rct-checkbox')][1]",
+          "options": {},
+          "scope": null
+        },
+        "live_xpath": {
+          "kind": "xpath",
+          "value": "/html[1]/body[1]/div[2]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/ol[1]/li[1]/ol[1]/li[1]/span[1]/label[1]/span[1]",
+          "options": {},
+          "scope": null
+        },
+        "robust_css": {
+          "kind": "css",
+          "value": "div.react-checkbox-tree.rct-icons-fa4:nth-of-type(1) > ol:nth-of-type(1) > li.rct-node.rct-node-parent:nth-of-type(1) > ol:nth-of-type(1) > li.rct-node.rct-node-parent:nth-of-type(1) > span.rct-text:nth-of-type(1) > label:nth-of-type(1) > span.rct-checkbox:nth-of-type(1)",
+          "options": {},
+          "scope": null
+        },
+        "robust_xpath": {
+          "kind": "xpath",
+          "value": "//*[contains(@class,'rct-title') and (normalize-space()='Desktop' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'desktop'))]/ancestor::*[contains(@class,'rct-text')][1]//*[contains(@class,'rct-checkbox')][1]",
+          "options": {},
+          "scope": null
+        }
+      },
+      "quality_metrics": {
+        "uniqueness_score": 1.0,
+        "stability_score": 0.64,
+        "similarity_score": 0.35,
+        "overall_score": 0.726,
+        "matched_count": 1,
+        "chosen_index": 0,
+        "validation_reasons": [
+          "validated_label_proxy_toggle",
+          "validated"
+        ],
+        "strategy_id": "rag_suggest",
+        "strategy_score": 0.9,
+        "locator_kind": "xpath",
+        "locator_value": "//*[contains(@class,'rct-title') and (normalize-space()='Desktop' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'desktop'))]/ancestor::*[contains(@class,'rct-text')][1]//*[contains(@class,'rct-checkbox')][1]",
+        "valid_against_hints": true,
+        "history": [
+          {
+            "timestamp": "2026-03-24T18:21:50.594303+00:00",
+            "strategy_id": "label_proximity_interactable",
+            "overall_score": 0.856,
+            "stability_score": 0.64,
+            "similarity_score": 1.0,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T18:23:13.174172+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T18:27:54.786973+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.712,
+            "stability_score": 0.78,
+            "similarity_score": 0.0,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T18:30:22.751923+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T18:33:15.409322+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T18:57:10.491272+00:00",
+            "strategy_id": "label_proximity_interactable",
+            "overall_score": 0.656,
+            "stability_score": 0.64,
+            "similarity_score": 0.0,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:45:10.179511+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:47:45.680613+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:52:02.258752+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:53:57.207176+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:58:35.402055+00:00",
+            "overall_score": 0.726,
+            "strategy_id": "rag_suggest",
+            "uniqueness_score": 1.0,
+            "stability_score": 0.64,
+            "similarity_score": 0.35
+          }
+        ]
+      },
+      "last_seen": "2026-03-24T19:58:35.318386+00:00",
+      "success_count": 11,
+      "fail_count": 2
+    },
+    "downloads_expand_button": {
+      "id": "3939d923-c05a-4d21-bf3d-f8d4a78b3c8e",
+      "app_id": "demo-qa-app",
+      "page_name": "checkbox",
+      "element_name": "downloads_expand_button",
+      "field_type": "button",
+      "last_good_locator": {
+        "kind": "xpath",
+        "value": "//*[contains(@class,'rct-title') and (normalize-space()='Downloads' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'downloads'))]/ancestor::*[contains(@class,'rct-text')][1]//*[self::button and (contains(@class,'rct-collapse-btn') or contains(@class,'rct-expand-btn') or contains(@class,'rct-parent-open') or contains(@class,'rct-parent-close') or contains(@class,'rct-icon-expand') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'toggle') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'expand') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'collapse'))][1]",
+        "options": {},
+        "scope": null
+      },
+      "robust_locator": {
+        "kind": "css",
+        "value": "[aria-label=\"Toggle\"]",
+        "options": {},
+        "scope": null
+      },
+      "strategy_id": "rag_suggest",
+      "signature": {
+        "tag": "button",
+        "stable_attrs": {
+          "aria-label": "Toggle",
+          "type": "button"
+        },
+        "short_text": "",
+        "container_path": [],
+        "component_kind": null
+      },
+      "hints": {
+        "attr_priority_order": [
+          "data-testid",
+          "aria-label",
+          "name",
+          "formcontrolname",
+          "placeholder",
+          "role",
+          "href",
+          "col-id",
+          "aria-colindex",
+          "class"
+        ],
+        "threshold": null,
+        "visibility_pref": true,
+        "aliases": {},
+        "defaults": {},
+        "allow_position_fallback": false,
+        "strict_single_match": true
+      },
+      "locator_variants": {
+        "live_css": {
+          "kind": "css",
+          "value": "div.check-box-tree-wrapper:nth-of-type(2) > div.react-checkbox-tree.rct-icons-fa4:nth-of-type(1) > ol:nth-of-type(1) > li.rct-node.rct-node-parent:nth-of-type(1) > ol:nth-of-type(1) > li.rct-node.rct-node-parent:nth-of-type(3) > span.rct-text:nth-of-type(1) > button.rct-collapse.rct-collapse-btn:nth-of-type(1)",
+          "options": {},
+          "scope": null
+        },
+        "last_good": {
+          "kind": "xpath",
+          "value": "//*[contains(@class,'rct-title') and (normalize-space()='Downloads' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'downloads'))]/ancestor::*[contains(@class,'rct-text')][1]//*[self::button and (contains(@class,'rct-collapse-btn') or contains(@class,'rct-expand-btn') or contains(@class,'rct-parent-open') or contains(@class,'rct-parent-close') or contains(@class,'rct-icon-expand') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'toggle') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'expand') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'collapse'))][1]",
+          "options": {},
+          "scope": null
+        },
+        "live_xpath": {
+          "kind": "xpath",
+          "value": "/html[1]/body[1]/div[2]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/ol[1]/li[1]/ol[1]/li[3]/span[1]/button[1]",
+          "options": {},
+          "scope": null
+        },
+        "robust_css": {
+          "kind": "css",
+          "value": "[aria-label=\"Toggle\"]",
+          "options": {},
+          "scope": null
+        },
+        "robust_xpath": {
+          "kind": "xpath",
+          "value": "//*[@aria-label='Toggle']",
+          "options": {},
+          "scope": null
+        }
+      },
+      "quality_metrics": {
+        "uniqueness_score": 1.0,
+        "stability_score": 0.8,
+        "similarity_score": 0.9,
+        "overall_score": 0.9,
+        "matched_count": 1,
+        "chosen_index": 0,
+        "validation_reasons": [
+          "validated_toggle_button",
+          "validated"
+        ],
+        "strategy_id": "rag_suggest",
+        "strategy_score": 0.91,
+        "locator_kind": "xpath",
+        "locator_value": "//*[contains(@class,'rct-title') and (normalize-space()='Downloads' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'downloads'))]/ancestor::*[contains(@class,'rct-text')][1]//*[self::button and (contains(@class,'rct-collapse-btn') or contains(@class,'rct-expand-btn') or contains(@class,'rct-parent-open') or contains(@class,'rct-parent-close') or contains(@class,'rct-icon-expand') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'toggle') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'expand') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'collapse'))][1]",
+        "valid_against_hints": true,
+        "history": [
+          {
+            "timestamp": "2026-03-24T18:21:51.397220+00:00",
+            "strategy_id": "label_proximity_interactable",
+            "overall_score": 0.92,
+            "stability_score": 0.8,
+            "similarity_score": 1.0,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T18:23:14.575709+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.9,
+            "stability_score": 0.8,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T18:28:01.108589+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.664,
+            "stability_score": 0.96,
+            "similarity_score": 0.9,
+            "uniqueness_score": 0.25
+          },
+          {
+            "timestamp": "2026-03-24T18:30:24.568390+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.964,
+            "stability_score": 0.96,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T18:33:20.045524+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.656,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 0.25
+          },
+          {
+            "timestamp": "2026-03-24T18:57:13.018988+00:00",
+            "strategy_id": "label_proximity_interactable",
+            "overall_score": 0.9,
+            "stability_score": 0.8,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:45:15.332592+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.9,
+            "stability_score": 0.8,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:47:53.854045+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.9,
+            "stability_score": 0.8,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:52:09.804739+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.9,
+            "stability_score": 0.8,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:53:58.667126+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.9,
+            "stability_score": 0.8,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:58:42.411848+00:00",
+            "overall_score": 0.9,
+            "strategy_id": "rag_suggest",
+            "uniqueness_score": 1.0,
+            "stability_score": 0.8,
+            "similarity_score": 0.9
+          }
+        ]
+      },
+      "last_seen": "2026-03-24T19:58:42.323710+00:00",
+      "success_count": 11,
+      "fail_count": 0
+    },
+    "excel_file_doc_checkbox_icon": {
+      "id": "78162543-1d7e-4535-a150-55d084bf8a40",
+      "app_id": "demo-qa-app",
+      "page_name": "checkbox",
+      "element_name": "excel_file_doc_checkbox_icon",
+      "field_type": "checkbox",
+      "last_good_locator": {
+        "kind": "xpath",
+        "value": "//*[contains(@class,'rct-title') and (normalize-space()='Excel File.doc' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'excel file.doc'))]/ancestor::*[contains(@class,'rct-text')][1]//*[contains(@class,'rct-checkbox')][1]",
+        "options": {},
+        "scope": null
+      },
+      "robust_locator": {
+        "kind": "css",
+        "value": "li.rct-node.rct-node-parent:nth-of-type(1) > ol:nth-of-type(1) > li.rct-node.rct-node-parent:nth-of-type(3) > ol:nth-of-type(1) > li.rct-node.rct-node-leaf:nth-of-type(2) > span.rct-text:nth-of-type(1) > label:nth-of-type(1) > span.rct-checkbox:nth-of-type(1)",
+        "options": {},
+        "scope": null
+      },
+      "strategy_id": "rag_suggest",
+      "signature": {
+        "tag": "span",
+        "stable_attrs": {},
+        "short_text": "",
+        "container_path": [],
+        "component_kind": null
+      },
+      "hints": {
+        "attr_priority_order": [
+          "data-testid",
+          "aria-label",
+          "name",
+          "formcontrolname",
+          "placeholder",
+          "role",
+          "href",
+          "col-id",
+          "aria-colindex",
+          "class"
+        ],
+        "threshold": null,
+        "visibility_pref": true,
+        "aliases": {},
+        "defaults": {},
+        "allow_position_fallback": false,
+        "strict_single_match": true
+      },
+      "locator_variants": {
+        "live_css": {
+          "kind": "css",
+          "value": "li.rct-node.rct-node-parent:nth-of-type(1) > ol:nth-of-type(1) > li.rct-node.rct-node-parent:nth-of-type(3) > ol:nth-of-type(1) > li.rct-node.rct-node-leaf:nth-of-type(2) > span.rct-text:nth-of-type(1) > label:nth-of-type(1) > span.rct-checkbox:nth-of-type(1)",
+          "options": {},
+          "scope": null
+        },
+        "last_good": {
+          "kind": "xpath",
+          "value": "//*[contains(@class,'rct-title') and (normalize-space()='Excel File.doc' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'excel file.doc'))]/ancestor::*[contains(@class,'rct-text')][1]//*[contains(@class,'rct-checkbox')][1]",
+          "options": {},
+          "scope": null
+        },
+        "live_xpath": {
+          "kind": "xpath",
+          "value": "/html[1]/body[1]/div[2]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/ol[1]/li[1]/ol[1]/li[3]/ol[1]/li[2]/span[1]/label[1]/span[1]",
+          "options": {},
+          "scope": null
+        },
+        "robust_css": {
+          "kind": "css",
+          "value": "li.rct-node.rct-node-parent:nth-of-type(1) > ol:nth-of-type(1) > li.rct-node.rct-node-parent:nth-of-type(3) > ol:nth-of-type(1) > li.rct-node.rct-node-leaf:nth-of-type(2) > span.rct-text:nth-of-type(1) > label:nth-of-type(1) > span.rct-checkbox:nth-of-type(1)",
+          "options": {},
+          "scope": null
+        },
+        "robust_xpath": {
+          "kind": "xpath",
+          "value": "//*[contains(@class,'rct-title') and (normalize-space()='Excel File.doc' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'excel file.doc'))]/ancestor::*[contains(@class,'rct-text')][1]//*[contains(@class,'rct-checkbox')][1]",
+          "options": {},
+          "scope": null
+        }
+      },
+      "quality_metrics": {
+        "uniqueness_score": 1.0,
+        "stability_score": 0.64,
+        "similarity_score": 0.35,
+        "overall_score": 0.726,
+        "matched_count": 1,
+        "chosen_index": 0,
+        "validation_reasons": [
+          "validated_label_proxy_toggle",
+          "validated"
+        ],
+        "strategy_id": "rag_suggest",
+        "strategy_score": 0.91,
+        "locator_kind": "xpath",
+        "locator_value": "//*[contains(@class,'rct-title') and (normalize-space()='Excel File.doc' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'excel file.doc'))]/ancestor::*[contains(@class,'rct-text')][1]//*[contains(@class,'rct-checkbox')][1]",
+        "valid_against_hints": true,
+        "history": [
+          {
+            "timestamp": "2026-03-24T18:21:52.074444+00:00",
+            "strategy_id": "label_proximity_interactable",
+            "overall_score": 0.856,
+            "stability_score": 0.64,
+            "similarity_score": 1.0,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T18:23:15.946293+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T18:28:07.806547+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.712,
+            "stability_score": 0.78,
+            "similarity_score": 0.0,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T18:30:25.566907+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T18:33:28.083256+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T18:57:14.473530+00:00",
+            "strategy_id": "label_proximity_interactable",
+            "overall_score": 0.656,
+            "stability_score": 0.64,
+            "similarity_score": 0.0,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:45:21.627877+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:48:00.151107+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:52:14.983546+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:53:59.795087+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-24T19:58:48.265896+00:00",
+            "overall_score": 0.726,
+            "strategy_id": "rag_suggest",
+            "uniqueness_score": 1.0,
+            "stability_score": 0.64,
+            "similarity_score": 0.35
+          }
+        ]
+      },
+      "last_seen": "2026-03-24T19:58:48.183902+00:00",
+      "success_count": 11,
+      "fail_count": 0
     }
   },
-  "page_index": null
+  "page_index": {
+    "id": "8ff12c09-42b0-4a0d-b49e-63334ceb9be1",
+    "app_id": "demo-qa-app",
+    "page_name": "checkbox",
+    "dom_hash": "3c4d69e916d4dde085bad5a38002795e03143bee0cb5e0890716a73a29e164df",
+    "snapshot_version": "v1",
+    "created_at": "2026-03-24T18:41:26.417416+00:00",
+    "elements": [
+      {
+        "element_id": "464a6491-7f84-4583-813a-6e4430ef7796",
+        "element_name": "viewport_3",
+        "tag": "meta",
+        "text": "",
+        "normalized_text": "",
+        "attr_id": "",
+        "attr_name": "viewport",
+        "class_tokens": [],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "head>html",
+        "parent_signature": "head>html",
+        "neighbor_text": "",
+        "position_signature": "meta:2",
+        "xpath": "//meta[@name='viewport']",
+        "css": "meta[name=\"viewport\"]",
+        "fingerprint_hash": "248202b2dec943088ecd674b3f508e59641c41741a44a0be2862701b35609548",
+        "metadata_json": {
+          "attrs": {
+            "name": "viewport",
+            "content": "width=device-width,initial-scale=1"
+          },
+          "ordinal": 3
+        }
+      },
+      {
+        "element_id": "9186b447-7039-4d47-a502-55498aedcfa4",
+        "element_name": "fixedban_14",
+        "tag": "div",
+        "text": "",
+        "normalized_text": "",
+        "attr_id": "fixedban",
+        "attr_name": "",
+        "class_tokens": [],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "body>html",
+        "parent_signature": "body>html",
+        "neighbor_text": "! function(e, t, a, n, g) { e[n] = e[n] || [], e[n].push({ \"gtm.start\": (new date).gettime(), event: \"gtm.js\" }); var m = t.getelementsbytagname(a)[0], r = t.createelement(a); r.async = !0, r.src = \"https://www.googletagmanager.com/gtm.js?id=gtm-mx8dd4s\", m.parentnode.insertbefore(r, m) }(window, document, \"script\", \"datalayer\")",
+        "position_signature": "div:1",
+        "xpath": "//*[@id='fixedban']",
+        "css": "[id=\"fixedban\"]",
+        "fingerprint_hash": "5900d63e8944573dc51449196bed869bbb69b176fbe0f043bf008a2f90fc18c5",
+        "metadata_json": {
+          "attrs": {
+            "id": "fixedban",
+            "style": "width:100%;margin:auto;text-align:center;float:none;overflow:hidden;display:scroll;position:fixed;bottom:0;z-index:9999999"
+          },
+          "ordinal": 14
+        }
+      },
+      {
+        "element_id": "ce984e4d-6d32-461e-b2f1-dccbaf0c4dba",
+        "element_name": "app_20",
+        "tag": "div",
+        "text": "Elements Text Box Check Box Radio Button Web Tables Buttons Links Broken Links - Images Upload and Download Dynamic Properties Forms Practice Form Alerts, Frame & Windows Browser Windows Alerts Frames Nested Frames Modal Dialogs Widgets Accordian Auto Complete Date Picker Slider Progress Bar Tabs Tool Tips Menu Select Menu Interactions Sortable Selectable Resizable Droppable Dragabble Book Store Application Login Book Store Profile Book Store API Check Box Home You have selected : desktop notes commands \u00a9 2013-2020 TOOLSQA.COM | ALL RIGHTS RESERVED.",
+        "normalized_text": "elements text box check box radio button web tables buttons links broken links - images upload and download dynamic properties forms practice form alerts, frame & windows browser windows alerts frames nested frames modal dialogs widgets accordian auto complete date picker slider progress bar tabs tool tips menu select menu interactions sortable selectable resizable droppable dragabble book store application login book store profile book store api check box home you have selected : desktop notes commands \u00a9 2013-2020 toolsqa.com | all rights reserved.",
+        "attr_id": "app",
+        "attr_name": "",
+        "class_tokens": [],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "body>html",
+        "parent_signature": "body>html",
+        "neighbor_text": "",
+        "position_signature": "div:2",
+        "xpath": "//*[@id='app']",
+        "css": "[id=\"app\"]",
+        "fingerprint_hash": "7098baacaf5738cbb6e351127cb670f7dac22daae72481b9b651bc8351cca9f5",
+        "metadata_json": {
+          "attrs": {
+            "id": "app"
+          },
+          "ordinal": 20
+        }
+      },
+      {
+        "element_id": "8a2f136a-3f8e-47c4-9a55-9585ff257c43",
+        "element_name": "a_22",
+        "tag": "a",
+        "text": "",
+        "normalized_text": "",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [],
+        "role": "link",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "header>div#app>body>html",
+        "parent_signature": "header>div#app",
+        "neighbor_text": "",
+        "position_signature": "a:1",
+        "xpath": "//a",
+        "css": "a",
+        "fingerprint_hash": "41ef8e95550ac3e65a1d93a9bff12f4499e2dc8b3a9616a8063976465dd1d7f6",
+        "metadata_json": {
+          "attrs": {
+            "href": "https://demo-qa-app.azurewebsites.net"
+          },
+          "ordinal": 22
+        }
+      },
+      {
+        "element_id": "66c1d6e1-610f-4919-94a1-98d5a3bf642f",
+        "element_name": "div_24",
+        "tag": "div",
+        "text": "Elements Text Box Check Box Radio Button Web Tables Buttons Links Broken Links - Images Upload and Download Dynamic Properties Forms Practice Form Alerts, Frame & Windows Browser Windows Alerts Frames Nested Frames Modal Dialogs Widgets Accordian Auto Complete Date Picker Slider Progress Bar Tabs Tool Tips Menu Select Menu Interactions Sortable Selectable Resizable Droppable Dragabble Book Store Application Login Book Store Profile Book Store API Check Box Home You have selected : desktop notes commands",
+        "normalized_text": "elements text box check box radio button web tables buttons links broken links - images upload and download dynamic properties forms practice form alerts, frame & windows browser windows alerts frames nested frames modal dialogs widgets accordian auto complete date picker slider progress bar tabs tool tips menu select menu interactions sortable selectable resizable droppable dragabble book store application login book store profile book store api check box home you have selected : desktop notes commands",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "body-height"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div#app>body>html",
+        "parent_signature": "div#app>body",
+        "neighbor_text": "\u00a9 2013-2020 toolsqa.com | all rights reserved.",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.body-height",
+        "fingerprint_hash": "16ecb437eba5311037ff2ec6d758767560d592b1639498439d42a893e0094356",
+        "metadata_json": {
+          "attrs": {
+            "class": "body-height"
+          },
+          "ordinal": 24
+        }
+      },
+      {
+        "element_id": "2381709f-14d7-4ae0-a76c-15ddaeff91d1",
+        "element_name": "div_25",
+        "tag": "div",
+        "text": "Elements Text Box Check Box Radio Button Web Tables Buttons Links Broken Links - Images Upload and Download Dynamic Properties Forms Practice Form Alerts, Frame & Windows Browser Windows Alerts Frames Nested Frames Modal Dialogs Widgets Accordian Auto Complete Date Picker Slider Progress Bar Tabs Tool Tips Menu Select Menu Interactions Sortable Selectable Resizable Droppable Dragabble Book Store Application Login Book Store Profile Book Store API Check Box Home You have selected : desktop notes commands",
+        "normalized_text": "elements text box check box radio button web tables buttons links broken links - images upload and download dynamic properties forms practice form alerts, frame & windows browser windows alerts frames nested frames modal dialogs widgets accordian auto complete date picker slider progress bar tabs tool tips menu select menu interactions sortable selectable resizable droppable dragabble book store application login book store profile book store api check box home you have selected : desktop notes commands",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "container",
+          "playgound-body"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.body-height>div#app>body>html",
+        "parent_signature": "div.body-height>div#app",
+        "neighbor_text": "",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.container",
+        "fingerprint_hash": "dfc71dac88553a089b261dcbfaf5eb8ef6a82e40ba6b9e8996cc7d508ae6a2a7",
+        "metadata_json": {
+          "attrs": {
+            "class": "container playgound-body"
+          },
+          "ordinal": 25
+        }
+      },
+      {
+        "element_id": "870d2079-44f3-4208-b379-99058e66d70e",
+        "element_name": "div_26",
+        "tag": "div",
+        "text": "Elements Text Box Check Box Radio Button Web Tables Buttons Links Broken Links - Images Upload and Download Dynamic Properties Forms Practice Form Alerts, Frame & Windows Browser Windows Alerts Frames Nested Frames Modal Dialogs Widgets Accordian Auto Complete Date Picker Slider Progress Bar Tabs Tool Tips Menu Select Menu Interactions Sortable Selectable Resizable Droppable Dragabble Book Store Application Login Book Store Profile Book Store API Check Box Home You have selected : desktop notes commands",
+        "normalized_text": "elements text box check box radio button web tables buttons links broken links - images upload and download dynamic properties forms practice form alerts, frame & windows browser windows alerts frames nested frames modal dialogs widgets accordian auto complete date picker slider progress bar tabs tool tips menu select menu interactions sortable selectable resizable droppable dragabble book store application login book store profile book store api check box home you have selected : desktop notes commands",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "row"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.container>div.body-height>div#app>body>html",
+        "parent_signature": "div.container>div.body-height",
+        "neighbor_text": "",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.row",
+        "fingerprint_hash": "83bcf3fc95e8c5bd83285fbd4f57bb270632b2516e5a19a1c7d3156f69bec9a7",
+        "metadata_json": {
+          "attrs": {
+            "class": "row"
+          },
+          "ordinal": 26
+        }
+      },
+      {
+        "element_id": "64af6026-d3ed-4d07-8077-9705a08d6446",
+        "element_name": "div_27",
+        "tag": "div",
+        "text": "Elements Text Box Check Box Radio Button Web Tables Buttons Links Broken Links - Images Upload and Download Dynamic Properties Forms Practice Form Alerts, Frame & Windows Browser Windows Alerts Frames Nested Frames Modal Dialogs Widgets Accordian Auto Complete Date Picker Slider Progress Bar Tabs Tool Tips Menu Select Menu Interactions Sortable Selectable Resizable Droppable Dragabble Book Store Application Login Book Store Profile Book Store API",
+        "normalized_text": "elements text box check box radio button web tables buttons links broken links - images upload and download dynamic properties forms practice form alerts, frame & windows browser windows alerts frames nested frames modal dialogs widgets accordian auto complete date picker slider progress bar tabs tool tips menu select menu interactions sortable selectable resizable droppable dragabble book store application login book store profile book store api",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "col-12",
+          "mt-4",
+          "col-md-3"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.row>div.container>div.body-height>div#app>body",
+        "parent_signature": "div.row>div.container",
+        "neighbor_text": "check box home you have selected : desktop notes commands",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.col-12",
+        "fingerprint_hash": "befda6aa8ff02405c17369d62f8845961b8a909909b53b1a860129abd46900bb",
+        "metadata_json": {
+          "attrs": {
+            "class": "col-12 mt-4 col-md-3"
+          },
+          "ordinal": 27
+        }
+      },
+      {
+        "element_id": "3e95522c-1fd1-463d-959e-6670c9f90742",
+        "element_name": "button_29",
+        "tag": "button",
+        "text": "",
+        "normalized_text": "",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "navbar-toggler"
+        ],
+        "role": "button",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "nav.navbar>div.col-12>div.row>div.container>div.body-height",
+        "parent_signature": "nav.navbar>div.col-12",
+        "neighbor_text": "",
+        "position_signature": "button:1",
+        "xpath": "//button",
+        "css": "button.navbar-toggler",
+        "fingerprint_hash": "ebeb9a367454b4c4adeb6f3032bc0f8823886c39f8e4a2853b5f8741a1419ad3",
+        "metadata_json": {
+          "attrs": {
+            "class": "navbar-toggler",
+            "type": "button"
+          },
+          "ordinal": 29
+        }
+      },
+      {
+        "element_id": "a3dec92e-ccf9-45c2-b190-f5a3806dd574",
+        "element_name": "div_31",
+        "tag": "div",
+        "text": "Elements Text Box Check Box Radio Button Web Tables Buttons Links Broken Links - Images Upload and Download Dynamic Properties Forms Practice Form Alerts, Frame & Windows Browser Windows Alerts Frames Nested Frames Modal Dialogs Widgets Accordian Auto Complete Date Picker Slider Progress Bar Tabs Tool Tips Menu Select Menu Interactions Sortable Selectable Resizable Droppable Dragabble Book Store Application Login Book Store Profile Book Store API",
+        "normalized_text": "elements text box check box radio button web tables buttons links broken links - images upload and download dynamic properties forms practice form alerts, frame & windows browser windows alerts frames nested frames modal dialogs widgets accordian auto complete date picker slider progress bar tabs tool tips menu select menu interactions sortable selectable resizable droppable dragabble book store application login book store profile book store api",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "left-pannel"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.col-12>div.row>div.container>div.body-height>div#app",
+        "parent_signature": "div.col-12>div.row",
+        "neighbor_text": "",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.left-pannel",
+        "fingerprint_hash": "286592164a92e3b1e20ee0354c08ec8e11a37f06ea636ce47a55cd3213448c03",
+        "metadata_json": {
+          "attrs": {
+            "class": "left-pannel"
+          },
+          "ordinal": 31
+        }
+      },
+      {
+        "element_id": "fa71c13a-f27f-48c2-9467-f05197026b56",
+        "element_name": "div_32",
+        "tag": "div",
+        "text": "Elements Text Box Check Box Radio Button Web Tables Buttons Links Broken Links - Images Upload and Download Dynamic Properties Forms Practice Form Alerts, Frame & Windows Browser Windows Alerts Frames Nested Frames Modal Dialogs Widgets Accordian Auto Complete Date Picker Slider Progress Bar Tabs Tool Tips Menu Select Menu Interactions Sortable Selectable Resizable Droppable Dragabble Book Store Application Login Book Store Profile Book Store API",
+        "normalized_text": "elements text box check box radio button web tables buttons links broken links - images upload and download dynamic properties forms practice form alerts, frame & windows browser windows alerts frames nested frames modal dialogs widgets accordian auto complete date picker slider progress bar tabs tool tips menu select menu interactions sortable selectable resizable droppable dragabble book store application login book store profile book store api",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "accordion"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.left-pannel>div.col-12>div.row>div.container>div.body-height",
+        "parent_signature": "div.left-pannel>div.col-12",
+        "neighbor_text": "",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.accordion",
+        "fingerprint_hash": "3909d0aebd4da3e43760861cec7a40f07de12c3d258e65a9ad52f340d227f668",
+        "metadata_json": {
+          "attrs": {
+            "class": "accordion"
+          },
+          "ordinal": 32
+        }
+      },
+      {
+        "element_id": "afcc430c-86d3-487d-9f64-c8a05658f96c",
+        "element_name": "div_33",
+        "tag": "div",
+        "text": "Elements Text Box Check Box Radio Button Web Tables Buttons Links Broken Links - Images Upload and Download Dynamic Properties",
+        "normalized_text": "elements text box check box radio button web tables buttons links broken links - images upload and download dynamic properties",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "element-group"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.accordion>div.left-pannel>div.col-12>div.row>div.container",
+        "parent_signature": "div.accordion>div.left-pannel",
+        "neighbor_text": "forms practice form",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.element-group",
+        "fingerprint_hash": "664fb992d03760b26886e68a645df8bb4fd666b24abf62e8ab31c6d6b6a99713",
+        "metadata_json": {
+          "attrs": {
+            "class": "element-group"
+          },
+          "ordinal": 33
+        }
+      },
+      {
+        "element_id": "71d49cc1-2e7f-41da-bf9c-3184786806fc",
+        "element_name": "span_34",
+        "tag": "span",
+        "text": "Elements",
+        "normalized_text": "elements",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "group-header"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.element-group>div.accordion>div.left-pannel>div.col-12>div.row",
+        "parent_signature": "div.element-group>div.accordion",
+        "neighbor_text": "text box check box radio button web tables buttons links broken links - images upload and download dynamic properties",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.group-header",
+        "fingerprint_hash": "6aba6e12a2189fc2e9ad26e427e35084f828525682b3896b2b8235ad6f23377a",
+        "metadata_json": {
+          "attrs": {
+            "class": "group-header"
+          },
+          "ordinal": 34
+        }
+      },
+      {
+        "element_id": "8874f76e-ce69-451a-9791-d33b41d2bb77",
+        "element_name": "div_35",
+        "tag": "div",
+        "text": "Elements",
+        "normalized_text": "elements",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "header-wrapper"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "span.group-header>div.element-group>div.accordion>div.left-pannel>div.col-12",
+        "parent_signature": "span.group-header>div.element-group",
+        "neighbor_text": "",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.header-wrapper",
+        "fingerprint_hash": "f0f71d5671c5d36edf03c651e03ce27877f0096225d105c5ef201ff35a420d26",
+        "metadata_json": {
+          "attrs": {
+            "class": "header-wrapper",
+            "style": "background: rgb(108, 117, 125);"
+          },
+          "ordinal": 35
+        }
+      },
+      {
+        "element_id": "031e9420-54c0-40a6-9249-c80e05d5487a",
+        "element_name": "div_36",
+        "tag": "div",
+        "text": "Elements",
+        "normalized_text": "elements",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "header-text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.header-wrapper>span.group-header>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "div.header-wrapper>span.group-header",
+        "neighbor_text": "",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.header-text",
+        "fingerprint_hash": "22b047a1600334480957908bd4c0eb7fab1bf4bca1d6db23ee1d570d87b494d6",
+        "metadata_json": {
+          "attrs": {
+            "class": "header-text"
+          },
+          "ordinal": 36
+        }
+      },
+      {
+        "element_id": "c46e650e-9857-424b-8af4-a24b1bb77ea8",
+        "element_name": "div_47",
+        "tag": "div",
+        "text": "Text Box Check Box Radio Button Web Tables Buttons Links Broken Links - Images Upload and Download Dynamic Properties",
+        "normalized_text": "text box check box radio button web tables buttons links broken links - images upload and download dynamic properties",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "element-list",
+          "collapse",
+          "show"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.element-group>div.accordion>div.left-pannel>div.col-12>div.row",
+        "parent_signature": "div.element-group>div.accordion",
+        "neighbor_text": "elements",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.element-list",
+        "fingerprint_hash": "88690d1ae27a4451c65b9a2560ae0d702b1792a3516337c382d6720634127f64",
+        "metadata_json": {
+          "attrs": {
+            "class": "element-list collapse show"
+          },
+          "ordinal": 47
+        }
+      },
+      {
+        "element_id": "84f5bd26-771d-47ff-8954-0550c8491f3b",
+        "element_name": "item-0_49",
+        "tag": "li",
+        "text": "Text Box",
+        "normalized_text": "text box",
+        "attr_id": "item-0",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "check box",
+        "position_signature": "li:1",
+        "xpath": "//*[@id='item-0']",
+        "css": "[id=\"item-0\"]",
+        "fingerprint_hash": "42c2cc41dbbc81a3d2fda9b9597654763a1beae0b677e948e96ad4df56660dfe",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-0"
+          },
+          "ordinal": 49
+        }
+      },
+      {
+        "element_id": "2db46513-b345-464e-862e-be999e4856b2",
+        "element_name": "span_52",
+        "tag": "span",
+        "text": "Text Box",
+        "normalized_text": "text box",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-0>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-0>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "5f400cb0da03575ea8ac0e9eb572f01643127f40d60e5fd86e4b3c489b280e73",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 52
+        }
+      },
+      {
+        "element_id": "34692686-28f0-45c8-9af4-218fd7a37067",
+        "element_name": "item-1_53",
+        "tag": "li",
+        "text": "Check Box",
+        "normalized_text": "check box",
+        "attr_id": "item-1",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light",
+          "active"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "text box radio button",
+        "position_signature": "li:2",
+        "xpath": "//*[@id='item-1']",
+        "css": "[id=\"item-1\"]",
+        "fingerprint_hash": "67d625f27b04a55e871789d3b742e663c8f380f9a9f0f90de7774275c32fbcb5",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light active",
+            "id": "item-1"
+          },
+          "ordinal": 53
+        }
+      },
+      {
+        "element_id": "7a9776a4-369a-4936-a192-af14710c5e41",
+        "element_name": "span_56",
+        "tag": "span",
+        "text": "Check Box",
+        "normalized_text": "check box",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-1>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-1>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "f4e574d111d7bc78d3d39274d9980c1d12229f32a93137cb96afa692cb296e9e",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 56
+        }
+      },
+      {
+        "element_id": "baf97409-8aa1-44ae-a74b-a51c31e250b4",
+        "element_name": "item-2_57",
+        "tag": "li",
+        "text": "Radio Button",
+        "normalized_text": "radio button",
+        "attr_id": "item-2",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "check box web tables",
+        "position_signature": "li:3",
+        "xpath": "//*[@id='item-2']",
+        "css": "[id=\"item-2\"]",
+        "fingerprint_hash": "77a3fdb98951a587cecf1b067f9e7b294107ccb6c498ffbc733cffd445addc3b",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-2"
+          },
+          "ordinal": 57
+        }
+      },
+      {
+        "element_id": "f159a169-fa71-4a93-9737-dbfe7456cc6a",
+        "element_name": "span_60",
+        "tag": "span",
+        "text": "Radio Button",
+        "normalized_text": "radio button",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-2>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-2>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "f8344f14982b3345345f520609e822fd0df31c60624795d02902ee8b52218633",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 60
+        }
+      },
+      {
+        "element_id": "5b7bde1a-06ab-4610-b889-d4d017b17741",
+        "element_name": "item-3_61",
+        "tag": "li",
+        "text": "Web Tables",
+        "normalized_text": "web tables",
+        "attr_id": "item-3",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "radio button buttons",
+        "position_signature": "li:4",
+        "xpath": "//*[@id='item-3']",
+        "css": "[id=\"item-3\"]",
+        "fingerprint_hash": "87eda790fa09df68a67053ce88513de7388783cde264203c1213389219cf2d7b",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-3"
+          },
+          "ordinal": 61
+        }
+      },
+      {
+        "element_id": "11b5f178-2f94-42d6-824d-63513f5aafcc",
+        "element_name": "span_64",
+        "tag": "span",
+        "text": "Web Tables",
+        "normalized_text": "web tables",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-3>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-3>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "8bb2f837a0804002264fb923b75cf4c1d6aa40cdea057a36581664fc298a0a8f",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 64
+        }
+      },
+      {
+        "element_id": "928c36d6-f585-4078-a213-2a0e68c3eb80",
+        "element_name": "item-4_65",
+        "tag": "li",
+        "text": "Buttons",
+        "normalized_text": "buttons",
+        "attr_id": "item-4",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "web tables links",
+        "position_signature": "li:5",
+        "xpath": "//*[@id='item-4']",
+        "css": "[id=\"item-4\"]",
+        "fingerprint_hash": "05b08d4385d75a1f36376f2659cf1e2d26400c25696c106a8dce33b04e7eb09b",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-4"
+          },
+          "ordinal": 65
+        }
+      },
+      {
+        "element_id": "d0ab8c4d-a64c-4a2c-a19f-4da545436a47",
+        "element_name": "span_68",
+        "tag": "span",
+        "text": "Buttons",
+        "normalized_text": "buttons",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-4>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-4>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "dcf540d78790137249c7bb43c5bbb7136a62befee88716b4d7ac8b52b059f74b",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 68
+        }
+      },
+      {
+        "element_id": "86ca3360-b0a9-44c6-b25c-1611afaeef28",
+        "element_name": "item-5_69",
+        "tag": "li",
+        "text": "Links",
+        "normalized_text": "links",
+        "attr_id": "item-5",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "buttons broken links - images",
+        "position_signature": "li:6",
+        "xpath": "//*[@id='item-5']",
+        "css": "[id=\"item-5\"]",
+        "fingerprint_hash": "fb81893ca4799b64b1b0ad73ca39da556babf805f86b261e87795aabe668fee0",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-5"
+          },
+          "ordinal": 69
+        }
+      },
+      {
+        "element_id": "f26869e6-605d-4ad0-a458-3b891ee44824",
+        "element_name": "span_72",
+        "tag": "span",
+        "text": "Links",
+        "normalized_text": "links",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-5>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-5>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "5036e6f20856f3dae1e48083e1a9e440f57897da402d3ba17b927c3199bda687",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 72
+        }
+      },
+      {
+        "element_id": "57acc43a-5fec-4a29-b02b-7b93ed3602d7",
+        "element_name": "item-6_73",
+        "tag": "li",
+        "text": "Broken Links - Images",
+        "normalized_text": "broken links - images",
+        "attr_id": "item-6",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "links upload and download",
+        "position_signature": "li:7",
+        "xpath": "//*[@id='item-6']",
+        "css": "[id=\"item-6\"]",
+        "fingerprint_hash": "4889a6e931d1f8a94f80012232ea9ae323d6ab0cf646cb0b8d865af32f5f12cc",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-6"
+          },
+          "ordinal": 73
+        }
+      },
+      {
+        "element_id": "4ceb3a96-8a9e-4457-9810-89f200554969",
+        "element_name": "span_76",
+        "tag": "span",
+        "text": "Broken Links - Images",
+        "normalized_text": "broken links - images",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-6>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-6>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "28d201d8d2b43e3d7ca87f475e0916952633415a87823304100a30afa841879a",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 76
+        }
+      },
+      {
+        "element_id": "8ddb9672-a2d9-4fdb-a407-936ffbb16806",
+        "element_name": "item-7_77",
+        "tag": "li",
+        "text": "Upload and Download",
+        "normalized_text": "upload and download",
+        "attr_id": "item-7",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "broken links - images dynamic properties",
+        "position_signature": "li:8",
+        "xpath": "//*[@id='item-7']",
+        "css": "[id=\"item-7\"]",
+        "fingerprint_hash": "91b70722538f076f10dde606d2a704b591f283b07a3a23f92d10a96708b277ad",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-7"
+          },
+          "ordinal": 77
+        }
+      },
+      {
+        "element_id": "ecc9ca54-ae8c-40f5-8fdf-b0b6f5991fd5",
+        "element_name": "span_80",
+        "tag": "span",
+        "text": "Upload and Download",
+        "normalized_text": "upload and download",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-7>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-7>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "a58e0a9ed4a3ed0dc4d04c8f2b7b52f13a45dc016849032477e18fa2f683e039",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 80
+        }
+      },
+      {
+        "element_id": "a6555536-b0e6-400f-9733-d5848a13e8dc",
+        "element_name": "item-8_81",
+        "tag": "li",
+        "text": "Dynamic Properties",
+        "normalized_text": "dynamic properties",
+        "attr_id": "item-8",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "upload and download",
+        "position_signature": "li:9",
+        "xpath": "//*[@id='item-8']",
+        "css": "[id=\"item-8\"]",
+        "fingerprint_hash": "c9c35734229dfb4bbbda55695ac820a10d6fc03bf860d3e54f9f6d64842031b5",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-8"
+          },
+          "ordinal": 81
+        }
+      },
+      {
+        "element_id": "e6a05249-2246-47c7-beb5-c06cbac0c3b4",
+        "element_name": "span_84",
+        "tag": "span",
+        "text": "Dynamic Properties",
+        "normalized_text": "dynamic properties",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-8>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-8>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "4fff7b25ffc3165363d97b28219fd82204a3e026c6d549639f98023fc5113eaf",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 84
+        }
+      },
+      {
+        "element_id": "d1ed483c-4315-4022-a9dd-78a7c646221d",
+        "element_name": "div_85",
+        "tag": "div",
+        "text": "Forms Practice Form",
+        "normalized_text": "forms practice form",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "element-group"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.accordion>div.left-pannel>div.col-12>div.row>div.container",
+        "parent_signature": "div.accordion>div.left-pannel",
+        "neighbor_text": "elements text box check box radio button web tables buttons links broken links - images upload and download dynamic properties alerts, frame & windows browser windows alerts frames nested frames modal dialogs",
+        "position_signature": "div:2",
+        "xpath": "//div",
+        "css": "div.element-group",
+        "fingerprint_hash": "3c48d9bcdce727493ff11d83ceeadbf33885aaff03ee7caade67f20817a39c23",
+        "metadata_json": {
+          "attrs": {
+            "class": "element-group"
+          },
+          "ordinal": 85
+        }
+      },
+      {
+        "element_id": "f74a6af9-2b49-4317-873a-d097d114adf3",
+        "element_name": "span_86",
+        "tag": "span",
+        "text": "Forms",
+        "normalized_text": "forms",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "group-header"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.element-group>div.accordion>div.left-pannel>div.col-12>div.row",
+        "parent_signature": "div.element-group>div.accordion",
+        "neighbor_text": "practice form",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.group-header",
+        "fingerprint_hash": "5c5c84dd14dd24549ea1801e733580bd4f6527294f95a271b27e0b310d3aa6de",
+        "metadata_json": {
+          "attrs": {
+            "class": "group-header"
+          },
+          "ordinal": 86
+        }
+      },
+      {
+        "element_id": "b4904294-5e1f-4bc6-9be7-19b2f01271d4",
+        "element_name": "div_87",
+        "tag": "div",
+        "text": "Forms",
+        "normalized_text": "forms",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "header-wrapper"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "span.group-header>div.element-group>div.accordion>div.left-pannel>div.col-12",
+        "parent_signature": "span.group-header>div.element-group",
+        "neighbor_text": "",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.header-wrapper",
+        "fingerprint_hash": "7282fd50d2036256a53b871fd67ac71eae2a31ba7ac0570acba23cbdf2665de9",
+        "metadata_json": {
+          "attrs": {
+            "class": "header-wrapper",
+            "style": "background: rgb(108, 117, 125);"
+          },
+          "ordinal": 87
+        }
+      },
+      {
+        "element_id": "1afcdc94-f3f5-4882-ad35-9f084411b7d1",
+        "element_name": "div_88",
+        "tag": "div",
+        "text": "Forms",
+        "normalized_text": "forms",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "header-text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.header-wrapper>span.group-header>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "div.header-wrapper>span.group-header",
+        "neighbor_text": "",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.header-text",
+        "fingerprint_hash": "c0d9d9b63f8feb5e6df0d74bdea233c7fcaddf1440f33092ab06ae3d415e80ee",
+        "metadata_json": {
+          "attrs": {
+            "class": "header-text"
+          },
+          "ordinal": 88
+        }
+      },
+      {
+        "element_id": "c80d0e70-6abe-409a-8d31-bad203ba815a",
+        "element_name": "div_100",
+        "tag": "div",
+        "text": "Practice Form",
+        "normalized_text": "practice form",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "element-list",
+          "collapse"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.element-group>div.accordion>div.left-pannel>div.col-12>div.row",
+        "parent_signature": "div.element-group>div.accordion",
+        "neighbor_text": "forms",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.element-list",
+        "fingerprint_hash": "277d4f7d7f8cc30dd33e1bd21dc3dc641057b79e703f4415298665c346fe45da",
+        "metadata_json": {
+          "attrs": {
+            "class": "element-list collapse"
+          },
+          "ordinal": 100
+        }
+      },
+      {
+        "element_id": "5c102cf7-6246-48b6-b756-d2fa3a41e943",
+        "element_name": "item-0_102",
+        "tag": "li",
+        "text": "Practice Form",
+        "normalized_text": "practice form",
+        "attr_id": "item-0",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "",
+        "position_signature": "li:1",
+        "xpath": "//*[@id='item-0']",
+        "css": "[id=\"item-0\"]",
+        "fingerprint_hash": "5663cbe9a2eaead512618ee8ed296a5bef73b156a3b4d58da84f7fbe5092c6a4",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-0"
+          },
+          "ordinal": 102
+        }
+      },
+      {
+        "element_id": "216f7bb4-e159-4558-979a-90f98f8ca7ec",
+        "element_name": "span_105",
+        "tag": "span",
+        "text": "Practice Form",
+        "normalized_text": "practice form",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-0>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-0>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "118730ba645529eead46479aae276c233e72afddd53273a43038df0d77765c87",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 105
+        }
+      },
+      {
+        "element_id": "96db36ab-a7f2-4518-84a0-ae25307a970f",
+        "element_name": "div_106",
+        "tag": "div",
+        "text": "Alerts, Frame & Windows Browser Windows Alerts Frames Nested Frames Modal Dialogs",
+        "normalized_text": "alerts, frame & windows browser windows alerts frames nested frames modal dialogs",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "element-group"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.accordion>div.left-pannel>div.col-12>div.row>div.container",
+        "parent_signature": "div.accordion>div.left-pannel",
+        "neighbor_text": "forms practice form widgets accordian auto complete date picker slider progress bar tabs tool tips menu select menu",
+        "position_signature": "div:3",
+        "xpath": "//div",
+        "css": "div.element-group",
+        "fingerprint_hash": "d83b73726bbc1eafc289e9a03807a449728022810baad70075b8770741cea60d",
+        "metadata_json": {
+          "attrs": {
+            "class": "element-group"
+          },
+          "ordinal": 106
+        }
+      },
+      {
+        "element_id": "4836c4b2-8621-4795-9abc-f5cac697a095",
+        "element_name": "span_107",
+        "tag": "span",
+        "text": "Alerts, Frame & Windows",
+        "normalized_text": "alerts, frame & windows",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "group-header"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.element-group>div.accordion>div.left-pannel>div.col-12>div.row",
+        "parent_signature": "div.element-group>div.accordion",
+        "neighbor_text": "browser windows alerts frames nested frames modal dialogs",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.group-header",
+        "fingerprint_hash": "1f9169d66e2c5d1c8d3dd728b21e483c81a595dd5dfb83b11c29c9e20d7a66b7",
+        "metadata_json": {
+          "attrs": {
+            "class": "group-header"
+          },
+          "ordinal": 107
+        }
+      },
+      {
+        "element_id": "d914bf0f-d227-417b-ab8a-83dfa781e376",
+        "element_name": "div_108",
+        "tag": "div",
+        "text": "Alerts, Frame & Windows",
+        "normalized_text": "alerts, frame & windows",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "header-wrapper"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "span.group-header>div.element-group>div.accordion>div.left-pannel>div.col-12",
+        "parent_signature": "span.group-header>div.element-group",
+        "neighbor_text": "",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.header-wrapper",
+        "fingerprint_hash": "508ddcadae6d4b18c660a8d9bc21a62992599b65a9899272d8aa37bd12dda0cb",
+        "metadata_json": {
+          "attrs": {
+            "class": "header-wrapper",
+            "style": "background: rgb(108, 117, 125);"
+          },
+          "ordinal": 108
+        }
+      },
+      {
+        "element_id": "c7d31f28-32cf-4dd3-a6e1-506142292620",
+        "element_name": "div_109",
+        "tag": "div",
+        "text": "Alerts, Frame & Windows",
+        "normalized_text": "alerts, frame & windows",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "header-text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.header-wrapper>span.group-header>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "div.header-wrapper>span.group-header",
+        "neighbor_text": "",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.header-text",
+        "fingerprint_hash": "ed0c9a8a36a7f843f6b8cf03b4c1a780515362b7b90ef403d6c7ba9d074b1b41",
+        "metadata_json": {
+          "attrs": {
+            "class": "header-text"
+          },
+          "ordinal": 109
+        }
+      },
+      {
+        "element_id": "a55e2811-59f2-46f4-9da1-edab392309ee",
+        "element_name": "div_120",
+        "tag": "div",
+        "text": "Browser Windows Alerts Frames Nested Frames Modal Dialogs",
+        "normalized_text": "browser windows alerts frames nested frames modal dialogs",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "element-list",
+          "collapse"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.element-group>div.accordion>div.left-pannel>div.col-12>div.row",
+        "parent_signature": "div.element-group>div.accordion",
+        "neighbor_text": "alerts, frame & windows",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.element-list",
+        "fingerprint_hash": "63c233e639959416a5d220a688d3780e21008d6275afb8732750ea70e1cdc651",
+        "metadata_json": {
+          "attrs": {
+            "class": "element-list collapse"
+          },
+          "ordinal": 120
+        }
+      },
+      {
+        "element_id": "0f62e408-5590-4941-84c1-1343f80610c6",
+        "element_name": "item-0_122",
+        "tag": "li",
+        "text": "Browser Windows",
+        "normalized_text": "browser windows",
+        "attr_id": "item-0",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "alerts",
+        "position_signature": "li:1",
+        "xpath": "//*[@id='item-0']",
+        "css": "[id=\"item-0\"]",
+        "fingerprint_hash": "ca5bd73e77b6eb3e4759c0ff9d09e5d632b54849afd36eac87834c94907d85e9",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-0"
+          },
+          "ordinal": 122
+        }
+      },
+      {
+        "element_id": "59d7d8b9-270c-4746-b016-6f67ada5c3db",
+        "element_name": "span_125",
+        "tag": "span",
+        "text": "Browser Windows",
+        "normalized_text": "browser windows",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-0>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-0>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "5efca9d3511a695d076c447161a05d672870d1f73da81c23be1b13057f94519a",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 125
+        }
+      },
+      {
+        "element_id": "69aaf8d4-ef72-4073-9aa2-e06eb554a25f",
+        "element_name": "item-1_126",
+        "tag": "li",
+        "text": "Alerts",
+        "normalized_text": "alerts",
+        "attr_id": "item-1",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "browser windows frames",
+        "position_signature": "li:2",
+        "xpath": "//*[@id='item-1']",
+        "css": "[id=\"item-1\"]",
+        "fingerprint_hash": "a6d8c563ddaf48e9427c4df40c50fdf50da018ad622ed13a5aa15c1510d6056a",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-1"
+          },
+          "ordinal": 126
+        }
+      },
+      {
+        "element_id": "5c5c7877-5b6c-4952-a474-878d08c31e8c",
+        "element_name": "span_129",
+        "tag": "span",
+        "text": "Alerts",
+        "normalized_text": "alerts",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-1>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-1>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "583bb96aeb2eb0df12e4e42afa63e330c2c0174be2876417c073e912d37d9f25",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 129
+        }
+      },
+      {
+        "element_id": "06817be1-4a6c-4678-aed2-52e63b87a0b4",
+        "element_name": "item-2_130",
+        "tag": "li",
+        "text": "Frames",
+        "normalized_text": "frames",
+        "attr_id": "item-2",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "alerts nested frames",
+        "position_signature": "li:3",
+        "xpath": "//*[@id='item-2']",
+        "css": "[id=\"item-2\"]",
+        "fingerprint_hash": "5d7c42135e569ac8d93f879b90e28a6459fa5b89ea6dd3871029294b360ccaa5",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-2"
+          },
+          "ordinal": 130
+        }
+      },
+      {
+        "element_id": "ae9b0170-ccd6-46d1-821d-29247fb71d8f",
+        "element_name": "span_133",
+        "tag": "span",
+        "text": "Frames",
+        "normalized_text": "frames",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-2>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-2>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "b317bcd115a5d709a9a63cf8990a42473715adcdd51cd16fa14af60b9dc386e2",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 133
+        }
+      },
+      {
+        "element_id": "8062524a-f3e0-4c9e-bbdd-d2ba34a788e6",
+        "element_name": "item-3_134",
+        "tag": "li",
+        "text": "Nested Frames",
+        "normalized_text": "nested frames",
+        "attr_id": "item-3",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "frames modal dialogs",
+        "position_signature": "li:4",
+        "xpath": "//*[@id='item-3']",
+        "css": "[id=\"item-3\"]",
+        "fingerprint_hash": "23944cdaec6f246cfdcb750f30fb8a67fada207a2e417e2c98dd0ba08a52da05",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-3"
+          },
+          "ordinal": 134
+        }
+      },
+      {
+        "element_id": "3bb5c7bf-87ea-4d43-b089-65c0188fffb6",
+        "element_name": "span_137",
+        "tag": "span",
+        "text": "Nested Frames",
+        "normalized_text": "nested frames",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-3>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-3>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "60404ba1a718614ba3ebb7aecf4d47cc6aacf5312142eb70baa5c03c152f9e94",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 137
+        }
+      },
+      {
+        "element_id": "edc7509d-e36c-463a-9d6b-983ed5cef2f0",
+        "element_name": "item-4_138",
+        "tag": "li",
+        "text": "Modal Dialogs",
+        "normalized_text": "modal dialogs",
+        "attr_id": "item-4",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "nested frames",
+        "position_signature": "li:5",
+        "xpath": "//*[@id='item-4']",
+        "css": "[id=\"item-4\"]",
+        "fingerprint_hash": "4619a9795613dd1833193627a3fc44b979d513ac9bb35dbb39e9efde9ea30396",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-4"
+          },
+          "ordinal": 138
+        }
+      },
+      {
+        "element_id": "a7fcdc88-91b4-447d-8b44-703934963da0",
+        "element_name": "span_141",
+        "tag": "span",
+        "text": "Modal Dialogs",
+        "normalized_text": "modal dialogs",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-4>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-4>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "d22772c3c0794dbdaafeace5520e68a6c2e1691299c16eb76319159816282be4",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 141
+        }
+      },
+      {
+        "element_id": "20c51488-2183-44be-b67c-6dc9389a61a2",
+        "element_name": "div_142",
+        "tag": "div",
+        "text": "Widgets Accordian Auto Complete Date Picker Slider Progress Bar Tabs Tool Tips Menu Select Menu",
+        "normalized_text": "widgets accordian auto complete date picker slider progress bar tabs tool tips menu select menu",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "element-group"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.accordion>div.left-pannel>div.col-12>div.row>div.container",
+        "parent_signature": "div.accordion>div.left-pannel",
+        "neighbor_text": "alerts, frame & windows browser windows alerts frames nested frames modal dialogs interactions sortable selectable resizable droppable dragabble",
+        "position_signature": "div:4",
+        "xpath": "//div",
+        "css": "div.element-group",
+        "fingerprint_hash": "4e50dd48a827af983cacfde4ba0388223d0c14e5c72cb8abeac1de1ee9df5bf4",
+        "metadata_json": {
+          "attrs": {
+            "class": "element-group"
+          },
+          "ordinal": 142
+        }
+      },
+      {
+        "element_id": "8de1f318-8547-4fc0-af55-93460f7c3687",
+        "element_name": "span_143",
+        "tag": "span",
+        "text": "Widgets",
+        "normalized_text": "widgets",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "group-header"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.element-group>div.accordion>div.left-pannel>div.col-12>div.row",
+        "parent_signature": "div.element-group>div.accordion",
+        "neighbor_text": "accordian auto complete date picker slider progress bar tabs tool tips menu select menu",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.group-header",
+        "fingerprint_hash": "c2d9f50656968a3d21d24c1d8c766dab85e5b9382d1eafe3d3f68475e6df9667",
+        "metadata_json": {
+          "attrs": {
+            "class": "group-header"
+          },
+          "ordinal": 143
+        }
+      },
+      {
+        "element_id": "fc50b2ee-a39d-4110-ab4c-588a53999d54",
+        "element_name": "div_144",
+        "tag": "div",
+        "text": "Widgets",
+        "normalized_text": "widgets",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "header-wrapper"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "span.group-header>div.element-group>div.accordion>div.left-pannel>div.col-12",
+        "parent_signature": "span.group-header>div.element-group",
+        "neighbor_text": "",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.header-wrapper",
+        "fingerprint_hash": "cb4f707ad79970fad23b3f21b5279d5e6956633083576f15e5fdfd476f5f3260",
+        "metadata_json": {
+          "attrs": {
+            "class": "header-wrapper",
+            "style": "background: rgb(108, 117, 125);"
+          },
+          "ordinal": 144
+        }
+      },
+      {
+        "element_id": "110818b3-cedf-4f6c-9bf2-a281318aaf1c",
+        "element_name": "div_145",
+        "tag": "div",
+        "text": "Widgets",
+        "normalized_text": "widgets",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "header-text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.header-wrapper>span.group-header>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "div.header-wrapper>span.group-header",
+        "neighbor_text": "",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.header-text",
+        "fingerprint_hash": "13925cb30792771e73cf7463006f69428a4498fdf8e2c1b3e75ee623f8bbd183",
+        "metadata_json": {
+          "attrs": {
+            "class": "header-text"
+          },
+          "ordinal": 145
+        }
+      },
+      {
+        "element_id": "91dbf831-a53d-47e7-a268-171ce10adab4",
+        "element_name": "div_156",
+        "tag": "div",
+        "text": "Accordian Auto Complete Date Picker Slider Progress Bar Tabs Tool Tips Menu Select Menu",
+        "normalized_text": "accordian auto complete date picker slider progress bar tabs tool tips menu select menu",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "element-list",
+          "collapse"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.element-group>div.accordion>div.left-pannel>div.col-12>div.row",
+        "parent_signature": "div.element-group>div.accordion",
+        "neighbor_text": "widgets",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.element-list",
+        "fingerprint_hash": "56c3754f573830ed6d5a22f301e932ebbafe0bd4cc90b91eb4ab4d9dea0ab171",
+        "metadata_json": {
+          "attrs": {
+            "class": "element-list collapse"
+          },
+          "ordinal": 156
+        }
+      },
+      {
+        "element_id": "2df11cc0-290f-4d9f-998e-ce5663e09f01",
+        "element_name": "item-0_158",
+        "tag": "li",
+        "text": "Accordian",
+        "normalized_text": "accordian",
+        "attr_id": "item-0",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "auto complete",
+        "position_signature": "li:1",
+        "xpath": "//*[@id='item-0']",
+        "css": "[id=\"item-0\"]",
+        "fingerprint_hash": "8d4f8f3c278640cdeba8fcb2fb758ed0645e5fdf860ed24a74e4292cc40814cf",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-0"
+          },
+          "ordinal": 158
+        }
+      },
+      {
+        "element_id": "1d03f450-f66a-45d8-aeb2-f54b20b9da65",
+        "element_name": "span_161",
+        "tag": "span",
+        "text": "Accordian",
+        "normalized_text": "accordian",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-0>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-0>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "1afdc9391aa33dd54bd385edd97fc08ac96cfab382201cadf093268f0c6339a4",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 161
+        }
+      },
+      {
+        "element_id": "6b7ace8e-97e8-43bd-8a88-409badc4562a",
+        "element_name": "item-1_162",
+        "tag": "li",
+        "text": "Auto Complete",
+        "normalized_text": "auto complete",
+        "attr_id": "item-1",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "accordian date picker",
+        "position_signature": "li:2",
+        "xpath": "//*[@id='item-1']",
+        "css": "[id=\"item-1\"]",
+        "fingerprint_hash": "0b20cfcffc758534810b3f308d38734cd4e773d8589a8d483feacdc39d9c629d",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-1"
+          },
+          "ordinal": 162
+        }
+      },
+      {
+        "element_id": "066e4011-2265-4693-ac49-dd7c99a774c3",
+        "element_name": "span_165",
+        "tag": "span",
+        "text": "Auto Complete",
+        "normalized_text": "auto complete",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-1>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-1>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "26f7eda8a5d5cfb6b005d8db67f8b02eadbaaad58eeb0eae3a4231715f7379f6",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 165
+        }
+      },
+      {
+        "element_id": "cc00f065-fee4-4760-82c4-6bffd0cbe019",
+        "element_name": "item-2_166",
+        "tag": "li",
+        "text": "Date Picker",
+        "normalized_text": "date picker",
+        "attr_id": "item-2",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "auto complete slider",
+        "position_signature": "li:3",
+        "xpath": "//*[@id='item-2']",
+        "css": "[id=\"item-2\"]",
+        "fingerprint_hash": "69c32a4a4ce932c9c7bb90fd4eb66128b476e9b2ede2286afa26328237cc1c49",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-2"
+          },
+          "ordinal": 166
+        }
+      },
+      {
+        "element_id": "123f1bd8-5620-4a53-9ab2-50210426dc44",
+        "element_name": "span_169",
+        "tag": "span",
+        "text": "Date Picker",
+        "normalized_text": "date picker",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-2>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-2>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "8546f13c33e5c609b742a406a1bf64cd5c99732da288059336f08745b6acde6a",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 169
+        }
+      },
+      {
+        "element_id": "e5c06f3a-a0bf-4b41-a400-dd41cc712646",
+        "element_name": "item-3_170",
+        "tag": "li",
+        "text": "Slider",
+        "normalized_text": "slider",
+        "attr_id": "item-3",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "date picker progress bar",
+        "position_signature": "li:4",
+        "xpath": "//*[@id='item-3']",
+        "css": "[id=\"item-3\"]",
+        "fingerprint_hash": "834acfdd78bc290681dae785d5623b39425495f8c78215b9fe3a94f2b9f9bf97",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-3"
+          },
+          "ordinal": 170
+        }
+      },
+      {
+        "element_id": "4d8309a3-40e1-4485-a9c7-55cc0cd43ac2",
+        "element_name": "span_173",
+        "tag": "span",
+        "text": "Slider",
+        "normalized_text": "slider",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-3>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-3>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "46cf40aa95890d90080b1580d9123220401f727682735c5aa542940f2c1db9cf",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 173
+        }
+      },
+      {
+        "element_id": "5cfa2dc9-a77e-4954-b999-57bd16f8c117",
+        "element_name": "item-4_174",
+        "tag": "li",
+        "text": "Progress Bar",
+        "normalized_text": "progress bar",
+        "attr_id": "item-4",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "slider tabs",
+        "position_signature": "li:5",
+        "xpath": "//*[@id='item-4']",
+        "css": "[id=\"item-4\"]",
+        "fingerprint_hash": "ef74d67c044612a07631b7199afd6e820d55907164d1876e151fbf4cac7d1c74",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-4"
+          },
+          "ordinal": 174
+        }
+      },
+      {
+        "element_id": "87084f14-3c18-41f6-acc9-db3602ed37b6",
+        "element_name": "span_177",
+        "tag": "span",
+        "text": "Progress Bar",
+        "normalized_text": "progress bar",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-4>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-4>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "50b1b9e895cfce8f5728ccb40cb64549adb449c3a73084b67afac2d284089fb8",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 177
+        }
+      },
+      {
+        "element_id": "b1215897-588c-44e3-ac96-86cbe300da30",
+        "element_name": "item-5_178",
+        "tag": "li",
+        "text": "Tabs",
+        "normalized_text": "tabs",
+        "attr_id": "item-5",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "progress bar tool tips",
+        "position_signature": "li:6",
+        "xpath": "//*[@id='item-5']",
+        "css": "[id=\"item-5\"]",
+        "fingerprint_hash": "a15fdf4118c00ad8d890e0dad51c6e942434fb044720409e55acd4bc076f7604",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-5"
+          },
+          "ordinal": 178
+        }
+      },
+      {
+        "element_id": "e3ed04f0-fea0-4ff8-a683-254bff96f561",
+        "element_name": "span_181",
+        "tag": "span",
+        "text": "Tabs",
+        "normalized_text": "tabs",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-5>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-5>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "a1944d77ba13a6cb154ac59b5ee083b5f460253eebf341911151489dc71dbe50",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 181
+        }
+      },
+      {
+        "element_id": "c8b6eb32-4485-4b00-b718-c033eb7f08e3",
+        "element_name": "item-6_182",
+        "tag": "li",
+        "text": "Tool Tips",
+        "normalized_text": "tool tips",
+        "attr_id": "item-6",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "tabs menu",
+        "position_signature": "li:7",
+        "xpath": "//*[@id='item-6']",
+        "css": "[id=\"item-6\"]",
+        "fingerprint_hash": "e0cb1a3412ef0e1d910b0253d8d39680b9398eedbd5d5001be8c27a45146d793",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-6"
+          },
+          "ordinal": 182
+        }
+      },
+      {
+        "element_id": "1bb39a81-1f01-4c54-b88a-8ebf0e32bab4",
+        "element_name": "span_185",
+        "tag": "span",
+        "text": "Tool Tips",
+        "normalized_text": "tool tips",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-6>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-6>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "d125174fa12092208870885919cbc3a6b25fe586fe2d97844d4ee1a727b51b7d",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 185
+        }
+      },
+      {
+        "element_id": "5a8884c4-270c-4cc2-9135-8575cf0d28eb",
+        "element_name": "item-7_186",
+        "tag": "li",
+        "text": "Menu",
+        "normalized_text": "menu",
+        "attr_id": "item-7",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "tool tips select menu",
+        "position_signature": "li:8",
+        "xpath": "//*[@id='item-7']",
+        "css": "[id=\"item-7\"]",
+        "fingerprint_hash": "823ef1db6955fe68b16cbdd89015befe68109b6676659799b1048427053316d3",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-7"
+          },
+          "ordinal": 186
+        }
+      },
+      {
+        "element_id": "c8c9a92f-7cd5-4464-8910-97d49bd00492",
+        "element_name": "span_189",
+        "tag": "span",
+        "text": "Menu",
+        "normalized_text": "menu",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-7>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-7>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "50f8dfa9279d52e25aebd9a61b9b129d751363153b9986f01e2a117a5f32beea",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 189
+        }
+      },
+      {
+        "element_id": "4e02abd6-c2b2-46f0-81fe-6376f68cabf0",
+        "element_name": "item-8_190",
+        "tag": "li",
+        "text": "Select Menu",
+        "normalized_text": "select menu",
+        "attr_id": "item-8",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "menu",
+        "position_signature": "li:9",
+        "xpath": "//*[@id='item-8']",
+        "css": "[id=\"item-8\"]",
+        "fingerprint_hash": "a06ca2e327f99600c95c6e455730a514439917fc0d9cf8d01c0abe157f6b6967",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-8"
+          },
+          "ordinal": 190
+        }
+      },
+      {
+        "element_id": "5d30c4c8-87de-46cd-bba0-2cdec5c432dc",
+        "element_name": "span_193",
+        "tag": "span",
+        "text": "Select Menu",
+        "normalized_text": "select menu",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-8>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-8>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "890ec876cbeb4ab58951929602ecbfd6a61232b9a8b36f02f60c58a920277aae",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 193
+        }
+      },
+      {
+        "element_id": "5003612d-0571-440a-9588-48408205716e",
+        "element_name": "div_194",
+        "tag": "div",
+        "text": "Interactions Sortable Selectable Resizable Droppable Dragabble",
+        "normalized_text": "interactions sortable selectable resizable droppable dragabble",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "element-group"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.accordion>div.left-pannel>div.col-12>div.row>div.container",
+        "parent_signature": "div.accordion>div.left-pannel",
+        "neighbor_text": "widgets accordian auto complete date picker slider progress bar tabs tool tips menu select menu book store application login book store profile book store api",
+        "position_signature": "div:5",
+        "xpath": "//div",
+        "css": "div.element-group",
+        "fingerprint_hash": "591f684c2b61b9ed6725fa9fda437e8a1606a6ba31e717a7b258622840eab681",
+        "metadata_json": {
+          "attrs": {
+            "class": "element-group"
+          },
+          "ordinal": 194
+        }
+      },
+      {
+        "element_id": "ad140b1e-b08e-4686-a4e2-fcc4199fb961",
+        "element_name": "span_195",
+        "tag": "span",
+        "text": "Interactions",
+        "normalized_text": "interactions",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "group-header"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.element-group>div.accordion>div.left-pannel>div.col-12>div.row",
+        "parent_signature": "div.element-group>div.accordion",
+        "neighbor_text": "sortable selectable resizable droppable dragabble",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.group-header",
+        "fingerprint_hash": "ced0acefb4c728dc8c2fdfa0db3d49969ccddcee3d0a2797b1c98180a194fe7b",
+        "metadata_json": {
+          "attrs": {
+            "class": "group-header"
+          },
+          "ordinal": 195
+        }
+      },
+      {
+        "element_id": "55374ddb-7e78-412b-acba-4c9ad8cd6b2b",
+        "element_name": "div_196",
+        "tag": "div",
+        "text": "Interactions",
+        "normalized_text": "interactions",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "header-wrapper"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "span.group-header>div.element-group>div.accordion>div.left-pannel>div.col-12",
+        "parent_signature": "span.group-header>div.element-group",
+        "neighbor_text": "",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.header-wrapper",
+        "fingerprint_hash": "d50a2bd6e8855ebf7f62ac9385a1834fbc0e0bca733b065459350867be96da80",
+        "metadata_json": {
+          "attrs": {
+            "class": "header-wrapper",
+            "style": "background: rgb(108, 117, 125);"
+          },
+          "ordinal": 196
+        }
+      },
+      {
+        "element_id": "de02ff64-75bb-4f0d-81bf-0844debad403",
+        "element_name": "div_197",
+        "tag": "div",
+        "text": "Interactions",
+        "normalized_text": "interactions",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "header-text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.header-wrapper>span.group-header>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "div.header-wrapper>span.group-header",
+        "neighbor_text": "",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.header-text",
+        "fingerprint_hash": "d5a6ef12d60240d7e9ebe8f050969d33bcc4555fd0282894700a7988ad7b820c",
+        "metadata_json": {
+          "attrs": {
+            "class": "header-text"
+          },
+          "ordinal": 197
+        }
+      },
+      {
+        "element_id": "67db64be-7397-406b-9d41-b133178cd479",
+        "element_name": "div_208",
+        "tag": "div",
+        "text": "Sortable Selectable Resizable Droppable Dragabble",
+        "normalized_text": "sortable selectable resizable droppable dragabble",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "element-list",
+          "collapse"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.element-group>div.accordion>div.left-pannel>div.col-12>div.row",
+        "parent_signature": "div.element-group>div.accordion",
+        "neighbor_text": "interactions",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.element-list",
+        "fingerprint_hash": "8dd0b5b9324521f7e6f8414f6a291fce53d52a90c85dee73a301e0c0f05043f9",
+        "metadata_json": {
+          "attrs": {
+            "class": "element-list collapse"
+          },
+          "ordinal": 208
+        }
+      },
+      {
+        "element_id": "7ee6a466-e750-4b10-8c20-db4df30e48c1",
+        "element_name": "item-0_210",
+        "tag": "li",
+        "text": "Sortable",
+        "normalized_text": "sortable",
+        "attr_id": "item-0",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "selectable",
+        "position_signature": "li:1",
+        "xpath": "//*[@id='item-0']",
+        "css": "[id=\"item-0\"]",
+        "fingerprint_hash": "43ab7f8488669f6dd0e2eda04a915e77f240f4edefcade42029c5c5632982ccb",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-0"
+          },
+          "ordinal": 210
+        }
+      },
+      {
+        "element_id": "0b6eb521-e76e-42d5-96b9-8dd0da509f8d",
+        "element_name": "span_213",
+        "tag": "span",
+        "text": "Sortable",
+        "normalized_text": "sortable",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-0>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-0>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "e9ed4aa9e6fc8475b75b3bdf87e13a4bea50086bad33a449ec0991b1b0628f82",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 213
+        }
+      },
+      {
+        "element_id": "cf3c4bbc-b8b4-4a85-a411-8d0ab4013e89",
+        "element_name": "item-1_214",
+        "tag": "li",
+        "text": "Selectable",
+        "normalized_text": "selectable",
+        "attr_id": "item-1",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "sortable resizable",
+        "position_signature": "li:2",
+        "xpath": "//*[@id='item-1']",
+        "css": "[id=\"item-1\"]",
+        "fingerprint_hash": "d543f9a32908da259be1be0370b7300d005ec69c38bdb4b032d882fdf210dfbf",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-1"
+          },
+          "ordinal": 214
+        }
+      },
+      {
+        "element_id": "2b6c6c60-6bb0-4139-bcb9-744c343290b2",
+        "element_name": "span_217",
+        "tag": "span",
+        "text": "Selectable",
+        "normalized_text": "selectable",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-1>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-1>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "ae51a2d351761b1a463100cb0502d35bc74f860e35ede687953dc6031c626325",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 217
+        }
+      },
+      {
+        "element_id": "347823c9-0ab9-493e-8333-d00a65bddb95",
+        "element_name": "item-2_218",
+        "tag": "li",
+        "text": "Resizable",
+        "normalized_text": "resizable",
+        "attr_id": "item-2",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "selectable droppable",
+        "position_signature": "li:3",
+        "xpath": "//*[@id='item-2']",
+        "css": "[id=\"item-2\"]",
+        "fingerprint_hash": "7b74d1b5db85fcbc5aa1a7990aa073b49a3ec6f1037159246db3aef9b19072a2",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-2"
+          },
+          "ordinal": 218
+        }
+      },
+      {
+        "element_id": "c88b0406-e723-4556-8fd7-f8bacbddb1d6",
+        "element_name": "span_221",
+        "tag": "span",
+        "text": "Resizable",
+        "normalized_text": "resizable",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-2>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-2>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "0098bbdc8642f8c9e437ff718c186c666f1e1ad2f1f0875fe10c03420df358dd",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 221
+        }
+      },
+      {
+        "element_id": "4b861f55-6c28-4188-b875-b8b496148e47",
+        "element_name": "item-3_222",
+        "tag": "li",
+        "text": "Droppable",
+        "normalized_text": "droppable",
+        "attr_id": "item-3",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "resizable dragabble",
+        "position_signature": "li:4",
+        "xpath": "//*[@id='item-3']",
+        "css": "[id=\"item-3\"]",
+        "fingerprint_hash": "5d51c03a660f15abe22d6e215b2ebd8923731818f4067649d0505732c5680166",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-3"
+          },
+          "ordinal": 222
+        }
+      },
+      {
+        "element_id": "323c29e3-2ed0-497a-a8cd-6b4a4db37de3",
+        "element_name": "span_225",
+        "tag": "span",
+        "text": "Droppable",
+        "normalized_text": "droppable",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-3>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-3>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "9d5ac3a03634a61e0c511e96177e5f916e0f071122e380cfb2bda93693615055",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 225
+        }
+      },
+      {
+        "element_id": "71e0f01f-8c8d-4438-91e0-ef5a17d5b8c4",
+        "element_name": "item-4_226",
+        "tag": "li",
+        "text": "Dragabble",
+        "normalized_text": "dragabble",
+        "attr_id": "item-4",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "droppable",
+        "position_signature": "li:5",
+        "xpath": "//*[@id='item-4']",
+        "css": "[id=\"item-4\"]",
+        "fingerprint_hash": "4b9ef53eb44cd110dcfb1dba618f4072fb826b92e9ecdaa469edf40e933a7d9a",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-4"
+          },
+          "ordinal": 226
+        }
+      },
+      {
+        "element_id": "6c2b3cdb-a98a-4e1f-9007-cac03605298e",
+        "element_name": "span_229",
+        "tag": "span",
+        "text": "Dragabble",
+        "normalized_text": "dragabble",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-4>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-4>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "c6a1a5f66b362f6e54bb2087623bdc14da688b3c76f2f13da80cadbd9b8c4040",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 229
+        }
+      },
+      {
+        "element_id": "bd591899-9b29-4805-ae90-71744d8e3218",
+        "element_name": "div_230",
+        "tag": "div",
+        "text": "Book Store Application Login Book Store Profile Book Store API",
+        "normalized_text": "book store application login book store profile book store api",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "element-group"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.accordion>div.left-pannel>div.col-12>div.row>div.container",
+        "parent_signature": "div.accordion>div.left-pannel",
+        "neighbor_text": "interactions sortable selectable resizable droppable dragabble",
+        "position_signature": "div:6",
+        "xpath": "//div",
+        "css": "div.element-group",
+        "fingerprint_hash": "b470ace18d6c625136db7dfe36193bbd10f75affe317c05d09f20d718ecbc1f4",
+        "metadata_json": {
+          "attrs": {
+            "class": "element-group"
+          },
+          "ordinal": 230
+        }
+      },
+      {
+        "element_id": "c6fbb242-d16a-482d-978b-45a4b1049a5d",
+        "element_name": "span_231",
+        "tag": "span",
+        "text": "Book Store Application",
+        "normalized_text": "book store application",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "group-header"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.element-group>div.accordion>div.left-pannel>div.col-12>div.row",
+        "parent_signature": "div.element-group>div.accordion",
+        "neighbor_text": "login book store profile book store api",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.group-header",
+        "fingerprint_hash": "e7e1858c6456aaf6d410a4e721c24b1673876d1dd7111c03760a2001c20ace62",
+        "metadata_json": {
+          "attrs": {
+            "class": "group-header"
+          },
+          "ordinal": 231
+        }
+      },
+      {
+        "element_id": "986d1197-bbe9-4a3f-b26d-428709f3335e",
+        "element_name": "div_232",
+        "tag": "div",
+        "text": "Book Store Application",
+        "normalized_text": "book store application",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "header-wrapper"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "span.group-header>div.element-group>div.accordion>div.left-pannel>div.col-12",
+        "parent_signature": "span.group-header>div.element-group",
+        "neighbor_text": "",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.header-wrapper",
+        "fingerprint_hash": "4a939a7f2dafa107d60894080c0089ca08dd1fec628c812f94143a4d131fc388",
+        "metadata_json": {
+          "attrs": {
+            "class": "header-wrapper",
+            "style": "background: rgb(108, 117, 125);"
+          },
+          "ordinal": 232
+        }
+      },
+      {
+        "element_id": "f5706d6d-876f-4ab9-b0cc-ccac75b7a30d",
+        "element_name": "div_233",
+        "tag": "div",
+        "text": "Book Store Application",
+        "normalized_text": "book store application",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "header-text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.header-wrapper>span.group-header>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "div.header-wrapper>span.group-header",
+        "neighbor_text": "",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.header-text",
+        "fingerprint_hash": "8322a10118c4c0d3b1890d9042041ca92f21d837a5c9ef9b391eed949b0b8afa",
+        "metadata_json": {
+          "attrs": {
+            "class": "header-text"
+          },
+          "ordinal": 233
+        }
+      },
+      {
+        "element_id": "a682f0bb-0b5e-4043-b182-8d9473c72a3e",
+        "element_name": "div_244",
+        "tag": "div",
+        "text": "Login Book Store Profile Book Store API",
+        "normalized_text": "login book store profile book store api",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "element-list",
+          "collapse"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.element-group>div.accordion>div.left-pannel>div.col-12>div.row",
+        "parent_signature": "div.element-group>div.accordion",
+        "neighbor_text": "book store application",
+        "position_signature": "div:1",
+        "xpath": "//div",
+        "css": "div.element-list",
+        "fingerprint_hash": "bbdc51fca97775e3ced26ce6ce29baab654add75a7235edc51e3ab435f282ffa",
+        "metadata_json": {
+          "attrs": {
+            "class": "element-list collapse"
+          },
+          "ordinal": 244
+        }
+      },
+      {
+        "element_id": "1adb6d19-4f59-4a38-84c9-d0e6a1dbe864",
+        "element_name": "item-0_246",
+        "tag": "li",
+        "text": "Login",
+        "normalized_text": "login",
+        "attr_id": "item-0",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "book store",
+        "position_signature": "li:1",
+        "xpath": "//*[@id='item-0']",
+        "css": "[id=\"item-0\"]",
+        "fingerprint_hash": "d0e3c55ff803b79b43ad41f34f8043be9153cae6a62cf5079e6b44eec9db7c9c",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-0"
+          },
+          "ordinal": 246
+        }
+      },
+      {
+        "element_id": "879f00c9-9964-41d3-8f99-a5543333e2ef",
+        "element_name": "span_249",
+        "tag": "span",
+        "text": "Login",
+        "normalized_text": "login",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-0>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-0>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "780b9039dfd574567fda17942c4dfddcbcd808330af76c0ab11989c9ab81ca73",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 249
+        }
+      },
+      {
+        "element_id": "1846c32a-5612-4789-9f45-8760ee2a92fe",
+        "element_name": "item-2_250",
+        "tag": "li",
+        "text": "Book Store",
+        "normalized_text": "book store",
+        "attr_id": "item-2",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "login profile",
+        "position_signature": "li:2",
+        "xpath": "//*[@id='item-2']",
+        "css": "[id=\"item-2\"]",
+        "fingerprint_hash": "df2dfdbb812647341317c9257454976f4cf0bcc5bf1fbb9b6721dc28e0a0809e",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-2"
+          },
+          "ordinal": 250
+        }
+      },
+      {
+        "element_id": "9d58af46-2dec-4cb6-a867-5de966e85650",
+        "element_name": "span_253",
+        "tag": "span",
+        "text": "Book Store",
+        "normalized_text": "book store",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-2>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-2>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "f961e6018e9a95f7ca7d6d5b7c39a97e54fbc9d403407936afd7eb9954716d56",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 253
+        }
+      },
+      {
+        "element_id": "be6b14bb-debf-41d6-bad7-5e1bd66e943d",
+        "element_name": "item-3_254",
+        "tag": "li",
+        "text": "Profile",
+        "normalized_text": "profile",
+        "attr_id": "item-3",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "book store book store api",
+        "position_signature": "li:3",
+        "xpath": "//*[@id='item-3']",
+        "css": "[id=\"item-3\"]",
+        "fingerprint_hash": "6c194d060dd5c1da71fa5d71a30b37de442c798027b432943539cf24512d0612",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-3"
+          },
+          "ordinal": 254
+        }
+      },
+      {
+        "element_id": "64172285-8a4c-4c98-809d-7bf64eb6b189",
+        "element_name": "span_257",
+        "tag": "span",
+        "text": "Profile",
+        "normalized_text": "profile",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-3>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-3>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "58ae5113a8aab0611ad6368c71ee5093fba625e842eaffe47bdda9b4d51d0521",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 257
+        }
+      },
+      {
+        "element_id": "2ac3f7ae-aac8-406c-b986-1f4c2f9debb2",
+        "element_name": "item-4_258",
+        "tag": "li",
+        "text": "Book Store API",
+        "normalized_text": "book store api",
+        "attr_id": "item-4",
+        "attr_name": "",
+        "class_tokens": [
+          "btn",
+          "btn-light"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "ul.menu-list>div.element-list>div.element-group>div.accordion>div.left-pannel",
+        "parent_signature": "ul.menu-list>div.element-list",
+        "neighbor_text": "profile",
+        "position_signature": "li:4",
+        "xpath": "//*[@id='item-4']",
+        "css": "[id=\"item-4\"]",
+        "fingerprint_hash": "a44699c6f55311618297df42ff3325c4c277d336e8b057e8ecd037ebb3712055",
+        "metadata_json": {
+          "attrs": {
+            "class": "btn btn-light",
+            "id": "item-4"
+          },
+          "ordinal": 258
+        }
+      },
+      {
+        "element_id": "bcb95aeb-1e78-4d58-9f27-73e34e63f121",
+        "element_name": "span_261",
+        "tag": "span",
+        "text": "Book Store API",
+        "normalized_text": "book store api",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li#item-4>ul.menu-list>div.element-list>div.element-group>div.accordion",
+        "parent_signature": "li#item-4>ul.menu-list",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.text",
+        "fingerprint_hash": "af3442d28e60b39aa425a9694bd58420245c1109bcca30e3d9da5fb720283b4b",
+        "metadata_json": {
+          "attrs": {
+            "class": "text"
+          },
+          "ordinal": 261
+        }
+      },
+      {
+        "element_id": "1cab7a4a-8478-4fda-8d0b-50c5fb9f11b2",
+        "element_name": "div_262",
+        "tag": "div",
+        "text": "Check Box Home You have selected : desktop notes commands",
+        "normalized_text": "check box home you have selected : desktop notes commands",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "col-12",
+          "mt-4",
+          "col-md-6"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.row>div.container>div.body-height>div#app>body",
+        "parent_signature": "div.row>div.container",
+        "neighbor_text": "elements text box check box radio button web tables buttons links broken links - images upload and download dynamic properties forms practice form alerts, frame & windows browser windows alerts frames nested frames modal dialogs widgets accordian auto complete date picker slider progress bar tabs tool tips menu select menu interactions sortable selectable resizable droppable dragabble book store application login book store profile book store api",
+        "position_signature": "div:2",
+        "xpath": "//div",
+        "css": "div.col-12",
+        "fingerprint_hash": "5fc08bb8401388838a1c9558fb0d4e5f71adc931be8b5b824a6113cb5e9bf96c",
+        "metadata_json": {
+          "attrs": {
+            "class": "col-12 mt-4 col-md-6"
+          },
+          "ordinal": 262
+        }
+      },
+      {
+        "element_id": "c1c026b1-4bb2-4806-b8b9-8422cb0362a5",
+        "element_name": "ad.plus-970x250-1_263",
+        "tag": "div",
+        "text": "",
+        "normalized_text": "",
+        "attr_id": "Ad.Plus-970x250-1",
+        "attr_name": "",
+        "class_tokens": [],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.col-12>div.row>div.container>div.body-height>div#app",
+        "parent_signature": "div.col-12>div.row",
+        "neighbor_text": "check box",
+        "position_signature": "div:1",
+        "xpath": "//*[@id='Ad.Plus-970x250-1']",
+        "css": "[id=\"Ad.Plus-970x250-1\"]",
+        "fingerprint_hash": "0a098fc4767bc925443ac28dea8a4ec949697877457f935cd8aa4642688a7c60",
+        "metadata_json": {
+          "attrs": {
+            "id": "Ad.Plus-970x250-1",
+            "style": "margin-bottom: 50px;"
+          },
+          "ordinal": 263
+        }
+      },
+      {
+        "element_id": "09ec9998-5993-4e2e-9c73-bf7291fd191c",
+        "element_name": "div_265",
+        "tag": "div",
+        "text": "Home You have selected : desktop notes commands",
+        "normalized_text": "home you have selected : desktop notes commands",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "check-box-tree-wrapper"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.col-12>div.row>div.container>div.body-height>div#app",
+        "parent_signature": "div.col-12>div.row",
+        "neighbor_text": "check box",
+        "position_signature": "div:2",
+        "xpath": "//div",
+        "css": "div.check-box-tree-wrapper",
+        "fingerprint_hash": "426f8dadb3ec49261687af8dba81a3a5a311fb4dc9902a2b838e7a22b58ce0d8",
+        "metadata_json": {
+          "attrs": {
+            "class": "check-box-tree-wrapper"
+          },
+          "ordinal": 265
+        }
+      },
+      {
+        "element_id": "f41d00f3-594a-42a2-b59c-5a2de037c632",
+        "element_name": "tree-node_266",
+        "tag": "div",
+        "text": "Home",
+        "normalized_text": "home",
+        "attr_id": "tree-node",
+        "attr_name": "",
+        "class_tokens": [
+          "react-checkbox-tree",
+          "rct-icons-fa4"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.check-box-tree-wrapper>div.col-12>div.row>div.container>div.body-height",
+        "parent_signature": "div.check-box-tree-wrapper>div.col-12",
+        "neighbor_text": "you have selected : desktop notes commands",
+        "position_signature": "div:1",
+        "xpath": "//*[@id='tree-node']",
+        "css": "[id=\"tree-node\"]",
+        "fingerprint_hash": "1c5a711d06841c02603656e5779b7ce866bfab727ef32278cff899edeb74d71c",
+        "metadata_json": {
+          "attrs": {
+            "class": "react-checkbox-tree rct-icons-fa4",
+            "id": "tree-node"
+          },
+          "ordinal": 266
+        }
+      },
+      {
+        "element_id": "b7f4094e-ac3c-49be-9348-1757f3f115fc",
+        "element_name": "expand_all_268",
+        "tag": "button",
+        "text": "",
+        "normalized_text": "",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "rct-option",
+          "rct-option-expand-all"
+        ],
+        "role": "button",
+        "aria_label": "Expand all",
+        "placeholder": "",
+        "container_path": "div.rct-options>div#tree-node>div.check-box-tree-wrapper>div.col-12>div.row",
+        "parent_signature": "div.rct-options>div#tree-node",
+        "neighbor_text": "",
+        "position_signature": "button:1",
+        "xpath": "//button",
+        "css": "button[aria-label=\"Expand all\"]",
+        "fingerprint_hash": "60a12fb7374fbaa265b1b0e59cf6df7b19ec11a1f569a376c0bf6d9afbbf4f8d",
+        "metadata_json": {
+          "attrs": {
+            "aria-label": "Expand all",
+            "title": "Expand all",
+            "type": "button",
+            "class": "rct-option rct-option-expand-all"
+          },
+          "ordinal": 268
+        }
+      },
+      {
+        "element_id": "c50e1937-8ec6-470c-9140-d0b3dfd2ea64",
+        "element_name": "collapse_all_271",
+        "tag": "button",
+        "text": "",
+        "normalized_text": "",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "rct-option",
+          "rct-option-collapse-all"
+        ],
+        "role": "button",
+        "aria_label": "Collapse all",
+        "placeholder": "",
+        "container_path": "div.rct-options>div#tree-node>div.check-box-tree-wrapper>div.col-12>div.row",
+        "parent_signature": "div.rct-options>div#tree-node",
+        "neighbor_text": "",
+        "position_signature": "button:2",
+        "xpath": "//button",
+        "css": "button[aria-label=\"Collapse all\"]",
+        "fingerprint_hash": "5ea004482ddcd2258fa5587d4aa101f1f1b4ed0aa239ad78fafb3ded09689f2b",
+        "metadata_json": {
+          "attrs": {
+            "aria-label": "Collapse all",
+            "title": "Collapse all",
+            "type": "button",
+            "class": "rct-option rct-option-collapse-all"
+          },
+          "ordinal": 271
+        }
+      },
+      {
+        "element_id": "175bb557-edb9-44e6-ad6e-5bda65d9b71f",
+        "element_name": "span_276",
+        "tag": "span",
+        "text": "Home",
+        "normalized_text": "home",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "rct-text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "li.rct-node>ol>div#tree-node>div.check-box-tree-wrapper>div.col-12",
+        "parent_signature": "li.rct-node>ol",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span.rct-text",
+        "fingerprint_hash": "43bdec69c10b452690839975f5904c1ae3da875980782744627396c4191cfdbe",
+        "metadata_json": {
+          "attrs": {
+            "class": "rct-text"
+          },
+          "ordinal": 276
+        }
+      },
+      {
+        "element_id": "67ee1d3d-9ce3-4888-871c-d376d0cbe398",
+        "element_name": "toggle_277",
+        "tag": "button",
+        "text": "",
+        "normalized_text": "",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "rct-collapse",
+          "rct-collapse-btn"
+        ],
+        "role": "button",
+        "aria_label": "Toggle",
+        "placeholder": "",
+        "container_path": "span.rct-text>li.rct-node>ol>div#tree-node>div.check-box-tree-wrapper",
+        "parent_signature": "span.rct-text>li.rct-node",
+        "neighbor_text": "home",
+        "position_signature": "button:1",
+        "xpath": "//button",
+        "css": "button[aria-label=\"Toggle\"]",
+        "fingerprint_hash": "781156f0dea0056a72bd8e4ddbdcfe2f100309a25fa1d8a0c89d12cff959f7ab",
+        "metadata_json": {
+          "attrs": {
+            "aria-label": "Toggle",
+            "title": "Toggle",
+            "type": "button",
+            "class": "rct-collapse rct-collapse-btn"
+          },
+          "ordinal": 277
+        }
+      },
+      {
+        "element_id": "8e661d15-3756-4201-ab25-fbb3f438fbf3",
+        "element_name": "label_280",
+        "tag": "label",
+        "text": "Home",
+        "normalized_text": "home",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "span.rct-text>li.rct-node>ol>div#tree-node>div.check-box-tree-wrapper",
+        "parent_signature": "span.rct-text>li.rct-node",
+        "neighbor_text": "",
+        "position_signature": "label:1",
+        "xpath": "//label[normalize-space()='Home']",
+        "css": "label",
+        "fingerprint_hash": "5156b1662ec873be2a3edc7a024d612aef2fba02ca6f6f46b04e02426c6ce6f3",
+        "metadata_json": {
+          "attrs": {
+            "for": "tree-node-home"
+          },
+          "ordinal": 280
+        }
+      },
+      {
+        "element_id": "63427a65-d644-4bbc-9247-c2bb8108868c",
+        "element_name": "tree-node-home_281",
+        "tag": "input",
+        "text": "",
+        "normalized_text": "",
+        "attr_id": "tree-node-home",
+        "attr_name": "",
+        "class_tokens": [],
+        "role": "checkbox",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "label>span.rct-text>li.rct-node>ol>div#tree-node",
+        "parent_signature": "label>span.rct-text",
+        "neighbor_text": "",
+        "position_signature": "input:1",
+        "xpath": "//*[@id='tree-node-home']",
+        "css": "[id=\"tree-node-home\"]",
+        "fingerprint_hash": "25f16d69edac41a9f4a9866af6d8da9a191198b8de11d6ca811421192e7b702e",
+        "metadata_json": {
+          "attrs": {
+            "id": "tree-node-home",
+            "type": "checkbox"
+          },
+          "ordinal": 281
+        }
+      },
+      {
+        "element_id": "a02a02ef-40c4-424a-a2cd-fd9eb627d908",
+        "element_name": "span_288",
+        "tag": "span",
+        "text": "Home",
+        "normalized_text": "home",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "rct-title"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "label>span.rct-text>li.rct-node>ol>div#tree-node",
+        "parent_signature": "label>span.rct-text",
+        "neighbor_text": "",
+        "position_signature": "span:3",
+        "xpath": "//span",
+        "css": "span.rct-title",
+        "fingerprint_hash": "0f302fecc2306c5efb9e4b358f43de606d7d31efe73985eed7c5c5d4b06dfc0a",
+        "metadata_json": {
+          "attrs": {
+            "class": "rct-title"
+          },
+          "ordinal": 288
+        }
+      },
+      {
+        "element_id": "e84f7169-d0ce-43ab-827e-bcfc8ba6871d",
+        "element_name": "result_289",
+        "tag": "div",
+        "text": "You have selected : desktop notes commands",
+        "normalized_text": "you have selected : desktop notes commands",
+        "attr_id": "result",
+        "attr_name": "",
+        "class_tokens": [
+          "display-result",
+          "mt-4"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.check-box-tree-wrapper>div.col-12>div.row>div.container>div.body-height",
+        "parent_signature": "div.check-box-tree-wrapper>div.col-12",
+        "neighbor_text": "home",
+        "position_signature": "div:2",
+        "xpath": "//*[@id='result']",
+        "css": "[id=\"result\"]",
+        "fingerprint_hash": "1a209c26c4d23fea2428998dd0e1c81ad408134260a74bead855dd2b60de2f59",
+        "metadata_json": {
+          "attrs": {
+            "id": "result",
+            "class": "display-result mt-4"
+          },
+          "ordinal": 289
+        }
+      },
+      {
+        "element_id": "47b98b73-1ebb-4308-988e-51e7636be505",
+        "element_name": "span_290",
+        "tag": "span",
+        "text": "You have selected :",
+        "normalized_text": "you have selected :",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div#result>div.check-box-tree-wrapper>div.col-12>div.row>div.container",
+        "parent_signature": "div#result>div.check-box-tree-wrapper",
+        "neighbor_text": "desktop",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span",
+        "fingerprint_hash": "7b565e346643ccd1cb53e9ee40daa7db9861dd4e9ffc27b90968f552a0e455f1",
+        "metadata_json": {
+          "attrs": {},
+          "ordinal": 290
+        }
+      },
+      {
+        "element_id": "a3c7da64-2561-43ed-bb6b-5cc49bd1a187",
+        "element_name": "span_291",
+        "tag": "span",
+        "text": "desktop",
+        "normalized_text": "desktop",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text-success"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div#result>div.check-box-tree-wrapper>div.col-12>div.row>div.container",
+        "parent_signature": "div#result>div.check-box-tree-wrapper",
+        "neighbor_text": "you have selected : notes",
+        "position_signature": "span:2",
+        "xpath": "//span",
+        "css": "span.text-success",
+        "fingerprint_hash": "f9c06a73e69cc2dad8fec6390807c9d18d03c2cb974796686570786d089a3c52",
+        "metadata_json": {
+          "attrs": {
+            "class": "text-success"
+          },
+          "ordinal": 291
+        }
+      },
+      {
+        "element_id": "c9799500-17f7-42e6-a017-cff564a7000b",
+        "element_name": "span_292",
+        "tag": "span",
+        "text": "notes",
+        "normalized_text": "notes",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text-success"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div#result>div.check-box-tree-wrapper>div.col-12>div.row>div.container",
+        "parent_signature": "div#result>div.check-box-tree-wrapper",
+        "neighbor_text": "desktop commands",
+        "position_signature": "span:3",
+        "xpath": "//span",
+        "css": "span.text-success",
+        "fingerprint_hash": "a24ee658eab947cb88026180e300bc958f16716c67e2661b88c7007dab663ada",
+        "metadata_json": {
+          "attrs": {
+            "class": "text-success"
+          },
+          "ordinal": 292
+        }
+      },
+      {
+        "element_id": "0dd1c3ec-f13a-453d-ae0f-0b0a28c6cba0",
+        "element_name": "span_293",
+        "tag": "span",
+        "text": "commands",
+        "normalized_text": "commands",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "text-success"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div#result>div.check-box-tree-wrapper>div.col-12>div.row>div.container",
+        "parent_signature": "div#result>div.check-box-tree-wrapper",
+        "neighbor_text": "notes",
+        "position_signature": "span:4",
+        "xpath": "//span",
+        "css": "span.text-success",
+        "fingerprint_hash": "2151a27cfc3fc782f17e013b4d3fad7876566ecbb8313a8d73c2f609acdd5725",
+        "metadata_json": {
+          "attrs": {
+            "class": "text-success"
+          },
+          "ordinal": 293
+        }
+      },
+      {
+        "element_id": "b446a7a5-d13f-4729-b385-8d3bd3cfd023",
+        "element_name": "ad.plus-970x250-2_295",
+        "tag": "div",
+        "text": "",
+        "normalized_text": "",
+        "attr_id": "Ad.Plus-970x250-2",
+        "attr_name": "",
+        "class_tokens": [],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div>div.col-12>div.row>div.container>div.body-height",
+        "parent_signature": "div>div.col-12",
+        "neighbor_text": "",
+        "position_signature": "div:1",
+        "xpath": "//*[@id='Ad.Plus-970x250-2']",
+        "css": "[id=\"Ad.Plus-970x250-2\"]",
+        "fingerprint_hash": "2a2c33f61a7b85ce4ad06a0c1cf4e16aa43703af71a29ecbe984fdcb873b7ce5",
+        "metadata_json": {
+          "attrs": {
+            "id": "Ad.Plus-970x250-2",
+            "style": "margin-bottom: 50px;"
+          },
+          "ordinal": 295
+        }
+      },
+      {
+        "element_id": "e5e86e21-f442-452b-854f-3b74c09ead31",
+        "element_name": "rightside_advertisement_299",
+        "tag": "section",
+        "text": "",
+        "normalized_text": "",
+        "attr_id": "RightSide_Advertisement",
+        "attr_name": "",
+        "class_tokens": [
+          "widget",
+          "widget_text"
+        ],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.sidebar-content>div.col-12>div.row>div.container>div.body-height",
+        "parent_signature": "div.sidebar-content>div.col-12",
+        "neighbor_text": "",
+        "position_signature": "section:1",
+        "xpath": "//*[@id='RightSide_Advertisement']",
+        "css": "[id=\"RightSide_Advertisement\"]",
+        "fingerprint_hash": "fd1fe45c8f24aa638a3fa64cdfcf3c083ff4957975269201b7fd0adc798b8153",
+        "metadata_json": {
+          "attrs": {
+            "id": "RightSide_Advertisement",
+            "class": "widget widget_text"
+          },
+          "ordinal": 299
+        }
+      },
+      {
+        "element_id": "04c1ef24-8cae-4549-a572-762633231f52",
+        "element_name": "a_302",
+        "tag": "a",
+        "text": "",
+        "normalized_text": "",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [
+          "cursor-pointer"
+        ],
+        "role": "link",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.google-ad>div.advertisement-section>section#rightside_advertisement>div.sidebar-content>div.col-12",
+        "parent_signature": "div.google-ad>div.advertisement-section",
+        "neighbor_text": "",
+        "position_signature": "a:1",
+        "xpath": "//a",
+        "css": "a.cursor-pointer",
+        "fingerprint_hash": "2b401ce606ebd5f77490b1701b4845db3690c227c8975925d174497807973a59",
+        "metadata_json": {
+          "attrs": {
+            "class": "cursor-pointer",
+            "style": "display: block;"
+          },
+          "ordinal": 302
+        }
+      },
+      {
+        "element_id": "78b66756-8cf3-4827-acc0-8bcf2c3aadad",
+        "element_name": "ad.plus-300x250-1_304",
+        "tag": "div",
+        "text": "",
+        "normalized_text": "",
+        "attr_id": "Ad.Plus-300x250-1",
+        "attr_name": "",
+        "class_tokens": [],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.google-ad>div.advertisement-section>section#rightside_advertisement>div.sidebar-content>div.col-12",
+        "parent_signature": "div.google-ad>div.advertisement-section",
+        "neighbor_text": "",
+        "position_signature": "div:1",
+        "xpath": "//*[@id='Ad.Plus-300x250-1']",
+        "css": "[id=\"Ad.Plus-300x250-1\"]",
+        "fingerprint_hash": "78f46736c69283c3b8f615542a92b05ae86dc83d3c9f72a40092dbc3361b62d8",
+        "metadata_json": {
+          "attrs": {
+            "id": "Ad.Plus-300x250-1",
+            "style": "margin-bottom: 50px;"
+          },
+          "ordinal": 304
+        }
+      },
+      {
+        "element_id": "820218eb-9bde-4207-a808-7b759dd6bb06",
+        "element_name": "ad.plus-300x250-2_305",
+        "tag": "div",
+        "text": "",
+        "normalized_text": "",
+        "attr_id": "Ad.Plus-300x250-2",
+        "attr_name": "",
+        "class_tokens": [],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "div.google-ad>div.advertisement-section>section#rightside_advertisement>div.sidebar-content>div.col-12",
+        "parent_signature": "div.google-ad>div.advertisement-section",
+        "neighbor_text": "",
+        "position_signature": "div:2",
+        "xpath": "//*[@id='Ad.Plus-300x250-2']",
+        "css": "[id=\"Ad.Plus-300x250-2\"]",
+        "fingerprint_hash": "729dc805a17f31bee35585b143b442d16543505a46a83e165486c52251bc2528",
+        "metadata_json": {
+          "attrs": {
+            "id": "Ad.Plus-300x250-2",
+            "style": "margin-bottom: 50px;"
+          },
+          "ordinal": 305
+        }
+      },
+      {
+        "element_id": "bd24dfda-fe45-4a2e-b429-8923e9f74d13",
+        "element_name": "span_307",
+        "tag": "span",
+        "text": "\u00a9 2013-2020 TOOLSQA.COM | ALL RIGHTS RESERVED.",
+        "normalized_text": "\u00a9 2013-2020 toolsqa.com | all rights reserved.",
+        "attr_id": "",
+        "attr_name": "",
+        "class_tokens": [],
+        "role": "",
+        "aria_label": "",
+        "placeholder": "",
+        "container_path": "footer>div#app>body>html",
+        "parent_signature": "footer>div#app",
+        "neighbor_text": "",
+        "position_signature": "span:1",
+        "xpath": "//span",
+        "css": "span",
+        "fingerprint_hash": "adea4092772201f456efd393eb02a2c9814f09bc6dc9a671acdb87ba02d0b39d",
+        "metadata_json": {
+          "attrs": {},
+          "ordinal": 307
+        }
+      }
+    ]
+  }
 }

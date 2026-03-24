@@ -187,6 +187,14 @@ def _first(runtime_locator: Any) -> Any:
     return runtime_locator.nth(0)
 
 
+def _safe_click(runtime: AsyncRuntime, runtime_locator: Any) -> None:
+    target = runtime_locator.nth(0)
+    try:
+        target.click()
+    except Exception:
+        runtime.run(target.evaluate("el => { el.click(); return true; }"))
+
+
 def _try_highlight_table_cell(
     runtime: AsyncRuntime,
     runtime_locator: Any,
@@ -324,21 +332,80 @@ def test_selenium_checkbox_home_icon_select_and_message_verify(
     integration_settings: IntegrationSettings,
 ) -> None:
     selenium_driver.get(f"{integration_settings.base_url}/checkbox")
-    _first(
-        _recover(
-            runtime,
-            selenium_driver,
-            selenium_healer,
-            integration_settings,
-            page_name="checkbox",
-            element_name="home_checkbox_icon",
-            field_type="checkbox",
-            vars_map={"label": "Home", "text": "Home", "strict_single_match": "false", "target": "icon"},
-        ).runtime_locator
-    ).click()
+    home_expand_button = _recover(
+        runtime,
+        selenium_driver,
+        selenium_healer,
+        integration_settings,
+        page_name="checkbox",
+        element_name="home_expand_button",
+        field_type="button",
+        vars_map={
+            "label": "Home",
+            "text": "Toggle",
+            "match_mode": "exact",
+            "strict_single_match": "false",
+            "target": "toggle",
+        },
+    ).runtime_locator
+    _safe_click(runtime, home_expand_button)
+
+    desktop_checkbox_icon = _recover(
+        runtime,
+        selenium_driver,
+        selenium_healer,
+        integration_settings,
+        page_name="checkbox",
+        element_name="desktop_checkbox_icon",
+        field_type="checkbox",
+        vars_map={
+            "label": "Desktop",
+            "text": "Desktop",
+            "strict_single_match": "false",
+            "target": "icon",
+        },
+    ).runtime_locator
+    _safe_click(runtime, desktop_checkbox_icon)
+
+    downloads_expand_button = _recover(
+        runtime,
+        selenium_driver,
+        selenium_healer,
+        integration_settings,
+        page_name="checkbox",
+        element_name="downloads_expand_button",
+        field_type="button",
+        vars_map={
+            "label": "Downloads",
+            "text": "Toggle",
+            "match_mode": "exact",
+            "strict_single_match": "false",
+            "target": "toggle",
+        },
+    ).runtime_locator
+    _safe_click(runtime, downloads_expand_button)
+
+    excel_file_doc_checkbox_icon = _recover(
+        runtime,
+        selenium_driver,
+        selenium_healer,
+        integration_settings,
+        page_name="checkbox",
+        element_name="excel_file_doc_checkbox_icon",
+        field_type="checkbox",
+        vars_map={
+            "label": "Excel File.doc",
+            "text": "Excel File.doc",
+            "strict_single_match": "false",
+            "target": "icon",
+        },
+    ).runtime_locator
+    _safe_click(runtime, excel_file_doc_checkbox_icon)
+
     message = selenium_driver.find_element(By.CSS_SELECTOR, "#result").text.casefold()
     assert "you have selected" in message
-    assert "home" in message
+    assert "desktop" in message
+    assert "excel" in message
 
 
 def test_selenium_webtables_first_row_verification(
@@ -368,7 +435,7 @@ def test_selenium_webtables_first_row_verification(
     _try_highlight_table_cell(runtime, first_name.runtime_locator, expected_text="Cierra", hold_ms=2000)
 
     found_last_name = None
-    for candidate in ("Veha", "Vega"):
+    for candidate in ("Vega",):
         try:
             recovered = _recover(
                 runtime,

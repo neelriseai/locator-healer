@@ -43,41 +43,62 @@ class XPathValidator:
         if strict and matched_count > 1 and nth_from_locator is None and intent.occurrence == 0:
             return ValidationResult.fail(["multiple_matches"], matched_count=matched_count)
 
-        element = runtime_locator.nth(chosen_index)
-
-        visibility = await self._safe_bool_call(element, "is_visible", default=True)
-        if self.config.require_visible and not visibility:
-            return ValidationResult.fail(["not_visible"], matched_count=matched_count)
+        indices_to_try = [chosen_index]
+        if nth_from_locator is None and matched_count > 1 and not strict:
+            indices_to_try.extend(i for i in range(matched_count) if i != chosen_index)
 
         field_type_norm = normalize_text(field_type)
-        if (
-            self.config.require_enabled_for_interactives
-            and field_type_norm in INTERACTIVE_FIELD_TYPES
-            and not await self._safe_bool_call(element, "is_enabled", default=True)
-        ):
-            return ValidationResult.fail(["not_enabled"], matched_count=matched_count)
+        last_failure: ValidationResult | None = None
 
-        node_info = await self._extract_node_info(element)
-        gate_result = self._run_type_gate(field_type_norm, node_info, intent)
-        if not gate_result.ok:
-            gate_result.matched_count = matched_count
-            gate_result.chosen_index = chosen_index
-            return gate_result
-        gate_reason_codes = [code for code in gate_result.reason_codes if code and code != "ok"]
+        for idx in indices_to_try:
+            element = runtime_locator.nth(idx)
 
-        axis_result = await self._run_axis_geometry_checks(page, element, intent)
-        if not axis_result.ok:
-            axis_result.matched_count = matched_count
-            axis_result.chosen_index = chosen_index
-            return axis_result
+            visibility = await self._safe_bool_call(element, "is_visible", default=True)
+            if self.config.require_visible and not visibility:
+                failure = ValidationResult.fail(["not_visible"], matched_count=matched_count)
+                failure.chosen_index = idx
+                last_failure = failure
+                continue
 
-        reason_codes = gate_reason_codes + ["validated"] if gate_reason_codes else ["validated"]
-        return ValidationResult.success(
-            matched_count=matched_count,
-            chosen_index=chosen_index,
-            reason_codes=reason_codes,
-            details={"node": node_info},
-        )
+            if (
+                self.config.require_enabled_for_interactives
+                and field_type_norm in INTERACTIVE_FIELD_TYPES
+                and not await self._safe_bool_call(element, "is_enabled", default=True)
+            ):
+                failure = ValidationResult.fail(["not_enabled"], matched_count=matched_count)
+                failure.chosen_index = idx
+                last_failure = failure
+                continue
+
+            node_info = await self._extract_node_info(element)
+            gate_result = self._run_type_gate(field_type_norm, node_info, intent)
+            if not gate_result.ok:
+                gate_result.matched_count = matched_count
+                gate_result.chosen_index = idx
+                last_failure = gate_result
+                continue
+            gate_reason_codes = [code for code in gate_result.reason_codes if code and code != "ok"]
+
+            axis_result = await self._run_axis_geometry_checks(page, element, intent)
+            if not axis_result.ok:
+                axis_result.matched_count = matched_count
+                axis_result.chosen_index = idx
+                last_failure = axis_result
+                continue
+
+            reason_codes = gate_reason_codes + ["validated"] if gate_reason_codes else ["validated"]
+            return ValidationResult.success(
+                matched_count=matched_count,
+                chosen_index=idx,
+                reason_codes=reason_codes,
+                details={"node": node_info},
+            )
+
+        if last_failure is not None:
+            return last_failure
+        fallback_failure = ValidationResult.fail(["validation_failed"], matched_count=matched_count)
+        fallback_failure.chosen_index = chosen_index
+        return fallback_failure
 
     def _resolve_strictness(self, explicit: bool | None, intent: Intent) -> bool:
         if explicit is not None:
@@ -115,6 +136,22 @@ class XPathValidator:
                 }
                 return null;
               })();
+              const contextLabelText = (() => {
+                const norm = (node) => ((node && (node.innerText || node.textContent || "")) || "").trim();
+                const li = el && typeof el.closest === "function" ? el.closest("li") : null;
+                if (li && typeof li.querySelector === "function") {
+                  const titleNode = li.querySelector(".rct-title, label, span");
+                  const titleText = norm(titleNode);
+                  if (titleText) return titleText;
+                }
+                const container = el && typeof el.closest === "function" ? el.closest("[role='row'], tr, div") : null;
+                if (container && typeof container.querySelector === "function") {
+                  const nearLabel = container.querySelector(".rct-title, label, span");
+                  const nearText = norm(nearLabel);
+                  if (nearText) return nearText;
+                }
+                return "";
+              })();
               return {
                 tag: (el.tagName || "").toLowerCase(),
                 type: (el.getAttribute("type") || "").toLowerCase(),
@@ -128,6 +165,7 @@ class XPathValidator:
                 proxyControlTag: proxyControl ? (proxyControl.tagName || "").toLowerCase() : "",
                 proxyControlType: proxyControl ? ((proxyControl.getAttribute("type") || "").toLowerCase()) : "",
                 proxyControlRole: proxyControl ? ((proxyControl.getAttribute("role") || "").toLowerCase()) : "",
+                contextLabelText,
                 attrs,
               };
             }""",
@@ -146,6 +184,7 @@ class XPathValidator:
         payload.setdefault("proxyControlTag", "")
         payload.setdefault("proxyControlType", "")
         payload.setdefault("proxyControlRole", "")
+        payload.setdefault("contextLabelText", "")
         payload.setdefault("attrs", {})
         return payload
 
@@ -170,7 +209,28 @@ class XPathValidator:
             if field_type == "link" and tag != "a" and role != "link":
                 return ValidationResult.fail(["type_mismatch_link"])
             expected = intent.text or intent.label
-            if expected and not self._text_match(expected, text, intent.match_mode):
+            aria_label = str(attrs.get("aria-label") or "")
+            title = str(attrs.get("title") or "")
+            target_hint = normalize_text(intent.metadata.get("target"))
+            if field_type == "button" and target_hint in {"toggle", "expand", "collapse"}:
+                aria_norm = normalize_text(aria_label)
+                class_norm = normalize_text(attrs.get("class"))
+                context_label_text = str(info.get("contextLabelText") or "")
+                if intent.label and not self._text_match(intent.label, context_label_text, intent.match_mode):
+                    return ValidationResult.fail(["context_mismatch"])
+                if any(token in aria_norm for token in ("toggle", "expand", "collapse")) or any(
+                    token in class_norm for token in ("toggle", "expand", "collapse", "rct-")
+                ):
+                    return ValidationResult.success(
+                        matched_count=1,
+                        chosen_index=0,
+                        reason_codes=["validated_toggle_button"],
+                    )
+            if expected and not (
+                self._text_match(expected, text, intent.match_mode)
+                or self._text_match(expected, aria_label, intent.match_mode)
+                or self._text_match(expected, title, intent.match_mode)
+            ):
                 return ValidationResult.fail(["text_mismatch"])
             return ValidationResult.success(matched_count=1, chosen_index=0)
 
@@ -192,6 +252,17 @@ class XPathValidator:
             return ValidationResult.success(matched_count=1, chosen_index=0)
 
         if field_type in {"checkbox", "radio"}:
+            expected_toggle_text = intent.label or intent.text
+            if expected_toggle_text:
+                candidate_texts = [
+                    text,
+                    str(info.get("contextLabelText") or ""),
+                    str(info.get("proxyLabelText") or ""),
+                    str(attrs.get("aria-label") or ""),
+                    str(attrs.get("title") or ""),
+                ]
+                if not any(self._text_match(expected_toggle_text, candidate, intent.match_mode) for candidate in candidate_texts):
+                    return ValidationResult.fail(["text_mismatch"])
             if tag == "input" and input_type == field_type:
                 return ValidationResult.success(matched_count=1, chosen_index=0)
             if role == field_type:

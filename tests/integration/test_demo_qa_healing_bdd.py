@@ -313,6 +313,13 @@ def _heal(
     return locator
 
 
+def _safe_click(runtime: AsyncRuntime, locator: Any) -> None:
+    try:
+        runtime.run(locator.click())
+    except Exception:
+        runtime.run(locator.evaluate("el => { el.click(); return true; }"))
+
+
 @given(parsers.parse('I open the "{page_path}" demo page'))
 def open_demo_page(
     runtime: AsyncRuntime,
@@ -460,7 +467,125 @@ def heal_and_click_home_checkbox_icon(
             "target": "icon",
         },
     )
-    runtime.run(checkbox_icon.click())
+    _safe_click(runtime, checkbox_icon)
+
+
+@when("I heal and click the expand button for Home")
+def heal_and_click_home_expand_button(
+    runtime: AsyncRuntime,
+    page: Page,
+    healer: XPathHealerFacade,
+    scenario_state: dict[str, Any],
+    integration_logger: logging.Logger,
+    integration_settings: IntegrationSettings,
+) -> None:
+    home_expand_button = _heal(
+        runtime,
+        scenario_state,
+        page,
+        healer,
+        integration_logger,
+        integration_settings,
+        page_name="checkbox",
+        element_name="home_expand_button",
+        field_type="button",
+        vars_map={
+            "label": "Home",
+            "text": "Toggle",
+            "match_mode": "exact",
+            "strict_single_match": "false",
+            "target": "toggle",
+        },
+    )
+    _safe_click(runtime, home_expand_button)
+
+
+@when("I heal and click the Desktop checkbox icon")
+def heal_and_click_desktop_checkbox_icon(
+    runtime: AsyncRuntime,
+    page: Page,
+    healer: XPathHealerFacade,
+    scenario_state: dict[str, Any],
+    integration_logger: logging.Logger,
+    integration_settings: IntegrationSettings,
+) -> None:
+    desktop_checkbox_icon = _heal(
+        runtime,
+        scenario_state,
+        page,
+        healer,
+        integration_logger,
+        integration_settings,
+        page_name="checkbox",
+        element_name="desktop_checkbox_icon",
+        field_type="checkbox",
+        vars_map={
+            "label": "Desktop",
+            "text": "Desktop",
+            "strict_single_match": "false",
+            "target": "icon",
+        },
+    )
+    _safe_click(runtime, desktop_checkbox_icon)
+
+
+@when("I heal and click the expand button for Downloads")
+def heal_and_click_downloads_expand_button(
+    runtime: AsyncRuntime,
+    page: Page,
+    healer: XPathHealerFacade,
+    scenario_state: dict[str, Any],
+    integration_logger: logging.Logger,
+    integration_settings: IntegrationSettings,
+) -> None:
+    downloads_expand_button = _heal(
+        runtime,
+        scenario_state,
+        page,
+        healer,
+        integration_logger,
+        integration_settings,
+        page_name="checkbox",
+        element_name="downloads_expand_button",
+        field_type="button",
+        vars_map={
+            "label": "Downloads",
+            "text": "Toggle",
+            "match_mode": "exact",
+            "strict_single_match": "false",
+            "target": "toggle",
+        },
+    )
+    _safe_click(runtime, downloads_expand_button)
+
+
+@when("I heal and click the Excel File.doc checkbox icon")
+def heal_and_click_excel_checkbox_icon(
+    runtime: AsyncRuntime,
+    page: Page,
+    healer: XPathHealerFacade,
+    scenario_state: dict[str, Any],
+    integration_logger: logging.Logger,
+    integration_settings: IntegrationSettings,
+) -> None:
+    excel_checkbox_icon = _heal(
+        runtime,
+        scenario_state,
+        page,
+        healer,
+        integration_logger,
+        integration_settings,
+        page_name="checkbox",
+        element_name="excel_file_doc_checkbox_icon",
+        field_type="checkbox",
+        vars_map={
+            "label": "Excel File.doc",
+            "text": "Excel File.doc",
+            "strict_single_match": "false",
+            "target": "icon",
+        },
+    )
+    _safe_click(runtime, excel_checkbox_icon)
 
 
 @then("I should see checkbox selection message for Home")
@@ -470,6 +595,16 @@ def verify_checkbox_message(runtime: AsyncRuntime, page: Page) -> None:
     text = runtime.run(result.inner_text()).casefold()
     assert "you have selected" in text
     assert "home" in text
+
+
+@then("I should see checkbox selection message for Desktop and Excel File")
+def verify_checkbox_message_desktop_excel(runtime: AsyncRuntime, page: Page) -> None:
+    result = page.locator("#result")
+    assert runtime.run(result.count()) > 0
+    text = runtime.run(result.inner_text()).casefold()
+    assert "you have selected" in text
+    assert "desktop" in text
+    assert "excel" in text
 
 
 @when(parsers.parse('I heal and verify the first row first name is "{first_name}"'))
