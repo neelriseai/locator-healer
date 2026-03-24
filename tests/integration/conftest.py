@@ -76,37 +76,55 @@ def _env_bool(name: str, default: bool) -> bool:
     return value.strip().casefold() in {"1", "true", "yes", "y", "on"}
 
 
+def _env_int(name: str, default: int, minimum: int) -> int:
+    value = os.getenv(name)
+    if value is None:
+        return max(default, minimum)
+    try:
+        parsed = int(value.strip())
+    except Exception:
+        return max(default, minimum)
+    return max(parsed, minimum)
+
+
+def _playwright_window_size() -> tuple[int, int]:
+    width = _env_int("XH_PLAYWRIGHT_WINDOW_WIDTH", default=1920, minimum=1024)
+    height = _env_int("XH_PLAYWRIGHT_WINDOW_HEIGHT", default=1080, minimum=720)
+    return width, height
+
+
 def _resolve_playwright_launch(playwright: Any, settings: IntegrationSettings) -> tuple[Any, dict[str, Any], str]:
     browser = (settings.playwright_browser or "chromium").strip().lower()
     launch_kwargs: dict[str, Any] = {"headless": settings.headless}
+    window_width, window_height = _playwright_window_size()
+    chromium_window_args = [f"--window-size={window_width},{window_height}"]
+    if not settings.headless:
+        chromium_window_args.append("--start-maximized")
 
     if browser in {"chromium", "firefox", "webkit"}:
         browser_type = getattr(playwright, browser, playwright.chromium)
         if settings.playwright_channel:
             launch_kwargs["channel"] = settings.playwright_channel
-        if not settings.headless and browser == "chromium":
-            launch_kwargs["args"] = ["--start-maximized"]
+        if browser == "chromium":
+            launch_kwargs["args"] = chromium_window_args
         return browser_type, launch_kwargs, browser
 
     if browser in {"chrome", "google-chrome"}:
         browser_type = playwright.chromium
         launch_kwargs["channel"] = settings.playwright_channel or "chrome"
-        if not settings.headless:
-            launch_kwargs["args"] = ["--start-maximized"]
+        launch_kwargs["args"] = chromium_window_args
         return browser_type, launch_kwargs, "chrome"
 
     if browser in {"edge", "msedge"}:
         browser_type = playwright.chromium
         launch_kwargs["channel"] = settings.playwright_channel or "msedge"
-        if not settings.headless:
-            launch_kwargs["args"] = ["--start-maximized"]
+        launch_kwargs["args"] = chromium_window_args
         return browser_type, launch_kwargs, "msedge"
 
     browser_type = playwright.chromium
     if settings.playwright_channel:
         launch_kwargs["channel"] = settings.playwright_channel
-    if not settings.headless:
-        launch_kwargs["args"] = ["--start-maximized"]
+    launch_kwargs["args"] = chromium_window_args
     return browser_type, launch_kwargs, browser
 
 
@@ -472,10 +490,12 @@ def page(
         runtime.run(playwright.stop())
         pytest.skip(f"Playwright browser unavailable: {exc}")
 
-    context_kwargs: dict[str, Any] = {}
-    if not integration_settings.headless:
-        # Use native browser window size (paired with --start-maximized above).
-        context_kwargs["viewport"] = None
+    window_width, window_height = _playwright_window_size()
+    context_kwargs: dict[str, Any] = {
+        # Force a stable large viewport regardless of headed/headless and OS window manager behavior.
+        "viewport": {"width": window_width, "height": window_height},
+        "screen": {"width": window_width, "height": window_height},
+    }
     if integration_settings.video_each_test:
         context_kwargs["record_video_dir"] = str(integration_settings.videos_dir)
         context_kwargs["record_video_size"] = {
@@ -486,10 +506,12 @@ def page(
     p = runtime.run(context.new_page())
     p.set_default_timeout(20_000)
     integration_logger.info(
-        "browser_started framework=playwright browser=%s channel=%s headless=%s",
+        "browser_started framework=playwright browser=%s channel=%s headless=%s viewport=%sx%s",
         browser_name,
         launch_kwargs.get("channel", ""),
         integration_settings.headless,
+        window_width,
+        window_height,
     )
     try:
         yield p
