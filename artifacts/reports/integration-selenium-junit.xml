@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="4" time="137.599" timestamp="2026-03-25T13:15:34.442083+05:30" hostname="Satyaom"><testcase classname="tests.integration.test_demo_qa_healing_selenium" name="test_selenium_text_box_form_fill_and_submit" time="37.594" /><testcase classname="tests.integration.test_demo_qa_healing_selenium" name="test_selenium_checkbox_home_icon_select_and_message_verify" time="32.497" /><testcase classname="tests.integration.test_demo_qa_healing_selenium" name="test_selenium_webtables_first_row_verification" time="59.735" /><testcase classname="tests.integration.test_demo_qa_healing_selenium" name="test_selenium_raw_invalid_fallback_without_healer" time="7.070"><failure message="Failed: Intentional failure: raw fallback xpath did not resolve any element: //xh-never-match[@id='raw_xpath_negative-broken']">selenium_driver = &lt;selenium.webdriver.chrome.webdriver.WebDriver (session="cbbf844770af8bd1be08648a36733242")&gt;
+integration_settings = IntegrationSettings(base_url='https://demo-qa-app.azurewebsites.net', playwright_browser='chromium', playwright_channe...t=True, screenshot_on_failure=True, screenshot_each_step=True, video_each_test=True, video_width=640, video_height=360)
+selenium_steps = &lt;tests.integration.test_demo_qa_healing_selenium.SeleniumStepReporter object at 0x000001F7178EDCD0&gt;
+
+    def test_selenium_raw_invalid_fallback_without_healer(
+        selenium_driver: Any,
+        integration_settings: IntegrationSettings,
+        selenium_steps: SeleniumStepReporter,
+    ) -&gt; None:
+        with selenium_steps.step("Open text-box demo page for raw xpath negative test", "Given"):
+            selenium_driver.get(f"{integration_settings.base_url}/text-box")
+        with selenium_steps.step("Query raw invalid fallback xpath without healer", "When"):
+            raw_xpath = _broken_fallback("raw_xpath_negative").value
+            count = len(selenium_driver.find_elements(By.XPATH, raw_xpath))
+            _append_jsonl(
+                integration_settings.healing_calls_jsonl,
+                {
+                    "timestamp": datetime.now(UTC).isoformat(),
+                    "framework": "selenium_python",
+                    "page_name": "text_box",
+                    "element_name": "raw_xpath_negative",
+                    "status": "failed_without_healer",
+                    "fallback_xpath": raw_xpath,
+                    "reason": "raw_xpath_no_match",
+                    "matched_count": count,
+                },
+            )
+            assert count == 0
+        with selenium_steps.step("Intentional failure to validate negative path reporting", "Then"):
+&gt;           pytest.fail(f"Intentional failure: raw fallback xpath did not resolve any element: {raw_xpath}")
+E           Failed: Intentional failure: raw fallback xpath did not resolve any element: //xh-never-match[@id='raw_xpath_negative-broken']
+
+tests\integration\test_demo_qa_healing_selenium.py:740: Failed</failure></testcase></testsuite></testsuites>

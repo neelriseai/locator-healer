@@ -230,8 +230,8 @@
       "element_name": "home_expand_button",
       "field_type": "button",
       "last_good_locator": {
-        "kind": "css",
-        "value": "button.rct-collapse.rct-collapse-btn[aria-label='Toggle']",
+        "kind": "xpath",
+        "value": "//*[contains(@class,'rct-title') and (normalize-space()='Home' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'home'))]/ancestor::*[contains(@class,'rct-text')][1]//*[self::button and (contains(@class,'rct-collapse-btn') or contains(@class,'rct-expand-btn') or contains(@class,'rct-parent-open') or contains(@class,'rct-parent-close') or contains(@class,'rct-icon-expand') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'toggle') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'expand') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'collapse'))][1]",
         "options": {},
         "scope": null
       },
@@ -280,8 +280,8 @@
           "scope": null
         },
         "last_good": {
-          "kind": "css",
-          "value": "button.rct-collapse.rct-collapse-btn[aria-label='Toggle']",
+          "kind": "xpath",
+          "value": "//*[contains(@class,'rct-title') and (normalize-space()='Home' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'home'))]/ancestor::*[contains(@class,'rct-text')][1]//*[self::button and (contains(@class,'rct-collapse-btn') or contains(@class,'rct-expand-btn') or contains(@class,'rct-parent-open') or contains(@class,'rct-parent-close') or contains(@class,'rct-icon-expand') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'toggle') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'expand') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'collapse'))][1]",
           "options": {},
           "scope": null
         },
@@ -306,9 +306,9 @@
       },
       "quality_metrics": {
         "uniqueness_score": 1.0,
-        "stability_score": 0.94,
+        "stability_score": 0.8,
         "similarity_score": 0.9,
-        "overall_score": 0.956,
+        "overall_score": 0.9,
         "matched_count": 1,
         "chosen_index": 0,
         "validation_reasons": [
@@ -316,9 +316,9 @@
           "validated"
         ],
         "strategy_id": "rag_suggest",
-        "strategy_score": 0.97,
-        "locator_kind": "css",
-        "locator_value": "button.rct-collapse.rct-collapse-btn[aria-label='Toggle']",
+        "strategy_score": 0.91,
+        "locator_kind": "xpath",
+        "locator_value": "//*[contains(@class,'rct-title') and (normalize-space()='Home' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'home'))]/ancestor::*[contains(@class,'rct-text')][1]//*[self::button and (contains(@class,'rct-collapse-btn') or contains(@class,'rct-expand-btn') or contains(@class,'rct-parent-open') or contains(@class,'rct-parent-close') or contains(@class,'rct-icon-expand') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'toggle') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'expand') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'collapse'))][1]",
         "valid_against_hints": true,
         "history": [
           {
@@ -427,16 +427,40 @@
           },
           {
             "timestamp": "2026-03-24T19:58:28.624409+00:00",
+            "strategy_id": "rag_suggest",
             "overall_score": 0.956,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-25T07:39:58.396533+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.956,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-25T07:46:23.930790+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.956,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-25T07:51:56.152554+00:00",
+            "overall_score": 0.9,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
-            "stability_score": 0.94,
+            "stability_score": 0.8,
             "similarity_score": 0.9
           }
         ]
       },
-      "last_seen": "2026-03-24T19:58:28.533254+00:00",
-      "success_count": 14,
+      "last_seen": "2026-03-25T07:51:56.063740+00:00",
+      "success_count": 17,
       "fail_count": 0
     },
     "desktop_checkbox_icon": {
@@ -616,6 +640,30 @@
           },
           {
             "timestamp": "2026-03-24T19:58:35.402055+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-25T07:40:04.344776+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-25T07:46:29.022555+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-25T07:52:02.624934+00:00",
             "overall_score": 0.726,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
@@ -624,8 +672,8 @@
           }
         ]
       },
-      "last_seen": "2026-03-24T19:58:35.318386+00:00",
-      "success_count": 11,
+      "last_seen": "2026-03-25T07:52:02.517917+00:00",
+      "success_count": 14,
       "fail_count": 2
     },
     "downloads_expand_button": {
@@ -808,6 +856,30 @@
           },
           {
             "timestamp": "2026-03-24T19:58:42.411848+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.9,
+            "stability_score": 0.8,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-25T07:40:13.800174+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.9,
+            "stability_score": 0.8,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-25T07:46:36.368124+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.9,
+            "stability_score": 0.8,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-25T07:52:08.455359+00:00",
             "overall_score": 0.9,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
@@ -816,8 +888,8 @@
           }
         ]
       },
-      "last_seen": "2026-03-24T19:58:42.323710+00:00",
-      "success_count": 11,
+      "last_seen": "2026-03-25T07:52:08.368383+00:00",
+      "success_count": 14,
       "fail_count": 0
     },
     "excel_file_doc_checkbox_icon": {
@@ -997,6 +1069,30 @@
           },
           {
             "timestamp": "2026-03-24T19:58:48.265896+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-25T07:40:19.311304+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-25T07:46:41.618379+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-25T07:52:13.980257+00:00",
             "overall_score": 0.726,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
@@ -1005,8 +1101,8 @@
           }
         ]
       },
-      "last_seen": "2026-03-24T19:58:48.183902+00:00",
-      "success_count": 11,
+      "last_seen": "2026-03-25T07:52:13.847626+00:00",
+      "success_count": 14,
       "fail_count": 0
     }
   },

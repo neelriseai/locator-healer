@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from contextlib import contextmanager
 import json
 import logging
 from datetime import UTC, datetime
@@ -27,6 +28,16 @@ APP_ID = "demo-qa-app"
 pytestmark = [pytest.mark.integration]
 
 
+def _slug(value: str) -> str:
+    out = []
+    for ch in value:
+        if ch.isalnum() or ch in "_.-":
+            out.append(ch)
+        else:
+            out.append("_")
+    return "".join(out).strip("_")
+
+
 def _append_jsonl(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8") as fh:
@@ -36,6 +47,83 @@ def _append_jsonl(path: Path, payload: dict[str, Any]) -> None:
 
 def _broken_fallback(name: str) -> LocatorSpec:
     return LocatorSpec(kind="xpath", value=f"//xh-never-match[@id='{name}-broken']")
+
+
+class SeleniumStepReporter:
+    def __init__(
+        self,
+        request: Any,
+        settings: IntegrationSettings,
+        logger: logging.Logger,
+        driver: Any,
+    ) -> None:
+        self.request = request
+        self.settings = settings
+        self.logger = logger
+        self.driver = driver
+        self._step_index = 0
+        self._test_name = _slug(request.node.name)
+
+    def _record(
+        self,
+        *,
+        keyword: str,
+        name: str,
+        status: str,
+        error: str | None = None,
+    ) -> None:
+        self._step_index += 1
+        step_name = str(name or "step")
+        step_slug = _slug(step_name)
+        screenshot_path = None
+        if self.settings.screenshot_each_step:
+            suffix = "__error" if status == "failed" else ""
+            screenshot_path = (
+                self.settings.screenshots_dir
+                / f"{self._test_name}__step{self._step_index:02d}__{step_slug}{suffix}.png"
+            )
+            try:
+                self.driver.save_screenshot(str(screenshot_path))
+                self.logger.info(
+                    "step_screenshot_saved framework=selenium test=%s step=%s keyword=%s path=%s",
+                    self._test_name,
+                    step_slug,
+                    keyword,
+                    screenshot_path,
+                )
+            except Exception as exc:
+                self.logger.error(
+                    "step_screenshot_failed framework=selenium test=%s step=%s keyword=%s error=%s",
+                    self._test_name,
+                    step_slug,
+                    keyword,
+                    exc,
+                )
+                screenshot_path = None
+
+        payload: dict[str, Any] = {
+            "timestamp": datetime.now(UTC).isoformat(),
+            "framework": "selenium_python",
+            "test": self.request.node.name,
+            "scenario": self.request.node.name,
+            "step_index": self._step_index,
+            "step_keyword": keyword.strip(),
+            "step_name": step_name,
+            "status": status,
+            "screenshot": str(screenshot_path) if screenshot_path else None,
+        }
+        if error:
+            payload["error"] = error
+        _append_jsonl(self.settings.step_report_jsonl, payload)
+
+    @contextmanager
+    def step(self, name: str, keyword: str = "Step") -> Any:
+        try:
+            yield
+        except Exception as exc:
+            self._record(keyword=keyword, name=name, status="failed", error=str(exc))
+            raise
+        self._record(keyword=keyword, name=name, status="passed")
 
 
 def _chrome_driver(settings: IntegrationSettings) -> Any:
@@ -142,6 +230,21 @@ def selenium_healer(metadata_repository: MetadataRepository) -> SeleniumHealerFa
     return SeleniumHealerFacade(repository=metadata_repository)
 
 
+@pytest.fixture
+def selenium_steps(
+    request: Any,
+    integration_settings: IntegrationSettings,
+    integration_logger: logging.Logger,
+    selenium_driver: Any,
+) -> SeleniumStepReporter:
+    return SeleniumStepReporter(
+        request=request,
+        settings=integration_settings,
+        logger=integration_logger,
+        driver=selenium_driver,
+    )
+
+
 def _recover(
     runtime: AsyncRuntime,
     driver: Any,
@@ -165,11 +268,13 @@ def _recover(
         )
     )
     assert recovered.status == "success", recovered.to_dict()
+    quality = recovered.metadata.quality_metrics if recovered.metadata else {}
     _append_jsonl(
         integration_settings.healing_calls_jsonl,
         {
             "timestamp": datetime.now(UTC).isoformat(),
             "framework": "selenium_python",
+            "app_id": APP_ID,
             "page_name": page_name,
             "element_name": element_name,
             "field_type": field_type,
@@ -178,6 +283,71 @@ def _recover(
             "fallback_xpath": fallback.value,
             "healed_locator_kind": recovered.locator_spec.kind if recovered.locator_spec else None,
             "healed_locator_value": recovered.locator_spec.value if recovered.locator_spec else None,
+            "uniqueness_score": quality.get("uniqueness_score"),
+            "stability_score": quality.get("stability_score"),
+            "similarity_score": quality.get("similarity_score"),
+            "overall_score": quality.get("overall_score"),
+            "matched_count": quality.get("matched_count"),
+        },
+    )
+
+    live_paths = _capture_dom_paths(runtime, recovered.runtime_locator)
+    variants: dict[str, Any] = {}
+    if recovered.metadata and recovered.metadata.locator_variants:
+        variants = recovered.metadata.locator_variants
+
+    selected_locator_kind = recovered.locator_spec.kind if recovered.locator_spec else None
+    selected_locator_value = recovered.locator_spec.value if recovered.locator_spec else None
+
+    robust_xpath = variants["robust_xpath"].value if "robust_xpath" in variants else None
+    robust_css = variants["robust_css"].value if "robust_css" in variants else None
+    live_xpath = variants["live_xpath"].value if "live_xpath" in variants else live_paths.get("xpath")
+    live_css = variants["live_css"].value if "live_css" in variants else live_paths.get("css")
+
+    healed_xpath = None
+    healed_xpath_source = None
+    if selected_locator_kind == "xpath":
+        healed_xpath = selected_locator_value
+        healed_xpath_source = "selected_locator"
+    elif robust_xpath:
+        healed_xpath = robust_xpath
+        healed_xpath_source = "metadata.robust_xpath"
+    elif live_xpath:
+        healed_xpath = live_xpath
+        healed_xpath_source = "metadata.live_xpath" if "live_xpath" in variants else "dom.live_xpath"
+
+    healed_css = None
+    healed_css_source = None
+    if selected_locator_kind == "css":
+        healed_css = selected_locator_value
+        healed_css_source = "selected_locator"
+    elif robust_css:
+        healed_css = robust_css
+        healed_css_source = "metadata.robust_css"
+    elif live_css:
+        healed_css = live_css
+        healed_css_source = "metadata.live_css" if "live_css" in variants else "dom.live_css"
+
+    _append_jsonl(
+        integration_settings.healing_calls_jsonl,
+        {
+            "timestamp": datetime.now(UTC).isoformat(),
+            "framework": "selenium_python",
+            "app_id": APP_ID,
+            "page_name": page_name,
+            "element_name": element_name,
+            "field_type": field_type,
+            "status": "resolved_paths",
+            "selected_locator_kind": selected_locator_kind,
+            "selected_locator_value": selected_locator_value,
+            "healed_xpath": healed_xpath,
+            "healed_xpath_source": healed_xpath_source,
+            "healed_css": healed_css,
+            "healed_css_source": healed_css_source,
+            "robust_xpath": robust_xpath,
+            "live_xpath": live_xpath,
+            "robust_css": robust_css,
+            "live_css": live_css,
         },
     )
     return recovered
@@ -185,6 +355,66 @@ def _recover(
 
 def _first(runtime_locator: Any) -> Any:
     return runtime_locator.nth(0)
+
+
+def _capture_dom_paths(runtime: AsyncRuntime, runtime_locator: Any) -> dict[str, str]:
+    try:
+        count = runtime.run(runtime_locator.count())
+        if count <= 0:
+            return {}
+        target = runtime_locator.nth(0)
+        payload = runtime.run(
+            target.evaluate(
+                """el => {
+                    function xpathFor(node) {
+                      if (!node || node.nodeType !== 1) return null;
+                      if (node.id) return `//*[@id="${node.id}"]`;
+                      const parts = [];
+                      let cur = node;
+                      while (cur && cur.nodeType === 1) {
+                        let idx = 1;
+                        let sib = cur.previousElementSibling;
+                        while (sib) {
+                          if (sib.tagName === cur.tagName) idx += 1;
+                          sib = sib.previousElementSibling;
+                        }
+                        const tag = (cur.tagName || '').toLowerCase();
+                        parts.unshift(`${tag}[${idx}]`);
+                        cur = cur.parentElement;
+                      }
+                      return '/' + parts.join('/');
+                    }
+                    function cssFor(node) {
+                      if (!node || node.nodeType !== 1) return null;
+                      if (node.id) return `#${node.id}`;
+                      const parts = [];
+                      let cur = node;
+                      while (cur && cur.nodeType === 1 && parts.length < 8) {
+                        let part = (cur.tagName || '').toLowerCase();
+                        let nth = 1;
+                        let sib = cur.previousElementSibling;
+                        while (sib) {
+                          if (sib.tagName === cur.tagName) nth += 1;
+                          sib = sib.previousElementSibling;
+                        }
+                        part += `:nth-of-type(${nth})`;
+                        parts.unshift(part);
+                        cur = cur.parentElement;
+                      }
+                      return parts.join(' > ');
+                    }
+                    return { xpath: xpathFor(el), css: cssFor(el) };
+                }"""
+            )
+        )
+        out: dict[str, str] = {}
+        if payload and payload.get("xpath"):
+            out["xpath"] = str(payload["xpath"])
+        if payload and payload.get("css"):
+            out["css"] = str(payload["css"])
+        return out
+    except Exception:
+        return {}
 
 
 def _safe_click(runtime: AsyncRuntime, runtime_locator: Any) -> None:
@@ -249,80 +479,88 @@ def test_selenium_text_box_form_fill_and_submit(
     selenium_driver: Any,
     selenium_healer: SeleniumHealerFacade,
     integration_settings: IntegrationSettings,
+    selenium_steps: SeleniumStepReporter,
 ) -> None:
-    selenium_driver.get(f"{integration_settings.base_url}/text-box")
+    with selenium_steps.step("Open text-box demo page", "Given"):
+        selenium_driver.get(f"{integration_settings.base_url}/text-box")
 
-    _first(
-        _recover(
-            runtime,
-            selenium_driver,
-            selenium_healer,
-            integration_settings,
-            page_name="text_box",
-            element_name="full_name",
-            field_type="textbox",
-            vars_map={"label": "Full Name", "name": "userName", "axisHint": "following", "strict_single_match": "false"},
-        ).runtime_locator
-    ).send_keys("Neela User")
-    _first(
-        _recover(
-            runtime,
-            selenium_driver,
-            selenium_healer,
-            integration_settings,
-            page_name="text_box",
-            element_name="email",
-            field_type="textbox",
-            vars_map={"label": "Email", "name": "userEmail", "axisHint": "following", "strict_single_match": "false"},
-        ).runtime_locator
-    ).send_keys("neela.user@example.com")
-    _first(
-        _recover(
-            runtime,
-            selenium_driver,
-            selenium_healer,
-            integration_settings,
-            page_name="text_box",
-            element_name="current_address",
-            field_type="textbox",
-            vars_map={"label": "Current Address", "axisHint": "following", "strict_single_match": "false"},
-        ).runtime_locator
-    ).send_keys("Bangalore, India")
-    _first(
-        _recover(
-            runtime,
-            selenium_driver,
-            selenium_healer,
-            integration_settings,
-            page_name="text_box",
-            element_name="permanent_address",
-            field_type="textbox",
-            vars_map={"label": "Permanent Address", "axisHint": "following", "strict_single_match": "false"},
-        ).runtime_locator
-    ).send_keys("Mysuru, India")
+    with selenium_steps.step("Heal and fill Full Name", "When"):
+        _first(
+            _recover(
+                runtime,
+                selenium_driver,
+                selenium_healer,
+                integration_settings,
+                page_name="text_box",
+                element_name="full_name",
+                field_type="textbox",
+                vars_map={"label": "Full Name", "name": "userName", "axisHint": "following", "strict_single_match": "false"},
+            ).runtime_locator
+        ).send_keys("Neela User")
+    with selenium_steps.step("Heal and fill Email", "And"):
+        _first(
+            _recover(
+                runtime,
+                selenium_driver,
+                selenium_healer,
+                integration_settings,
+                page_name="text_box",
+                element_name="email",
+                field_type="textbox",
+                vars_map={"label": "Email", "name": "userEmail", "axisHint": "following", "strict_single_match": "false"},
+            ).runtime_locator
+        ).send_keys("neela.user@example.com")
+    with selenium_steps.step("Heal and fill Current Address", "And"):
+        _first(
+            _recover(
+                runtime,
+                selenium_driver,
+                selenium_healer,
+                integration_settings,
+                page_name="text_box",
+                element_name="current_address",
+                field_type="textbox",
+                vars_map={"label": "Current Address", "axisHint": "following", "strict_single_match": "false"},
+            ).runtime_locator
+        ).send_keys("Bangalore, India")
+    with selenium_steps.step("Heal and fill Permanent Address", "And"):
+        _first(
+            _recover(
+                runtime,
+                selenium_driver,
+                selenium_healer,
+                integration_settings,
+                page_name="text_box",
+                element_name="permanent_address",
+                field_type="textbox",
+                vars_map={"label": "Permanent Address", "axisHint": "following", "strict_single_match": "false"},
+            ).runtime_locator
+        ).send_keys("Mysuru, India")
 
-    submit_locator = _recover(
-        runtime,
-        selenium_driver,
-        selenium_healer,
-        integration_settings,
-        page_name="text_box",
-        element_name="submit",
-        field_type="button",
-        vars_map={"text": "Submit", "match_mode": "exact", "strict_single_match": "false"},
-    ).runtime_locator.nth(0)
-    runtime.run(
-        submit_locator.evaluate(
-            "el => { el.scrollIntoView({block: 'center', inline: 'nearest'}); return true; }"
+    with selenium_steps.step("Heal and click Submit", "And"):
+        submit_locator = _recover(
+            runtime,
+            selenium_driver,
+            selenium_healer,
+            integration_settings,
+            page_name="text_box",
+            element_name="submit",
+            field_type="button",
+            vars_map={"text": "Submit", "match_mode": "exact", "strict_single_match": "false"},
+        ).runtime_locator.nth(0)
+        runtime.run(
+            submit_locator.evaluate(
+                "el => { el.scrollIntoView({block: 'center', inline: 'nearest'}); return true; }"
+            )
         )
-    )
-    runtime.run(submit_locator.evaluate("el => { el.click(); return true; }"))
+        runtime.run(submit_locator.evaluate("el => { el.click(); return true; }"))
 
-    output = selenium_driver.find_element(By.CSS_SELECTOR, "#output").text.casefold()
-    assert "neela user" in output
-    assert "neela.user@example.com" in output
-    assert "bangalore, india" in output
-    assert "mysuru, india" in output
+    with selenium_steps.step("Verify submitted output", "Then"):
+        output = selenium_driver.find_element(By.CSS_SELECTOR, "#output").text.casefold()
+        assert "neela user" in output
+        assert "neela.user@example.com" in output
+        assert "bangalore, india" in output
+        assert "mysuru, india" in output
 
 
 def test_selenium_checkbox_home_icon_select_and_message_verify(
@@ -330,82 +568,89 @@ def test_selenium_checkbox_home_icon_select_and_message_verify(
     selenium_driver: Any,
     selenium_healer: SeleniumHealerFacade,
     integration_settings: IntegrationSettings,
+    selenium_steps: SeleniumStepReporter,
 ) -> None:
-    selenium_driver.get(f"{integration_settings.base_url}/checkbox")
-    home_expand_button = _recover(
-        runtime,
-        selenium_driver,
-        selenium_healer,
-        integration_settings,
-        page_name="checkbox",
-        element_name="home_expand_button",
-        field_type="button",
-        vars_map={
-            "label": "Home",
-            "text": "Toggle",
-            "match_mode": "exact",
-            "strict_single_match": "false",
-            "target": "toggle",
-        },
-    ).runtime_locator
-    _safe_click(runtime, home_expand_button)
+    with selenium_steps.step("Open checkbox demo page", "Given"):
+        selenium_driver.get(f"{integration_settings.base_url}/checkbox")
+    with selenium_steps.step("Heal and click Home expand button", "When"):
+        home_expand_button = _recover(
+            runtime,
+            selenium_driver,
+            selenium_healer,
+            integration_settings,
+            page_name="checkbox",
+            element_name="home_expand_button",
+            field_type="button",
+            vars_map={
+                "label": "Home",
+                "text": "Toggle",
+                "match_mode": "exact",
+                "strict_single_match": "false",
+                "target": "toggle",
+            },
+        ).runtime_locator
+        _safe_click(runtime, home_expand_button)
 
-    desktop_checkbox_icon = _recover(
-        runtime,
-        selenium_driver,
-        selenium_healer,
-        integration_settings,
-        page_name="checkbox",
-        element_name="desktop_checkbox_icon",
-        field_type="checkbox",
-        vars_map={
-            "label": "Desktop",
-            "text": "Desktop",
-            "strict_single_match": "false",
-            "target": "icon",
-        },
-    ).runtime_locator
-    _safe_click(runtime, desktop_checkbox_icon)
+    with selenium_steps.step("Heal and click Desktop checkbox icon", "And"):
+        desktop_checkbox_icon = _recover(
+            runtime,
+            selenium_driver,
+            selenium_healer,
+            integration_settings,
+            page_name="checkbox",
+            element_name="desktop_checkbox_icon",
+            field_type="checkbox",
+            vars_map={
+                "label": "Desktop",
+                "text": "Desktop",
+                "strict_single_match": "false",
+                "target": "icon",
+            },
+        ).runtime_locator
+        _safe_click(runtime, desktop_checkbox_icon)
 
-    downloads_expand_button = _recover(
-        runtime,
-        selenium_driver,
-        selenium_healer,
-        integration_settings,
-        page_name="checkbox",
-        element_name="downloads_expand_button",
-        field_type="button",
-        vars_map={
-            "label": "Downloads",
-            "text": "Toggle",
-            "match_mode": "exact",
-            "strict_single_match": "false",
-            "target": "toggle",
-        },
-    ).runtime_locator
-    _safe_click(runtime, downloads_expand_button)
+    with selenium_steps.step("Heal and click Downloads expand button", "And"):
+        downloads_expand_button = _recover(
+            runtime,
+            selenium_driver,
+            selenium_healer,
+            integration_settings,
+            page_name="checkbox",
+            element_name="downloads_expand_button",
+            field_type="button",
+            vars_map={
+                "label": "Downloads",
+                "text": "Toggle",
+                "match_mode": "exact",
+                "strict_single_match": "false",
+                "target": "toggle",
+            },
+        ).runtime_locator
+        _safe_click(runtime, downloads_expand_button)
 
-    excel_file_doc_checkbox_icon = _recover(
-        runtime,
-        selenium_driver,
-        selenium_healer,
-        integration_settings,
-        page_name="checkbox",
-        element_name="excel_file_doc_checkbox_icon",
-        field_type="checkbox",
-        vars_map={
-            "label": "Excel File.doc",
-            "text": "Excel File.doc",
-            "strict_single_match": "false",
-            "target": "icon",
-        },
-    ).runtime_locator
-    _safe_click(runtime, excel_file_doc_checkbox_icon)
+    with selenium_steps.step("Heal and click Excel File.doc checkbox icon", "And"):
+        excel_file_doc_checkbox_icon = _recover(
+            runtime,
+            selenium_driver,
+            selenium_healer,
+            integration_settings,
+            page_name="checkbox",
+            element_name="excel_file_doc_checkbox_icon",
+            field_type="checkbox",
+            vars_map={
+                "label": "Excel File.doc",
+                "text": "Excel File.doc",
+                "strict_single_match": "false",
+                "target": "icon",
+            },
+        ).runtime_locator
+        _safe_click(runtime, excel_file_doc_checkbox_icon)
 
-    message = selenium_driver.find_element(By.CSS_SELECTOR, "#result").text.casefold()
-    assert "you have selected" in message
-    assert "desktop" in message
-    assert "excel" in message
+    with selenium_steps.step("Verify checkbox selection message", "Then"):
+        message = selenium_driver.find_element(By.CSS_SELECTOR, "#result").text.casefold()
+        assert "you have selected" in message
+        assert "desktop" in message
+        assert "excel" in message
 
 
 def test_selenium_webtables_first_row_verification(
@@ -413,75 +658,83 @@ def test_selenium_webtables_first_row_verification(
     selenium_driver: Any,
     selenium_healer: SeleniumHealerFacade,
     integration_settings: IntegrationSettings,
+    selenium_steps: SeleniumStepReporter,
 ) -> None:
-    selenium_driver.get(f"{integration_settings.base_url}/webtables")
-    first_name = _recover(
-        runtime,
-        selenium_driver,
-        selenium_healer,
-        integration_settings,
-        page_name="webtables",
-        element_name="row1_first_name",
-        field_type="text",
-        vars_map={
-            "text": "Cierra",
-            "match_mode": "exact",
-            "occurrence": "0",
-            "allow_position": "true",
-            "strict_single_match": "false",
-        },
-    )
-    assert runtime.run(first_name.runtime_locator.count()) > 0
-    _try_highlight_table_cell(runtime, first_name.runtime_locator, expected_text="Cierra", hold_ms=2000)
+    with selenium_steps.step("Open webtables demo page", "Given"):
+        selenium_driver.get(f"{integration_settings.base_url}/webtables")
+    with selenium_steps.step("Heal and verify first-name cell as Cierra", "When"):
+        first_name = _recover(
+            runtime,
+            selenium_driver,
+            selenium_healer,
+            integration_settings,
+            page_name="webtables",
+            element_name="row1_first_name",
+            field_type="text",
+            vars_map={
+                "text": "Cierra",
+                "match_mode": "exact",
+                "occurrence": "0",
+                "allow_position": "true",
+                "strict_single_match": "false",
+            },
+        )
+        assert runtime.run(first_name.runtime_locator.count()) > 0
+        _try_highlight_table_cell(runtime, first_name.runtime_locator, expected_text="Cierra", hold_ms=2000)
 
-    found_last_name = None
-    for candidate in ("Vega",):
-        try:
-            recovered = _recover(
-                runtime,
-                selenium_driver,
-                selenium_healer,
-                integration_settings,
-                page_name="webtables",
-                element_name=f"row1_last_name_{candidate.casefold()}",
-                field_type="text",
-                vars_map={
-                    "text": candidate,
-                    "match_mode": "exact",
-                    "occurrence": "0",
-                    "allow_position": "true",
-                    "strict_single_match": "false",
-                },
-            )
-        except AssertionError:
-            continue
-        if runtime.run(recovered.runtime_locator.count()) > 0:
-            _try_highlight_table_cell(runtime, recovered.runtime_locator, expected_text=candidate, hold_ms=2000)
-            found_last_name = candidate
-            break
+    with selenium_steps.step("Heal and verify last-name cell from allowed values", "Then"):
+        found_last_name = None
+        for candidate in ("Vega",):
+            try:
+                recovered = _recover(
+                    runtime,
+                    selenium_driver,
+                    selenium_healer,
+                    integration_settings,
+                    page_name="webtables",
+                    element_name=f"row1_last_name_{candidate.casefold()}",
+                    field_type="text",
+                    vars_map={
+                        "text": candidate,
+                        "match_mode": "exact",
+                        "occurrence": "0",
+                        "allow_position": "true",
+                        "strict_single_match": "false",
+                    },
+                )
+            except AssertionError:
+                continue
+            if runtime.run(recovered.runtime_locator.count()) > 0:
+                _try_highlight_table_cell(runtime, recovered.runtime_locator, expected_text=candidate, hold_ms=2000)
+                found_last_name = candidate
+                break
 
-    assert found_last_name is not None
+        assert found_last_name is not None
 
 
 def test_selenium_raw_invalid_fallback_without_healer(
     selenium_driver: Any,
     integration_settings: IntegrationSettings,
+    selenium_steps: SeleniumStepReporter,
 ) -> None:
-    selenium_driver.get(f"{integration_settings.base_url}/text-box")
-    raw_xpath = _broken_fallback("raw_xpath_negative").value
-    count = len(selenium_driver.find_elements(By.XPATH, raw_xpath))
-    _append_jsonl(
-        integration_settings.healing_calls_jsonl,
-        {
-            "timestamp": datetime.now(UTC).isoformat(),
-            "framework": "selenium_python",
-            "page_name": "text_box",
-            "element_name": "raw_xpath_negative",
-            "status": "failed_without_healer",
-            "fallback_xpath": raw_xpath,
-            "reason": "raw_xpath_no_match",
-            "matched_count": count,
-        },
-    )
-    assert count == 0
-    pytest.fail(f"Intentional failure: raw fallback xpath did not resolve any element: {raw_xpath}")
+    with selenium_steps.step("Open text-box demo page for raw xpath negative test", "Given"):
+        selenium_driver.get(f"{integration_settings.base_url}/text-box")
+    with selenium_steps.step("Query raw invalid fallback xpath without healer", "When"):
+        raw_xpath = _broken_fallback("raw_xpath_negative").value
+        count = len(selenium_driver.find_elements(By.XPATH, raw_xpath))
+        _append_jsonl(
+            integration_settings.healing_calls_jsonl,
+            {
+                "timestamp": datetime.now(UTC).isoformat(),
+                "framework": "selenium_python",
+                "page_name": "text_box",
+                "element_name": "raw_xpath_negative",
+                "status": "failed_without_healer",
+                "fallback_xpath": raw_xpath,
+                "reason": "raw_xpath_no_match",
+                "matched_count": count,
+            },
+        )
+        assert count == 0
+    with selenium_steps.step("Intentional failure to validate negative path reporting", "Then"):
+        pytest.fail(f"Intentional failure: raw fallback xpath did not resolve any element: {raw_xpath}")
