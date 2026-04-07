@@ -37,6 +37,9 @@ Non-negotiable constraints:
   - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
 - Keep vector retrieval instructions aligned with current implementation:
   - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
-  - `PgVectorRetriever` is compatibility alias only
+  - `ChromaRetriever` is the canonical retriever for this project
 - Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
+
+
+
 

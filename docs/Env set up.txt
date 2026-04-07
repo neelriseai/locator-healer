@@ -1,0 +1,162 @@
+﻿# 0) optional: leave active venv
+deactivate 2>$null
+
+# 1) remove project deps from GLOBAL python (affects other projects)
+python -m pip uninstall -y -r requirements.txt
+python -m pip uninstall -y xpath-healer
+
+# 2) wipe local venv completely
+if (Test-Path .venv) { Remove-Item -Recurse -Force .venv }
+
+# 3) recreate fresh venv
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+
+# 4) reinstall fresh deps into venv
+python -m pip install --upgrade pip
+python -m pip install -e .[dev,db,llm,similarity,dom]
+# (or: python -m pip install -r requirements.txt)
+
+
+
+python -c "import sys, selenium; print(sys.executable); print(selenium.__version__)"
+
+
+
+
+$env:XH_CHROMA_PATH = "artifacts/chroma"
+$env:XH_CHROMA_RAG_COLLECTION = "xh_rag_documents"
+$env:XH_CHROMA_ELEMENTS_COLLECTION = "xh_elements"
+
+#playwright_python
+#selenium_python
+$env:XH_ADAPTER = "selenium_python"
+
+$env:XH_PLAYWRIGHT_BROWSER = "chromium"           
+$env:XH_SELENIUM_BROWSER = "chrome"              
+
+$env:XH_HEADLESS = "false"
+$env:XH_SCREENSHOT_EACH_TEST = "true"
+$env:XH_SCREENSHOT_ON_FAILURE = "true"
+$env:XH_SCREENSHOT_EACH_STEP = "true"
+$env:XH_VIDEO_EACH_TEST = "true"
+$env:XH_VIDEO_WIDTH = "1280"
+$env:XH_VIDEO_HEIGHT = "720"
+
+$env:XH_PLAYWRIGHT_WINDOW_WIDTH = "2560"
+$env:XH_PLAYWRIGHT_WINDOW_HEIGHT = "1440"
+
+
+
+
+
+
+$env:XH_STAGE_PROFILE = "full"
+$env:XH_STAGE_FALLBACK_ENABLED = "true"
+$env:XH_STAGE_METADATA_ENABLED = "true"
+$env:XH_STAGE_RULES_ENABLED = "true"
+$env:XH_STAGE_FINGERPRINT_ENABLED = "true"
+$env:XH_STAGE_PAGE_INDEX_ENABLED = "true"
+$env:XH_STAGE_SIGNATURE_ENABLED = "true"
+$env:XH_STAGE_DOM_MINING_ENABLED = "true"
+$env:XH_STAGE_DEFAULTS_ENABLED = "true"
+$env:XH_STAGE_POSITION_ENABLED = "true"
+$env:XH_STAGE_RAG_ENABLED = "true" 
+$env:XH_RAG_ENABLED = "true"
+  # set false if you want no LLM at all
+
+
+$env:XH_STAGE_PROFILE = "llm_only"
+$env:XH_STAGE_FALLBACK_ENABLED = "false"
+$env:XH_STAGE_METADATA_ENABLED = "false"
+$env:XH_STAGE_RULES_ENABLED = "false"
+$env:XH_STAGE_FINGERPRINT_ENABLED = "false"
+$env:XH_STAGE_PAGE_INDEX_ENABLED = "false"
+$env:XH_STAGE_SIGNATURE_ENABLED = "false"
+$env:XH_STAGE_DOM_MINING_ENABLED = "false"
+$env:XH_STAGE_DEFAULTS_ENABLED = "false"
+$env:XH_STAGE_POSITION_ENABLED = "false"
+$env:XH_STAGE_RAG_ENABLED = "true" 
+$env:XH_RAG_ENABLED = "true"
+  # set false if you want no LLM at all
+
+
+
+$env:XH_OPENAI_PROVIDER = "openai"
+$env:OPENAI_API_KEY = "<OPENAI_API_KEY>"
+$env:XH_OPENAI_LLM_API_KEY = "<OPENAI_API_KEY>"
+
+$env:XH_OPENAI_EMBED_API_KEY = "<OPENAI_API_KEY>"
+
+
+
+$env:XH_PG_DSN = "postgresql://postgres:Narayan15@localhost:5432/postgres"
+$env:XH_PG_AUTO_INIT_SCHEMA = "true"
+$env:XH_PG_POOL_MIN = "1"
+$env:XH_PG_POOL_MAX = "10"
+
+$env:XH_CHROMA_PATH = "artifacts/chroma"
+$env:XH_CHROMA_RAG_COLLECTION = "xh_rag_documents"
+$env:XH_CHROMA_ELEMENTS_COLLECTION = "xh_elements"
+
+$env:XH_OPENAI_MODEL = "gpt-4.1"
+$env:XH_OPENAI_EMBED_MODEL = "text-embedding-3-large"
+
+
+
+
+********************************
+
+# =========================
+# Azure OpenAI + XH setup
+# =========================
+
+# Core
+$env:XH_RAG_ENABLED = "true"
+$env:XH_OPENAI_PROVIDER = "azure"
+$env:XH_PG_DSN = "postgresql://<user>:<password>@localhost:5432/<database>"
+$env:XH_PG_AUTO_INIT_SCHEMA = "true"
+
+# Keys (if same key for both, keep same value)
+$env:XH_OPENAI_LLM_API_KEY = "<OPENAI_API_KEY>"
+$env:XH_OPENAI_EMBED_API_KEY = "<OPENAI_API_KEY>"
+
+# Shared Azure endpoint + version
+$env:XH_AZURE_OPENAI_ENDPOINT = "url"
+$env:XH_AZURE_OPENAI_API_VERSION = "2025-01-01-preview"
+
+# Chat model/deployment
+$env:XH_OPENAI_MODEL = "gpt-4.1"
+$env:XH_AZURE_OPENAI_CHAT_DEPLOYMENT = "gpt-4.1"
+$env:XH_AZURE_OPENAI_CHAT_API_VERSION = "2025-01-01-preview"
+
+# Embedding model/deployment
+$env:XH_OPENAI_EMBED_MODEL = "text-embedding-3-large"
+$env:XH_OPENAI_EMBED_DIM = "1536"
+$env:XH_AZURE_OPENAI_EMBED_DEPLOYMENT = "text-embedding-3-large"
+$env:XH_AZURE_OPENAI_EMBED_API_VERSION = "2023-05-15"
+
+# Optional stage/profile (choose one)
+$env:XH_STAGE_PROFILE = "full"       # deterministic + rag
+# $env:XH_STAGE_PROFILE = "llm_only" # rag/llm only
+
+# =========================
+# Verify effective values
+# =========================
+Get-ChildItem Env:XH_OPENAI*,Env:XH_AZURE*,Env:XH_RAG_ENABLED,Env:XH_PG_DSN,Env:XH_STAGE_PROFILE | Sort-Object Name
+
+
+Minimal Azure vars are:
+
+provider + keys
+endpoint + api version
+chat model/deployment
+embed model/deployment
+XH_RAG_ENABLED=true
+XH_PG_DSN for this projectâ€™s repository wiring.
+
+
+
+
+
+python -m pytest -q -rs -m integration tests\integration\test_demo_qa_healing_selenium.py --cucumberjson=artifacts/reports/cucumber-selenium.json --junitxml=artifacts/reports/integration-selenium-junit.xml

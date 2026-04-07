@@ -1,87 +1,75 @@
 ﻿Prompt Structure and Execution Order
 
-Source of truth:
-- Always align every prompt with `prompts/01_Master_Design_for_xpath_healer.md`.
-- If any prompt conflicts with master design, master design wins.
+Source of truth precedence:
+1. `prompts/01_Master_Design_for_xpath_healer.md`
+2. `prompts/final_solution_pack/99_Execution_Order.md`
+3. `prompts/final_solution_pack/03_Configuration_Catalog.md`
+4. `xpath_healer/core/config.py`, `xpath_healer/api/base.py`, `tests/integration/settings.py`
+
+If any prompt conflicts with code, code wins and prompt must be updated.
 
 Required prompt files (layer-wise)
 
 prompts/
 |
 |-- architecture/
-|   |-- system_design.md
-|
-|-- phases/
-|   |-- core_healing.md
-|   |-- unit_tests.md
-|   |-- playwright_integration.md
-|   |-- database_layer.md
-|   |-- service_layer.md
-|   `-- model_layer.md
-|
-`-- tasks/
-    |-- create_structure.md
-    |-- implement_logic.md
-    |-- add_tests.md
-    `-- refactor_review.md
-
-Additional prompt files required for this project
-
-prompts/
-|
-|-- 03_Layer_Execution_Order.md
+|   `-- system_design.md
 |
 |-- phases/
 |   |-- configuration_stage_policy.md
-|   `-- observability_reporting.md
+|   |-- core_healing.md
+|   |-- database_layer.md
+|   |-- model_layer.md
+|   |-- observability_reporting.md
+|   |-- playwright_integration.md
+|   |-- selenium_integration.md
+|   |-- service_layer.md
+|   `-- unit_tests.md
 |
-`-- tasks/
-    `-- runbook_validation.md
+|-- tasks/
+|   |-- add_tests.md
+|   |-- create_structure.md
+|   |-- implement_logic.md
+|   |-- refactor_review.md
+|   `-- runbook_validation.md
+|
+|-- 01_Master_Design_for_xpath_healer.md
+|-- 02_Prompts Structure.md
+`-- 03_Layer_Execution_Order.md
 
-Operational docs/scripts required for reproducible setup
+Execution mapping (required)
 
-- `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
-- `tools/reset_db_and_chroma.ps1`
-
-Execution order
-
-1. `tasks/create_structure.md`
-2. `phases/core_healing.md`
-3. `phases/unit_tests.md`
-4. `phases/playwright_integration.md`
-5. `phases/database_layer.md`
-6. `phases/service_layer.md`
-7. `phases/model_layer.md`
-8. `phases/configuration_stage_policy.md`
-9. `phases/observability_reporting.md`
-10. `tasks/add_tests.md`
-11. `tasks/refactor_review.md`
-12. `tasks/runbook_validation.md`
+1. Playwright integration:
+   - `phases/playwright_integration.md`
+   - `tests/integration/test_demo_qa_healing_bdd.py`
+   - `adapters/playwright_python/{adapter.py,facade.py}`
+2. Selenium integration:
+   - `phases/selenium_integration.md`
+   - `tests/integration/test_demo_qa_healing_selenium.py`
+   - `adapters/selenium_python/{adapter.py,facade.py}`
+3. Database/storage:
+   - `phases/database_layer.md`
+   - `xpath_healer/store/{repository,memory_repository,json_repository,pg_repository,dual_repository}.py`
+4. Model/RAG:
+   - `phases/model_layer.md`
+   - `xpath_healer/rag/{rag_assist,prompt_builder,prompt_dsl,openai_embedder,openai_llm,chroma_retriever}.py`
 
 Authoring rules for all prompt files
 
-1. Keep prompts implementation-oriented, not generic theory.
-2. Include exact module and method names from current repo.
-3. Include acceptance criteria and "done" checks.
-4. Include commands for validation (`python -m pytest ...`).
-5. Include constraints to prevent unrelated refactors.
-6. Keep secrets in env vars only (`OPENAI_API_KEY`, `XH_PG_DSN`).
-7. Preserve stage names and order used by healing traces.
-8. Include DB reset/recreate validation using:
-   - `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1`
-9. Keep prompts aligned with Chroma-backed retrieval (`xh_rag_documents`, `xh_elements`).
+1. Keep prompts implementation-first (exact files, exact methods).
+2. Preserve runtime stage order exactly:
+   `fallback -> metadata -> rules -> fingerprint -> page_index -> signature -> dom_mining -> defaults -> position -> rag`.
+3. Document execution model correctly:
+   - stage pipeline sequential
+   - selected stage candidate evaluation parallel via `asyncio.gather`
+   - selenium adapter thread offload via `asyncio.to_thread`
+4. Keep config docs aligned with actual env usage in code.
+5. Keep secrets in environment only.
+6. Keep retrieval docs Chroma-only (`xh_rag_documents`, `xh_elements`).
+7. Include deterministic validation commands.
 
-Detailed execution pack generated:
-- `prompts/final_solution_pack/`
-- Start with `prompts/final_solution_pack/99_Execution_Order.md`
-## Mandatory Operational Baseline
+Operational baseline
 
-- Before implementation, run:
-  - `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1`
-- Use this runbook as the source of truth for DB/index/Chroma reset and recreate steps:
-  - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
-- Keep vector retrieval instructions aligned with current implementation:
-  - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
-  - `PgVectorRetriever` is compatibility alias only
-- Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
-
+1. Run `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1` before end-to-end validation.
+2. Keep runbook aligned with `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`.
+3. Keep prompt pack entrypoint as `prompts/final_solution_pack/99_Execution_Order.md`.

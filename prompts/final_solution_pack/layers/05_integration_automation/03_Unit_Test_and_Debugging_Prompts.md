@@ -7,6 +7,7 @@ Integration test prompts:
 2. Positive scenario: checkbox icon click and message verify.
 3. Positive scenario: web table row first/last name verify through healed locators.
 4. Negative scenario: raw invalid fallback xpath without healer must fail and log reason.
+5. Selenium scenario parity: run same business checks through `test_demo_qa_healing_selenium.py`.
 
 Verification prompts:
 1. Verify trace contains expected stage path for each healed element.
@@ -26,6 +27,7 @@ Debugging prompts:
 
 Preferred execution command:
 1. `python -m pytest -q -rs -m integration tests\integration\test_demo_qa_healing_bdd.py --cucumberjson=artifacts/reports/cucumber.json`
+2. `python -m pytest -q -rs -m integration tests\integration\test_demo_qa_healing_selenium.py --cucumberjson=artifacts/reports/cucumber-selenium.json --junitxml=artifacts/reports/integration-selenium-junit.xml`
 
 Acceptance criteria:
 1. Integration suite provides deterministic evidence of behavior.
@@ -39,6 +41,9 @@ Acceptance criteria:
   - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
 - Keep vector retrieval instructions aligned with current implementation:
   - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
-  - `PgVectorRetriever` is compatibility alias only
+  - `ChromaRetriever` is the canonical retriever for this project
 - Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
+
+
+
 

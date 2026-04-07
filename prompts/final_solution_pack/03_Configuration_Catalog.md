@@ -1,109 +1,141 @@
-﻿Title: Unified Configuration Catalog Across All Layers
+﻿Title: Unified Configuration Catalog (Code-Accurate)
 
 Purpose:
-- Keep all configurable behavior documented in one place.
+- Keep all configurable behavior documented in one place, aligned with current code usage.
 
-Core and stage policy (`XH_*`):
-1. `XH_STAGE_PROFILE`
-   - `full`: deterministic + optional rag
-   - `llm_only`: deterministic disabled, rag-only
-2. `XH_STAGE_FALLBACK_ENABLED`
-3. `XH_STAGE_METADATA_ENABLED`
-4. `XH_STAGE_RULES_ENABLED`
-5. `XH_STAGE_FINGERPRINT_ENABLED`
-6. `XH_STAGE_PAGE_INDEX_ENABLED`
-7. `XH_STAGE_SIGNATURE_ENABLED`
-8. `XH_STAGE_DOM_MINING_ENABLED`
-9. `XH_STAGE_DEFAULTS_ENABLED`
-10. `XH_STAGE_POSITION_ENABLED`
-11. `XH_STAGE_RAG_ENABLED`
+Source-of-truth files:
+1. `xpath_healer/core/config.py`
+2. `xpath_healer/api/base.py`
+3. `xpath_healer/rag/chroma_retriever.py`
+4. `xpath_healer/store/pg_repository.py`
+5. `tests/integration/settings.py`
+6. `tests/integration/conftest.py`
+7. `.env.example`
 
-RAG and LLM:
-1. `XH_RAG_ENABLED`
-2. `XH_RAG_TOP_K`
-3. `XH_RAG_PROMPT_TOP_N`
-4. `XH_OPENAI_MODEL`
-5. `XH_OPENAI_EMBED_MODEL`
-6. `XH_OPENAI_EMBED_DIM`
-7. `XH_PROMPT_GRAPH_DEEP_DEFAULT`
-8. `XH_PROMPT_GRAPH_DEEP_RETRY_ENABLED`
-9. `XH_PROMPT_GRAPH_DEEP_RETRY_MAX`
-10. `XH_LLM_MIN_CONFIDENCE_FOR_ACCEPT`
-11. `OPENAI_API_KEY`
+A) Core adapter, stage, and validation policy (`HealerConfig.from_env`)
 
-Storage and DB:
+1. `XH_ADAPTER`
+2. `XH_ATTRIBUTE_PRIORITY`
+3. `XH_SIMILARITY_THRESHOLD`
+4. `XH_ALLOW_POSITION_FALLBACK`
+
+5. `XH_VALIDATOR_REQUIRE_VISIBLE`
+6. `XH_VALIDATOR_REQUIRE_ENABLED`
+7. `XH_VALIDATOR_STRICT_SINGLE_MATCH`
+8. `XH_VALIDATOR_GEOMETRY_ENABLED`
+9. `XH_VALIDATOR_GEOMETRY_TOLERANCE`
+10. `XH_VALIDATOR_AXIS_ENABLED`
+
+11. `XH_DOM_CACHE_TTL_SEC`
+12. `XH_STORE_ENABLED`
+13. `XH_STORE_PERSIST_EVENTS`
+
+14. `XH_RAG_ENABLED`
+15. `XH_RAG_TOP_K`
+
+16. `XH_PROMPT_GRAPH_DEEP_DEFAULT`
+17. `XH_PROMPT_GRAPH_DEEP_RETRY_ENABLED`
+18. `XH_PROMPT_GRAPH_DEEP_RETRY_MAX`
+19. `XH_LLM_MIN_CONFIDENCE_FOR_ACCEPT`
+
+20. `XH_STAGE_PROFILE`
+21. `XH_STAGE_FALLBACK_ENABLED`
+22. `XH_STAGE_METADATA_ENABLED`
+23. `XH_STAGE_RULES_ENABLED`
+24. `XH_STAGE_FINGERPRINT_ENABLED`
+25. `XH_STAGE_PAGE_INDEX_ENABLED`
+26. `XH_STAGE_SIGNATURE_ENABLED`
+27. `XH_STAGE_DOM_MINING_ENABLED`
+28. `XH_STAGE_DEFAULTS_ENABLED`
+29. `XH_STAGE_POSITION_ENABLED`
+30. `XH_STAGE_RAG_ENABLED`
+
+31. `XH_FINGERPRINT_ENABLED`
+32. `XH_FINGERPRINT_MIN_SCORE`
+33. `XH_FINGERPRINT_ACCEPT_SCORE`
+34. `XH_FINGERPRINT_CANDIDATE_LIMIT`
+
+35. `XH_RETRY_ENABLED`
+36. `XH_RETRY_MAX_ATTEMPTS`
+37. `XH_RETRY_DELAY_MS`
+38. `XH_RETRY_REASON_CODES`
+
+39. `XH_LOG_LEVEL`
+
+B) RAG/provider initialization and model settings (`api/base.py`)
+
+1. `OPENAI_API_KEY`
+2. `XH_OPENAI_LLM_API_KEY`
+3. `XH_OPENAI_EMBED_API_KEY`
+4. `XH_OPENAI_PROVIDER`
+
+5. `XH_OPENAI_MODEL`
+6. `XH_OPENAI_EMBED_MODEL`
+7. `XH_OPENAI_EMBED_DIM`
+8. `XH_RAG_PROMPT_TOP_N`
+
+9. `XH_AZURE_OPENAI_ENDPOINT`
+10. `XH_AZURE_OPENAI_API_VERSION`
+11. `XH_AZURE_OPENAI_DEPLOYMENT`
+12. `XH_AZURE_OPENAI_CHAT_ENDPOINT`
+13. `XH_AZURE_OPENAI_CHAT_API_VERSION`
+14. `XH_AZURE_OPENAI_CHAT_DEPLOYMENT`
+15. `XH_AZURE_OPENAI_EMBED_ENDPOINT`
+16. `XH_AZURE_OPENAI_EMBED_API_VERSION`
+17. `XH_AZURE_OPENAI_EMBED_DEPLOYMENT`
+
+C) Repository and vector-store settings
+
 1. `XH_PG_DSN`
 2. `XH_PG_POOL_MIN`
 3. `XH_PG_POOL_MAX`
 4. `XH_PG_AUTO_INIT_SCHEMA`
 5. `XH_METADATA_JSON_DIR`
-6. `XH_EMBEDDING_WRITE_ENABLED`
-7. `XH_RAG_DOC_MAX_CHARS`
 
-Validator and scoring:
-1. `XH_SIMILARITY_THRESHOLD`
-2. `XH_VALIDATOR_REQUIRE_VISIBLE`
-3. `XH_VALIDATOR_REQUIRE_ENABLED`
-4. `XH_VALIDATOR_STRICT_SINGLE_MATCH`
-5. `XH_VALIDATOR_GEOMETRY_ENABLED`
-6. `XH_VALIDATOR_GEOMETRY_TOLERANCE`
-7. `XH_VALIDATOR_AXIS_ENABLED`
+6. `XH_CHROMA_PATH`
+7. `XH_CHROMA_RAG_COLLECTION`
+8. `XH_CHROMA_ELEMENTS_COLLECTION`
 
-Fingerprint:
-1. `XH_FINGERPRINT_ENABLED`
-2. `XH_FINGERPRINT_MIN_SCORE`
-3. `XH_FINGERPRINT_ACCEPT_SCORE`
-4. `XH_FINGERPRINT_CANDIDATE_LIMIT`
+9. `XH_EMBEDDING_WRITE_ENABLED`
+10. `XH_RAG_DOC_MAX_CHARS`
 
-Retry:
-1. `XH_RETRY_ENABLED`
-2. `XH_RETRY_MAX_ATTEMPTS`
-3. `XH_RETRY_DELAY_MS`
-4. `XH_RETRY_REASON_CODES`
+D) Integration runtime and artifact settings (`tests/integration/settings.py`)
 
-Logging:
-1. `XH_LOG_LEVEL`
-
-Integration execution settings:
 1. `XH_BASE_URL`
-2. `XH_BROWSER_ENGINE`
-3. `XH_BROWSER_CHANNEL`
-4. `XH_HEADLESS`
-5. `XH_ARTIFACTS_ROOT`
-6. `XH_REPORTS_DIR`
-7. `XH_LOGS_DIR`
-8. `XH_SCREENSHOTS_DIR`
-9. `XH_VIDEOS_DIR`
-10. `XH_METADATA_DIR`
-11. `XH_JUNIT_XML`
-12. `XH_CUCUMBER_JSON`
-13. `XH_STEP_REPORT`
-14. `XH_HEALING_CALLS_REPORT`
-15. `XH_HTML_REPORT`
-16. `XH_SCREENSHOT_EACH_TEST`
-17. `XH_SCREENSHOT_ON_FAILURE`
-18. `XH_SCREENSHOT_EACH_STEP`
-19. `XH_VIDEO_EACH_TEST`
-20. `XH_VIDEO_WIDTH`
-21. `XH_VIDEO_HEIGHT`
+2. `XH_PLAYWRIGHT_BROWSER`
+3. `XH_PLAYWRIGHT_CHANNEL`
+4. `XH_SELENIUM_BROWSER`
+5. `XH_SELENIUM_BINARY`
+6. `XH_BROWSER_ENGINE` (legacy fallback)
+7. `XH_BROWSER_CHANNEL` (legacy fallback)
+8. `XH_HEADLESS`
 
-Configuration files:
-1. `.env` or `.env.example` for shared defaults
-2. `tests/integration/config.json` for integration profile defaults
-3. `pyproject.toml` for test settings and markers
+9. `XH_ARTIFACTS_ROOT`
+10. `XH_REPORTS_DIR`
+11. `XH_LOGS_DIR`
+12. `XH_SCREENSHOTS_DIR`
+13. `XH_VIDEOS_DIR`
+14. `XH_METADATA_DIR`
+15. `XH_JUNIT_XML`
+16. `XH_CUCUMBER_JSON`
+17. `XH_STEP_REPORT`
+18. `XH_HEALING_CALLS_REPORT`
+19. `XH_HTML_REPORT`
 
-Recommended policy:
-1. Keep non-secret defaults in `.env.example`.
-2. Keep secrets in user-level environment variables.
-3. Keep environment-specific files per machine and avoid hardcoding local credentials.
-## Mandatory Operational Baseline
+20. `XH_SCREENSHOT_EACH_TEST`
+21. `XH_SCREENSHOT_ON_FAILURE`
+22. `XH_SCREENSHOT_EACH_STEP`
+23. `XH_VIDEO_EACH_TEST`
+24. `XH_VIDEO_WIDTH`
+25. `XH_VIDEO_HEIGHT`
 
-- Before implementation, run:
-  - `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1`
-- Use this runbook as the source of truth for DB/index/Chroma reset and recreate steps:
-  - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
-- Keep vector retrieval instructions aligned with current implementation:
-  - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
-  - `PgVectorRetriever` is compatibility alias only
-- Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
+E) Playwright window settings (`tests/integration/conftest.py`)
 
+1. `XH_PLAYWRIGHT_WINDOW_WIDTH`
+2. `XH_PLAYWRIGHT_WINDOW_HEIGHT`
+
+Policy notes:
+1. `llm_only` profile disables deterministic stages by default; explicit stage env flags can still override.
+2. RAG is only active when both stage and global rag flags are enabled and required runtime keys/settings exist.
+3. Chroma is the active retrieval backend in runtime flow.
+4. Keep non-secret defaults in `.env.example`; keep secrets in shell/user env.

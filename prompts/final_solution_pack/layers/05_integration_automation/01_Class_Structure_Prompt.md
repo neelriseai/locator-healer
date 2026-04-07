@@ -4,14 +4,16 @@ Use this prompt with AI assistant:
 
 1. Create and maintain these integration structures:
    - `IntegrationSettings` dataclass
-   - browser/page/session fixtures
+   - browser/page/session fixtures for Playwright and Selenium
    - scenario-state container for step communication
    - optional logged repository wrapper for DB operation visibility
+   - adapter-specific facades (`XPathHealerFacade`, `SeleniumHealerFacade`)
 
 2. Keep clear concerns:
    - settings loader handles environment + config file merge.
    - conftest handles runtime fixtures and artifact lifecycle.
-   - step definition file handles scenario behavior only.
+   - Playwright BDD step file handles scenario behavior.
+   - Selenium integration file handles direct pytest scenarios.
 
 3. Keep artifact paths centralized:
    - logs
@@ -32,6 +34,9 @@ Acceptance criteria:
   - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
 - Keep vector retrieval instructions aligned with current implementation:
   - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
-  - `PgVectorRetriever` is compatibility alias only
+  - `ChromaRetriever` is the canonical retriever for this project
 - Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
+
+
+
 

@@ -4,12 +4,12 @@ Architecture reference:
 - `prompts/01_Master_Design_for_xpath_healer.md`
 
 Phase objective:
-- Build and harden deterministic healing engine behavior in `xpath_healer/core` and facade orchestration.
+- Build and harden deterministic healing behavior in `xpath_healer/core` and facade orchestration.
 
 Prompt to use with AI assistant:
 
 ```
-Implement Core Healing Layer aligned to `prompts/01_Master_Design_for_xpath_healer.md`.
+Implement Core Healing Layer.
 
 Scope:
 - xpath_healer/core/config.py
@@ -23,16 +23,18 @@ Scope:
 - xpath_healer/core/similarity.py
 - xpath_healer/core/page_index.py
 - xpath_healer/core/strategies/*
-- xpath_healer/api/facade.py
+- xpath_healer/api/base.py
 
 Required behavior:
-1. Keep stage order:
-   fallback -> metadata -> rules -> fingerprint -> page_index -> signature -> dom_mining -> defaults -> position -> rag.
+1. Preserve exact stage order:
+   fallback -> metadata -> rules -> fingerprint -> page_index -> signature -> dom_mining -> defaults -> position -> rag
 2. Respect stage flags via `HealerConfig.from_env`.
-3. Evaluate candidates with validator gating before accept.
-4. Emit structured trace and stage events.
-5. Maintain retry logic (`XH_RETRY_*`) for transient reason codes.
-6. Persist success/failure through repository interface (no backend-specific logic in core).
+3. Keep stage pipeline sequential.
+4. Keep candidate validation parallel only in designated stages via `_evaluate_candidates_parallel`.
+5. Keep candidate validation sequential where `_evaluate_candidates` is used.
+6. Emit structured trace and stage events.
+7. Maintain retry logic (`XH_RETRY_*`) for transient reason codes.
+8. Persist success/failure through repository interface (no backend-specific logic in core).
 
 Deliverables:
 - Code changes with clear method boundaries.
@@ -47,23 +49,12 @@ Constraints:
 ```
 
 Acceptance criteria:
-- `HealingService.recover_locator` follows stage sequence and honors flags.
+- `HealingService.recover_locator` follows sequence and honors flags.
 - Recovery returns `Recovered` with trace entries and correlation id.
-- Validator must block invalid/multi-match candidates when strict mode applies.
+- Validator blocks invalid/multi-match candidates when strict mode applies.
 - Existing integration flow remains compatible.
 
 Validation commands:
 - `python -m pytest -q tests/unit/test_healing_service.py`
 - `python -m pytest -q tests/unit/test_stage_switches.py`
 - `python -m pytest -q tests/unit/test_validator.py`
-## Mandatory Operational Baseline
-
-- Before implementation, run:
-  - `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1`
-- Use this runbook as the source of truth for DB/index/Chroma reset and recreate steps:
-  - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
-- Keep vector retrieval instructions aligned with current implementation:
-  - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
-  - `PgVectorRetriever` is compatibility alias only
-- Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
-

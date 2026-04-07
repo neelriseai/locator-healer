@@ -24,7 +24,7 @@ Phase E: Model layer
 2. Output is validator-gated model fallback with telemetry.
 
 Phase F: Integration layer
-1. Build pytest-bdd + Playwright automation and reporting artifacts.
+1. Build pytest-bdd + Playwright automation and Selenium automation, both with reporting artifacts.
 2. Output is executable end-to-end scenarios with healing traces and media evidence.
 
 Phase G: End-to-end validation
@@ -41,6 +41,9 @@ Fast-track mapping:
   - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
 - Keep vector retrieval instructions aligned with current implementation:
   - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
-  - `PgVectorRetriever` is compatibility alias only
+  - `ChromaRetriever` is the canonical retriever for this project
 - Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
+
+
+
 

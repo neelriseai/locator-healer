@@ -20,7 +20,7 @@
         "options": {},
         "scope": null
       },
-      "strategy_id": "rag_suggest",
+      "strategy_id": "metadata.last_good",
       "signature": {
         "tag": "input",
         "stable_attrs": {
@@ -93,116 +93,12 @@
         "validation_reasons": [
           "validated"
         ],
-        "strategy_id": "rag_suggest",
-        "strategy_score": 0.93,
+        "strategy_id": "metadata.last_good",
+        "strategy_score": 1.0,
         "locator_kind": "css",
         "locator_value": "[id=\"userName\"]",
         "valid_against_hints": true,
         "history": [
-          {
-            "timestamp": "2026-03-24T16:30:06.287188+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:04:38.647890+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:15:15.957256+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:18:02.692088+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:37:58.581621+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:22:53.001063+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:27:11.810418+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:30:06.502730+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:32:26.900383+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:56:52.197307+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T19:09:42.796644+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T19:24:03.094797+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T19:30:30.356968+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
           {
             "timestamp": "2026-03-24T19:46:59.075677+00:00",
             "strategy_id": "rag_suggest",
@@ -253,16 +149,120 @@
           },
           {
             "timestamp": "2026-03-25T07:51:27.954142+00:00",
-            "overall_score": 0.916,
             "strategy_id": "rag_suggest",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T05:26:04.058017+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T05:32:51.148856+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T05:36:15.963487+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T06:04:49.463264+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T06:37:14.257938+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:01:18.510293+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:11:50.689603+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:24:18.829400+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:26:27.453829+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:33:16.229360+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T09:16:57.503903+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-04-07T03:18:56.576070+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-04-07T03:23:56.674948+00:00",
+            "overall_score": 0.916,
+            "strategy_id": "metadata.last_good",
             "uniqueness_score": 1.0,
             "stability_score": 0.84,
             "similarity_score": 0.9
           }
         ]
       },
-      "last_seen": "2026-03-25T07:51:27.817071+00:00",
-      "success_count": 31,
+      "last_seen": "2026-04-07T03:23:56.448544+00:00",
+      "success_count": 44,
       "fail_count": 0
     },
     "email": {
@@ -272,12 +272,9 @@
       "element_name": "email",
       "field_type": "textbox",
       "last_good_locator": {
-        "kind": "role",
-        "value": "textbox",
-        "options": {
-          "name": "name@example.com",
-          "exact": false
-        },
+        "kind": "css",
+        "value": "[placeholder=\"name@example.com\"]",
+        "options": {},
         "scope": null
       },
       "robust_locator": {
@@ -286,7 +283,7 @@
         "options": {},
         "scope": null
       },
-      "strategy_id": "rag_suggest",
+      "strategy_id": "metadata.last_good",
       "signature": {
         "tag": "input",
         "stable_attrs": {
@@ -325,12 +322,9 @@
           "scope": null
         },
         "last_good": {
-          "kind": "role",
-          "value": "textbox",
-          "options": {
-            "name": "name@example.com",
-            "exact": false
-          },
+          "kind": "css",
+          "value": "[placeholder=\"name@example.com\"]",
+          "options": {},
           "scope": null
         },
         "live_xpath": {
@@ -354,124 +348,20 @@
       },
       "quality_metrics": {
         "uniqueness_score": 1.0,
-        "stability_score": 0.96,
+        "stability_score": 0.94,
         "similarity_score": 0.9,
-        "overall_score": 0.964,
+        "overall_score": 0.956,
         "matched_count": 1,
         "chosen_index": 0,
         "validation_reasons": [
           "validated"
         ],
-        "strategy_id": "rag_suggest",
-        "strategy_score": 0.79,
-        "locator_kind": "role",
-        "locator_value": "textbox",
+        "strategy_id": "metadata.last_good",
+        "strategy_score": 1.0,
+        "locator_kind": "css",
+        "locator_value": "[placeholder=\"name@example.com\"]",
         "valid_against_hints": true,
         "history": [
-          {
-            "timestamp": "2026-03-24T16:30:11.978491+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:04:44.453696+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:15:26.334317+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.964,
-            "stability_score": 0.96,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:18:05.109985+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.964,
-            "stability_score": 0.96,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:38:01.662907+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.964,
-            "stability_score": 0.96,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:22:56.240408+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.964,
-            "stability_score": 0.96,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:27:17.730989+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.964,
-            "stability_score": 0.96,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:30:08.832115+00:00",
-            "strategy_id": "metadata.robust",
-            "overall_score": 0.956,
-            "stability_score": 0.94,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:32:39.004319+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:56:55.327114+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T19:09:47.879865+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T19:24:07.640292+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T19:30:38.307063+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
           {
             "timestamp": "2026-03-24T19:47:05.836788+00:00",
             "strategy_id": "rag_suggest",
@@ -522,16 +412,120 @@
           },
           {
             "timestamp": "2026-03-25T07:51:32.911923+00:00",
-            "overall_score": 0.964,
             "strategy_id": "rag_suggest",
-            "uniqueness_score": 1.0,
+            "overall_score": 0.964,
             "stability_score": 0.96,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T05:26:10.684763+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.964,
+            "stability_score": 0.96,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T05:32:55.502144+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.964,
+            "stability_score": 0.96,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T05:36:20.583201+00:00",
+            "strategy_id": "metadata.robust",
+            "overall_score": 0.956,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T06:04:52.680302+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.956,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T06:37:17.758461+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.956,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:01:24.878840+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.956,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:11:54.894040+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.956,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:24:21.882785+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.956,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:26:29.696212+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.956,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:33:18.845700+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.956,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T09:17:00.528561+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.956,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-04-07T03:19:02.158547+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.956,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-04-07T03:24:02.358668+00:00",
+            "overall_score": 0.956,
+            "strategy_id": "metadata.last_good",
+            "uniqueness_score": 1.0,
+            "stability_score": 0.94,
             "similarity_score": 0.9
           }
         ]
       },
-      "last_seen": "2026-03-25T07:51:32.827145+00:00",
-      "success_count": 31,
+      "last_seen": "2026-04-07T03:24:02.215287+00:00",
+      "success_count": 44,
       "fail_count": 0
     },
     "current_address": {
@@ -552,7 +546,7 @@
         "options": {},
         "scope": null
       },
-      "strategy_id": "rag_suggest",
+      "strategy_id": "metadata.last_good",
       "signature": {
         "tag": "textarea",
         "stable_attrs": {
@@ -624,116 +618,12 @@
         "validation_reasons": [
           "validated"
         ],
-        "strategy_id": "rag_suggest",
-        "strategy_score": 0.93,
+        "strategy_id": "metadata.last_good",
+        "strategy_score": 1.0,
         "locator_kind": "css",
         "locator_value": "[id=\"currentAddress\"]",
         "valid_against_hints": true,
         "history": [
-          {
-            "timestamp": "2026-03-24T16:30:18.801605+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:04:48.372847+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:15:31.880874+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:18:06.095747+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:38:03.219825+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:22:57.692549+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:27:24.911753+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:30:09.700690+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:32:44.451819+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:56:56.870523+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T19:09:53.804089+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T19:24:11.382054+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T19:30:43.147993+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
           {
             "timestamp": "2026-03-24T19:47:12.307409+00:00",
             "strategy_id": "rag_suggest",
@@ -784,16 +674,120 @@
           },
           {
             "timestamp": "2026-03-25T07:51:36.012647+00:00",
-            "overall_score": 0.904,
             "strategy_id": "rag_suggest",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T05:26:13.966351+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T05:32:57.460181+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T05:36:22.171647+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T06:04:53.789519+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T06:37:19.430414+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:01:26.596343+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:11:56.516490+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:24:23.697393+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:26:30.730565+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:33:19.843629+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T09:17:02.140031+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-04-07T03:19:05.830419+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-04-07T03:24:04.939294+00:00",
+            "overall_score": 0.904,
+            "strategy_id": "metadata.last_good",
             "uniqueness_score": 1.0,
             "stability_score": 0.81,
             "similarity_score": 0.9
           }
         ]
       },
-      "last_seen": "2026-03-25T07:51:35.927119+00:00",
-      "success_count": 31,
+      "last_seen": "2026-04-07T03:24:04.795039+00:00",
+      "success_count": 44,
       "fail_count": 0
     },
     "permanent_address": {
@@ -814,7 +808,7 @@
         "options": {},
         "scope": null
       },
-      "strategy_id": "rag_suggest",
+      "strategy_id": "metadata.last_good",
       "signature": {
         "tag": "textarea",
         "stable_attrs": {},
@@ -884,116 +878,12 @@
         "validation_reasons": [
           "validated"
         ],
-        "strategy_id": "rag_suggest",
-        "strategy_score": 0.98,
+        "strategy_id": "metadata.last_good",
+        "strategy_score": 1.0,
         "locator_kind": "css",
         "locator_value": "#permanentAddress",
         "valid_against_hints": true,
         "history": [
-          {
-            "timestamp": "2026-03-24T16:30:23.927718+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.782,
-            "stability_score": 0.78,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:04:52.420688+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.782,
-            "stability_score": 0.78,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:15:36.287100+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.782,
-            "stability_score": 0.78,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:18:07.115552+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.782,
-            "stability_score": 0.78,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:38:04.144925+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.782,
-            "stability_score": 0.78,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:22:58.645709+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.782,
-            "stability_score": 0.78,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:27:31.115108+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.782,
-            "stability_score": 0.78,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:30:10.604424+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.782,
-            "stability_score": 0.78,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:32:49.847000+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.782,
-            "stability_score": 0.78,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:56:57.828719+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.782,
-            "stability_score": 0.78,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T19:09:58.903464+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.782,
-            "stability_score": 0.78,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T19:24:15.507369+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.782,
-            "stability_score": 0.78,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T19:30:47.825136+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.782,
-            "stability_score": 0.78,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
           {
             "timestamp": "2026-03-24T19:47:18.450695+00:00",
             "strategy_id": "rag_suggest",
@@ -1044,16 +934,120 @@
           },
           {
             "timestamp": "2026-03-25T07:51:39.798794+00:00",
-            "overall_score": 0.782,
             "strategy_id": "rag_suggest",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T05:26:15.726716+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T05:32:59.284398+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T05:36:23.711035+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T06:04:55.375150+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T06:37:20.589714+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:01:30.451053+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:11:58.160681+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:24:24.927883+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:26:31.708603+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:33:20.933277+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T09:17:03.130022+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-04-07T03:19:10.917019+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-04-07T03:24:06.981429+00:00",
+            "overall_score": 0.782,
+            "strategy_id": "metadata.last_good",
             "uniqueness_score": 1.0,
             "stability_score": 0.78,
             "similarity_score": 0.35
           }
         ]
       },
-      "last_seen": "2026-03-25T07:51:39.714171+00:00",
-      "success_count": 31,
+      "last_seen": "2026-04-07T03:24:06.841102+00:00",
+      "success_count": 44,
       "fail_count": 0
     },
     "submit": {
@@ -1077,7 +1071,7 @@
         "options": {},
         "scope": null
       },
-      "strategy_id": "rag_suggest",
+      "strategy_id": "metadata.last_good",
       "signature": {
         "tag": "button",
         "stable_attrs": {
@@ -1152,116 +1146,12 @@
         "validation_reasons": [
           "validated"
         ],
-        "strategy_id": "rag_suggest",
-        "strategy_score": 0.96,
+        "strategy_id": "metadata.last_good",
+        "strategy_score": 1.0,
         "locator_kind": "role",
         "locator_value": "button",
         "valid_against_hints": true,
         "history": [
-          {
-            "timestamp": "2026-03-24T16:30:27.880236+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:05:00.412405+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.952,
-            "stability_score": 0.93,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:15:42.117948+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.952,
-            "stability_score": 0.93,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:18:08.453978+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.952,
-            "stability_score": 0.93,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T17:38:05.357913+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.952,
-            "stability_score": 0.93,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:22:59.821835+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.952,
-            "stability_score": 0.93,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:27:36.311899+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.952,
-            "stability_score": 0.93,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:30:11.824745+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.952,
-            "stability_score": 0.93,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:32:55.162251+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.952,
-            "stability_score": 0.93,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T18:56:59.164026+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.952,
-            "stability_score": 0.93,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T19:10:03.150162+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.952,
-            "stability_score": 0.93,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T19:24:19.126434+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.952,
-            "stability_score": 0.93,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-24T19:30:52.048098+00:00",
-            "strategy_id": "rag_suggest",
-            "overall_score": 0.952,
-            "stability_score": 0.93,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
           {
             "timestamp": "2026-03-24T19:47:24.311786+00:00",
             "strategy_id": "rag_suggest",
@@ -1312,16 +1202,120 @@
           },
           {
             "timestamp": "2026-03-25T07:51:43.749337+00:00",
-            "overall_score": 0.952,
             "strategy_id": "rag_suggest",
+            "overall_score": 0.952,
+            "stability_score": 0.93,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T05:26:17.666915+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.952,
+            "stability_score": 0.93,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T05:33:01.178051+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.952,
+            "stability_score": 0.93,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T05:36:25.989763+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.952,
+            "stability_score": 0.93,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T06:04:56.820445+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.952,
+            "stability_score": 0.93,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T06:37:22.082433+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.952,
+            "stability_score": 0.93,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:01:32.799779+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.952,
+            "stability_score": 0.93,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:12:00.536971+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.952,
+            "stability_score": 0.93,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:24:26.323390+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.952,
+            "stability_score": 0.93,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:26:33.171330+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.952,
+            "stability_score": 0.93,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T08:33:22.453150+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.952,
+            "stability_score": 0.93,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-03-26T09:17:04.467098+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.952,
+            "stability_score": 0.93,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-04-07T03:19:12.741114+00:00",
+            "strategy_id": "metadata.last_good",
+            "overall_score": 0.952,
+            "stability_score": 0.93,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-04-07T03:24:09.202327+00:00",
+            "overall_score": 0.952,
+            "strategy_id": "metadata.last_good",
             "uniqueness_score": 1.0,
             "stability_score": 0.93,
             "similarity_score": 0.9
           }
         ]
       },
-      "last_seen": "2026-03-25T07:51:43.665109+00:00",
-      "success_count": 31,
+      "last_seen": "2026-04-07T03:24:09.039218+00:00",
+      "success_count": 44,
       "fail_count": 0
     }
   },
