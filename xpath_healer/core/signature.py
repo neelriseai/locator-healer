@@ -41,6 +41,7 @@ class SignatureExtractor:
                 }
                 const text = (el.innerText || el.textContent || "").trim().slice(0, 120);
                 const container = [];
+                const containerLcaPath = [];
                 let cur = el.parentElement;
                 let depth = 0;
                 while (cur && depth < 6) {
@@ -50,14 +51,89 @@ class SignatureExtractor:
                   if (role) container.push(`role:${role}`);
                   if (tid) container.push(`testid:${tid}`);
                   if (name) container.push(`label:${name}`);
+                  // container_lca_path: pick the strongest discriminator
+                  // per ancestor level so the path is short and stable.
+                  // Prefer testid > id > role > aria-label > tag.
+                  const ancestorId = cur.getAttribute("id");
+                  let token = null;
+                  if (tid) token = `testid:${tid}`;
+                  else if (ancestorId) token = `id:${ancestorId}`;
+                  else if (role) token = `role:${role}`;
+                  else if (name) token = `label:${name}`;
+                  else token = `tag:${(cur.tagName || "").toLowerCase()}`;
+                  containerLcaPath.unshift(token);
                   cur = cur.parentElement;
                   depth += 1;
                 }
+                // Option-set capture — distinguishes elements when their
+                // visible label changes. Schema varies by element kind so
+                // downstream healer can score by the right similarity.
+                const tagLower = (el.tagName || "").toLowerCase();
+                const typeLower = (el.getAttribute("type") || "").toLowerCase();
+                const optionSet = {};
+                if (tagLower === "select") {
+                  const opts = Array.from(el.querySelectorAll("option"));
+                  optionSet.values = opts.map(o => (o.getAttribute("value") || o.textContent || "").trim()).filter(Boolean);
+                  optionSet.texts = opts.map(o => (o.textContent || "").trim()).filter(Boolean);
+                } else if (
+                  (tagLower === "input" && (typeLower === "radio" || typeLower === "checkbox"))
+                  || el.getAttribute("role") === "radio" || el.getAttribute("role") === "checkbox"
+                ) {
+                  // Group is identified by shared @name; fall back to the
+                  // nearest fieldset/role=radiogroup ancestor.
+                  const groupName = el.getAttribute("name") || "";
+                  let groupNodes = [];
+                  if (groupName) {
+                    groupNodes = Array.from(document.querySelectorAll(`input[name="${groupName.replace(/"/g, '\\\\"')}"]`));
+                  } else {
+                    let scope = el.closest("fieldset, [role='radiogroup'], [role='group']");
+                    if (scope) {
+                      groupNodes = Array.from(scope.querySelectorAll(
+                        `input[type="${typeLower}"], [role="${typeLower}"]`
+                      ));
+                    }
+                  }
+                  if (groupNodes.length === 0) groupNodes = [el];
+                  optionSet.group_name = groupName;
+                  optionSet.values = groupNodes
+                    .map(n => (n.getAttribute("value") || "").trim())
+                    .filter(Boolean);
+                  // Labels: <label for=id>, ancestor <label>, or adjacent text.
+                  optionSet.labels = groupNodes.map(n => {
+                    const lid = n.getAttribute("id");
+                    if (lid) {
+                      const lbl = document.querySelector(`label[for="${lid.replace(/"/g, '\\\\"')}"]`);
+                      if (lbl) return (lbl.textContent || "").trim();
+                    }
+                    const wrap = n.closest("label");
+                    if (wrap) return (wrap.textContent || "").trim();
+                    const sib = n.nextElementSibling;
+                    if (sib && sib.tagName.toLowerCase() === "label") return (sib.textContent || "").trim();
+                    return "";
+                  }).filter(Boolean);
+                } else if (tagLower === "input" || tagLower === "textarea") {
+                  const collect = (k) => {
+                    const v = el.getAttribute(k);
+                    return v == null ? "" : String(v).trim();
+                  };
+                  optionSet.name = collect("name");
+                  optionSet.placeholder = collect("placeholder");
+                  optionSet.pattern = collect("pattern");
+                  optionSet.autocomplete = collect("autocomplete");
+                  optionSet.maxlength = collect("maxlength");
+                  optionSet.input_type = typeLower;
+                  // Drop empty keys to keep the persisted payload small.
+                  for (const k of Object.keys(optionSet)) {
+                    if (!optionSet[k]) delete optionSet[k];
+                  }
+                }
                 return {
-                  tag: (el.tagName || "").toLowerCase(),
+                  tag: tagLower,
                   attrs,
                   text,
                   container,
+                  container_lca_path: containerLcaPath,
+                  option_set: optionSet,
                 };
             }"""
         )
@@ -72,12 +148,18 @@ class SignatureExtractor:
             for key in self.STABLE_ATTRS
             if key in attrs and str(attrs[key]).strip()
         }
+        option_set_raw = payload.get("option_set") or {}
+        option_set: dict[str, Any] = dict(option_set_raw) if isinstance(option_set_raw, dict) else {}
+        container_lca_raw = payload.get("container_lca_path") or []
+        container_lca_path = [str(t) for t in container_lca_raw if str(t).strip()]
         return ElementSignature(
             tag=str(payload.get("tag") or ""),
             stable_attrs=stable_attrs,
             short_text=normalize_text(str(payload.get("text") or ""))[:120],
             container_path=list(payload.get("container") or []),
             component_kind=component_kind,
+            option_set=option_set,
+            container_lca_path=container_lca_path,
         )
 
     def build_robust_locator(self, signature: ElementSignature, attr_priority: list[str]) -> LocatorSpec:

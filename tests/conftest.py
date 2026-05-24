@@ -13,6 +13,12 @@ from xpath_healer.store.memory_repository import InMemoryMetadataRepository
 from xpath_healer.utils.logging import configure_logging, get_logger
 
 
+# NOTE: the hermetic-env autouse fixture used to live here, which made
+# integration tests inherit it and silently scrubbed OPENAI_API_KEY /
+# XH_STAGE_* values that those tests legitimately need. It now lives in
+# tests/unit/conftest.py so only unit tests pick it up.
+
+
 @pytest.fixture
 def simple_context() -> StrategyContext:
     config = HealerConfig()

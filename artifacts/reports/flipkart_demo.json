@@ -1,0 +1,92 @@
+{
+  "status": "failed",
+  "goal": "On flipkart.com, search for 'mobile phones', sort by Newest, then read the first 5 results and tell me their product name, price (in INR), and overall rating. Skip any product priced above 90000 rupees. Skip any login or popup modals.",
+  "plan": [
+    {
+      "step_id": "fill_search",
+      "intent": "search for mobile phones",
+      "action": "fill",
+      "target_label": "Search for Products, Brands and More",
+      "target_kind": "",
+      "expected_outcome": "search input contains 'mobile phones'",
+      "optional": false
+    },
+    {
+      "step_id": "submit_search",
+      "intent": "submit search",
+      "action": "press_key",
+      "target_label": "Search for Products, Brands and More",
+      "target_kind": "",
+      "expected_outcome": "results grid is visible",
+      "optional": false
+    },
+    {
+      "step_id": "wait_results",
+      "intent": "wait for results to load",
+      "action": "wait",
+      "target_label": "",
+      "target_kind": "",
+      "expected_outcome": "results grid is visible",
+      "optional": false
+    },
+    {
+      "step_id": "sort_newest",
+      "intent": "sort by Newest",
+      "action": "click",
+      "target_label": "Newest",
+      "target_kind": "",
+      "expected_outcome": "results are sorted by Newest",
+      "optional": false
+    },
+    {
+      "step_id": "extract_results",
+      "intent": "extract first 5 mobile phone results under 90000 INR",
+      "action": "extract",
+      "target_label": "product cards",
+      "target_kind": "",
+      "expected_outcome": "first 5 product cards with name, price, and rating extracted, all priced at or below 90000 INR",
+      "optional": false
+    }
+  ],
+  "completed": [
+    {
+      "step_id": "fill_search",
+      "action": "fill",
+      "heal_status": "success",
+      "heal_strategy": "multi_field_text_resolver",
+      "locator": "xpath://input[not(ancestor::*[@role='grid' or contains(@class,'grid')]) and (@placeholder='Search for Products, Brands and More' or @aria-label='Search for Products, Brands and More' or @name='Search for Products, Brands and More' or @formcontrolname='Search for Products, Brands and More')]",
+      "execution": "ok",
+      "execution_detail": "filled 13 chars",
+      "verify_ok": true,
+      "verify_tier": "auto",
+      "verify_reason": "value_after matches expected_outcome",
+      "rewrite_applied": "",
+      "duration_ms": 222.1833
+    },
+    {
+      "step_id": "submit_search",
+      "action": "press_key",
+      "heal_status": "success",
+      "heal_strategy": "multi_field_text_resolver",
+      "locator": "xpath://input[not(ancestor::*[@role='grid' or contains(@class,'grid')]) and (@placeholder='Search for Products, Brands and More' or @aria-label='Search for Products, Brands and More' or @name='Search for Products, Brands and More' or @formcontrolname='Search for Products, Brands and More')]",
+      "execution": "ok",
+      "execution_detail": "pressed 'Enter' on element",
+      "verify_ok": false,
+      "verify_tier": "llm",
+      "verify_reason": "No snapshot provided to verify results grid visibility",
+      "rewrite_applied": "",
+      "duration_ms": 1105.5779
+    }
+  ],
+  "failed_step": {
+    "step_id": "submit_search",
+    "action": "press_key",
+    "execution": "pressed 'Enter' on element",
+    "verification": {
+      "ok": false,
+      "reason": "No snapshot provided to verify results grid visibility"
+    }
+  },
+  "extracted_data": {},
+  "metadata": {}
+}

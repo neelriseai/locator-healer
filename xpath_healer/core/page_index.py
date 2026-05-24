@@ -618,6 +618,13 @@ class PageIndexer:
         if meta and meta.signature:
             for item in meta.signature.container_path:
                 container_tokens.extend(self._split_tokens(normalize_text(item)))
+            # The grounder-derived LCA path carries stronger discriminators
+            # (testid:X / id:X / role:X) than the raw parent chain. Adding
+            # its tokens to the expected pool tightens container matching
+            # for elements whose visible label changed but whose enclosing
+            # form/section is stable.
+            for item in meta.signature.container_lca_path:
+                container_tokens.extend(self._split_tokens(normalize_text(item)))
 
         neighbor_text = normalize_text(
             inp.vars.get("neighbor")

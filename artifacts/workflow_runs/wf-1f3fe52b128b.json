@@ -1,0 +1,1 @@
+{"workflow_id":"wf-1f3fe52b128b","steps":[{"workflow_id":"wf-1f3fe52b128b","step_id":"fill_search_box","status":"heal_failed","locator_used":{},"healer_stage":"","page_signature_hash":"1cefbb20b0973ca9","duration_ms":5877.5215,"failure_reason":"All healing stages failed to produce a valid locator.","note":"","recorded_at":"2026-05-24T10:18:12.334387+00:00"}],"metadata":{}}

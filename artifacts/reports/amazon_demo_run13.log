@@ -1,0 +1,43 @@
+2026-05-24 22:35:59,189 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+
+[phase 1] LIST goal: You are on an Amazon.in search results page for mobile phones under 50000 rupees. Dismiss any login / address / location pincode popup with an optional click step (browsing task, no delivery address needed). Then EXTRACT the first 3 product cards: for each card pull product title, visible price, and the URL of the product detail page. Use the extract action with fields name, price, and product_url; this is the ONLY data-collection step you need.
+
+  [phase1_list] status=success steps=1
+    - extract_first_3_products       extract     healer=extract_auto_discover    exec=ok       v=ok (auto)
+
+  collected 3 product URLs from phase 1.
+
+==== drilling 1/3 -> https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo2OTM3ODUzOTg2NjM2Nzc1OjE3Nzk2NDI
+
+  [drill[https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo2OTM3ODUzOTg]] status=failed steps=5
+    - dismiss_location_popup         click       healer=label_proximity_interactable exec=ok       v=ok (llm)
+    - wait_for_product_page          wait        healer=-                        exec=ok       v=fail (llm)
+    - extract_product_title          extract     healer=page_index.rank:effb28af-b883-46ff-9938-a1032a69b604 exec=ok       v=ok (auto)
+    - extract_price_text             extract     healer=page_index.rank:effb28af-b883-46ff-9938-a1032a69b604 exec=ok       v=ok (auto)
+    - scroll_to_reviews              click       healer=visual_candidate_pick    exec=ok       v=fail (llm)
+    FAILED: scroll_to_reviews (click)
+      exec: click dispatched
+      verify: Snapshot shows navigation links including 'Reviews', but no evidence of scroll to reviews section
+      vision: ok=False conf=0.98 finding="The page did not scroll to the reviews section after clicking 'Reviews'; the visible content and scroll position remain unchanged between the first a
+
+==== drilling 2/3 -> https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo2OTM3ODUzOTg2NjM2Nzc1OjE3Nzk2NDI
+
+  [drill[https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo2OTM3ODUzOTg]] status=success steps=3
+    - dismiss_location_popup         click       healer=label_proximity_interactable exec=ok       v=ok (llm)
+    - wait_for_product_page          wait        healer=-                        exec=ok       v=fail (llm)
+    - extract_product_info           extract     healer=page_index.rank:e79c9b48-9ca1-4d82-be59-206b59561a51 exec=ok       v=ok (auto)
+
+==== drilling 3/3 -> https://www.amazon.in/Samsung-Smartphone-Storage-ProVisual-Battery/dp/B0FNMR6KTQ
+
+  [drill[https://www.amazon.in/Samsung-Smartphone-Storage-ProVisual-B]] status=failed steps=2
+    - click_continue_shopping        click       healer=label_proximity_interactable exec=ok       v=fail (llm)
+    - wait_for_product_page          wait        healer=-                        exec=error    v=fail (auto)
+    FAILED: wait_for_product_page (wait)
+      exec: Timeout 30000ms exceeded.
+      verify: executor_error: Timeout 30000ms exceeded.
+      vision: ok=False conf=1.0 finding='The intended outcome did not happen; the product page did not change or load further, and the UI appears identical between the first and last frames.
+
+  artifact: C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\reports\amazon_demo.json
+  recording: mode=screenshots video=- shots=2 duration=51.7s
+
+  TOP-LINE: phase1=success drill_ok=1/3

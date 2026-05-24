@@ -1,0 +1,243 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\neela\Documents\locator-healer\locator-healer\.venv\Scripts\python.exe
+rootdir: C:\Users\neela\Documents\locator-healer\locator-healer
+configfile: pyproject.toml
+plugins: anyio-4.12.1, asyncio-1.3.0, bdd-8.1.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 4 items / 1 deselected / 3 selected
+
+tests/integration/test_demo_qa_healing_bdd.py::test_tc1_textbox_form_fill_and_submit PASSED [ 33%]
+tests/integration/test_demo_qa_healing_bdd.py::test_tc2_checkbox_tree_expand_and_select_desktop__excel PASSED [ 66%]
+tests/integration/test_demo_qa_healing_bdd.py::test_tc3_webtables_first_row_verification PASSED [100%]
+
+- generated xml file: C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\reports\layer1_deterministic\integration-junit.xml -
+====================== 3 passed, 1 deselected in 56.44s =======================
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\neela\Documents\locator-healer\locator-healer\.venv\Scripts\python.exe
+rootdir: C:\Users\neela\Documents\locator-healer\locator-healer
+configfile: pyproject.toml
+plugins: anyio-4.12.1, asyncio-1.3.0, bdd-8.1.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 4 items / 1 deselected / 3 selected
+
+tests/integration/test_demo_qa_healing_bdd.py::test_tc1_textbox_form_fill_and_submit PASSED [ 33%]
+tests/integration/test_demo_qa_healing_bdd.py::test_tc2_checkbox_tree_expand_and_select_desktop__excel FAILED [ 66%]
+tests/integration/test_demo_qa_healing_bdd.py::test_tc3_webtables_first_row_verification PASSED [100%]
+
+================================== FAILURES ===================================
+___________ test_tc2_checkbox_tree_expand_and_select_desktop__excel ___________
+.venv\Lib\site-packages\_pytest\fixtures.py:915: in call_fixture_func
+    fixture_result = fixturefunc(**kwargs)
+                     ^^^^^^^^^^^^^^^^^^^^^
+tests\integration\test_demo_qa_healing_bdd.py:571: in heal_and_click_excel_checkbox_icon
+    excel_checkbox_icon = _heal(
+tests\integration\test_demo_qa_healing_bdd.py:230: in _heal
+    assert recovered.status == "success", f"Healing failed for {element_name}: {recovered.to_dict()}"
+E   AssertionError: Healing failed for excel_file_doc_checkbox_icon: {'status': 'failed', 'correlation_id': '49f836a2d3bc48c7a68a7e285f51c4d6', 'locator_spec': None, 'metadata': None, 'strategy_id': None, 'trace': [{'stage': 'fallback', 'strategy_id': 'fallback', 'status': 'fail', 'candidate_count': 1, 'selected_locator': {'kind': 'xpath', 'value': "//xh-never-match[@id='excel_file_doc_checkbox_icon-broken']", 'options': {}, 'scope': None}, 'score': None, 'validation': {'ok': False, 'reason_codes': ['no_match'], 'matched_count': 0, 'chosen_index': None, 'score': None, 'details': {}}, 'duration_ms': 8.197000000109256, 'details': {}}, {'stage': 'fallback', 'strategy_id': 'fallback_summary', 'status': 'fail', 'candidate_count': 1, 'selected_locator': None, 'score': None, 'validation': None, 'duration_ms': None, 'details': {'reason': 'no_valid_candidate'}}], 'error': 'All healing stages failed to produce a valid locator.', 'rewrite_proposal': None}
+E   assert 'failed' == 'success'
+E     
+E     - success
+E     + failed
+------------------------------ Captured log call ------------------------------
+INFO     xpath_healer.integration:conftest.py:511 browser_started framework=playwright browser=chromium channel= headless=False viewport=1920x1080
+INFO     xpath_healer.integration:conftest.py:593 step_screenshot_saved test=test_tc2_checkbox_tree_expand_and_select_desktop__excel step=I_open_the_checkbox_demo_page keyword=Given path=C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\screenshots\layer2_agentic_mcp\test_tc2_checkbox_tree_expand_and_select_desktop__excel__step01__I_open_the_checkbox_demo_page.png
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=find status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'home_expand_button', 'result': 'hit'}
+INFO     xpath_healer:logging.py:24 {"message": "healing_stage", "correlation_id": "f99a2487968b45b4b570003682a356b6", "stage": "recover_start", "status": "ok", "page_name": "checkbox", "element_name": "home_expand_button", "field_type": "button", "score": null, "details": {"field_type": "button"}}
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=log_event status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'home_expand_button', 'stage': 'recover_start'}
+INFO     xpath_healer:logging.py:24 {"message": "healing_stage", "correlation_id": "f99a2487968b45b4b570003682a356b6", "stage": "fallback", "status": "fail", "page_name": "checkbox", "element_name": "home_expand_button", "field_type": "button", "score": null, "details": {"strategy_id": "fallback", "locator": {"kind": "xpath", "value": "//xh-never-match[@id='home_expand_button-broken']", "options": {}, "scope": null}, "validation": {"ok": false, "reason_codes": ["no_match"], "matched_count": 0, "chosen_index": null, "score": null, "details": {}}, "attempts_used": 1}}
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=log_event status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'home_expand_button', 'stage': 'fallback'}
+INFO     xpath_healer:logging.py:24 {"message": "healing_stage", "correlation_id": "f99a2487968b45b4b570003682a356b6", "stage": "mcp_explore", "status": "ok", "page_name": "checkbox", "element_name": "home_expand_button", "field_type": "button", "score": 1.0, "details": {"strategy_id": "mcp_explore", "locator": {"kind": "xpath", "value": "//button[@type='button' and @aria-label='Toggle']", "options": {}, "scope": null}, "validation": {"ok": true, "reason_codes": ["validated_toggle_button", "validated"], "matched_count": 1, "chosen_index": 0, "score": null, "details": {"node": {"tag": "button", "type": "button", "role": "", "text": "", "controlTag": "", "controlType": "", "controlRole": "", "proxyLabelTag": "", "proxyLabelText": "", "proxyControlTag": "", "proxyControlType": "", "proxyControlRole": "", "contextLabelText": "Home", "attrs": {"aria-label": "Toggle", "title": "Toggle", "type": "button", "class": "rct-collapse rct-collapse-btn"}}}}, "attempts_used": 1}}
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=log_event status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'home_expand_button', 'stage': 'mcp_explore'}
+INFO     xpath_healer.rag.openai_embedder:openai_embedder.py:61 OpenAI embed request: provider=openai model=text-embedding-3-large input_chars=301
+INFO     xpath_healer.rag.openai_embedder:openai_embedder.py:80 OpenAI embed response: id=None usage=Usage(prompt_tokens=88, total_tokens=88)
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=upsert status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'home_expand_button', 'field_type': 'button', 'success_count': 38, 'fail_count': 1}
+INFO     xpath_healer:logging.py:24 {"message": "healing_stage", "correlation_id": "f99a2487968b45b4b570003682a356b6", "stage": "recover_end", "status": "ok", "page_name": "checkbox", "element_name": "home_expand_button", "field_type": "button", "score": 1.0, "details": {"strategy_id": "mcp_explore", "locator": {"kind": "xpath", "value": "//button[@type='button' and @aria-label='Toggle']", "options": {}, "scope": null}}}
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=log_event status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'home_expand_button', 'stage': 'recover_end'}
+INFO     xpath_healer.integration:test_demo_qa_healing_bdd.py:193 heal_attempt element=home_expand_button field_type=button status=success strategy=mcp_explore correlation_id=f99a2487968b45b4b570003682a356b6 fallback_xpath=//xh-never-match[@id='home_expand_button-broken'] healed_kind=xpath healed_value=//button[@type='button' and @aria-label='Toggle'] uniqueness=1.0 stability=0.94 similarity=0.9 overall=0.956
+INFO     xpath_healer.integration:test_demo_qa_healing_bdd.py:282 healed_paths element=home_expand_button selected_kind=xpath selected_value=//button[@type='button' and @aria-label='Toggle'] xpath=//button[@type='button' and @aria-label='Toggle'] xpath_source=selected_locator css=[aria-label="Toggle"] css_source=metadata.robust_css
+INFO     xpath_healer.integration:conftest.py:593 step_screenshot_saved test=test_tc2_checkbox_tree_expand_and_select_desktop__excel step=I_heal_and_click_the_expand_button_for_Home keyword=When path=C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\screenshots\layer2_agentic_mcp\test_tc2_checkbox_tree_expand_and_select_desktop__excel__step02__I_heal_and_click_the_expand_button_for_Home.png
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=find status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'desktop_checkbox_icon', 'result': 'hit'}
+INFO     xpath_healer:logging.py:24 {"message": "healing_stage", "correlation_id": "b468d6094a3c466882d0d20dfb423978", "stage": "recover_start", "status": "ok", "page_name": "checkbox", "element_name": "desktop_checkbox_icon", "field_type": "checkbox", "score": null, "details": {"field_type": "checkbox"}}
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=log_event status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'desktop_checkbox_icon', 'stage': 'recover_start'}
+INFO     xpath_healer:logging.py:24 {"message": "healing_stage", "correlation_id": "b468d6094a3c466882d0d20dfb423978", "stage": "fallback", "status": "fail", "page_name": "checkbox", "element_name": "desktop_checkbox_icon", "field_type": "checkbox", "score": null, "details": {"strategy_id": "fallback", "locator": {"kind": "xpath", "value": "//xh-never-match[@id='desktop_checkbox_icon-broken']", "options": {}, "scope": null}, "validation": {"ok": false, "reason_codes": ["no_match"], "matched_count": 0, "chosen_index": null, "score": null, "details": {}}, "attempts_used": 1}}
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=log_event status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'desktop_checkbox_icon', 'stage': 'fallback'}
+INFO     xpath_healer:logging.py:24 {"message": "healing_stage", "correlation_id": "b468d6094a3c466882d0d20dfb423978", "stage": "mcp_explore", "status": "ok", "page_name": "checkbox", "element_name": "desktop_checkbox_icon", "field_type": "checkbox", "score": 1.0, "details": {"strategy_id": "mcp_explore", "locator": {"kind": "xpath", "value": "//label[normalize-space()='Desktop']//span[contains(@class,'rct-checkbox')]", "options": {}, "scope": null}, "validation": {"ok": true, "reason_codes": ["validated_label_proxy_toggle", "validated"], "matched_count": 1, "chosen_index": 0, "score": null, "details": {"node": {"tag": "span", "type": "", "role": "", "text": "", "controlTag": "", "controlType": "", "controlRole": "", "proxyLabelTag": "label", "proxyLabelText": "Desktop", "proxyControlTag": "input", "proxyControlType": "checkbox", "proxyControlRole": "", "contextLabelText": "Desktop", "attrs": {"class": "rct-checkbox"}}}}, "attempts_used": 1}}
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=log_event status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'desktop_checkbox_icon', 'stage': 'mcp_explore'}
+INFO     xpath_healer.rag.openai_embedder:openai_embedder.py:61 OpenAI embed request: provider=openai model=text-embedding-3-large input_chars=490
+INFO     xpath_healer.rag.openai_embedder:openai_embedder.py:80 OpenAI embed response: id=None usage=Usage(prompt_tokens=154, total_tokens=154)
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=upsert status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'desktop_checkbox_icon', 'field_type': 'checkbox', 'success_count': 35, 'fail_count': 2}
+INFO     xpath_healer:logging.py:24 {"message": "healing_stage", "correlation_id": "b468d6094a3c466882d0d20dfb423978", "stage": "recover_end", "status": "ok", "page_name": "checkbox", "element_name": "desktop_checkbox_icon", "field_type": "checkbox", "score": 1.0, "details": {"strategy_id": "mcp_explore", "locator": {"kind": "xpath", "value": "//label[normalize-space()='Desktop']//span[contains(@class,'rct-checkbox')]", "options": {}, "scope": null}}}
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=log_event status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'desktop_checkbox_icon', 'stage': 'recover_end'}
+INFO     xpath_healer.integration:test_demo_qa_healing_bdd.py:193 heal_attempt element=desktop_checkbox_icon field_type=checkbox status=success strategy=mcp_explore correlation_id=b468d6094a3c466882d0d20dfb423978 fallback_xpath=//xh-never-match[@id='desktop_checkbox_icon-broken'] healed_kind=xpath healed_value=//label[normalize-space()='Desktop']//span[contains(@class,'rct-checkbox')] uniqueness=1.0 stability=0.7 similarity=0.35 overall=0.75
+INFO     xpath_healer.integration:test_demo_qa_healing_bdd.py:282 healed_paths element=desktop_checkbox_icon selected_kind=xpath selected_value=//label[normalize-space()='Desktop']//span[contains(@class,'rct-checkbox')] xpath=//label[normalize-space()='Desktop']//span[contains(@class,'rct-checkbox')] xpath_source=selected_locator css=div.react-checkbox-tree.rct-icons-fa4:nth-of-type(1) > ol:nth-of-type(1) > li.rct-node.rct-node-parent:nth-of-type(1) > ol:nth-of-type(1) > li.rct-node.rct-node-parent:nth-of-type(1) > span.rct-text:nth-of-type(1) > label:nth-of-type(1) > span.rct-checkbox:nth-of-type(1) css_source=metadata.robust_css
+INFO     xpath_healer.integration:conftest.py:593 step_screenshot_saved test=test_tc2_checkbox_tree_expand_and_select_desktop__excel step=I_heal_and_click_the_Desktop_checkbox_icon keyword=And path=C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\screenshots\layer2_agentic_mcp\test_tc2_checkbox_tree_expand_and_select_desktop__excel__step03__I_heal_and_click_the_Desktop_checkbox_icon.png
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=find status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'downloads_expand_button', 'result': 'hit'}
+INFO     xpath_healer:logging.py:24 {"message": "healing_stage", "correlation_id": "4d95ab391dff40cebeade8ac52f2283e", "stage": "recover_start", "status": "ok", "page_name": "checkbox", "element_name": "downloads_expand_button", "field_type": "button", "score": null, "details": {"field_type": "button"}}
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=log_event status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'downloads_expand_button', 'stage': 'recover_start'}
+INFO     xpath_healer:logging.py:24 {"message": "healing_stage", "correlation_id": "4d95ab391dff40cebeade8ac52f2283e", "stage": "fallback", "status": "fail", "page_name": "checkbox", "element_name": "downloads_expand_button", "field_type": "button", "score": null, "details": {"strategy_id": "fallback", "locator": {"kind": "xpath", "value": "//xh-never-match[@id='downloads_expand_button-broken']", "options": {}, "scope": null}, "validation": {"ok": false, "reason_codes": ["no_match"], "matched_count": 0, "chosen_index": null, "score": null, "details": {}}, "attempts_used": 1}}
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=log_event status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'downloads_expand_button', 'stage': 'fallback'}
+INFO     xpath_healer:logging.py:24 {"message": "healing_stage", "correlation_id": "4d95ab391dff40cebeade8ac52f2283e", "stage": "mcp_explore", "status": "ok", "page_name": "checkbox", "element_name": "downloads_expand_button", "field_type": "button", "score": 1.0, "details": {"strategy_id": "mcp_explore", "locator": {"kind": "xpath", "value": "//label[normalize-space()='Downloads']/ancestor::li[1]//button[@type='button' and @aria-label='Toggle']", "options": {}, "scope": null}, "validation": {"ok": true, "reason_codes": ["validated_toggle_button", "validated"], "matched_count": 1, "chosen_index": 0, "score": null, "details": {"node": {"tag": "button", "type": "button", "role": "", "text": "", "controlTag": "", "controlType": "", "controlRole": "", "proxyLabelTag": "", "proxyLabelText": "", "proxyControlTag": "", "proxyControlType": "", "proxyControlRole": "", "contextLabelText": "Downloads", "attrs": {"aria-label": "Toggle", "title": "Toggle", "type": "button", "class": "rct-collapse rct-collapse-btn"}}}}, "attempts_used": 1}}
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=log_event status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'downloads_expand_button', 'stage': 'mcp_explore'}
+INFO     xpath_healer.rag.openai_embedder:openai_embedder.py:61 OpenAI embed request: provider=openai model=text-embedding-3-large input_chars=360
+INFO     xpath_healer.rag.openai_embedder:openai_embedder.py:80 OpenAI embed response: id=None usage=Usage(prompt_tokens=103, total_tokens=103)
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=upsert status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'downloads_expand_button', 'field_type': 'button', 'success_count': 34, 'fail_count': 1}
+INFO     xpath_healer:logging.py:24 {"message": "healing_stage", "correlation_id": "4d95ab391dff40cebeade8ac52f2283e", "stage": "recover_end", "status": "ok", "page_name": "checkbox", "element_name": "downloads_expand_button", "field_type": "button", "score": 1.0, "details": {"strategy_id": "mcp_explore", "locator": {"kind": "xpath", "value": "//label[normalize-space()='Downloads']/ancestor::li[1]//button[@type='button' and @aria-label='Toggle']", "options": {}, "scope": null}}}
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=log_event status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'downloads_expand_button', 'stage': 'recover_end'}
+INFO     xpath_healer.integration:test_demo_qa_healing_bdd.py:193 heal_attempt element=downloads_expand_button field_type=button status=success strategy=mcp_explore correlation_id=4d95ab391dff40cebeade8ac52f2283e fallback_xpath=//xh-never-match[@id='downloads_expand_button-broken'] healed_kind=xpath healed_value=//label[normalize-space()='Downloads']/ancestor::li[1]//button[@type='button' and @aria-label='Toggle'] uniqueness=1.0 stability=0.88 similarity=0.9 overall=0.932
+INFO     xpath_healer.integration:test_demo_qa_healing_bdd.py:282 healed_paths element=downloads_expand_button selected_kind=xpath selected_value=//label[normalize-space()='Downloads']/ancestor::li[1]//button[@type='button' and @aria-label='Toggle'] xpath=//label[normalize-space()='Downloads']/ancestor::li[1]//button[@type='button' and @aria-label='Toggle'] xpath_source=selected_locator css=[aria-label="Toggle"] css_source=metadata.robust_css
+INFO     xpath_healer.integration:conftest.py:593 step_screenshot_saved test=test_tc2_checkbox_tree_expand_and_select_desktop__excel step=I_heal_and_click_the_expand_button_for_Downloads keyword=And path=C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\screenshots\layer2_agentic_mcp\test_tc2_checkbox_tree_expand_and_select_desktop__excel__step04__I_heal_and_click_the_expand_button_for_Downloads.png
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=find status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'excel_file_doc_checkbox_icon', 'result': 'hit'}
+INFO     xpath_healer:logging.py:24 {"message": "healing_stage", "correlation_id": "49f836a2d3bc48c7a68a7e285f51c4d6", "stage": "recover_start", "status": "ok", "page_name": "checkbox", "element_name": "excel_file_doc_checkbox_icon", "field_type": "checkbox", "score": null, "details": {"field_type": "checkbox"}}
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=log_event status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'excel_file_doc_checkbox_icon', 'stage': 'recover_start'}
+INFO     xpath_healer:logging.py:24 {"message": "healing_stage", "correlation_id": "49f836a2d3bc48c7a68a7e285f51c4d6", "stage": "fallback", "status": "fail", "page_name": "checkbox", "element_name": "excel_file_doc_checkbox_icon", "field_type": "checkbox", "score": null, "details": {"strategy_id": "fallback", "locator": {"kind": "xpath", "value": "//xh-never-match[@id='excel_file_doc_checkbox_icon-broken']", "options": {}, "scope": null}, "validation": {"ok": false, "reason_codes": ["no_match"], "matched_count": 0, "chosen_index": null, "score": null, "details": {}}, "attempts_used": 1}}
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=log_event status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'excel_file_doc_checkbox_icon', 'stage': 'fallback'}
+ERROR    xpath_healer.llm.openai_chat:openai_chat.py:99 OpenAI chat call failed
+Traceback (most recent call last):
+  File "C:\Users\neela\Documents\locator-healer\locator-healer\xpath_healer\llm\openai_chat.py", line 97, in chat
+    response = await self.client.chat.completions.create(**kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neela\Documents\locator-healer\locator-healer\.venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2714, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+    ...<49 lines>...
+    )
+    ^
+  File "C:\Users\neela\Documents\locator-healer\locator-healer\.venv\Lib\site-packages\openai\_base_client.py", line 1884, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neela\Documents\locator-healer\locator-healer\.venv\Lib\site-packages\openai\_base_client.py", line 1669, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4.1 in organization org-XfCeGkRj7EsyvtFOI1RxvY78 on tokens per min (TPM): Limit 30000, Used 29184, Requested 1007. Please try again in 382ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}
+ERROR    xpath_healer.mcp.explorer:explorer.py:271 MCP explorer LLM call failed
+Traceback (most recent call last):
+  File "C:\Users\neela\Documents\locator-healer\locator-healer\xpath_healer\mcp\explorer.py", line 269, in explore
+    response = await self.llm.chat(messages, tools=self.tools)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neela\Documents\locator-healer\locator-healer\xpath_healer\llm\openai_chat.py", line 97, in chat
+    response = await self.client.chat.completions.create(**kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neela\Documents\locator-healer\locator-healer\.venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 2714, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+    ...<49 lines>...
+    )
+    ^
+  File "C:\Users\neela\Documents\locator-healer\locator-healer\.venv\Lib\site-packages\openai\_base_client.py", line 1884, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neela\Documents\locator-healer\locator-healer\.venv\Lib\site-packages\openai\_base_client.py", line 1669, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-4.1 in organization org-XfCeGkRj7EsyvtFOI1RxvY78 on tokens per min (TPM): Limit 30000, Used 29184, Requested 1007. Please try again in 382ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}
+INFO     xpath_healer.rag.openai_embedder:openai_embedder.py:61 OpenAI embed request: provider=openai model=text-embedding-3-large input_chars=644
+INFO     xpath_healer.rag.openai_embedder:openai_embedder.py:80 OpenAI embed response: id=None usage=Usage(prompt_tokens=183, total_tokens=183)
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=upsert status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'excel_file_doc_checkbox_icon', 'field_type': 'checkbox', 'success_count': 32, 'fail_count': 2}
+INFO     xpath_healer:logging.py:24 {"message": "healing_stage", "correlation_id": "49f836a2d3bc48c7a68a7e285f51c4d6", "stage": "recover_end", "status": "fail", "page_name": "checkbox", "element_name": "excel_file_doc_checkbox_icon", "field_type": "checkbox", "score": null, "details": {"reason": "all_strategies_failed"}}
+INFO     xpath_healer.integration:conftest.py:161 db_operation backend=DualMetadataRepository operation=log_event status=ok details={'app_id': 'demo-qa-app', 'page_name': 'checkbox', 'element_name': 'excel_file_doc_checkbox_icon', 'stage': 'recover_end'}
+INFO     xpath_healer.integration:test_demo_qa_healing_bdd.py:193 heal_attempt element=excel_file_doc_checkbox_icon field_type=checkbox status=failed strategy=None correlation_id=49f836a2d3bc48c7a68a7e285f51c4d6 fallback_xpath=//xh-never-match[@id='excel_file_doc_checkbox_icon-broken'] healed_kind=None healed_value=None uniqueness=None stability=None similarity=None overall=None
+ERROR    xpath_healer.integration:conftest.py:647 step_error_screenshot_saved test=test_tc2_checkbox_tree_expand_and_select_desktop__excel step=I_heal_and_click_the_Excel_File.doc_checkbox_icon keyword=And path=C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\screenshots\layer2_agentic_mcp\test_tc2_checkbox_tree_expand_and_select_desktop__excel__step05__I_heal_and_click_the_Excel_File.doc_checkbox_icon__error.png error=Healing failed for excel_file_doc_checkbox_icon: {'status': 'failed', 'correlation_id': '49f836a2d3bc48c7a68a7e285f51c4d6', 'locator_spec': None, 'metadata': None, 'strategy_id': None, 'trace': [{'stage': 'fallback', 'strategy_id': 'fallback', 'status': 'fail', 'candidate_count': 1, 'selected_locator': {'kind': 'xpath', 'value': "//xh-never-match[@id='excel_file_doc_checkbox_icon-broken']", 'options': {}, 'scope': None}, 'score': None, 'validation': {'ok': False, 'reason_codes': ['no_match'], 'matched_count': 0, 'chosen_index': None, 'score': None, 'details': {}}, 'duration_ms': 8.197000000109256, 'details': {}}, {'stage': 'fallback', 'strategy_id': 'fallback_summary', 'status': 'fail', 'candidate_count': 1, 'selected_locator': None, 'score': None, 'validation': None, 'duration_ms': None, 'details': {'reason': 'no_valid_candidate'}}], 'error': 'All healing stages failed to produce a valid locator.', 'rewrite_proposal': None}
+assert 'failed' == 'success'
+  
+  - success
+  + failed
+---------------------------- Captured log teardown ----------------------------
+INFO     xpath_healer.integration:conftest.py:529 screenshot_saved test=test_tc2_checkbox_tree_expand_and_select_desktop__excel path=C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\screenshots\layer2_agentic_mcp\test_tc2_checkbox_tree_expand_and_select_desktop__excel__final.png
+INFO     xpath_healer.integration:conftest.py:538 failure_screenshot_saved test=test_tc2_checkbox_tree_expand_and_select_desktop__excel path=C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\screenshots\layer2_agentic_mcp\test_tc2_checkbox_tree_expand_and_select_desktop__excel__failed.png
+INFO     xpath_healer.integration:conftest.py:554 video_saved test=test_tc2_checkbox_tree_expand_and_select_desktop__excel path=C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\videos\layer2_agentic_mcp\test_tc2_checkbox_tree_expand_and_select_desktop__excel.webm
+- generated xml file: C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\reports\layer2_agentic_mcp\integration-junit.xml -
+=========================== short test summary info ===========================
+FAILED tests/integration/test_demo_qa_healing_bdd.py::test_tc2_checkbox_tree_expand_and_select_desktop__excel
+============ 1 failed, 2 passed, 1 deselected in 123.60s (0:02:03) ============
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\neela\Documents\locator-healer\locator-healer\.venv\Scripts\python.exe
+rootdir: C:\Users\neela\Documents\locator-healer\locator-healer
+configfile: pyproject.toml
+plugins: anyio-4.12.1, asyncio-1.3.0, bdd-8.1.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 4 items / 1 deselected / 3 selected
+
+tests/integration/test_demo_qa_healing_bdd.py::test_tc1_textbox_form_fill_and_submit PASSED [ 33%]
+tests/integration/test_demo_qa_healing_bdd.py::test_tc2_checkbox_tree_expand_and_select_desktop__excel PASSED [ 66%]
+tests/integration/test_demo_qa_healing_bdd.py::test_tc3_webtables_first_row_verification PASSED [100%]
+
+- generated xml file: C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\reports\layer3_rag\integration-junit.xml -
+================= 3 passed, 1 deselected in 69.70s (0:01:09) ==================
+
+========================================================================
+  RUN LAYER: layer1_deterministic
+========================================================================
+  HEADED: false
+  OPENAI key set: True
+  PG DSN set    : True
+  Stage flags   :
+    XH_STAGE_DEFAULTS_ENABLED=true
+    XH_STAGE_DOM_MINING_ENABLED=true
+    XH_STAGE_FALLBACK_ENABLED=true
+    XH_STAGE_FINGERPRINT_ENABLED=true
+    XH_STAGE_MCP_EXPLORE_ENABLED=false
+    XH_STAGE_METADATA_ENABLED=false
+    XH_STAGE_OPTION_FINGERPRINT_ENABLED=true
+    XH_STAGE_PAGE_INDEX_ENABLED=true
+    XH_STAGE_POSITION_ENABLED=true
+    XH_STAGE_RAG_ENABLED=false
+    XH_STAGE_RULES_ENABLED=true
+    XH_STAGE_SIGNATURE_ENABLED=true
+    XH_STAGE_WORKFLOW_REPLAY_ENABLED=false
+    XH_STAGE_WORKFLOW_REWRITE_ENABLED=false
+  CMD: C:\Users\neela\Documents\locator-healer\locator-healer\.venv\Scripts\python.exe -m pytest tests/integration/test_demo_qa_healing_bdd.py -v --tb=short -W ignore -p no:cacheprovider -k not raw_fallback_xpath_fails_without_healer
+  RESULT: exit_code=0
+
+========================================================================
+  RUN LAYER: layer2_agentic_mcp
+========================================================================
+  HEADED: false
+  OPENAI key set: True
+  PG DSN set    : True
+  Stage flags   :
+    XH_STAGE_DEFAULTS_ENABLED=false
+    XH_STAGE_DOM_MINING_ENABLED=false
+    XH_STAGE_FALLBACK_ENABLED=true
+    XH_STAGE_FINGERPRINT_ENABLED=false
+    XH_STAGE_MCP_EXPLORE_ENABLED=true
+    XH_STAGE_METADATA_ENABLED=false
+    XH_STAGE_OPTION_FINGERPRINT_ENABLED=false
+    XH_STAGE_PAGE_INDEX_ENABLED=false
+    XH_STAGE_POSITION_ENABLED=false
+    XH_STAGE_RAG_ENABLED=false
+    XH_STAGE_RULES_ENABLED=false
+    XH_STAGE_SIGNATURE_ENABLED=false
+    XH_STAGE_WORKFLOW_REPLAY_ENABLED=false
+    XH_STAGE_WORKFLOW_REWRITE_ENABLED=false
+  CMD: C:\Users\neela\Documents\locator-healer\locator-healer\.venv\Scripts\python.exe -m pytest tests/integration/test_demo_qa_healing_bdd.py -v --tb=short -W ignore -p no:cacheprovider -k not raw_fallback_xpath_fails_without_healer
+  RESULT: exit_code=1
+
+========================================================================
+  RUN LAYER: layer3_rag
+========================================================================
+  HEADED: false
+  OPENAI key set: True
+  PG DSN set    : True
+  Stage flags   :
+    XH_STAGE_DEFAULTS_ENABLED=false
+    XH_STAGE_DOM_MINING_ENABLED=false
+    XH_STAGE_FALLBACK_ENABLED=true
+    XH_STAGE_FINGERPRINT_ENABLED=false
+    XH_STAGE_MCP_EXPLORE_ENABLED=false
+    XH_STAGE_METADATA_ENABLED=false
+    XH_STAGE_OPTION_FINGERPRINT_ENABLED=false
+    XH_STAGE_PAGE_INDEX_ENABLED=false
+    XH_STAGE_POSITION_ENABLED=false
+    XH_STAGE_PROFILE=llm_only
+    XH_STAGE_RAG_ENABLED=true
+    XH_STAGE_RULES_ENABLED=false
+    XH_STAGE_SIGNATURE_ENABLED=false
+    XH_STAGE_WORKFLOW_REPLAY_ENABLED=false
+    XH_STAGE_WORKFLOW_REWRITE_ENABLED=false
+  CMD: C:\Users\neela\Documents\locator-healer\locator-healer\.venv\Scripts\python.exe -m pytest tests/integration/test_demo_qa_healing_bdd.py -v --tb=short -W ignore -p no:cacheprovider -k not raw_fallback_xpath_fails_without_healer
+  RESULT: exit_code=0
+
+========================================================================
+  SUMMARY
+========================================================================
+  layer1_deterministic           PASSED
+  layer2_agentic_mcp             FAILED (exit=1)
+  layer3_rag                     PASSED

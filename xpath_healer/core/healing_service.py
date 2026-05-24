@@ -59,6 +59,20 @@ class HealingService:
                 candidate, validation = success
                 return await self._on_success(ctx, inp, candidate, validation, trace)
 
+        # 0b) Phase 4c — workflow replay cache.
+        # When the outer agent calls recover_workflow_step, we may
+        # have a prior step_succeeded / heal_succeeded record for the
+        # same (workflow_id, step_id). Replaying it is free,
+        # deterministic, and short-circuits the rest of the cascade
+        # when the validator confirms the cached locator still works.
+        # Skipped silently when workflow_context or repo is absent.
+        if self._stage_enabled(ctx, "workflow_replay"):
+            replay_candidates = await self._workflow_replay_candidates(ctx, inp)
+            success = await self._evaluate_candidates(ctx, inp, replay_candidates, trace)
+            if success:
+                candidate, validation = success
+                return await self._on_success(ctx, inp, candidate, validation, trace)
+
         # 1) metadata reuse
         if self._stage_enabled(ctx, "metadata"):
             metadata_candidates = self._metadata_candidates(existing_meta, inp.field_type)
@@ -100,6 +114,21 @@ class HealingService:
                 candidate, validation = success
                 return await self._on_success(ctx, inp, candidate, validation, trace)
 
+        # 5b) container-grounded option-fingerprint healing
+        # When prior memory carries an option_set (dropdown values,
+        # radio/checkbox group, input metadata) we can identify the same
+        # element even after its visible label changed. The grounder
+        # first narrows the search to the smallest stable container that
+        # encloses the anchor; then we score candidates inside that
+        # container by option_set similarity. Skipped silently when
+        # prior memory lacks option_set.
+        if self._stage_enabled(ctx, "option_fingerprint"):
+            option_candidates = await self._option_fingerprint_candidates(ctx, inp, existing_meta)
+            success = await self._evaluate_candidates(ctx, inp, option_candidates, trace)
+            if success:
+                candidate, validation = success
+                return await self._on_success(ctx, inp, candidate, validation, trace)
+
         # 6) first-run robust DOM mining
         if self._stage_enabled(ctx, "dom_mining"):
             dom_candidates = await self._dom_mining_candidates(ctx, inp)
@@ -120,6 +149,20 @@ class HealingService:
         if self._stage_enabled(ctx, "position"):
             position_candidates = await self.builder.build_all_candidates(ctx, inp, allowed_stages={"position"})
             success = await self._evaluate_candidates(ctx, inp, position_candidates, trace)
+            if success:
+                candidate, validation = success
+                return await self._on_success(ctx, inp, candidate, validation, trace)
+
+        # 8b) MCP-style exploratory healer (agent + deterministic).
+        # Preferred long-tail solver: an agent loop drives DOM-querying
+        # tools via the same adapter the test is using, so this works
+        # uniformly for Selenium and Playwright. Skipped when no
+        # ``ctx.mcp_assist`` is configured. Runs BEFORE the RAG stage
+        # so RAG remains the last-resort fallback per the migration
+        # plan.
+        if self._stage_enabled(ctx, "mcp_explore") and ctx.mcp_assist:
+            mcp_candidates = await self._mcp_explore_candidates(ctx, inp, existing_meta)
+            success = await self._evaluate_candidates(ctx, inp, mcp_candidates, trace)
             if success:
                 candidate, validation = success
                 return await self._on_success(ctx, inp, candidate, validation, trace)
@@ -805,6 +848,190 @@ class HealingService:
             return 0.75
         return 0.35
 
+    async def _workflow_replay_candidates(
+        self,
+        ctx: StrategyContext,
+        inp: BuildInput,
+    ) -> list[CandidateSpec]:
+        """Phase 4c — replay a prior step's locator when history matches.
+
+        Returns ``[]`` silently when:
+          * ``workflow_context`` is absent (locator-only caller),
+          * ``ctx.workflow_run_repository`` is not configured,
+          * no history exists for (workflow_id, step_id), or
+          * matching history has no usable locator payload.
+
+        Two trust tiers — both run through the validator:
+
+        * Tier A — most recent ``step_succeeded`` record exists for this
+          (workflow_id, step_id). The outer agent confirmed the UI
+          action worked → score 0.95.
+        * Tier B — only ``heal_succeeded`` records exist. The locator
+          was resolvable but the outer agent never reported the action
+          outcome → score 0.70 (still tried; validator catches stale).
+        """
+        wf = getattr(inp, "workflow_context", None)
+        if wf is None or not hasattr(wf, "current_step"):
+            return []
+        repo = getattr(ctx, "workflow_run_repository", None)
+        if repo is None:
+            return []
+        workflow_id = getattr(wf, "workflow_id", "")
+        step_id = getattr(wf.current_step, "step_id", "")
+        if not workflow_id or not step_id:
+            return []
+
+        try:
+            history = await repo.find_step_history(workflow_id, step_id, limit=10)
+        except Exception:
+            return []
+        if not history:
+            return []
+
+        # Lazy import — keep healing_service from depending on workflow status
+        # constants directly (they live in core.workflow).
+        from xpath_healer.core.workflow import (
+            STEP_STATUS_HEAL_SUCCEEDED,
+            STEP_STATUS_STEP_SUCCEEDED,
+        )
+
+        # Page-signature gating: cheap structural hash of the current DOM.
+        # When the recorded signature matches we trust the cache more;
+        # when it doesn't we down-score (but still try — UI may have
+        # changed in irrelevant ways and the validator catches stale).
+        current_signature = ""
+        try:
+            from xpath_healer.core.page_signature import compute_page_signature_hash
+            html = await ctx.dom_snapshotter.capture(inp.page)
+            current_signature = compute_page_signature_hash(html)
+        except Exception:
+            current_signature = ""
+
+        # Scoring table: (outcome_trust, signature_status) → score.
+        # signature_status:
+        #   "match"     — both sides have a non-empty equal signature
+        #   "mismatch"  — both sides have a signature and they differ
+        #   "unknown"   — one or both sides lack a signature
+        _SCORES = {
+            ("step", "match"):    0.98,
+            ("step", "unknown"):  0.95,
+            ("step", "mismatch"): 0.75,
+            ("heal", "match"):    0.80,
+            ("heal", "unknown"):  0.70,
+            ("heal", "mismatch"): 0.55,
+        }
+
+        out: list[CandidateSpec] = []
+        seen_locators: set[str] = set()
+        for record in history:
+            locator_payload = record.locator_used or {}
+            if not locator_payload or "kind" not in locator_payload or "value" not in locator_payload:
+                continue
+            # Dedup by (kind:value) so we don't waste validation cycles
+            # on identical historical records.
+            dedup_key = f"{locator_payload['kind']}:{locator_payload['value']}"
+            if dedup_key in seen_locators:
+                continue
+            seen_locators.add(dedup_key)
+            if record.status == STEP_STATUS_STEP_SUCCEEDED:
+                trust = "step"
+                trust_tier = "step_succeeded"
+            elif record.status == STEP_STATUS_HEAL_SUCCEEDED:
+                trust = "heal"
+                trust_tier = "heal_succeeded"
+            else:
+                continue  # don't replay skipped / failed records
+
+            recorded_sig = (record.page_signature_hash or "").strip()
+            if not current_signature or not recorded_sig:
+                sig_status = "unknown"
+            elif current_signature == recorded_sig:
+                sig_status = "match"
+            else:
+                sig_status = "mismatch"
+            score = _SCORES[(trust, sig_status)]
+
+            try:
+                locator_spec = LocatorSpec.from_dict(locator_payload)
+            except Exception:
+                continue
+            out.append(
+                CandidateSpec(
+                    strategy_id="workflow_replay",
+                    locator=locator_spec,
+                    stage="workflow_replay",
+                    score=score,
+                    details={
+                        "workflow_id": workflow_id,
+                        "step_id": step_id,
+                        "trust_tier": trust_tier,
+                        "signature_status": sig_status,
+                        "current_signature": current_signature,
+                        "recorded_signature": recorded_sig,
+                        "recorded_at": record.recorded_at.isoformat() if record.recorded_at else "",
+                        "healer_stage": record.healer_stage,
+                    },
+                )
+            )
+        # Best score first; validator stops at the first that resolves.
+        out.sort(key=lambda c: c.score or 0.0, reverse=True)
+        # Bound the number we try — history may carry a long tail.
+        return out[:3]
+
+    async def _mcp_explore_candidates(
+        self,
+        ctx: StrategyContext,
+        inp: BuildInput,
+        existing_meta: ElementMeta | None,
+    ) -> list[CandidateSpec]:
+        """Run the configured MCP-style exploratory healer.
+
+        Returns an empty list (silently) when:
+          * no ``mcp_assist`` is configured on the context,
+          * the explorer raises — failures must not break the cascade,
+          * the explorer commits no candidates.
+
+        Works equally for first-time elements (``existing_meta is None``)
+        and for elements whose prior memory exists but didn't help —
+        the explorer enriches its prompt with whatever signal is present.
+        """
+        explorer = ctx.mcp_assist
+        if explorer is None:
+            return []
+        try:
+            result = await explorer.explore(ctx.adapter, inp.page, inp, existing_meta)
+        except Exception:
+            ctx.logger.exception("MCP explorer failed; falling through to RAG")
+            return []
+
+        out: list[CandidateSpec] = []
+        for locator in result.locators:
+            options = dict(locator.options or {})
+            confidence = float(options.pop("_mcp_confidence", 0.0) or 0.0)
+            reason = str(options.pop("_mcp_reason", "") or "")
+            cleaned = LocatorSpec(
+                kind=locator.kind,
+                value=locator.value,
+                options=options,
+                scope=locator.scope,
+            )
+            out.append(
+                CandidateSpec(
+                    strategy_id="mcp_explore",
+                    locator=cleaned,
+                    stage="mcp_explore",
+                    score=confidence,
+                    details={
+                        "source": "mcp_agent",
+                        "mcp_confidence": confidence,
+                        "mcp_reason": reason,
+                        "rounds": result.rounds,
+                        "tool_calls": result.tool_calls_made,
+                    },
+                )
+            )
+        return out
+
     async def _dom_mining_candidates(self, ctx: StrategyContext, inp: BuildInput) -> list[CandidateSpec]:
         html = await ctx.dom_snapshotter.capture(inp.page)
         attr_priority = inp.hints.attr_priority_order if inp.hints and inp.hints.attr_priority_order else ctx.config.attribute_priority
@@ -813,6 +1040,269 @@ class HealingService:
             CandidateSpec(strategy_id="dom_mining", locator=locator, stage="dom_mining")
             for locator in locators
         ]
+
+    async def _option_fingerprint_candidates(
+        self,
+        ctx: StrategyContext,
+        inp: BuildInput,
+        existing_meta: ElementMeta | None,
+    ) -> list[CandidateSpec]:
+        """Container-grounded option-set healing for label-renamed elements.
+
+        Returns an empty list (silently) when:
+          * no prior memory exists for this element,
+          * the prior signature has no ``option_set`` to score against,
+          * no anchor text is available to ground the container,
+          * the container grounder cannot find a matching ancestor, or
+          * no candidate inside the container scores above ``min_score``.
+        """
+
+        if existing_meta is None or existing_meta.signature is None:
+            return []
+        prior_signature = existing_meta.signature
+        expected_options = dict(prior_signature.option_set or {})
+        if not expected_options:
+            return []
+
+        anchor_text = (
+            (inp.intent.label if inp.intent else None)
+            or (inp.intent.text if inp.intent else None)
+            or prior_signature.short_text
+        )
+        if not anchor_text or not anchor_text.strip():
+            return []
+
+        # Lazy import to avoid a healing_service ⇄ graph_container cycle.
+        from xpath_healer.core.graph_container import GraphContainerGrounder
+
+        grounder = GraphContainerGrounder(ctx.adapter)
+        container = await grounder.ground(
+            inp.page,
+            anchor_text=anchor_text,
+            field_type=inp.field_type,
+            prior_container_path=list(prior_signature.container_lca_path or []),
+        )
+        if not container.ok or not container.xpath:
+            return []
+
+        scored = await self._score_option_candidates_in_container(
+            ctx,
+            inp.page,
+            container_xpath=container.xpath,
+            expected=expected_options,
+            field_type=inp.field_type,
+        )
+        if not scored:
+            return []
+
+        # Lower threshold than fingerprint (0.75) — option-set matching is
+        # already container-scoped, so weak signals are more meaningful.
+        min_score = 0.55
+        out: list[CandidateSpec] = []
+        for candidate in scored:
+            score = float(candidate.get("score") or 0.0)
+            if score < min_score:
+                continue
+            xpath = str(candidate.get("xpath") or "")
+            if not xpath:
+                continue
+            out.append(
+                CandidateSpec(
+                    strategy_id="option_fingerprint",
+                    locator=LocatorSpec(kind="xpath", value=xpath),
+                    stage="option_fingerprint",
+                    score=score,
+                    details={
+                        "container_xpath": container.xpath,
+                        "container_path": container.path,
+                        "container_candidate_count": container.candidate_count,
+                        "option_match": candidate.get("breakdown") or {},
+                        "anchor_text": anchor_text,
+                    },
+                )
+            )
+        # Best score first so the validator sees the strongest match early.
+        out.sort(key=lambda c: c.score or 0.0, reverse=True)
+        return out
+
+    async def _score_option_candidates_in_container(
+        self,
+        ctx: StrategyContext,
+        page: Any,
+        *,
+        container_xpath: str,
+        expected: dict[str, Any],
+        field_type: str,
+    ) -> list[dict[str, Any]]:
+        """Score elements inside ``container_xpath`` by option_set match."""
+
+        # Reuse the container as a locator root, then evaluate a scorer
+        # script against each plausible child element.
+        try:
+            container_locator = await ctx.adapter.resolve_locator(
+                page,
+                LocatorSpec(kind="xpath", value=container_xpath),
+            )
+        except Exception:
+            return []
+        try:
+            count = await container_locator.count()
+        except Exception:
+            return []
+        if count <= 0:
+            return []
+
+        field_norm = (field_type or "").strip().lower()
+        # The same selector union the grounder uses for candidacy.
+        selectors_by_field = {
+            "textbox": "input, textarea",
+            "input": "input, textarea",
+            "dropdown": "select, [role='combobox'], [aria-haspopup='listbox']",
+            "combobox": "select, [role='combobox'], [aria-haspopup='listbox']",
+            "checkbox": "input[type='checkbox'], [role='checkbox']",
+            "radio": "input[type='radio'], [role='radio']",
+        }
+        candidate_selector = selectors_by_field.get(field_norm, "input, select, textarea, button")
+
+        try:
+            results = await container_locator.nth(0).evaluate(
+                """(container, args) => {
+                    if (!container || !container.querySelectorAll) return [];
+                    const sel = args.selector;
+                    const expected = args.expected || {};
+                    const fieldType = (args.fieldType || "").toLowerCase();
+
+                    const normalize = (s) => (s || "").toString().trim().toLowerCase();
+                    const jaccard = (a, b) => {
+                        const sa = new Set((a || []).map(normalize).filter(Boolean));
+                        const sb = new Set((b || []).map(normalize).filter(Boolean));
+                        if (sa.size === 0 && sb.size === 0) return 0;
+                        let inter = 0;
+                        for (const v of sa) if (sb.has(v)) inter += 1;
+                        const union = sa.size + sb.size - inter;
+                        return union === 0 ? 0 : inter / union;
+                    };
+
+                    const xpathFor = (el) => {
+                        const tid = el.getAttribute && el.getAttribute("data-testid");
+                        if (tid) return `//*[@data-testid=${JSON.stringify(tid)}]`;
+                        const id = el.getAttribute && el.getAttribute("id");
+                        if (id) return `//*[@id=${JSON.stringify(id)}]`;
+                        const nm = el.getAttribute && el.getAttribute("name");
+                        if (nm) {
+                            const tt = (el.getAttribute("type") || "").toLowerCase();
+                            if (tt) return `//${(el.tagName || "*").toLowerCase()}[@name=${JSON.stringify(nm)} and @type=${JSON.stringify(tt)}]`;
+                            return `//${(el.tagName || "*").toLowerCase()}[@name=${JSON.stringify(nm)}]`;
+                        }
+                        // Positional fallback inside document.
+                        const parts = [];
+                        let cur = el;
+                        while (cur && cur.nodeType === 1 && cur !== document.documentElement) {
+                            const t = (cur.tagName || "").toLowerCase();
+                            let idx = 1;
+                            let sib = cur.previousElementSibling;
+                            while (sib) {
+                                if ((sib.tagName || "").toLowerCase() === t) idx += 1;
+                                sib = sib.previousElementSibling;
+                            }
+                            parts.unshift(`${t}[${idx}]`);
+                            cur = cur.parentElement;
+                        }
+                        return parts.length ? "/" + parts.join("/") : "";
+                    };
+
+                    const scoreSelect = (el) => {
+                        const opts = Array.from(el.querySelectorAll("option"));
+                        const vals = opts.map(o => (o.getAttribute("value") || o.textContent || "").trim()).filter(Boolean);
+                        const txts = opts.map(o => (o.textContent || "").trim()).filter(Boolean);
+                        const vScore = jaccard(vals, expected.values || []);
+                        const tScore = jaccard(txts, expected.texts || []);
+                        const blended = Math.max(vScore, tScore) * 0.85 + Math.min(vScore, tScore) * 0.15;
+                        return { score: blended, breakdown: { value_jaccard: vScore, text_jaccard: tScore } };
+                    };
+
+                    const scoreGroup = (el, kind) => {
+                        const nameAttr = el.getAttribute("name") || "";
+                        let group = [];
+                        if (nameAttr) {
+                            group = Array.from(document.querySelectorAll(
+                                `input[name=${JSON.stringify(nameAttr)}]`
+                            )).filter(n => container.contains(n));
+                        }
+                        if (group.length === 0) group = [el];
+                        const vals = group.map(n => (n.getAttribute("value") || "").trim()).filter(Boolean);
+                        const labels = group.map(n => {
+                            const lid = n.getAttribute("id");
+                            if (lid) {
+                                const lbl = document.querySelector(`label[for=${JSON.stringify(lid)}]`);
+                                if (lbl) return (lbl.textContent || "").trim();
+                            }
+                            const wrap = n.closest("label");
+                            if (wrap) return (wrap.textContent || "").trim();
+                            return "";
+                        }).filter(Boolean);
+                        const vScore = jaccard(vals, expected.values || []);
+                        const lScore = jaccard(labels, expected.labels || []);
+                        const nameScore = nameAttr && nameAttr === (expected.group_name || "") ? 1.0 : 0.0;
+                        const blended = (vScore * 0.5) + (lScore * 0.3) + (nameScore * 0.2);
+                        return { score: blended, breakdown: { value_jaccard: vScore, label_jaccard: lScore, name_exact: nameScore } };
+                    };
+
+                    const scoreInput = (el) => {
+                        const collect = (k) => (el.getAttribute(k) || "").trim();
+                        const features = {
+                            name: collect("name"),
+                            placeholder: collect("placeholder"),
+                            pattern: collect("pattern"),
+                            autocomplete: collect("autocomplete"),
+                            maxlength: collect("maxlength"),
+                            input_type: (collect("type") || "").toLowerCase(),
+                        };
+                        const breakdown = {};
+                        let total = 0;
+                        let weight = 0;
+                        const weights = { name: 0.30, placeholder: 0.20, pattern: 0.15, autocomplete: 0.15, maxlength: 0.10, input_type: 0.10 };
+                        for (const k of Object.keys(weights)) {
+                            const expectedVal = (expected[k] || "").toString().toLowerCase();
+                            const actualVal = (features[k] || "").toString().toLowerCase();
+                            if (!expectedVal) continue;
+                            weight += weights[k];
+                            const eq = expectedVal === actualVal ? 1.0 : 0.0;
+                            breakdown[k] = eq;
+                            total += eq * weights[k];
+                        }
+                        return { score: weight > 0 ? total / weight : 0.0, breakdown };
+                    };
+
+                    const elements = Array.from(container.querySelectorAll(sel));
+                    const results = [];
+                    for (const el of elements) {
+                        const tagL = (el.tagName || "").toLowerCase();
+                        let scored;
+                        if (tagL === "select") scored = scoreSelect(el);
+                        else if (tagL === "input" && (el.getAttribute("type") === "radio" || el.getAttribute("type") === "checkbox")) scored = scoreGroup(el, el.getAttribute("type"));
+                        else if (el.getAttribute("role") === "radio" || el.getAttribute("role") === "checkbox") scored = scoreGroup(el, el.getAttribute("role"));
+                        else if (tagL === "input" || tagL === "textarea") scored = scoreInput(el);
+                        else continue;
+                        results.push({
+                            xpath: xpathFor(el),
+                            score: scored.score,
+                            breakdown: scored.breakdown,
+                            tag: tagL,
+                        });
+                    }
+                    // Sort descending by score so caller can short-circuit.
+                    results.sort((a, b) => b.score - a.score);
+                    return results.slice(0, 8);
+                }""",
+                {"selector": candidate_selector, "expected": expected, "fieldType": field_norm},
+            )
+        except Exception:
+            return []
+
+        if not isinstance(results, list):
+            return []
+        return [r for r in results if isinstance(r, dict)]
 
     async def _rag_candidates(
         self,
@@ -825,6 +1315,10 @@ class HealingService:
         if not ctx.rag_assist:
             return []
         html = await ctx.dom_snapshotter.capture(inp.page)
+        # Tiered TypeError fallback: prefer to preserve deep_graph even when
+        # a custom RAG implementation doesn't accept prefer_actionable.
+        # Dropping both kwargs at once would silently disable the deep-graph
+        # retry path for any non-current rag_assist signature.
         try:
             suggestions = await ctx.rag_assist.suggest(
                 inp,
@@ -834,7 +1328,15 @@ class HealingService:
                 prefer_actionable=prefer_actionable,
             )
         except TypeError:
-            suggestions = await ctx.rag_assist.suggest(inp, html, top_k=ctx.config.rag.top_k)
+            try:
+                suggestions = await ctx.rag_assist.suggest(
+                    inp,
+                    html,
+                    top_k=ctx.config.rag.top_k,
+                    deep_graph=deep_graph,
+                )
+            except TypeError:
+                suggestions = await ctx.rag_assist.suggest(inp, html, top_k=ctx.config.rag.top_k)
 
         telemetry = getattr(ctx.rag_assist, "last_telemetry", None)
         if isinstance(telemetry, dict):

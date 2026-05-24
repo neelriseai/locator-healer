@@ -34,7 +34,17 @@ async def test_recover_with_attribute_then_metadata_reuse() -> None:
     )
     assert first.status == "success"
     assert first.locator_spec is not None
-    assert first.strategy_id in {"attribute", "metadata.last_good", "metadata.robust", "metadata.robust_xpath"}
+    # Stable-attribute recovery may surface via either the rules-stage
+    # `attribute` strategy or the `dom_mining` stage (which performs DOM
+    # attribute mining for the same signal); both are valid first-time
+    # outcomes for an element identified by data-testid.
+    assert first.strategy_id in {
+        "attribute",
+        "dom_mining",
+        "metadata.last_good",
+        "metadata.robust",
+        "metadata.robust_xpath",
+    }
 
     second = await facade.recover_locator(
         page=page,

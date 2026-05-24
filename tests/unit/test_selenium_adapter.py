@@ -59,7 +59,16 @@ async def test_selenium_facade_recovers_with_attribute_strategy() -> None:
 
     assert recovered.status == "success"
     assert recovered.locator_spec is not None
-    assert recovered.strategy_id in {"attribute", "metadata.last_good", "metadata.robust", "metadata.robust_xpath"}
+    # See test_recover_with_attribute_then_metadata_reuse — attribute-based
+    # recovery may resolve via either the rules-stage `attribute` strategy
+    # or the equivalent `dom_mining` stage.
+    assert recovered.strategy_id in {
+        "attribute",
+        "dom_mining",
+        "metadata.last_good",
+        "metadata.robust",
+        "metadata.robust_xpath",
+    }
     assert recovered.raw_locator is not None
 
 

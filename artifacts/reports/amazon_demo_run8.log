@@ -1,0 +1,34 @@
+2026-05-24 21:42:20,145 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+
+[phase 1] LIST goal: On amazon.in, dismiss any login / address / location pincode popups (this is a browsing task, no delivery address needed). Then type the exact phrase 'mobile phones under 50000' into the search box and press Enter. After the results load, sort the results by Price: Low to High using the visible sort control. Finally, read the first 3 sorted product cards' title, visible price, and the URL of each product.
+
+  [phase1_list] status=failed steps=6
+    - dismiss_location_popup         click       healer=label_proximity_interactable exec=ok       v=ok (llm)
+    - dismiss_login_popup            click       healer=button_text_candidate    exec=ok       v=ok (llm)
+    - fill_search_box                fill        healer=bidirectional_anchor_field exec=ok       v=ok (auto)
+    - submit_search                  press_key   healer=bidirectional_anchor_field exec=ok       v=ok (llm+vision_override)
+    - wait_for_results               wait        healer=-                        exec=ok       v=fail (llm)
+    - sort_by_low_to_high            select      healer=multi_field_text_resolver exec=error    v=fail (auto)
+    FAILED: sort_by_low_to_high (select)
+      exec: select_option failed: Locator.select_option: Error: Element is not a <select> element
+Call log:
+  - waiting for locator("//*[contains(normalize-space(), 'Sort by') and not(ancestor::*[@role='grid' or contains(@class,'grid')])]").nth(2)
+    - locator resolved to <div id="a-page">…</div>
+  - attempting select option action
+    - waiting for element to be visible and enabled
+
+      verify: executor_error: select_option failed: Locator.select_option: Error: Element is not a <select> element
+Call log:
+  - waiting for locator("//*[contains(normalize-space(), 'Sort by') and not(ancestor::*[@role='grid' or contains(@class,'grid')])]").nth(2)
+    - locator resolved to <div id="a-page">…</div>
+  - attempting select option action
+    - waiting for element to be visible and enabled
+
+      vision: ok=True conf=1.0 finding="The intended outcome of sorting by 'low to high' did not occur; the results page did not change between the first and last frames after the step."
+
+  collected 0 product URLs from phase 1.
+
+  artifact: C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\reports\amazon_demo.json
+  recording: mode=screenshots video=- shots=6 duration=271.8s
+
+  TOP-LINE: phase1=failed drill_ok=0/0

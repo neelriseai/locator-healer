@@ -1,0 +1,19 @@
+2026-05-24 21:27:20,223 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+
+[phase 1] LIST goal: On amazon.in, type the exact phrase 'mobile phones under 50000' into the search box and press Enter (do not click filter checkboxes). Skip any login or address popups. Then read the first 3 search results' product title, visible price, and the URL of each product.
+
+  [phase1_list] status=failed steps=5
+    - dismiss_location_popup         click       healer=label_proximity_interactable exec=ok       v=ok (llm)
+    - dismiss_login_popup            click       healer=button_text_candidate    exec=ok       v=ok (llm)
+    - fill_search_box                fill        healer=bidirectional_anchor_field exec=ok       v=ok (auto)
+    - submit_search                  press_key   healer=bidirectional_anchor_field exec=ok       v=ok (llm+vision_override)
+    - extract_search_results         extract     healer=-                        exec=-        v=fail (n/a)
+    FAILED: extract_search_results (extract)
+      vision: ok=True conf=1.0 finding='No modal, popup, login wall, cookie banner, or captcha is blocking the page.'
+
+  collected 0 product URLs from phase 1.
+
+  artifact: C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\reports\amazon_demo.json
+  recording: mode=screenshots video=- shots=5 duration=99.1s
+
+  TOP-LINE: phase1=failed drill_ok=0/0

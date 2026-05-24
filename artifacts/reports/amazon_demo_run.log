@@ -1,0 +1,13 @@
+2026-05-24 21:14:23,742 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+
+[phase 1] LIST goal: On amazon.in, search for 'mobile phones', skip any login / address popups, and read the first 3 search results' product title, visible price, and the URL of each product. Skip phones priced above 50000 rupees.
+
+  [phase1_list] status=success steps=1
+    - navigate_amazon                navigate    healer=-                        exec=ok       v=ok (llm)
+
+  collected 0 product URLs from phase 1.
+
+  artifact: C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\reports\amazon_demo.json
+  recording: mode=screenshots video=- shots=1 duration=6.8s
+
+  TOP-LINE: phase1=success drill_ok=0/0

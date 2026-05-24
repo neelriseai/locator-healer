@@ -261,7 +261,15 @@ class XPathValidator:
                     str(attrs.get("aria-label") or ""),
                     str(attrs.get("title") or ""),
                 ]
-                if not any(self._text_match(expected_toggle_text, candidate, intent.match_mode) for candidate in candidate_texts):
+                # Proxy checkboxes/radios (icon spans, custom widgets) carry no
+                # text or aria-label of their own — the visible label is on a
+                # sibling. Only enforce text match when at least one source
+                # actually has text; otherwise let type-recognition decide.
+                has_text_source = any(normalize_text(t) for t in candidate_texts)
+                if has_text_source and not any(
+                    self._text_match(expected_toggle_text, candidate, intent.match_mode)
+                    for candidate in candidate_texts
+                ):
                     return ValidationResult.fail(["text_mismatch"])
             if tag == "input" and input_type == field_type:
                 return ValidationResult.success(matched_count=1, chosen_index=0)

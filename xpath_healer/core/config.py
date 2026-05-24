@@ -78,12 +78,22 @@ class StageConfig:
     metadata: bool = True
     rules: bool = True
     fingerprint: bool = True
+    # Phase 4c — deterministic free replay of prior step successes.
+    # Runs between fallback and metadata so high-precision (workflow +
+    # step + outcome) hits short-circuit the rest of the cascade.
+    workflow_replay: bool = True
     page_index: bool = True
     signature: bool = True
+    option_fingerprint: bool = True
     dom_mining: bool = True
     defaults: bool = True
     position: bool = True
+    mcp_explore: bool = True
     rag: bool = True
+    # Phase 4c — agent-driven workflow rewrite proposals. Off by
+    # default because it costs LLM tokens. Outer agents that want
+    # skip/abort proposals when the locator cascade fails opt in.
+    workflow_rewrite: bool = False
 
 
 @dataclass(slots=True)
@@ -100,6 +110,26 @@ class RetryConfig:
     max_attempts: int = 2
     delay_ms: int = 30
     retry_reason_codes: list[str] = field(default_factory=lambda: ["locator_error", "locator_timeout", "stale_element", "not_visible"])
+
+
+@dataclass(slots=True)
+class WorkflowHistoryConfig:
+    """Phase 4b — workflow run history persistence.
+
+    ``enabled=False`` opts out entirely (no repo is constructed, no
+    recording happens). Useful for sensitive workflows where even
+    hashed page signatures shouldn't be persisted.
+
+    Backend selection precedence: ``pg_dsn`` (Phase 5) → ``json_dir``
+    (Phase 4b) → in-memory.
+    """
+
+    enabled: bool = True
+    pg_dsn: str = ""
+    pg_auto_init_schema: bool = False
+    # ``""`` means in-memory only (no file persistence).
+    json_dir: str = "artifacts/workflow_runs"
+    max_steps_per_workflow: int = 50
 
 
 @dataclass(slots=True)
@@ -128,6 +158,7 @@ class HealerConfig:
     fingerprint: FingerprintConfig = field(default_factory=FingerprintConfig)
     retry: RetryConfig = field(default_factory=RetryConfig)
     logging: LoggingConfig = field(default_factory=LoggingConfig)
+    workflow_history: WorkflowHistoryConfig = field(default_factory=WorkflowHistoryConfig)
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -210,25 +241,41 @@ class HealerConfig:
             cfg.stages.profile = stage_profile
         if cfg.stages.profile == "llm_only":
             cfg.stages.fallback = False
+            cfg.stages.workflow_replay = False
             cfg.stages.metadata = False
             cfg.stages.rules = False
             cfg.stages.fingerprint = False
             cfg.stages.page_index = False
             cfg.stages.signature = False
+            cfg.stages.option_fingerprint = False
             cfg.stages.dom_mining = False
             cfg.stages.defaults = False
             cfg.stages.position = False
+            cfg.stages.mcp_explore = False
+            cfg.stages.workflow_rewrite = False
             cfg.stages.rag = True
 
         cfg.stages.fallback = coerce_bool(os.getenv(f"{prefix}STAGE_FALLBACK_ENABLED"), cfg.stages.fallback)
+        cfg.stages.workflow_replay = coerce_bool(
+            os.getenv(f"{prefix}STAGE_WORKFLOW_REPLAY_ENABLED"), cfg.stages.workflow_replay
+        )
         cfg.stages.metadata = coerce_bool(os.getenv(f"{prefix}STAGE_METADATA_ENABLED"), cfg.stages.metadata)
         cfg.stages.rules = coerce_bool(os.getenv(f"{prefix}STAGE_RULES_ENABLED"), cfg.stages.rules)
         cfg.stages.fingerprint = coerce_bool(os.getenv(f"{prefix}STAGE_FINGERPRINT_ENABLED"), cfg.stages.fingerprint)
         cfg.stages.page_index = coerce_bool(os.getenv(f"{prefix}STAGE_PAGE_INDEX_ENABLED"), cfg.stages.page_index)
         cfg.stages.signature = coerce_bool(os.getenv(f"{prefix}STAGE_SIGNATURE_ENABLED"), cfg.stages.signature)
+        cfg.stages.option_fingerprint = coerce_bool(
+            os.getenv(f"{prefix}STAGE_OPTION_FINGERPRINT_ENABLED"), cfg.stages.option_fingerprint
+        )
         cfg.stages.dom_mining = coerce_bool(os.getenv(f"{prefix}STAGE_DOM_MINING_ENABLED"), cfg.stages.dom_mining)
         cfg.stages.defaults = coerce_bool(os.getenv(f"{prefix}STAGE_DEFAULTS_ENABLED"), cfg.stages.defaults)
         cfg.stages.position = coerce_bool(os.getenv(f"{prefix}STAGE_POSITION_ENABLED"), cfg.stages.position)
+        cfg.stages.mcp_explore = coerce_bool(
+            os.getenv(f"{prefix}STAGE_MCP_EXPLORE_ENABLED"), cfg.stages.mcp_explore
+        )
+        cfg.stages.workflow_rewrite = coerce_bool(
+            os.getenv(f"{prefix}STAGE_WORKFLOW_REWRITE_ENABLED"), cfg.stages.workflow_rewrite
+        )
         cfg.stages.rag = coerce_bool(os.getenv(f"{prefix}STAGE_RAG_ENABLED"), cfg.stages.rag)
 
         cfg.fingerprint.enabled = coerce_bool(os.getenv(f"{prefix}FINGERPRINT_ENABLED"), cfg.fingerprint.enabled)
@@ -260,5 +307,25 @@ class HealerConfig:
         level = os.getenv(f"{prefix}LOG_LEVEL")
         if level:
             cfg.logging.level = level.upper().strip()
+
+        cfg.workflow_history.enabled = coerce_bool(
+            os.getenv(f"{prefix}WORKFLOW_HISTORY_ENABLED"), cfg.workflow_history.enabled
+        )
+        wf_pg_dsn = os.getenv(f"{prefix}WORKFLOW_HISTORY_PG_DSN")
+        if wf_pg_dsn is not None:
+            cfg.workflow_history.pg_dsn = wf_pg_dsn.strip()
+        cfg.workflow_history.pg_auto_init_schema = coerce_bool(
+            os.getenv(f"{prefix}WORKFLOW_HISTORY_PG_AUTO_INIT_SCHEMA"),
+            cfg.workflow_history.pg_auto_init_schema,
+        )
+        wf_json_dir = os.getenv(f"{prefix}WORKFLOW_HISTORY_JSON_DIR")
+        if wf_json_dir is not None:
+            cfg.workflow_history.json_dir = wf_json_dir.strip()
+        wf_max = os.getenv(f"{prefix}WORKFLOW_HISTORY_MAX_STEPS_PER_WORKFLOW")
+        if wf_max:
+            try:
+                cfg.workflow_history.max_steps_per_workflow = max(1, int(wf_max))
+            except ValueError:
+                pass
 
         return cfg

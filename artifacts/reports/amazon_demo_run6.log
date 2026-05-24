@@ -1,0 +1,35 @@
+2026-05-24 21:31:07,980 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+
+[phase 1] LIST goal: On amazon.in, type the exact phrase 'mobile phones under 50000' into the search box and press Enter (do not click filter checkboxes). Skip any login or address popups. Then read the first 3 search results' product title, visible price, and the URL of each product.
+
+  [phase1_list] status=success steps=5
+    - dismiss_location_popup         click       healer=label_proximity_interactable exec=ok       v=ok (llm)
+    - dismiss_login_popup            click       healer=button_text_candidate    exec=ok       v=ok (llm)
+    - fill_search_box                fill        healer=bidirectional_anchor_field exec=ok       v=ok (auto)
+    - submit_search                  press_key   healer=bidirectional_anchor_field exec=ok       v=ok (llm+vision_override)
+    - extract_search_results         extract     healer=extract_auto_discover    exec=ok       v=ok (llm+vision_override)
+
+  collected 3 product URLs from phase 1.
+Traceback (most recent call last):
+  File "C:\Users\neela\Documents\locator-healer\locator-healer\tools\run_amazon_demo.py", line 428, in <module>
+    rc = asyncio.run(
+        main(
+    ...<6 lines>...
+        )
+    )
+  File "C:\Users\neela\AppData\Local\Python\pythoncore-3.14-64\Lib\asyncio\runners.py", line 204, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\neela\AppData\Local\Python\pythoncore-3.14-64\Lib\asyncio\runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\neela\AppData\Local\Python\pythoncore-3.14-64\Lib\asyncio\base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "C:\Users\neela\Documents\locator-healer\locator-healer\tools\run_amazon_demo.py", line 349, in main
+    print(f"\n==== drilling {i}/{len(product_seeds)} \u2192 {seed['url'][:80]}")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\neela\AppData\Local\Python\pythoncore-3.14-64\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2192' in position 20: character maps to <undefined>

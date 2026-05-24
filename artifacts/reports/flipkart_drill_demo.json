@@ -1,0 +1,310 @@
+{
+  "phase1": {
+    "status": "success",
+    "goal": "You are on a Flipkart search results page for mobile phones under 50000 rupees. Dismiss any login / signup popup with an optional click step (this is a browsing task, no login needed). Then EXTRACT the first 3 product cards: for each card pull product title, visible price, and the URL of the product detail page. Use the extract action with fields name, price, and product_url; this is the ONLY data-collection step you need.",
+    "completed": [
+      {
+        "step_id": "dismiss_login_popup",
+        "action": "click",
+        "heal_strategy": "",
+        "exec_status": "skipped",
+        "exec_detail": "optional step: heal cascade found no target",
+        "verify_ok": null,
+        "verify_tier": null
+      },
+      {
+        "step_id": "extract_first_3_products",
+        "action": "extract",
+        "heal_strategy": "extract_auto_discover",
+        "exec_status": "ok",
+        "exec_detail": "extracted 3 items via llm",
+        "verify_ok": true,
+        "verify_tier": "auto"
+      }
+    ],
+    "extracted_data": {
+      "extract_first_3_products": [
+        {
+          "name": "OnePlus 12 (Glacial White, 256 GB)",
+          "price": "₹48,765",
+          "product_url": "https://www.flipkart.com/oneplus-12-glacial-white-256-gb/p/itm7069fb212f1f2?pid=MOBHFHKFG7MEZJH3&lid=LSTMOBHFHKFG7MEZJH3OZAPHT&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_1&otracker=search&fm=organic&iid=9e72b8a8-ca62-4100-8f6b-3a63fa2e0907.MOBHFHKFG7MEZJH3.SEARCH&ppt=None&ppn=None&ssid=1neq0opz280000001779643358701&qH=aa91131d89b4f902&ov_redirect=true",
+          "_href": "https://www.flipkart.com/oneplus-12-glacial-white-256-gb/p/itm7069fb212f1f2?pid=MOBHFHKFG7MEZJH3&lid=LSTMOBHFHKFG7MEZJH3OZAPHT&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_1&otracker=search&fm=organic&iid=9e72b8a8-ca62-4100-8f6b-3a63fa2e0907.MOBHFHKFG7MEZJH3.SEARCH&ppt=None&ppn=None&ssid=1neq0opz280000001779643358701&qH=aa91131d89b4f902&ov_redirect=true"
+        },
+        {
+          "name": "Xiaomi 14 CIVI (Panda White, 512 GB)",
+          "price": "₹49,990",
+          "product_url": "https://www.flipkart.com/xiaomi-14-civi-panda-white-512-gb/p/itm24b0d2c35056d?pid=MOBH3YHARFSTRHHT&lid=LSTMOBH3YHARFSTRHHTDEJFEU&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_2&otracker=search&fm=organic&iid=9e72b8a8-ca62-4100-8f6b-3a63fa2e0907.MOBH3YHARFSTRHHT.SEARCH&ppt=None&ppn=None&ssid=1neq0opz280000001779643358701&qH=aa91131d89b4f902&ov_redirect=true",
+          "_href": "https://www.flipkart.com/xiaomi-14-civi-panda-white-512-gb/p/itm24b0d2c35056d?pid=MOBH3YHARFSTRHHT&lid=LSTMOBH3YHARFSTRHHTDEJFEU&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_2&otracker=search&fm=organic&iid=9e72b8a8-ca62-4100-8f6b-3a63fa2e0907.MOBH3YHARFSTRHHT.SEARCH&ppt=None&ppn=None&ssid=1neq0opz280000001779643358701&qH=aa91131d89b4f902&ov_redirect=true"
+        },
+        {
+          "name": "OnePlus 13R 5G (Nebula Noir, 256 GB)",
+          "price": "₹41,983",
+          "product_url": "https://www.flipkart.com/oneplus-13r-5g-nebula-noir-256-gb/p/itmff6561809fab8?pid=MOBH8EWQ6GUDHGFK&lid=LSTMOBH8EWQ6GUDHGFK8OTBK0&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_3&otracker=search&fm=organic&iid=9e72b8a8-ca62-4100-8f6b-3a63fa2e0907.MOBH8EWQ6GUDHGFK.SEARCH&ppt=None&ppn=None&ssid=1neq0opz280000001779643358701&qH=aa91131d89b4f902&ov_redirect=true",
+          "_href": "https://www.flipkart.com/oneplus-13r-5g-nebula-noir-256-gb/p/itmff6561809fab8?pid=MOBH8EWQ6GUDHGFK&lid=LSTMOBH8EWQ6GUDHGFK8OTBK0&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_3&otracker=search&fm=organic&iid=9e72b8a8-ca62-4100-8f6b-3a63fa2e0907.MOBH8EWQ6GUDHGFK.SEARCH&ppt=None&ppn=None&ssid=1neq0opz280000001779643358701&qH=aa91131d89b4f902&ov_redirect=true"
+        }
+      ]
+    }
+  },
+  "seeds": [
+    {
+      "url": "https://www.flipkart.com/oneplus-12-glacial-white-256-gb/p/itm7069fb212f1f2?pid=MOBHFHKFG7MEZJH3&lid=LSTMOBHFHKFG7MEZJH3OZAPHT&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_1&otracker=search&fm=organic&iid=9e72b8a8-ca62-4100-8f6b-3a63fa2e0907.MOBHFHKFG7MEZJH3.SEARCH&ppt=None&ppn=None&ssid=1neq0opz280000001779643358701&qH=aa91131d89b4f902&ov_redirect=true",
+      "name": "OnePlus 12 (Glacial White, 256 GB)",
+      "price": "₹48,765"
+    },
+    {
+      "url": "https://www.flipkart.com/xiaomi-14-civi-panda-white-512-gb/p/itm24b0d2c35056d?pid=MOBH3YHARFSTRHHT&lid=LSTMOBH3YHARFSTRHHTDEJFEU&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_2&otracker=search&fm=organic&iid=9e72b8a8-ca62-4100-8f6b-3a63fa2e0907.MOBH3YHARFSTRHHT.SEARCH&ppt=None&ppn=None&ssid=1neq0opz280000001779643358701&qH=aa91131d89b4f902&ov_redirect=true",
+      "name": "Xiaomi 14 CIVI (Panda White, 512 GB)",
+      "price": "₹49,990"
+    },
+    {
+      "url": "https://www.flipkart.com/oneplus-13r-5g-nebula-noir-256-gb/p/itmff6561809fab8?pid=MOBH8EWQ6GUDHGFK&lid=LSTMOBH8EWQ6GUDHGFK8OTBK0&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_3&otracker=search&fm=organic&iid=9e72b8a8-ca62-4100-8f6b-3a63fa2e0907.MOBH8EWQ6GUDHGFK.SEARCH&ppt=None&ppn=None&ssid=1neq0opz280000001779643358701&qH=aa91131d89b4f902&ov_redirect=true",
+      "name": "OnePlus 13R 5G (Nebula Noir, 256 GB)",
+      "price": "₹41,983"
+    }
+  ],
+  "drills": [
+    {
+      "seed": {
+        "url": "https://www.flipkart.com/oneplus-12-glacial-white-256-gb/p/itm7069fb212f1f2?pid=MOBHFHKFG7MEZJH3&lid=LSTMOBHFHKFG7MEZJH3OZAPHT&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_1&otracker=search&fm=organic&iid=9e72b8a8-ca62-4100-8f6b-3a63fa2e0907.MOBHFHKFG7MEZJH3.SEARCH&ppt=None&ppn=None&ssid=1neq0opz280000001779643358701&qH=aa91131d89b4f902&ov_redirect=true",
+        "name": "OnePlus 12 (Glacial White, 256 GB)",
+        "price": "₹48,765"
+      },
+      "status": "success",
+      "report": {
+        "status": "success",
+        "goal": "You are on a Flipkart product detail page. Dismiss any login popup with an optional click step. Then extract the product title, the visible price (with any selected variant), and the first 2 customer reviews (reviewer name + review body).",
+        "completed": [
+          {
+            "step_id": "dismiss_login_popup",
+            "action": "click",
+            "heal_strategy": "",
+            "exec_status": "skipped",
+            "exec_detail": "optional step: heal cascade found no target",
+            "verify_ok": null,
+            "verify_tier": null
+          },
+          {
+            "step_id": "wait_for_page",
+            "action": "wait",
+            "heal_strategy": "",
+            "exec_status": "ok",
+            "exec_detail": "page.wait_for_load_state('networkidle')",
+            "verify_ok": true,
+            "verify_tier": "llm"
+          },
+          {
+            "step_id": "extract_product_title",
+            "action": "extract",
+            "heal_strategy": "multi_field_text_resolver",
+            "exec_status": "ok",
+            "exec_detail": "extracted 1 items via llm",
+            "verify_ok": true,
+            "verify_tier": "auto"
+          },
+          {
+            "step_id": "extract_product_price",
+            "action": "extract",
+            "heal_strategy": "page_index.rank:6671a9e1-39f1-4b30-a606-29abe9ffb02b",
+            "exec_status": "ok",
+            "exec_detail": "extracted 1 items via llm",
+            "verify_ok": true,
+            "verify_tier": "auto"
+          },
+          {
+            "step_id": "extract_first_two_reviews",
+            "action": "extract",
+            "heal_strategy": "page_index.rank:be0d6e3c-1760-486c-88f8-5376b265b0bb",
+            "exec_status": "ok",
+            "exec_detail": "extracted 1 items via heuristic",
+            "verify_ok": true,
+            "verify_tier": "auto"
+          }
+        ],
+        "extracted_data": {
+          "extract_product_title": [
+            {
+              "title": "OnePlus 12 (Glacial White, 256 GB) (12 GB RAM)",
+              "_href": ""
+            }
+          ],
+          "extract_product_price": [
+            {
+              "price": "₹48,765",
+              "_href": ""
+            }
+          ],
+          "extract_first_two_reviews": [
+            {
+              "_raw_text": "Camera\n4.6",
+              "reviewer_name": "",
+              "review_body": "",
+              "_href": "https://www.flipkart.com/oneplus-12-glacial-white-256-gb/product-reviews/itm7069fb212f1f2?pid=MOBHFHKFG7MEZJH3&lid=LSTMOBHFHKFG7MEZJH3OZAPHT&aid=dc0f2b2d-7619-44cc-b5fc-2fe3e4d453a7&mid=FLIPKART&an=Camera&cat=Mobile&vert=Handset"
+            }
+          ]
+        }
+      },
+      "data": {
+        "extract_product_title": [
+          {
+            "title": "OnePlus 12 (Glacial White, 256 GB) (12 GB RAM)",
+            "_href": ""
+          }
+        ],
+        "extract_product_price": [
+          {
+            "price": "₹48,765",
+            "_href": ""
+          }
+        ],
+        "extract_first_two_reviews": [
+          {
+            "_raw_text": "Camera\n4.6",
+            "reviewer_name": "",
+            "review_body": "",
+            "_href": "https://www.flipkart.com/oneplus-12-glacial-white-256-gb/product-reviews/itm7069fb212f1f2?pid=MOBHFHKFG7MEZJH3&lid=LSTMOBHFHKFG7MEZJH3OZAPHT&aid=dc0f2b2d-7619-44cc-b5fc-2fe3e4d453a7&mid=FLIPKART&an=Camera&cat=Mobile&vert=Handset"
+          }
+        ]
+      }
+    },
+    {
+      "seed": {
+        "url": "https://www.flipkart.com/xiaomi-14-civi-panda-white-512-gb/p/itm24b0d2c35056d?pid=MOBH3YHARFSTRHHT&lid=LSTMOBH3YHARFSTRHHTDEJFEU&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_2&otracker=search&fm=organic&iid=9e72b8a8-ca62-4100-8f6b-3a63fa2e0907.MOBH3YHARFSTRHHT.SEARCH&ppt=None&ppn=None&ssid=1neq0opz280000001779643358701&qH=aa91131d89b4f902&ov_redirect=true",
+        "name": "Xiaomi 14 CIVI (Panda White, 512 GB)",
+        "price": "₹49,990"
+      },
+      "status": "success",
+      "report": {
+        "status": "success",
+        "goal": "You are on a Flipkart product detail page. Dismiss any login popup with an optional click step. Then extract the product title, the visible price (with any selected variant), and the first 2 customer reviews (reviewer name + review body).",
+        "completed": [
+          {
+            "step_id": "dismiss_login_popup",
+            "action": "click",
+            "heal_strategy": "",
+            "exec_status": "skipped",
+            "exec_detail": "optional step: heal cascade found no target",
+            "verify_ok": null,
+            "verify_tier": null
+          },
+          {
+            "step_id": "extract_product_info_and_reviews",
+            "action": "extract",
+            "heal_strategy": "multi_field_text_resolver",
+            "exec_status": "ok",
+            "exec_detail": "extracted 1 items via llm",
+            "verify_ok": true,
+            "verify_tier": "auto"
+          }
+        ],
+        "extracted_data": {
+          "extract_product_info_and_reviews": [
+            {
+              "title": "Mi 14 CIVI (Panda White, 512 GB) (12 GB RAM)",
+              "_href": ""
+            }
+          ]
+        }
+      },
+      "data": {
+        "extract_product_info_and_reviews": [
+          {
+            "title": "Mi 14 CIVI (Panda White, 512 GB) (12 GB RAM)",
+            "_href": ""
+          }
+        ]
+      }
+    },
+    {
+      "seed": {
+        "url": "https://www.flipkart.com/oneplus-13r-5g-nebula-noir-256-gb/p/itmff6561809fab8?pid=MOBH8EWQ6GUDHGFK&lid=LSTMOBH8EWQ6GUDHGFK8OTBK0&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_3&otracker=search&fm=organic&iid=9e72b8a8-ca62-4100-8f6b-3a63fa2e0907.MOBH8EWQ6GUDHGFK.SEARCH&ppt=None&ppn=None&ssid=1neq0opz280000001779643358701&qH=aa91131d89b4f902&ov_redirect=true",
+        "name": "OnePlus 13R 5G (Nebula Noir, 256 GB)",
+        "price": "₹41,983"
+      },
+      "status": "success",
+      "report": {
+        "status": "success",
+        "goal": "You are on a Flipkart product detail page. Dismiss any login popup with an optional click step. Then extract the product title, the visible price (with any selected variant), and the first 2 customer reviews (reviewer name + review body).",
+        "completed": [
+          {
+            "step_id": "dismiss_login_popup",
+            "action": "click",
+            "heal_strategy": "",
+            "exec_status": "skipped",
+            "exec_detail": "optional step: heal cascade found no target",
+            "verify_ok": null,
+            "verify_tier": null
+          },
+          {
+            "step_id": "extract_product_title",
+            "action": "extract",
+            "heal_strategy": "multi_field_text_resolver",
+            "exec_status": "ok",
+            "exec_detail": "extracted 1 items via llm",
+            "verify_ok": true,
+            "verify_tier": "auto"
+          },
+          {
+            "step_id": "extract_visible_price",
+            "action": "extract",
+            "heal_strategy": "extract_auto_discover",
+            "exec_status": "ok",
+            "exec_detail": "extracted 1 items via heuristic",
+            "verify_ok": true,
+            "verify_tier": "auto"
+          },
+          {
+            "step_id": "extract_first_two_reviews",
+            "action": "extract",
+            "heal_strategy": "multi_field_text_resolver",
+            "exec_status": "ok",
+            "exec_detail": "extracted 1 items via llm",
+            "verify_ok": true,
+            "verify_tier": "auto"
+          }
+        ],
+        "extracted_data": {
+          "extract_product_title": [
+            {
+              "title": "OnePlus 13R 5G (Nebula Noir, 256 GB) (12 GB RAM)",
+              "_href": ""
+            }
+          ],
+          "extract_visible_price": [
+            {
+              "_raw_text": "Flipkart\nA one-stop Shopping\nMinutes\nEverything in Minutes\nGrocery\nAt wholesale prices\nTravel\nAll your travel needs\nSearch Icon\nSearch Icon\nLogin\nNew customer?\nSign Up\nMy Profile\nFlipkart Plus Zone\nOrders\nWishlist\nBecome a Seller\nRewards\nGift Cards\nNotification Preferences\n24x7 Customer Care\nAdvertise\nDownload App\nMore\nMore\nBecome a Seller\nNotification Settings\n24x7 Customer Care\nAdvertise on Flipkart\nCart\nHome\n/\nMobiles &amp; Accessories\n/\nMobiles\n/\nOnePlus Mobiles\n/\n13R 5G (Nebula Noir, 256 GB)\nKey Highlights\nKey Highlights\nKey Highlights\nKey Highlights\nKey Highlights\nSelected Color:\nNebula ",
+              "price": "₹44,999",
+              "_href": "https://www.flipkart.com/"
+            }
+          ],
+          "extract_first_two_reviews": [
+            {
+              "review_body": "The portrait shots is too good in this segment . Battery is easil...more",
+              "_href": ""
+            }
+          ]
+        }
+      },
+      "data": {
+        "extract_product_title": [
+          {
+            "title": "OnePlus 13R 5G (Nebula Noir, 256 GB) (12 GB RAM)",
+            "_href": ""
+          }
+        ],
+        "extract_visible_price": [
+          {
+            "_raw_text": "Flipkart\nA one-stop Shopping\nMinutes\nEverything in Minutes\nGrocery\nAt wholesale prices\nTravel\nAll your travel needs\nSearch Icon\nSearch Icon\nLogin\nNew customer?\nSign Up\nMy Profile\nFlipkart Plus Zone\nOrders\nWishlist\nBecome a Seller\nRewards\nGift Cards\nNotification Preferences\n24x7 Customer Care\nAdvertise\nDownload App\nMore\nMore\nBecome a Seller\nNotification Settings\n24x7 Customer Care\nAdvertise on Flipkart\nCart\nHome\n/\nMobiles &amp; Accessories\n/\nMobiles\n/\nOnePlus Mobiles\n/\n13R 5G (Nebula Noir, 256 GB)\nKey Highlights\nKey Highlights\nKey Highlights\nKey Highlights\nKey Highlights\nSelected Color:\nNebula ",
+            "price": "₹44,999",
+            "_href": "https://www.flipkart.com/"
+          }
+        ],
+        "extract_first_two_reviews": [
+          {
+            "review_body": "The portrait shots is too good in this segment . Battery is easil...more",
+            "_href": ""
+          }
+        ]
+      }
+    }
+  ]
+}
