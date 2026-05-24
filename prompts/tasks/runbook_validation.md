@@ -12,7 +12,7 @@ Prompt to use with AI assistant:
 Prepare and execute a runbook validation for XPath Healer aligned with `prompts/01_Master_Design_for_xpath_healer.md`.
 
 Runbook must include:
-1. Environment prerequisites (python, playwright browser, postgres, pgvector).
+1. Environment prerequisites (python, playwright browser, postgres, ChromaDB).
 2. Required env vars and safe secret handling.
 3. Schema init and DB connectivity checks.
 4. Unit test run.
@@ -39,6 +39,9 @@ Done criteria:
   - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
 - Keep vector retrieval instructions aligned with current implementation:
   - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
-  - `PgVectorRetriever` is compatibility alias only
+  - `ChromaRetriever` is the canonical retriever for this project
 - Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
+
+
+
 

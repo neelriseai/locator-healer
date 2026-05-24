@@ -61,7 +61,8 @@ class RagAssist:
         retrieve_k = min(max(top_k * 20, 50), 200)
         retrieved_context = await self.retriever.retrieve(embedding, top_k=retrieve_k)
         dom_seed_context = self._build_dom_seed_context(inp, dom_context)
-        raw_context = list(retrieved_context) + dom_seed_context
+        intent_seed_context = self._build_intent_seed_context(inp)
+        raw_context = list(retrieved_context) + dom_seed_context + intent_seed_context
         top_n = min(self.prompt_top_n, max(1, top_k))
         context = self._rerank_context(raw_context, top_n=top_n, query_tokens=self._query_tokens(inp))
         payload = build_prompt_payload(
@@ -80,6 +81,7 @@ class RagAssist:
             "raw_context_count": len(retrieved_context),
             "prompt_context_count": len(context),
             "dom_seed_count": len(dom_seed_context),
+            "intent_seed_count": len(intent_seed_context),
             "retrieve_k": retrieve_k,
             "top_k": int(top_k),
             "prompt_top_n": int(top_n),
@@ -254,6 +256,124 @@ class RagAssist:
         if not overlap:
             return 0.0
         return len(overlap) / float(len(query_tokens))
+
+    @staticmethod
+    def _label_match_expr(label: str) -> str:
+        escaped = label.replace("'", "\\'")
+        lower = escaped.casefold()
+        return (
+            f"normalize-space()='{escaped}' or "
+            f"contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'{lower}')"
+        )
+
+    def _build_intent_seed_context(self, inp: BuildInput) -> list[dict[str, Any]]:
+        field_type = str(inp.field_type or "").strip().casefold()
+        label = str(inp.intent.label or inp.intent.text or inp.vars.get("label") or "").strip()
+        target = str(inp.vars.get("target") or "").strip().casefold()
+        if not label:
+            return []
+
+        label_match = self._label_match_expr(label)
+        out: list[dict[str, Any]] = []
+
+        def _add(locator: LocatorSpec, seed_name: str, similarity: float = 0.94) -> None:
+            out.append(
+                {
+                    "app_id": inp.app_id,
+                    "page_name": inp.page_name,
+                    "element_name": f"intent_seed_{seed_name}",
+                    "field_type": inp.field_type,
+                    "locator": locator.to_dict(),
+                    "similarity": similarity,
+                    "structural_similarity": 1.0,
+                    "quality_metrics": {"stability_score": 0.90, "uniqueness_score": 0.65},
+                    "metadata": {
+                        "prompt_compact_text": (
+                            f"intent_seed strategy={seed_name} label={label} field_type={inp.field_type} target={target}"
+                        )[:240]
+                    },
+                }
+            )
+
+        if field_type in {"checkbox", "radio"}:
+            class_token = "radio" if field_type == "radio" else "checkbox"
+            _add(
+                LocatorSpec(
+                    kind="xpath",
+                    value=(
+                        f"//*[self::span or self::label][{label_match}]"
+                        f"/ancestor::*[self::label or self::li or self::div][1]//*[contains(@class,'{class_token}')][1]"
+                    ),
+                ),
+                seed_name="label_proximity_proxy",
+                similarity=0.97,
+            )
+            _add(
+                LocatorSpec(
+                    kind="xpath",
+                    value=(
+                        f"//*[contains(@class,'rct-title') and ({label_match})]"
+                        f"/ancestor::*[contains(@class,'rct-text')][1]//*[contains(@class,'rct-checkbox')][1]"
+                    ),
+                ),
+                seed_name="tree_checkbox_by_title",
+                similarity=0.96,
+            )
+            _add(
+                LocatorSpec(
+                    kind="xpath",
+                    value=(
+                        f"//*[self::span or self::label][{label_match}]"
+                        f"/preceding::*[contains(@class,'{class_token}')][1]"
+                    ),
+                ),
+                seed_name="label_preceding_proxy",
+                similarity=0.92,
+            )
+
+        if field_type == "button" and target in {"toggle", "expand", "collapse"}:
+            toggle_button = (
+                "self::button and ("
+                "contains(@class,'rct-collapse-btn') or "
+                "contains(@class,'rct-expand-btn') or "
+                "contains(@class,'rct-parent-open') or "
+                "contains(@class,'rct-parent-close') or "
+                "contains(@class,'rct-icon-expand') or "
+                "contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'toggle') or "
+                "contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'expand') or "
+                "contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'collapse')"
+                ")"
+            )
+            _add(
+                LocatorSpec(
+                    kind="xpath",
+                    value=(
+                        f"//*[contains(@class,'rct-title') and ({label_match})]"
+                        f"/ancestor::*[contains(@class,'rct-text')][1]//*[{toggle_button}][1]"
+                    ),
+                ),
+                seed_name="tree_toggle_by_title",
+                similarity=0.97,
+            )
+            _add(
+                LocatorSpec(
+                    kind="xpath",
+                    value=(
+                        f"//*[self::span or self::label][{label_match}]"
+                        f"/ancestor::li[1]//*[{toggle_button}][1]"
+                    ),
+                ),
+                seed_name="tree_toggle_by_label",
+                similarity=0.95,
+            )
+
+        dedup: dict[str, dict[str, Any]] = {}
+        for item in out:
+            locator = item.get("locator")
+            if isinstance(locator, dict) and locator.get("kind") and locator.get("value"):
+                key = self._locator_ground_key(locator)
+                dedup[key] = item
+        return list(dedup.values())
 
     @staticmethod
     def _allowed_context_keys(context: list[dict[str, Any]]) -> set[str]:

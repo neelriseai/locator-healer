@@ -1,5 +1,8 @@
 ﻿Title: Database and Storage Layer Method and Interface Prompts
 
+Mandatory reference:
+- `prompts/final_solution_pack/08_Algorithm_Inventory.md` (sections 6 and 7)
+
 Use this prompt with AI assistant:
 
 Interface methods to implement consistently in every backend:
@@ -15,42 +18,33 @@ Postgres-specific methods and intent:
 - Manage pool lifecycle and schema bootstrap.
 2. `schema_sql`
 - Provide full DDL for tables, constraints, and indexes.
-3. `search_rag_documents`
-- Retrieve top semantic matches by vector similarity.
-4. `upsert_rag_document`
-- Store/update document chunks and embeddings.
-5. `_upsert_element_rag_document`
-- Keep element-level RAG chunk synced with metadata upsert.
-6. `_embed_text` and `_resolve_embedder`
-- Generate embedding only when enabled and adapter available.
+3. `upsert_rag_document` / rag-document methods
+- Store/update retrievable metadata chunks.
+4. Chroma sync methods
+- Keep element/rag vectors updated in Chroma collections.
+5. `_embed_text` and `_resolve_embedder`
+- Generate embeddings only when enabled/available.
 
 Dual repository methods and intent:
 1. `find`
-- DB-first read; fallback read on failure or miss when policy requires.
+- DB-first read; fallback read on failure or policy miss.
 2. `upsert`
-- Write to primary; keep backup write path resilient.
+- Write to primary with resilient backup write path.
 3. `log_event`
-- Preserve observability even when one backend fails.
+- Preserve observability when one backend fails.
 4. `close`
 - Close both backends safely.
 
 JSON repository methods and intent:
 1. `_read_page_file` and `_write_page_file`
-- Keep file format stable and durable.
+- Preserve stable metadata JSON schema.
 2. `log_event`
 - Append event stream safely to JSONL.
 
+Required metadata JSON contract:
+1. root keys: app_id, page_name, elements, page_index
+2. `elements[element_name]` stores serialized ElementMeta fields including locators/signature/hints/variants/quality/counters
+
 High-level behavior example:
-1. Primary DB is reachable -> all reads/writes handled by DB and mirrored to JSON backup.
-2. Primary DB is unavailable -> fallback JSON still serves metadata and logs operation status.
-## Mandatory Operational Baseline
-
-- Before implementation, run:
-  - `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1`
-- Use this runbook as the source of truth for DB/index/Chroma reset and recreate steps:
-  - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
-- Keep vector retrieval instructions aligned with current implementation:
-  - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
-  - `PgVectorRetriever` is compatibility alias only
-- Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
-
+1. Primary DB reachable -> reads/writes served by DB, mirrored to JSON backup.
+2. Primary unavailable -> JSON fallback still serves metadata; operations logged with backend status.

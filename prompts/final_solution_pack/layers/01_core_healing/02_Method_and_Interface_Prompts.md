@@ -1,25 +1,28 @@
 ﻿Title: Core Healing Layer Method and Interface Prompts
 
+Mandatory reference:
+- `prompts/final_solution_pack/08_Algorithm_Inventory.md` (sections 1, 2, 3, 4)
+
 Use this prompt with AI assistant:
 
-Target methods and plain-English intent:
+Target methods and intent:
 
 1. `HealerConfig.from_env`
 - Parse all stage and feature flags.
 - Support profile override (`full`, `llm_only`).
-- Return fully resolved configuration object.
+- Parse retry/fingerprint/validator prompts exactly.
 
 2. `XPathBuilder.build_all_candidates`
 - Evaluate registered strategies for allowed stages.
-- Return stable ordered candidate list.
+- Keep deterministic ordering via strategy priority.
 
 3. `StrategyRegistry.register` and `StrategyRegistry.evaluate_all`
-- Keep strategy order deterministic.
-- Evaluate only strategies that support current field/type context.
+- Preserve registered priority order.
+- Respect stage/field context filtering.
 
 4. `XPathValidator.validate_candidate`
 - Resolve locator on live page.
-- Enforce strictness, visibility, enabled checks, and type gate.
+- Enforce strictness, visibility, enabled checks, and field-type gates.
 - Return explicit reason codes on fail.
 
 5. `SignatureExtractor.capture`, `build_robust_locator`, `build_robust_xpath`
@@ -28,50 +31,39 @@ Target methods and plain-English intent:
 
 6. `PageIndexer.build_page_index` and `rank_candidates`
 - Parse page DOM into indexed elements.
-- Rank candidates against expected profile and context.
+- Rank candidates with configured weighted formula from inventory.
 
 7. `FingerprintService.build` and `compare`
 - Build weighted token fingerprint.
-- Return numeric confidence match for candidate comparison.
+- Preserve exact weighting contract and hash short-circuit behavior.
 
 8. `SimilarityService.score` and `is_similar`
-- Produce similarity score between signatures.
+- Preserve weighted similarity formula from inventory.
 - Enforce threshold behavior.
 
 9. `HealingService.recover_locator`
-- Run stage sequence in policy order.
-- Evaluate candidate(s) with validator.
-- Persist success/failure and stage events.
-- Return `Recovered` object with trace.
+- Run exact stage sequence.
+- Preserve sequential orchestration + selected stage parallel evaluation.
+- Persist success/failure and emit stage events.
 
 10. `HealingService._validate_candidate_with_retry`
 - Retry only for configured reason codes.
-- Keep retry lightweight and bounded.
+- Preserve bounded retry semantics.
 
 11. `HealingService._rag_candidates` and `_rag_retry_reason`
-- Call RAG only as final stage (unless profile is rag-only).
-- Detect red flags and decide deep retry.
+- Call RAG only as final stage (unless profile settings dictate).
+- Preserve reason-based deep retry trigger behavior.
 
-12. `LocatorSpec.to_playwright_locator`
-- Convert internal locator representation to Playwright calls.
+12. Quality metric methods in `HealingService`
+- Preserve formulas for uniqueness/stability/similarity/overall scoring.
 
-Interface consistency prompt:
-1. Keep method input/output models consistent across core methods.
+Interface consistency constraints:
+1. Keep method input/output models stable.
 2. Keep reason codes machine-readable and trace-friendly.
-3. Keep no side-effect utility methods pure.
+3. Keep utility methods deterministic and side-effect safe.
 
 High-level behavior example:
 1. Fallback fails.
-2. Metadata candidate appears and passes validator.
-3. Recovery ends without touching deeper stages.
-## Mandatory Operational Baseline
-
-- Before implementation, run:
-  - `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1`
-- Use this runbook as the source of truth for DB/index/Chroma reset and recreate steps:
-  - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
-- Keep vector retrieval instructions aligned with current implementation:
-  - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
-  - `PgVectorRetriever` is compatibility alias only
-- Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
-
+2. Metadata candidates are evaluated.
+3. Best valid candidate is selected and persisted.
+4. Deeper stages are skipped after success.

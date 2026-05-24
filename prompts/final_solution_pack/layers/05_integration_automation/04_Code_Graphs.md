@@ -10,6 +10,13 @@ BDD Feature
     -> Step report logging
     -> Screenshot capture
 
+Selenium Test
+  -> Pytest Function
+    -> SeleniumHealerFacade Call
+      -> Core + Store + Optional RAG
+    -> WebDriver Action/Assertion on recovered locator
+    -> Artifact/report logging
+
 Run graph:
 
 Pytest session
@@ -33,6 +40,9 @@ Class/fixture graphs:
 4. Step functions
 - Perform test actions and validations using recovered locators.
 
+5. Selenium test functions
+- Perform equivalent scenario actions and validations via WebDriver for parity with Playwright coverage.
+
 Graph usage:
 1. Use this graph to reason about where a failure happened:
    setup, heal call, action/assertion, or artifact/report write.
@@ -45,6 +55,9 @@ Graph usage:
   - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
 - Keep vector retrieval instructions aligned with current implementation:
   - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
-  - `PgVectorRetriever` is compatibility alias only
+  - `ChromaRetriever` is the canonical retriever for this project
 - Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
+
+
+
 

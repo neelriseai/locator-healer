@@ -1,7 +1,19 @@
 {
-    "python.testing.pytestArgs": [
-        "tests"
-    ],
-    "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+  "python.testing.pytestArgs": [
+    "tests"
+  ],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "cucumberautocomplete.steps": [
+    "**/tests/integration/**/*.py"
+  ],
+  "cucumberautocomplete.syncfeatures": "**/tests/integration/features/**/*.feature",
+  "cucumberautocomplete.strictGherkinCompletion": false,
+  "cucumberautocomplete.gherkinDefinitionPart": "@(given|when|then|step)\\((?:parsers\\.(?:parse|re)\\()?",
+  "cucumberautocomplete.pureTextSteps": false,
+  "editor.quickSuggestions": {
+    "comments": false,
+    "strings": true,
+    "other": true
+  }
 }

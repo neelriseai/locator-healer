@@ -1,46 +1,38 @@
 ﻿Title: Tech Stack and Dependencies
 
 Runtime stack:
-1. Python 3.11+ (recommended 3.11 or 3.12 for team-wide consistency)
-2. Playwright Python (browser automation)
-3. FastAPI + Uvicorn (service layer)
-4. PostgreSQL 14+ (metadata and events)
-5. pgvector extension (vector similarity)
-6. OpenAI API (optional, model layer)
+1. Python >= 3.11
+2. FastAPI + Uvicorn (service)
+3. Playwright (automation adapter)
+4. Selenium (automation adapter)
+5. PostgreSQL (metadata/events repository primary)
+6. ChromaDB (vector retrieval store)
+7. OpenAI SDK (optional LLM/embedding layer)
 
-Primary libraries:
-1. `playwright`
-2. `fastapi`
-3. `uvicorn`
-4. `asyncpg`
-5. `pgvector`
-6. `openai`
-7. `pytest`
-8. `pytest-asyncio`
-9. `pytest-bdd`
-10. `rapidfuzz`
-11. `beautifulsoup4`
-12. `lxml`
+Source-of-truth dependency files:
+1. `pyproject.toml`
+2. `requirements.txt`
 
-Layer mapping:
-1. Core: dataclasses, scoring, validation, strategy orchestration
-2. Storage: asyncpg + pgvector + JSON fallback
-3. Service: FastAPI request/response models
-4. Model: OpenAI embedder + LLM + pgvector retrieval
-5. Integration: Playwright + pytest-bdd + artifact capture
+Package groups (code-accurate):
+1. Core runtime
+- `fastapi>=0.116.0`
+- `uvicorn>=0.33.0`
+- `playwright>=1.43.0`
+- `selenium>=4.29.0`
 
-Compatibility notes:
-1. Keep browser engine configurable; default currently uses Chromium.
-2. Keep OpenAI and pgvector optional; deterministic flow must still run when they are disabled.
-3. Keep dependencies pinned at team-agreed minimum versions to avoid environment drift.
-## Mandatory Operational Baseline
+2. Optional extras
+- `similarity`: `rapidfuzz>=3.9.0`
+- `dom`: `beautifulsoup4>=4.12.0`, `lxml>=5.2.0`
+- `db`: `asyncpg>=0.30.0`, `chromadb>=0.5.0`
+- `llm`: `openai>=1.66.0`
+- `dev`: `pytest>=8.3.0`, `pytest-asyncio>=0.25.0`, `pytest-bdd>=8.1.0`
 
-- Before implementation, run:
-  - `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1`
-- Use this runbook as the source of truth for DB/index/Chroma reset and recreate steps:
-  - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
-- Keep vector retrieval instructions aligned with current implementation:
-  - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
-  - `PgVectorRetriever` is compatibility alias only
-- Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
+Recommended install commands:
+1. Editable + extras: `python -m pip install -e .[dev,db,llm,similarity,dom]`
+2. Or flat install: `python -m pip install -r requirements.txt`
 
+Execution model notes:
+1. Stage orchestration is sequential in core.
+2. Selected stage candidate evaluation uses async parallelism (`asyncio.gather`).
+3. Selenium adapter uses thread offload (`asyncio.to_thread`) for blocking webdriver operations.
+4. Retrieval backend is Chroma in active runtime flow.

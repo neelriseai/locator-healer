@@ -1,18 +1,37 @@
 ﻿Title: Core Healing Layer Architecture Prompt
 
 Layer objective:
-- Build deterministic healing orchestration and validation engine.
+- Build deterministic healing orchestration and validator-gated acceptance exactly matching current runtime behavior.
+
+Mandatory reference:
+- `prompts/final_solution_pack/08_Algorithm_Inventory.md` (sections 1, 2, 3, 4)
 
 Use this prompt with AI assistant:
 
-1. Implement the Core Healing Layer exactly aligned to the master architecture.
-2. Keep stage sequence:
-   fallback -> metadata -> rules -> fingerprint -> page_index -> signature -> dom_mining -> defaults -> position -> rag.
-3. Keep stage execution configurable from environment.
-4. Ensure every candidate is validated before acceptance.
-5. Ensure success and failure are both persisted with structured trace.
-6. Ensure scoring metrics are captured (uniqueness, stability, similarity, overall).
-7. Keep deterministic behavior available even when RAG is enabled.
+1. Implement core stage cascade with exact order:
+   fallback -> metadata -> rules -> fingerprint -> page_index -> signature -> dom_mining -> defaults -> position -> rag
+2. Preserve stage-policy behavior:
+   - profile + per-stage toggles from `HealerConfig.from_env`
+   - `llm_only` disables deterministic stages and keeps rag on
+3. Preserve execution model:
+   - stage pipeline sequential
+   - parallel candidate evaluation only where `_evaluate_candidates_parallel` is used
+4. Keep retry behavior configurable (`XH_RETRY_*`) and reason-code gated.
+5. Ensure every accepted candidate passes validator gates.
+6. Persist success/failure with trace and quality metrics.
+
+Required formulas/contracts to preserve:
+1. Metadata stage fixed strategy scores (`metadata.last_good`, `metadata.robust*`, `metadata.live*`).
+2. Signature + graph context scoring:
+   - combined_score = 0.70 * similarity + 0.30 * graph_context
+   - effective_score = max(similarity, combined_score)
+3. Graph-context weighting:
+   - 0.25*tag + 0.30*container + 0.25*anchor + 0.10*text + 0.10*field_type_compat
+4. Similarity formula:
+   - 0.55*attrs + 0.20*text + 0.15*tag + 0.10*container - volatility_penalty
+5. Page index ranking weights and fingerprint weights from inventory.
+6. Post-success quality metric formula:
+   - overall = 0.4*uniqueness + 0.4*stability + 0.2*similarity(if present)
 
 Primary files to target:
 1. `xpath_healer/core/healing_service.py`
@@ -25,21 +44,11 @@ Primary files to target:
 8. `xpath_healer/core/page_index.py`
 9. `xpath_healer/core/config.py`
 10. `xpath_healer/core/models.py`
+11. `xpath_healer/api/base.py`
 
 Acceptance criteria:
 1. Healing attempt always has correlation id and stage traces.
 2. Stage toggles can disable/enable layers without code changes.
-3. Validator blocks invalid candidate.
+3. Validator blocks invalid candidates.
 4. Successful healing returns locator + updated metadata.
 5. Failed healing returns reason and full trace.
-## Mandatory Operational Baseline
-
-- Before implementation, run:
-  - `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1`
-- Use this runbook as the source of truth for DB/index/Chroma reset and recreate steps:
-  - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
-- Keep vector retrieval instructions aligned with current implementation:
-  - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
-  - `PgVectorRetriever` is compatibility alias only
-- Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
-

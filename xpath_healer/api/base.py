@@ -24,9 +24,11 @@ from xpath_healer.core.strategies import (
     CompositeLabelControlStrategy,
     GenericTemplateStrategy,
     GridCellByColIdStrategy,
+    LabelProximityInteractableStrategy,
     MultiFieldTextResolverStrategy,
     PositionFallbackStrategy,
     TextOccurrenceStrategy,
+    TreeToggleByLabelStrategy,
 )
 from xpath_healer.core.strategy_registry import StrategyRegistry
 from xpath_healer.core.validator import XPathValidator
@@ -187,7 +189,9 @@ class BaseHealerFacade:
             GenericTemplateStrategy(),
             AxisHintFieldResolverStrategy(),
             CompositeLabelControlStrategy(),
+            LabelProximityInteractableStrategy(),
             CheckboxIconByLabelStrategy(),
+            TreeToggleByLabelStrategy(),
             ButtonTextCandidateStrategy(),
             MultiFieldTextResolverStrategy(),
             AttributeStrategy(),

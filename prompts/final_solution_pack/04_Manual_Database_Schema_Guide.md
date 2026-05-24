@@ -6,11 +6,10 @@ Purpose:
 Pre-requisites:
 1. PostgreSQL installed.
 2. Database created.
-3. `pgvector` extension package installed on server.
+3. ChromaDB runtime configured (persistent local path or server mode), outside Postgres.
 
 Manual setup order:
 1. Enable extensions:
-   - `vector`
    - `pgcrypto`
 2. Create tables in this order:
    - `page_index`
@@ -68,7 +67,6 @@ Table definitions to create manually:
 - `robust_locator` jsonb
 - `strategy_id` text
 - `signature` jsonb
-- `signature_embedding` vector(1536)
 - `hints` jsonb
 - `locator_variants` jsonb
 - `quality_metrics` jsonb
@@ -139,7 +137,6 @@ Table definitions to create manually:
 - `element_name` text
 - `source` text not null
 - `chunk_text` text not null
-- `embedding` vector(1536)
 - `metadata` jsonb
 - `created_at` timestamptz default now
 
@@ -148,25 +145,22 @@ Indexes to create:
 2. `page_index(app_id, page_name, created_at desc)`
 3. `indexed_elements(page_id, ordinal)`
 4. `elements(app_id, page_name, field_type, success_count desc, last_seen desc)`
-5. `elements.signature_embedding` using ivfflat cosine ops
-6. `locator_variants(element_id, variant_key)`
-7. `events(correlation_id, timestamp desc)`
-8. `healing_events(run_id, created_at desc)`
-9. `rag_documents(app_id, page_name, element_name, created_at desc)`
-10. `rag_documents.embedding` using ivfflat cosine ops
+5. `locator_variants(element_id, variant_key)`
+6. `events(correlation_id, timestamp desc)`
+7. `healing_events(run_id, created_at desc)`
+8. `rag_documents(app_id, page_name, element_name, created_at desc)`
 
 Manual validation checklist:
 1. Confirm all tables exist.
 2. Confirm extensions exist.
-3. Confirm vector columns exist with dimension 1536.
-4. Confirm ivfflat indexes exist.
-5. Insert one sample row in `elements` and query it back.
+3. Insert one sample row in `elements` and query it back.
+4. Insert one sample row in `rag_documents` and query it back.
 
 Operational query checklist (plain tasks):
 1. List all elements for one page.
 2. List latest healing events for one `run_id`.
-3. Count rows with non-null embeddings in `elements`.
-4. Count rows with non-null embeddings in `rag_documents`.
+3. Count rows in `rag_documents` for one app/page.
+4. Count rows in `events` for one `correlation_id`.
 5. Retrieve top recent `events` for one `correlation_id`.
 ## Mandatory Operational Baseline
 
@@ -176,6 +170,9 @@ Operational query checklist (plain tasks):
   - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
 - Keep vector retrieval instructions aligned with current implementation:
   - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
-  - `PgVectorRetriever` is compatibility alias only
+  - `ChromaRetriever` is the canonical retriever for this project
 - Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
+
+
+
 

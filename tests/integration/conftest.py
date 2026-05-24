@@ -481,7 +481,10 @@ def page(
     integration_settings: IntegrationSettings,
     integration_logger: logging.Logger,
 ) -> Any:
-    playwright = runtime.run(async_playwright().start())
+    try:
+        playwright = runtime.run(async_playwright().start())
+    except Exception as exc:
+        pytest.skip(f"Playwright runtime unavailable: {exc}")
     browser_type, launch_kwargs, browser_name = _resolve_playwright_launch(playwright, integration_settings)
 
     try:
@@ -571,7 +574,11 @@ def pytest_bdd_after_step(request: Any, feature: Any, scenario: Any, step: Any, 
     settings: IntegrationSettings = request.getfixturevalue("integration_settings")
     logger: logging.Logger = request.getfixturevalue("integration_logger")
     runtime: AsyncRuntime = request.getfixturevalue("runtime")
-    page = request.getfixturevalue("page")
+    page = None
+    try:
+        page = request.getfixturevalue("page")
+    except Exception as exc:
+        logger.warning("step_screenshot_skipped test=%s reason=page_unavailable error=%s", request.node.name, exc)
 
     request.node._bdd_step_index = int(getattr(request.node, "_bdd_step_index", 0)) + 1
     step_idx = request.node._bdd_step_index
@@ -579,7 +586,7 @@ def pytest_bdd_after_step(request: Any, feature: Any, scenario: Any, step: Any, 
     step_name = _slug(getattr(step, "name", "step"))
     step_keyword = getattr(step, "keyword", "")
     screenshot_path = None
-    if settings.screenshot_each_step:
+    if settings.screenshot_each_step and page is not None:
         screenshot_path = settings.screenshots_dir / f"{test_name}__step{step_idx:02d}__{step_name}.png"
         try:
             runtime.run(page.screenshot(path=str(screenshot_path), full_page=True))
@@ -621,27 +628,33 @@ def pytest_bdd_step_error(
     settings: IntegrationSettings = request.getfixturevalue("integration_settings")
     logger: logging.Logger = request.getfixturevalue("integration_logger")
     runtime: AsyncRuntime = request.getfixturevalue("runtime")
-    page = request.getfixturevalue("page")
+    page = None
+    try:
+        page = request.getfixturevalue("page")
+    except Exception as exc:
+        logger.warning("step_error_screenshot_skipped test=%s reason=page_unavailable error=%s", request.node.name, exc)
 
     request.node._bdd_step_index = int(getattr(request.node, "_bdd_step_index", 0)) + 1
     step_idx = request.node._bdd_step_index
     test_name = _slug(request.node.name)
     step_name = _slug(getattr(step, "name", "step"))
     step_keyword = getattr(step, "keyword", "")
-    screenshot_path = settings.screenshots_dir / f"{test_name}__step{step_idx:02d}__{step_name}__error.png"
-    try:
-        runtime.run(page.screenshot(path=str(screenshot_path), full_page=True))
-        logger.error(
-            "step_error_screenshot_saved test=%s step=%s keyword=%s path=%s error=%s",
-            test_name,
-            step_name,
-            step_keyword.strip(),
-            screenshot_path,
-            exception,
-        )
-    except Exception as exc:
-        logger.error("step_error_screenshot_failed test=%s step=%s error=%s", test_name, step_name, exc)
-        screenshot_path = None
+    screenshot_path = None
+    if page is not None:
+        screenshot_path = settings.screenshots_dir / f"{test_name}__step{step_idx:02d}__{step_name}__error.png"
+        try:
+            runtime.run(page.screenshot(path=str(screenshot_path), full_page=True))
+            logger.error(
+                "step_error_screenshot_saved test=%s step=%s keyword=%s path=%s error=%s",
+                test_name,
+                step_name,
+                step_keyword.strip(),
+                screenshot_path,
+                exception,
+            )
+        except Exception as exc:
+            logger.error("step_error_screenshot_failed test=%s step=%s error=%s", test_name, step_name, exc)
+            screenshot_path = None
 
     _append_jsonl(
         settings.step_report_jsonl,

@@ -1,7 +1,10 @@
 ﻿Title: Database and Storage Layer Architecture Prompt
 
 Layer objective:
-- Provide durable metadata persistence, event logging, page indexing storage, and vector retrieval support.
+- Provide durable metadata persistence, event logging, page-index storage, and Chroma-backed vector retrieval integration.
+
+Mandatory reference:
+- `prompts/final_solution_pack/08_Algorithm_Inventory.md` (sections 6 and 7)
 
 Use this prompt with AI assistant:
 
@@ -11,10 +14,31 @@ Use this prompt with AI assistant:
    - JSON file
    - PostgreSQL
    - Dual repository (DB-first, JSON fallback)
-3. Ensure DB-first read policy with fallback when primary read fails.
-4. Ensure write attempts to primary and backup as configured.
-5. Keep schema compatible with vector search for `elements` and `rag_documents`.
-6. Keep async behavior and bounded connection pooling.
+3. Ensure DB-first read policy with fallback on primary error/miss as implemented.
+4. Ensure resilient dual-write behavior with explicit operation status logging.
+5. Keep Postgres schema aligned to current tables and indexes.
+6. Keep vector retrieval backend Chroma (collections `xh_rag_documents`, `xh_elements`).
+7. Keep async behavior and bounded pool lifecycle.
+
+Required schema contracts:
+1. Postgres tables:
+   - page_index
+   - indexed_elements
+   - elements
+   - locator_variants
+   - quality_metrics
+   - events
+   - healing_events
+   - rag_documents
+2. Keep lookup indexes used by current query patterns.
+3. Keep Postgres metadata/chunk store plus Chroma vector sync model.
+
+Required JSON fallback contracts:
+1. File layout:
+   - `artifacts/metadata/<app_id>/<page_name>.json`
+   - `artifacts/metadata/events.jsonl`
+2. Page JSON shape includes root keys and serialized `ElementMeta` payloads.
+3. Dual repo read-through/warm-up behavior must remain intact.
 
 Primary files to target:
 1. `xpath_healer/store/repository.py`
@@ -26,16 +50,5 @@ Primary files to target:
 Acceptance criteria:
 1. CRUD and event logging work through interface.
 2. Page index read/write works for structured DOM candidates.
-3. Vector search returns candidates when embeddings exist.
+3. Chroma retrieval path returns candidates when vectors exist.
 4. Fallback behavior does not hide primary failure traces.
-## Mandatory Operational Baseline
-
-- Before implementation, run:
-  - `powershell -ExecutionPolicy Bypass -File .\tools\reset_db_and_chroma.ps1`
-- Use this runbook as the source of truth for DB/index/Chroma reset and recreate steps:
-  - `docs/DB_POSTGRES_CHROMA_RESET_AND_RECREATE.md`
-- Keep vector retrieval instructions aligned with current implementation:
-  - Chroma-backed retrieval with collections `xh_rag_documents` and `xh_elements`
-  - `PgVectorRetriever` is compatibility alias only
-- Do not assume agent reasoning chains; include explicit, step-by-step executable instructions in each prompt.
-
