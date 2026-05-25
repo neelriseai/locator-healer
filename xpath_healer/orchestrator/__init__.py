@@ -35,10 +35,16 @@ from xpath_healer.orchestrator.verifier import (
     TieredOutcomeVerifier,
 )
 from xpath_healer.orchestrator.runner import WorkflowOrchestrator
+from xpath_healer.orchestrator.page_state import PageStateObserver
 from xpath_healer.orchestrator.recorder import (
     RecordingInfo,
     StepSnapshot,
     WorkflowRecorder,
+)
+from xpath_healer.orchestrator.telemetry import (
+    TelemetryCounter,
+    TelemetryLLMClient,
+    TelemetryVisualInspector,
 )
 from xpath_healer.orchestrator.visual import (
     CandidatePick,
@@ -59,10 +65,14 @@ __all__ = [
     "InspectionResult",
     "OrchestrationResult",
     "OutcomeVerifier",
+    "PageStateObserver",
     "PlannedWorkflow",
     "PlaywrightActionExecutor",
     "RecordingInfo",
     "StepSnapshot",
+    "TelemetryCounter",
+    "TelemetryLLMClient",
+    "TelemetryVisualInspector",
     "TieredOutcomeVerifier",
     "VerificationResult",
     "VisualInspector",

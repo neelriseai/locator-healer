@@ -21,6 +21,7 @@ from xpath_healer.llm.client import ChatMessage, LLMClient
 from xpath_healer.orchestrator.models import (
     ACTION_CLICK,
     ACTION_EXTRACT,
+    ACTION_EXTRACT_RECORD,
     ACTION_FILL,
     ACTION_HOVER,
     ACTION_NAVIGATE,
@@ -112,6 +113,8 @@ class PlaywrightActionExecutor(ActionExecutor):
                 )
             if action == ACTION_EXTRACT:
                 return await self._extract(step=step, locator=locator, value=value, page=page)
+            if action == ACTION_EXTRACT_RECORD:
+                return await self._extract_record(step=step, value=value, page=page)
             if action == ACTION_PRESS_KEY:
                 return await self._press_key(locator=locator, page=page, value=value)
             if action == ACTION_WAIT:
@@ -204,16 +207,79 @@ class PlaywrightActionExecutor(ActionExecutor):
         )
 
     async def _click(self, locator: Any) -> ExecutionResult:
-        click = getattr(locator, "click", None)
-        if callable(click):
+        """Click with the doc's execution priority:
+          1. scrollIntoViewIfNeeded (cheap, avoids below-fold misses)
+          2. native locator.click
+          3. fallback: detect overlay interception via elementFromPoint;
+             if intercepted, JS-click (bypasses pointer-event blockers)
+          4. last-resort: blind JS click
+        """
+        # Step 1: best-effort scroll into view.
+        scroll_in = getattr(locator, "scroll_into_view_if_needed", None)
+        if callable(scroll_in):
             try:
-                await click()
+                await scroll_in(timeout=2000)
             except Exception:
-                # Fallback: JS-click for elements covered by overlays.
-                await locator.evaluate("el => { el.click(); return true; }")
-        else:
+                pass
+
+        click = getattr(locator, "click", None)
+        if not callable(click):
             await locator.evaluate("el => { el.click(); return true; }")
-        return ExecutionResult(status="ok", action=ACTION_CLICK, detail="click dispatched")
+            return ExecutionResult(
+                status="ok", action=ACTION_CLICK,
+                detail="click dispatched (no native click; JS-clicked)",
+            )
+
+        # Step 2: native click.
+        try:
+            await click()
+            return ExecutionResult(
+                status="ok", action=ACTION_CLICK, detail="click dispatched"
+            )
+        except Exception as exc_native:
+            self.logger.info(
+                "native click failed (%s) — checking for overlay then JS-clicking",
+                str(exc_native)[:120],
+            )
+
+        # Step 3: proactive overlay test via elementFromPoint.
+        # When the element is covered by a transparent overlay,
+        # native click would have thrown ElementClickInterceptedException
+        # (caught above). JS click bypasses pointer-event routing.
+        try:
+            intercept_info = await locator.evaluate(
+                """el => {
+                    const r = el.getBoundingClientRect();
+                    const x = r.left + r.width / 2;
+                    const y = r.top + r.height / 2;
+                    const top = document.elementFromPoint(x, y);
+                    return {
+                        intercepted: !(top && (top === el || el.contains(top) || top.contains(el))),
+                        top_tag: top ? top.tagName.toLowerCase() : '',
+                        top_class: top ? String(top.className || '') : '',
+                    };
+                }"""
+            )
+        except Exception:
+            intercept_info = {"intercepted": False, "top_tag": "", "top_class": ""}
+
+        # Step 4: JS-click as last resort.
+        try:
+            await locator.evaluate("el => { el.click(); return true; }")
+        except Exception as exc:
+            return ExecutionResult(
+                status="error",
+                action=ACTION_CLICK,
+                detail=f"click failed (native and JS): {exc}",
+            )
+        detail = "click dispatched via JS (native failed)"
+        if isinstance(intercept_info, dict) and intercept_info.get("intercepted"):
+            top_desc = f"{intercept_info.get('top_tag','?')}.{intercept_info.get('top_class','')}".strip(".")
+            detail = f"click intercepted by {top_desc}; JS-clicked through overlay"
+        return ExecutionResult(
+            status="ok", action=ACTION_CLICK, detail=detail,
+            page_signal={"click_path": "js_fallback"},
+        )
 
     async def _select(self, locator: Any, value: str, page: Any = None) -> ExecutionResult:
         """Choose ``value`` from a dropdown.
@@ -514,6 +580,302 @@ class PlaywrightActionExecutor(ActionExecutor):
                 "item_count_available": int(total),
             },
         )
+
+    # ------------------------------------------------------------------
+    # extract_record — pull ONE record from the whole page (PDPs)
+    # ------------------------------------------------------------------
+
+    async def _extract_record(
+        self,
+        *,
+        step: WorkflowStep,
+        value: str,
+        page: Any,
+    ) -> ExecutionResult:
+        """Extract a single record's fields from the current page.
+
+        Unlike ``_extract`` (which assumes a list of items and applies
+        a relative selector to each), this action treats the entire
+        page as the container and asks the LLM to map each field to an
+        absolute CSS selector. Used for product-detail pages, profile
+        pages, order summaries — anywhere the goal is "pull one row of
+        data from this page".
+
+        ``value`` parses the same ``{"fields": [...]}`` shape as
+        ``_extract``; ``limit`` is ignored.
+
+        Falls back to a heuristic scan when the LLM is absent or its
+        response is unusable: for each field, do a best-effort
+        regex/case-insensitive text search over the page's innerText
+        and snip the surrounding line.
+        """
+        spec = self._parse_extract_value(value)
+        fields: list[str] = list(spec.get("fields") or [])
+        if not fields:
+            return ExecutionResult(
+                status="error",
+                action=ACTION_EXTRACT_RECORD,
+                detail="no fields requested",
+            )
+        if page is None:
+            return ExecutionResult(
+                status="error", action=ACTION_EXTRACT_RECORD, detail="no page",
+            )
+        evaluate = getattr(page, "evaluate", None)
+        if not callable(evaluate):
+            return ExecutionResult(
+                status="error", action=ACTION_EXTRACT_RECORD, detail="page has no evaluate",
+            )
+
+        # Step 1: capture a trimmed HTML snippet of the visible main
+        # content so the LLM has structural context. Strip scripts /
+        # noscript / iframes which bloat the prompt without value.
+        try:
+            html_snippet = await evaluate(
+                """() => {
+                    const main = document.querySelector('main, [role="main"], #main, .main, body');
+                    if (!main) return '';
+                    const clone = main.cloneNode(true);
+                    for (const sel of ['script', 'noscript', 'style', 'iframe', 'svg']) {
+                        for (const n of clone.querySelectorAll(sel)) n.remove();
+                    }
+                    return clone.outerHTML.slice(0, 12000);
+                }"""
+            )
+        except Exception:
+            html_snippet = ""
+        html_snippet = str(html_snippet or "")
+
+        # Step 2: ask the LLM for an absolute-CSS selector per field.
+        # Re-use the existing _resolve_field_selectors helper but switch
+        # the system prompt to single-record framing.
+        selector_map: dict[str, str] = {}
+        if self.llm_for_extract is not None and html_snippet:
+            try:
+                selector_map = await self._resolve_record_field_selectors(
+                    sample_html=html_snippet, fields=fields,
+                )
+            except Exception:
+                self.logger.exception("LLM record-field resolution failed")
+                selector_map = {}
+
+        record: dict[str, Any] = {}
+        if selector_map:
+            try:
+                record = await evaluate(
+                    """(sels) => {
+                        const out = {};
+                        for (const k of Object.keys(sels)) {
+                            const el = document.querySelector(sels[k]);
+                            if (!el) { out[k] = ''; continue; }
+                            const lk = k.toLowerCase();
+                            if (/(_|^)(url|href|link)$/.test(lk) && (el.href || el.getAttribute('href'))) {
+                                out[k] = el.href || el.getAttribute('href');
+                            } else {
+                                out[k] = (el.innerText || el.textContent || '').trim();
+                            }
+                        }
+                        return out;
+                    }""",
+                    selector_map,
+                )
+            except Exception as exc:
+                self.logger.warning("record-field DOM lookup failed: %s", exc)
+                record = {}
+
+        # Step 2.5: quality-guard the LLM-extracted values. An LLM that
+        # mis-maps "price" to a button labelled "For you" will return
+        # tiny / pattern-less garbage. Reject those values so the
+        # heuristic regex pass below replaces them.
+        if record:
+            for k in list(record.keys()):
+                v = str(record.get(k) or "").strip()
+                if not self._field_value_looks_plausible(k, v):
+                    record[k] = ""
+
+        # Step 3: heuristic fallback for any fields the selectors missed
+        # or for the LLM-absent case. Use a quick page-innerText regex.
+        missing = [f for f in fields if not record.get(f)]
+        if missing:
+            try:
+                page_text = await evaluate(
+                    "() => (document.body && (document.body.innerText || document.body.textContent)) || ''"
+                )
+            except Exception:
+                page_text = ""
+            heuristic = self._heuristic_record_fields(
+                page_text=str(page_text or ""), fields=missing,
+            )
+            for k, v in heuristic.items():
+                if v and not record.get(k):
+                    record[k] = v
+
+            # Title-like fields: fall back to <h1>, then <title>. Many
+            # e-commerce PDPs don't put the product name in <h1> but
+            # almost always set <title> to it.
+            for f in [field for field in missing if not record.get(field)]:
+                if any(tok in f.lower() for tok in ("title", "name", "product")):
+                    try:
+                        h1_or_title = await evaluate(
+                            """() => {
+                                const h1 = document.querySelector('h1');
+                                if (h1 && h1.innerText.trim()) return h1.innerText.trim();
+                                return (document.title || '').trim();
+                            }"""
+                        )
+                    except Exception:
+                        h1_or_title = ""
+                    if h1_or_title:
+                        record[f] = str(h1_or_title)[:200]
+
+        # Step 4: re-run the quality guard on the final merged record.
+        # The heuristic can also pick promotional text that happens to
+        # share a keyword with a typed field ("Price for you" on
+        # Flipkart). Apply the same plausibility test so we never emit
+        # a value the guard would reject on the LLM side.
+        for k in list(record.keys()):
+            v = str(record.get(k) or "").strip()
+            if v and not self._field_value_looks_plausible(k, v):
+                record[k] = ""
+        return ExecutionResult(
+            status="ok",
+            action=ACTION_EXTRACT_RECORD,
+            detail=(
+                f"extracted {len([k for k,v in record.items() if v])}/"
+                f"{len(fields)} fields via {'llm' if selector_map else 'heuristic'}"
+            ),
+            page_signal={
+                # Wrap as a 1-row list so OrchestrationResult.extracted_data
+                # is uniformly list-shaped across extract and extract_record.
+                "extracted": [record] if record else [],
+                "extract_mode": "record_llm" if selector_map else "record_heuristic",
+                "field_selectors": selector_map,
+            },
+        )
+
+    async def _resolve_record_field_selectors(
+        self,
+        *,
+        sample_html: str,
+        fields: list[str],
+    ) -> dict[str, str]:
+        """LLM call: ``{field_name: absolute_css_selector}`` for one page.
+
+        Differs from ``_resolve_field_selectors`` (list-of-items) in
+        that selectors are absolute, not relative to an item container.
+        """
+        if not sample_html or not fields:
+            return {}
+        snippet = sample_html if len(sample_html) <= 10000 else sample_html[:10000] + "…"
+        system = (
+            "You map semantic field names to ABSOLUTE CSS selectors "
+            "that query the WHOLE page (e.g. 'h1.product-title', "
+            "'span.price.final'). Return ONLY a JSON object of the "
+            "form {\"field\":\"css-selector\", ...}. Each selector "
+            "MUST resolve to exactly ONE element on the page. Prefer "
+            "stable handles (id, data-testid, role+class) over deep "
+            "positional indexes. Use the empty string for fields with "
+            "no obvious match."
+        )
+        user = json.dumps(
+            {"fields": fields, "page_html_sample": snippet},
+            ensure_ascii=True,
+        )
+        response = await self.llm_for_extract.chat(
+            [
+                ChatMessage(role="system", content=system),
+                ChatMessage(role="user", content=user),
+            ]
+        )
+        return self._parse_selector_response(response.content or "", fields)
+
+    @staticmethod
+    def _field_value_looks_plausible(field: str, value: str) -> bool:
+        """Cheap sanity check on an LLM-resolved field value. Catches
+        the failure mode where the LLM picks a CSS selector that happens
+        to exist but points at the wrong widget (button label, banner,
+        breadcrumb)."""
+        v = (value or "").strip()
+        if not v:
+            return False
+        if len(v) < 2:
+            return False
+        fl = field.lower()
+        # Price-like fields: must contain at least one digit (and ideally
+        # a currency token). "for you" / "best seller" → rejected.
+        if any(tok in fl for tok in ("price", "amount", "cost", "₹", "$", "rs", "rupee", "mrp")):
+            if not any(ch.isdigit() for ch in v):
+                return False
+            return True
+        # Review-like fields: should be a sentence (>=15 chars usually).
+        if any(tok in fl for tok in ("review", "comment", "feedback", "testimonial")):
+            return len(v) >= 15
+        # Rating-like fields: a number, optional decimal, optional '/5'.
+        if any(tok in fl for tok in ("rating", "stars", "score")):
+            import re as _re
+            return bool(_re.search(r"\d", v))
+        # URL fields are already handled by the executor's href branch.
+        if any(tok in fl for tok in ("url", "href", "link")):
+            return v.startswith("http") or v.startswith("/")
+        # Title / name / variant / generic: accept anything with >=2 chars
+        # that has at least one letter (rejects pure punctuation noise).
+        return any(ch.isalpha() for ch in v)
+
+    # Pattern hints for typed fields. The heuristic uses these BEFORE
+    # the generic label-based search so it can spot a price on a page
+    # where no "Price:" label precedes it.
+    _PRICE_PATTERN = re.compile(
+        r"(?:₹|Rs\.?|INR|\$|USD|€|£)\s*[\d][\d,]*(?:\.\d+)?",
+        flags=re.IGNORECASE,
+    )
+    _RATING_PATTERN = re.compile(
+        r"\b([0-5](?:\.\d{1,2})?)\s*(?:/\s*5|out\s+of\s+5|★|stars?)?",
+        flags=re.IGNORECASE,
+    )
+
+    @classmethod
+    def _heuristic_record_fields(
+        cls,
+        *,
+        page_text: str,
+        fields: list[str],
+    ) -> dict[str, str]:
+        """Last-resort: regex-scan the page's innerText for fields.
+
+        For typed fields (price / rating) we use a pattern-based scan
+        FIRST since e-commerce pages rarely use a literal "Price:"
+        label adjacent to the value. For generic fields we fall back
+        to the label-prefix search.
+        """
+        if not page_text or not fields:
+            return {}
+        out: dict[str, str] = {}
+        for field in fields:
+            fl_under = field.lower()
+            # Price-typed field: first currency-prefixed digit cluster.
+            if any(tok in fl_under for tok in ("price", "amount", "cost", "mrp")):
+                m = cls._PRICE_PATTERN.search(page_text)
+                if m:
+                    out[field] = m.group(0).strip()
+                    continue
+            # Rating-typed field: a number-with-optional-decimal token.
+            if any(tok in fl_under for tok in ("rating", "stars", "score")):
+                m = cls._RATING_PATTERN.search(page_text)
+                if m:
+                    out[field] = m.group(0).strip()
+                    continue
+            # Generic: try the label-prefix search.
+            fl = fl_under.replace("_", " ").replace("-", " ")
+            pat = re.compile(
+                rf"{re.escape(fl)}\s*[:\-]?\s*([^\n]{{0,200}})",
+                flags=re.IGNORECASE,
+            )
+            m = pat.search(page_text)
+            if m:
+                val = m.group(1).strip()
+                if val:
+                    out[field] = val[:200]
+        return out
 
     # -- helpers ---------------------------------------------------------
 

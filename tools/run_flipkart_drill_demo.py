@@ -61,9 +61,10 @@ _DEFAULT_GOAL_LIST = (
 )
 _DEFAULT_GOAL_DRILL = (
     "You are on a Flipkart product detail page. Dismiss any login "
-    "popup with an optional click step. Then extract the product "
-    "title, the visible price (with any selected variant), and the "
-    "first 2 customer reviews (reviewer name + review body)."
+    "popup with an optional click step. Then use ONE extract_record "
+    "step (not extract) to pull these fields in a single call from "
+    "the page: title, price, variant, review_1, review_2. The "
+    "extract_record action targets the whole page, not a list."
 )
 _DEFAULT_SEARCH_URL_TMPL = (
     "https://www.flipkart.com/search?q=mobile+phones+under+{max_price}"
@@ -127,7 +128,7 @@ def _print_result(result, *, label: str) -> None:
         strat = r.heal_strategy or "-"
         exec_status = (r.execution.status if r.execution else "-")
         print(
-            f"    - {r.step_id:30s} {r.action:11s} healer={strat:24s} "
+            f"    - {r.step_id:30s} {r.action:14s} healer={strat:24s} "
             f"exec={exec_status:8s} v={'ok' if ok else 'fail'} ({tier})"
         )
     if result.failed_step is not None:
@@ -137,6 +138,13 @@ def _print_result(result, *, label: str) -> None:
             print(f"      exec: {f.execution.detail}")
         if f.verification:
             print(f"      verify: {f.verification.reason}")
+    tele = result.metadata.get("telemetry") if result.metadata else None
+    if tele:
+        print(
+            f"    telemetry: llm_calls={tele['llm_calls']} "
+            f"tokens={tele['llm_total_tokens']} vision={tele['vision_calls']} "
+            f"total={tele['total_seconds']:.2f}s strategies={tele['heal_strategy_counts']}"
+        )
 
 
 def _collect_urls(list_result, *, limit: int) -> list[dict[str, str]]:
@@ -177,6 +185,7 @@ def _to_jsonable(result) -> dict[str, Any]:
             for r in result.completed_steps
         ],
         "extracted_data": result.extracted_data,
+        "telemetry": (result.metadata or {}).get("telemetry"),
     }
 
 
@@ -193,6 +202,9 @@ async def main(*, headless: bool, limit: int, max_price: int, record_mode: str, 
         AgenticGoalDecomposer,
         AgenticOutcomeVerifier,
         PlaywrightActionExecutor,
+        TelemetryCounter,
+        TelemetryLLMClient,
+        TelemetryVisualInspector,
         TieredOutcomeVerifier,
         VisualInspector,
         WorkflowOrchestrator,
@@ -200,14 +212,21 @@ async def main(*, headless: bool, limit: int, max_price: int, record_mode: str, 
     )
 
     chat_model = os.environ.get("XH_OPENAI_MODEL") or "gpt-4o-mini"
-    llm = OpenAIChatClient(api_key=api_key, model=chat_model)
+    raw_llm = OpenAIChatClient(api_key=api_key, model=chat_model)
+    # Per-run telemetry counter. All three LLM consumers (decomposer,
+    # verifier, extract) share it, so the final totals are accurate.
+    counter = TelemetryCounter()
+    llm = TelemetryLLMClient(raw_llm, counter)
     recorder = None
     inspector = None
     rec_dir = _REPO_ROOT / "artifacts" / "recordings"
     if record_mode in {"screenshots", "video"}:
         recorder = WorkflowRecorder(out_dir=str(rec_dir), mode=record_mode)
     if visual_policy != "never":
-        inspector = VisualInspector(vision_llm=OpenAIChatClient(api_key=api_key, model=chat_model))
+        inner_vision = VisualInspector(
+            vision_llm=OpenAIChatClient(api_key=api_key, model=chat_model)
+        )
+        inspector = TelemetryVisualInspector(inner_vision, counter)
 
     async with async_playwright() as pw:
         browser, context = await _new_context(pw, headless=headless, recorder=recorder)
@@ -222,6 +241,7 @@ async def main(*, headless: bool, limit: int, max_price: int, record_mode: str, 
                 recorder=recorder,
                 visual_inspector=inspector,
                 visual_policy=visual_policy,
+                telemetry=counter,
             )
 
             phase1 = await _phase1(

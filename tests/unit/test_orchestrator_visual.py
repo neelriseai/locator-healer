@@ -717,3 +717,730 @@ async def test_inspect_with_screenshots_ignores_zoom_silently(tmp_path) -> None:
         question="?", screenshots=[str(p)], max_frames=1, zoom=(10, 20, 100, 50)
     )
     assert res.ok is True
+
+
+# ===========================================================================
+# "Locator healer eyes" doc — round-2 changes
+# ===========================================================================
+
+
+def test_merge_candidates_deduped_keeps_unique_pairs() -> None:
+    """A11y candidate with the same (role, text) as a DOM candidate
+    should NOT be appended; a distinct pair should."""
+    primary = [
+        {"index": 0, "tag": "button", "role": "button", "text": "Sign in", "css_selector": "#login"},
+        {"index": 1, "tag": "a", "role": "link", "text": "Help", "css_selector": "a.help"},
+    ]
+    secondary = [
+        # Duplicate (role=button + text=Sign in) → dropped.
+        {"index": 0, "tag": "button", "role": "button", "text": "Sign in", "css_selector": 'role=button[name="Sign in"]'},
+        # Distinct (role=textbox + text=Username) → kept.
+        {"index": 1, "tag": "textbox", "role": "textbox", "text": "Username", "css_selector": 'role=textbox[name="Username"]'},
+        # Empty text → skipped.
+        {"index": 2, "tag": "button", "role": "button", "text": "", "css_selector": "x"},
+    ]
+    merged = WorkflowOrchestrator._merge_candidates_deduped(primary, secondary)
+    selectors = [c["css_selector"] for c in merged]
+    assert "#login" in selectors
+    assert 'role=textbox[name="Username"]' in selectors
+    assert 'role=button[name="Sign in"]' not in selectors  # de-duped
+    # Indices are re-numbered.
+    for i, c in enumerate(merged):
+        assert c["index"] == i
+
+
+@pytest.mark.asyncio
+async def test_extract_a11y_candidates_walks_tree(tmp_path) -> None:
+    """A fake page with a Playwright-shaped a11y tree should yield
+    actionable candidates with role= selectors."""
+
+    class _A11y:
+        async def snapshot(self_):
+            return {
+                "role": "WebArea",
+                "name": "Login",
+                "children": [
+                    {"role": "textbox", "name": "Username", "children": []},
+                    {"role": "textbox", "name": "Password", "disabled": False, "children": []},
+                    {"role": "button", "name": "Sign in", "children": []},
+                    # Generic landmark should be skipped.
+                    {"role": "region", "name": "Footer", "children": [
+                        {"role": "link", "name": "Forgot password", "children": []},
+                    ]},
+                ],
+            }
+
+    class _Page:
+        accessibility = _A11y()
+
+    facade = _FacadeFake(
+        recovered=Recovered(status="failed", correlation_id="c", error="x"),
+    )
+    orch = WorkflowOrchestrator(
+        facade=facade,
+        decomposer=AgenticGoalDecomposer(_plan_one_click_step()),
+        executor=PlaywrightActionExecutor(),
+        verifier=TieredOutcomeVerifier(llm_verifier=None),
+    )
+    out = await orch._extract_a11y_candidates(_Page())
+    texts_by_role: dict[str, list[str]] = {}
+    for c in out:
+        texts_by_role.setdefault(c["role"], []).append(c["text"])
+    selectors = [c["css_selector"] for c in out]
+    # Both textboxes are kept.
+    assert "textbox" in texts_by_role
+    assert {"Username", "Password"} <= set(texts_by_role["textbox"])
+    # Button candidate carries a Playwright role= selector.
+    assert 'role=button[name="Sign in"]' in selectors
+    # Link inside region IS kept (region is just a parent we walk through).
+    assert "link" in texts_by_role
+    # Region (landmark role) itself should NOT be emitted as a candidate.
+    assert "region" not in texts_by_role
+
+
+@pytest.mark.asyncio
+async def test_extract_a11y_candidates_no_accessibility_api_returns_empty() -> None:
+    """Adapters without a Playwright .accessibility attribute must
+    degrade silently (returns [], does not raise)."""
+    class _NoA11yPage:
+        pass
+
+    facade = _FacadeFake(
+        recovered=Recovered(status="failed", correlation_id="c", error="x"),
+    )
+    orch = WorkflowOrchestrator(
+        facade=facade,
+        decomposer=AgenticGoalDecomposer(_plan_one_click_step()),
+        executor=PlaywrightActionExecutor(),
+        verifier=TieredOutcomeVerifier(llm_verifier=None),
+    )
+    assert await orch._extract_a11y_candidates(_NoA11yPage()) == []
+
+
+@pytest.mark.asyncio
+async def test_page_state_observer_normalises_evaluate_failure() -> None:
+    """If the page raises during evaluate, observe() returns {} rather
+    than propagating."""
+    from xpath_healer.orchestrator import PageStateObserver
+
+    class _BoomPage:
+        async def evaluate(self_, script):
+            raise RuntimeError("page detached")
+
+    observer = PageStateObserver()
+    assert await observer.observe(_BoomPage()) == {}
+
+
+@pytest.mark.asyncio
+async def test_page_state_observer_returns_evaluate_output() -> None:
+    """Happy path: the JS returns a dict; observe() forwards it."""
+    from xpath_healer.orchestrator import PageStateObserver
+
+    class _Page:
+        async def evaluate(self_, script):
+            return {
+                "url": "https://x.test/login",
+                "title": "Login",
+                "page_type": "auth",
+                "forms": [{"name": "f", "fields": [], "actions": []}],
+                "buttons": [{"text": "Sign in", "disabled": False, "bbox": {"x": 0, "y": 0, "w": 80, "h": 30}}],
+                "errors": [],
+                "modals": [],
+                "tables_count": 0,
+                "first_table_columns": [],
+                "next_possible_actions": ["click_sign_in"],
+            }
+
+    observer = PageStateObserver()
+    state = await observer.observe(_Page())
+    assert state["page_type"] == "auth"
+    summary = observer.short_summary(state)
+    assert "page_type=auth" in summary
+    assert "Sign in" in summary
+    assert "NEXT_ACTIONS" in summary
+
+
+# ===========================================================================
+# #6 Budget-exhaustion stress tests
+# ===========================================================================
+
+
+def _plan_two_step_with_optional_dismiss(label_main: str = "Save") -> _ScriptedLLM:
+    """Plan: optional dismiss-modal (will heal-miss) + required main step.
+
+    Used to drive the optional-skip + budget paths."""
+    return _ScriptedLLM(
+        [
+            ChatResponse(
+                tool_calls=[
+                    ToolCall(
+                        id="c1", name="commit_plan",
+                        arguments={
+                            "steps": [
+                                {
+                                    "step_id": "dismiss_modal",
+                                    "intent": "dismiss optional modal",
+                                    "action": "click",
+                                    "target_label": "Close",
+                                    "optional": True,
+                                },
+                                {
+                                    "step_id": "do_main",
+                                    "intent": "main task",
+                                    "action": "click",
+                                    "target_label": label_main,
+                                },
+                            ]
+                        },
+                    )
+                ]
+            )
+        ]
+    )
+
+
+@pytest.mark.asyncio
+async def test_max_recovery_inserts_zero_blocks_vision_inserts(tmp_path) -> None:
+    """With max_recovery_inserts=0, a vision-derived dismiss-modal
+    proposal must NOT splice a new step into the plan."""
+    facade = _FacadeFake(
+        recovered=Recovered(status="failed", correlation_id="c", error="not found"),
+    )
+    inspector = _DismissModalInspector()
+    rec = WorkflowRecorder(out_dir=tmp_path, mode="screenshots")
+    orch = WorkflowOrchestrator(
+        facade=facade,
+        decomposer=AgenticGoalDecomposer(_plan_one_click_step("Save")),
+        executor=PlaywrightActionExecutor(),
+        verifier=TieredOutcomeVerifier(llm_verifier=None),
+        recorder=rec,
+        visual_inspector=inspector,
+        visual_policy="on_failure",
+        max_recovery_inserts=0,
+    )
+    result = await orch.run(page=_FakePage(), goal=WorkflowGoal(text="click save"))
+    # Insert was proposed but the budget is 0 → orchestrator returns
+    # failed instead of mutating the plan.
+    assert result.status == "failed"
+    # Plan must contain exactly the original step, no inserts.
+    assert result.plan is not None
+    assert [s.target_label for s in result.plan.steps] == ["Save"]
+
+
+@pytest.mark.asyncio
+async def test_max_replans_zero_skips_replan_after_url_change(tmp_path) -> None:
+    """With max_replans=0, _page_changed_significantly fires but the
+    orchestrator does NOT re-decompose."""
+    class _OkLocator:
+        async def click(self_):
+            return None
+        async def scroll_into_view_if_needed(self_, timeout=0):
+            return None
+        async def evaluate(self_, script, arg=None):
+            return True
+
+    class _NavigatingPage:
+        """URL changes between successive _current_url calls."""
+        def __init__(self_):
+            self_._urls = [
+                "",                          # initial (no start_url)
+                "https://x.test/before",     # after first step succeeds
+                "https://x.test/after",      # after second step — DIFFERENT path
+            ]
+            self_._idx = 0
+
+        @property
+        def url(self_):
+            i = min(self_._idx, len(self_._urls) - 1)
+            self_._idx += 1
+            return self_._urls[i]
+
+        async def screenshot(self_, *, path, full_page=False):
+            from pathlib import Path
+            Path(path).parent.mkdir(parents=True, exist_ok=True)
+            Path(path).write_bytes(b"\x89PNG\r\n\x1a\n")
+
+    facade = _FacadeFake(
+        recovered=Recovered(
+            status="success", correlation_id="c",
+            locator_spec=LocatorSpec(kind="xpath", value="//x"),
+            runtime_locator=_OkLocator(),
+            strategy_id="rules",
+        ),
+    )
+    decomposer_calls: list[int] = []
+    class _CountingDecomposer:
+        async def decompose(self_, *, goal, adapter, page):
+            decomposer_calls.append(1)
+            return await AgenticGoalDecomposer(_plan_two_step_with_optional_dismiss()).decompose(
+                goal=goal, adapter=adapter, page=page
+            )
+
+    orch = WorkflowOrchestrator(
+        facade=facade,
+        decomposer=_CountingDecomposer(),
+        executor=PlaywrightActionExecutor(),
+        verifier=TieredOutcomeVerifier(llm_verifier=None),
+        max_replans=0,
+        replan_on_url_change=True,
+    )
+    await orch.run(page=_NavigatingPage(), goal=WorkflowGoal(text="navigate twice"))
+    # max_replans=0 → decomposer called exactly once (the initial plan),
+    # never a second time even though the URL path changed.
+    assert len(decomposer_calls) == 1
+
+
+@pytest.mark.asyncio
+async def test_vision_insert_cap_holds_across_consecutive_failures(tmp_path) -> None:
+    """The per-step vision-insert cap (1) must hold even when the same
+    step fails repeatedly. Without the cap, we'd see N inserts."""
+    facade = _FacadeFake(
+        recovered=Recovered(status="failed", correlation_id="c", error="not found"),
+    )
+    inspector = _DismissModalInspector()
+    rec = WorkflowRecorder(out_dir=tmp_path, mode="screenshots")
+    orch = WorkflowOrchestrator(
+        facade=facade,
+        decomposer=AgenticGoalDecomposer(_plan_one_click_step("Save")),
+        executor=PlaywrightActionExecutor(),
+        verifier=TieredOutcomeVerifier(llm_verifier=None),
+        recorder=rec,
+        visual_inspector=inspector,
+        visual_policy="on_failure",
+        # Plenty of budget; cap must come from per-step counter, not budget.
+        max_recovery_inserts=10,
+    )
+    result = await orch.run(page=_FakePage(), goal=WorkflowGoal(text="click save"))
+    assert result.plan is not None
+    # Plan ends up with: 1 inserted dismiss + original Save = 2 steps total.
+    # The per-step cap of 1 prevents an unbounded cascade.
+    inserts = [s for s in result.plan.steps if s.target_label == "Close"]
+    assert len(inserts) == 1, (
+        f"per-step vision-insert cap broken; got "
+        f"{[s.target_label for s in result.plan.steps]}"
+    )
+
+
+# ===========================================================================
+# #3 Overlay-detection: _click recovers via JS-click when native fails
+# ===========================================================================
+
+
+@pytest.mark.asyncio
+async def test_click_recovers_via_js_when_native_throws_intercepted() -> None:
+    """A locator whose native click throws (overlay intercepted) must
+    fall back to JS-click via elementFromPoint detection. The detail
+    string must reflect the overlay was detected."""
+    from xpath_healer.orchestrator.executor import PlaywrightActionExecutor
+    from xpath_healer.orchestrator.models import ACTION_CLICK
+    from xpath_healer.core.workflow import WorkflowStep
+
+    class _OverlayedLocator:
+        def __init__(self_):
+            self_.native_click_attempts = 0
+            self_.scroll_in_calls = 0
+            self_.evaluate_calls: list[str] = []
+            self_.js_click_dispatched = False
+
+        async def scroll_into_view_if_needed(self_, timeout=0):
+            self_.scroll_in_calls += 1
+
+        async def click(self_):
+            self_.native_click_attempts += 1
+            # Simulate Playwright's ElementClickIntercepted.
+            raise Exception("locator click intercepted by overlay")
+
+        async def evaluate(self_, script, arg=None):
+            self_.evaluate_calls.append(script)
+            if "elementFromPoint" in script:
+                # Pretend an overlay div is on top.
+                return {
+                    "intercepted": True,
+                    "top_tag": "div",
+                    "top_class": "modal-backdrop",
+                }
+            if "el.click()" in script:
+                self_.js_click_dispatched = True
+                return True
+            return None
+
+    loc = _OverlayedLocator()
+    executor = PlaywrightActionExecutor()
+    step = WorkflowStep(step_id="s", intent="i", action="click", target_label="Buy")
+    result = await executor.execute(
+        step=step, locator=loc, page=_FakePage(), value="", adapter=None,
+    )
+    assert result.status == "ok"
+    assert result.action == ACTION_CLICK
+    assert loc.scroll_in_calls == 1
+    assert loc.native_click_attempts == 1
+    assert loc.js_click_dispatched is True
+    # The detail string must mention what intercepted the click.
+    assert "intercepted" in result.detail.lower()
+    assert "modal-backdrop" in result.detail
+    # The page_signal should record the JS fallback path.
+    assert result.page_signal.get("click_path") == "js_fallback"
+
+
+@pytest.mark.asyncio
+async def test_click_uses_scroll_into_view_before_native_click() -> None:
+    """Scroll-into-view must fire BEFORE the native click attempt, so
+    below-fold elements are reached without an explicit scroll step."""
+    from xpath_healer.orchestrator.executor import PlaywrightActionExecutor
+    from xpath_healer.core.workflow import WorkflowStep
+
+    call_order: list[str] = []
+
+    class _NormalLocator:
+        async def scroll_into_view_if_needed(self_, timeout=0):
+            call_order.append("scroll")
+        async def click(self_):
+            call_order.append("native_click")
+        async def evaluate(self_, script, arg=None):
+            return None
+
+    loc = _NormalLocator()
+    executor = PlaywrightActionExecutor()
+    step = WorkflowStep(step_id="s", intent="i", action="click", target_label="OK")
+    result = await executor.execute(
+        step=step, locator=loc, page=_FakePage(), value="", adapter=None,
+    )
+    assert result.status == "ok"
+    assert call_order == ["scroll", "native_click"]
+
+
+# ===========================================================================
+# #1 Force-exercise visual candidate heal (cascade disabled)
+# ===========================================================================
+
+
+@pytest.mark.asyncio
+async def test_candidate_heal_drives_execution_when_cascade_fails(tmp_path) -> None:
+    """Disable the heal cascade entirely (facade returns failed always).
+    Vision returns a CandidatePick with a stable selector. The orchestrator
+    must use page.locator(selector) to execute the action."""
+    from xpath_healer.orchestrator.visual import CandidatePick
+
+    page_locator_calls: list[str] = []
+    click_calls: list[str] = []
+
+    class _FakeBuyLocator:
+        async def scroll_into_view_if_needed(self_, timeout=0):
+            return None
+        async def click(self_):
+            click_calls.append("clicked")
+        async def evaluate(self_, script, arg=None):
+            return True
+
+    class _LocatorWithFirst:
+        """Playwright-shaped fake: `page.locator(sel).first` returns a
+        locator. We model that with `first` returning the same fake."""
+        def __init__(self_):
+            self_._inner = _FakeBuyLocator()
+        @property
+        def first(self_):
+            return self_._inner
+        # If the runner ever skips .first and uses methods directly,
+        # delegate them so the test still works.
+        async def click(self_):
+            return await self_._inner.click()
+        async def scroll_into_view_if_needed(self_, timeout=0):
+            return await self_._inner.scroll_into_view_if_needed(timeout=timeout)
+        async def evaluate(self_, script, arg=None):
+            return await self_._inner.evaluate(script, arg)
+
+    class _PageWithLocator:
+        url = "https://x.test/"
+        async def screenshot(self_, *, path, full_page=False):
+            from pathlib import Path
+            Path(path).parent.mkdir(parents=True, exist_ok=True)
+            Path(path).write_bytes(b"\x89PNG\r\n\x1a\n")
+        async def evaluate(self_, script, arg=None):
+            # Return one DOM candidate.
+            if "MIN_REPEATS" in script:
+                return []
+            if "candidateId" in script or "MAX" in script:
+                return [{
+                    "index": 0, "tag": "button", "text": "Buy now",
+                    "role": "button", "aria_label": "",
+                    "placeholder": "", "href": "", "type": "",
+                    "css_selector": "#buy-btn",
+                    "bbox": [10, 20, 80, 30], "visible": True, "enabled": True,
+                }]
+            return None
+        def locator(self_, selector):
+            page_locator_calls.append(selector)
+            return _LocatorWithFirst()
+        # No accessibility API → a11y candidates degrade to [].
+
+    class _VisionPicksBuy:
+        async def inspect(self_, **kwargs):
+            return InspectionResult(ok=True, finding="ok", confidence=0.99)
+        async def pick_candidate(self_, *, intent, candidates, screenshot_path):
+            return CandidatePick(
+                index=0, css_selector="#buy-btn",
+                reason="matches buy intent",
+                confidence=0.95,
+                candidate={"tag": "button", "text": "Buy now"},
+            )
+
+    facade = _FacadeFake(
+        recovered=Recovered(status="failed", correlation_id="c", error="cascade off"),
+    )
+    rec = WorkflowRecorder(out_dir=tmp_path, mode="screenshots")
+    orch = WorkflowOrchestrator(
+        facade=facade,
+        decomposer=AgenticGoalDecomposer(_plan_one_click_step("Buy now")),
+        executor=PlaywrightActionExecutor(),
+        verifier=TieredOutcomeVerifier(llm_verifier=None),
+        recorder=rec,
+        visual_inspector=_VisionPicksBuy(),
+        visual_policy="on_failure",
+    )
+    result = await orch.run(page=_PageWithLocator(), goal=WorkflowGoal(text="buy"))
+    # Vision picked #buy-btn → orchestrator called page.locator('#buy-btn').
+    assert "#buy-btn" in page_locator_calls
+    # The locator's click was actually invoked (executor used the picked locator).
+    assert click_calls == ["clicked"]
+    # The step record reflects which strategy healed it.
+    assert any(
+        r.heal_strategy == "visual_candidate_pick" for r in result.completed_steps
+    ), f"expected visual_candidate_pick strategy on a step; got {[r.heal_strategy for r in result.completed_steps]}"
+
+
+# ===========================================================================
+# #2 Force-exercise PageStateObserver in decomposer prompt
+# ===========================================================================
+
+
+@pytest.mark.asyncio
+async def test_decomposer_prompt_includes_page_state_when_present(monkeypatch) -> None:
+    """When PageStateObserver returns a non-empty state, the user
+    message sent to the LLM MUST include a `page_state` key with the
+    forms/buttons/modals carved out. Without page_state, the prompt
+    falls back to outline-only."""
+    captured_prompts: list[str] = []
+
+    class _CapturingLLM(LLMClient):
+        async def chat(self_, messages, *, tools=None, temperature=0.0, max_tokens=None):
+            # The second message is the user payload.
+            user_text = messages[-1].content
+            captured_prompts.append(user_text if isinstance(user_text, str) else json.dumps(user_text))
+            return ChatResponse(
+                tool_calls=[
+                    ToolCall(
+                        id="c", name="commit_plan",
+                        arguments={
+                            "steps": [
+                                {"step_id": "s", "intent": "x", "action": "click", "target_label": "OK"}
+                            ]
+                        },
+                    )
+                ]
+            )
+
+    class _PageReturningState:
+        async def evaluate(self_, script):
+            # _OBSERVE_JS in page_state.py is matched by 'page_type' marker.
+            if "next_possible_actions" in script:
+                return {
+                    "url": "https://x.test/login",
+                    "title": "Login",
+                    "viewport": {"w": 1280, "h": 800, "scroll_x": 0, "scroll_y": 0, "dpr": 1},
+                    "page_type": "auth",
+                    "forms": [{
+                        "name": "loginForm",
+                        "fields": [{"label": "Username", "type": "text", "required": True, "filled": False, "placeholder": ""}],
+                        "actions": ["Sign in"],
+                    }],
+                    "buttons": [{"text": "Sign in", "disabled": False, "bbox": {"x": 0, "y": 0, "w": 80, "h": 30}}],
+                    "links": [],
+                    "errors": [],
+                    "modals": [],
+                    "tables_count": 0,
+                    "first_table_columns": [],
+                    "next_possible_actions": ["fill_username", "click_sign_in"],
+                }
+            # Outline read: return a tiny payload so retry-outline doesn't fire.
+            return None
+        async def wait_for_load_state(self_, *a, **kw):
+            return None
+
+    # Patch _exec_read_outline so the decomposer's outline read returns text.
+    from xpath_healer.mcp import explorer as exp_mod
+
+    async def fake_outline(adapter, page, *, max_chars=8000, focus_text=""):
+        return {"outline": "input[type=text,placeholder=Username] \"Username\"\nbutton \"Sign in\"\n" * 30}
+
+    monkeypatch.setattr(exp_mod, "_exec_read_outline", fake_outline)
+    # The decomposer imports it directly, so patch THAT binding too.
+    from xpath_healer.orchestrator import decomposer as dcm_mod
+    monkeypatch.setattr(dcm_mod, "_exec_read_outline", fake_outline)
+
+    llm = _CapturingLLM()
+    decomposer = AgenticGoalDecomposer(llm)
+    await decomposer.decompose(
+        goal=WorkflowGoal(text="log in"),
+        adapter=_NoOpAdapter(),
+        page=_PageReturningState(),
+    )
+    assert len(captured_prompts) == 1
+    prompt = captured_prompts[0]
+    # The prompt MUST contain the page_state block.
+    assert "page_state" in prompt
+    assert "page_type" in prompt
+    assert "auth" in prompt
+    # And the next_possible_actions hint is forwarded.
+    assert "click_sign_in" in prompt or "fill_username" in prompt
+
+
+# ===========================================================================
+# Demote direction of vision override (vision says no, text-tier said yes)
+# ===========================================================================
+
+
+# ===========================================================================
+# #4 Telemetry harness
+# ===========================================================================
+
+
+@pytest.mark.asyncio
+async def test_telemetry_counts_llm_calls_tokens_and_heal_strategies(tmp_path) -> None:
+    """Telemetry must record per-run metrics: LLM call count, token
+    totals (when usage is reported), heal-strategy distribution, and
+    total wall time."""
+    from xpath_healer.orchestrator import (
+        TelemetryCounter,
+        TelemetryLLMClient,
+    )
+
+    class _CountingLLM(LLMClient):
+        async def chat(self_, messages, *, tools=None, temperature=0.0, max_tokens=None):
+            return ChatResponse(
+                tool_calls=[
+                    ToolCall(
+                        id="c", name="commit_plan",
+                        arguments={
+                            "steps": [
+                                {"step_id": "click_save", "intent": "x", "action": "click", "target_label": "Save"}
+                            ]
+                        },
+                    )
+                ],
+                metadata={"usage": {"prompt_tokens": 120, "completion_tokens": 30, "total_tokens": 150}},
+            )
+
+    counter = TelemetryCounter()
+    tele_llm = TelemetryLLMClient(_CountingLLM(), counter)
+
+    class _OkLocator:
+        async def scroll_into_view_if_needed(self_, timeout=0):
+            return None
+        async def click(self_):
+            return None
+        async def evaluate(self_, script, arg=None):
+            return True
+
+    facade = _FacadeFake(
+        recovered=Recovered(
+            status="success", correlation_id="c",
+            locator_spec=LocatorSpec(kind="xpath", value="//x"),
+            runtime_locator=_OkLocator(),
+            strategy_id="rules",
+        ),
+    )
+    orch = WorkflowOrchestrator(
+        facade=facade,
+        decomposer=AgenticGoalDecomposer(tele_llm),
+        executor=PlaywrightActionExecutor(),
+        verifier=TieredOutcomeVerifier(llm_verifier=None),
+        telemetry=counter,
+    )
+    result = await orch.run(page=_FakePage(), goal=WorkflowGoal(text="click save"))
+    assert result.status == "success"
+    tele = result.metadata.get("telemetry")
+    assert tele is not None
+    # 1 decomposer LLM call.
+    assert tele["llm_calls"] == 1
+    assert tele["llm_total_tokens"] == 150
+    assert tele["llm_prompt_tokens"] == 120
+    assert tele["llm_completion_tokens"] == 30
+    # The heal strategy from the fake facade was "rules".
+    assert tele["heal_strategy_counts"].get("rules") == 1
+    # We ran exactly one step, so its duration is recorded.
+    assert "click_save" in tele["step_durations_ms"]
+    # Total run time > 0.
+    assert tele["total_seconds"] > 0
+
+
+@pytest.mark.asyncio
+async def test_telemetry_counts_vision_calls_via_wrapper(tmp_path) -> None:
+    """TelemetryVisualInspector counts every inspect() AND pick_candidate()
+    call against the same counter that tracks LLM calls."""
+    from xpath_healer.orchestrator import (
+        CandidatePick,
+        TelemetryCounter,
+        TelemetryVisualInspector,
+    )
+
+    class _Inner:
+        async def inspect(self_, **kwargs):
+            return InspectionResult(ok=True, finding="x", confidence=0.9)
+        async def pick_candidate(self_, **kwargs):
+            return CandidatePick(index=-1, error="no_match")
+
+    counter = TelemetryCounter()
+    wrapper = TelemetryVisualInspector(_Inner(), counter)
+    await wrapper.inspect(question="?", screenshots=[], max_frames=1)
+    await wrapper.pick_candidate(intent="x", candidates=[], screenshot_path="")
+    assert counter.vision_calls == 2
+    assert counter.vision_seconds >= 0
+
+
+@pytest.mark.asyncio
+async def test_telemetry_stamped_on_failed_runs_too(tmp_path) -> None:
+    """A failed run must still carry telemetry — that's the run where
+    we MOST need to know cost (we burned tokens on a failure)."""
+    from xpath_healer.orchestrator import TelemetryCounter, TelemetryLLMClient
+
+    class _LLMNoSteps(LLMClient):
+        async def chat(self_, messages, *, tools=None, temperature=0.0, max_tokens=None):
+            return ChatResponse(
+                content="(no tool call)",
+                metadata={"usage": {"prompt_tokens": 50, "completion_tokens": 5, "total_tokens": 55}},
+            )
+
+    counter = TelemetryCounter()
+    tele_llm = TelemetryLLMClient(_LLMNoSteps(), counter)
+    facade = _FacadeFake(
+        recovered=Recovered(status="failed", correlation_id="c", error="x"),
+    )
+    orch = WorkflowOrchestrator(
+        facade=facade,
+        decomposer=AgenticGoalDecomposer(tele_llm, max_attempts=1),
+        executor=PlaywrightActionExecutor(),
+        verifier=TieredOutcomeVerifier(llm_verifier=None),
+        telemetry=counter,
+    )
+    result = await orch.run(page=_FakePage(), goal=WorkflowGoal(text="x"))
+    assert result.status == "failed"
+    tele = result.metadata.get("telemetry")
+    assert tele is not None
+    # The decomposer's failed-attempt LLM call is still counted.
+    assert tele["llm_calls"] == 1
+    assert tele["llm_total_tokens"] == 55
+
+
+def test_vision_does_not_demote_ok_yet() -> None:
+    """The current implementation only promotes fail->ok, not ok->fail.
+    Documents the gap and locks the safe direction so a future demote
+    path is intentional, not accidental."""
+    orch = _make_runner(visual_override_threshold=0.8)
+    finding = InspectionResult(
+        ok=False, finding="captcha showed up after success", confidence=0.99,
+        suggested_action="abort:captcha",
+    )
+    rec = _step_rec(verify_ok=True, verify_conf=0.5, finding=finding)
+    # Terminal is already "ok"; the revise helper is a no-op in this direction.
+    assert orch._revise_terminal_with_vision(record=rec, terminal="ok") == "ok"
+    assert rec.verification.ok is True  # not demoted

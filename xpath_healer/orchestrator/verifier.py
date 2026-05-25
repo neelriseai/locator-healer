@@ -251,14 +251,30 @@ class TieredOutcomeVerifier(OutcomeVerifier):
                 confidence=1.0,
             )
 
-        # Extract / screenshot are READ-ONLY actions. They don't change
-        # page state, so any verifier that compares before/after will
-        # spuriously say "no change". Trust the executor: if exec=ok
-        # and (for extract) we actually pulled rows, the step succeeded.
+        # Extract / extract_record / screenshot are READ-ONLY actions.
+        # They don't change page state, so any verifier that compares
+        # before/after will spuriously say "no change". Trust the
+        # executor: if exec=ok and we actually pulled rows, succeed.
         action_lc = (step.action or "").strip().lower()
-        if action_lc == "extract":
+        if action_lc in {"extract", "extract_record"}:
             rows = (execution.page_signal or {}).get("extracted")
             if isinstance(rows, list) and len(rows) > 0:
+                # For extract_record we additionally require at least
+                # one non-empty field (otherwise we have a row of all
+                # empty values, which is a real failure dressed up as
+                # success).
+                if action_lc == "extract_record":
+                    row = rows[0] if rows else {}
+                    has_value = any(
+                        (str(v).strip() if v is not None else "") for v in row.values()
+                    )
+                    if not has_value:
+                        return VerificationResult(
+                            ok=False,
+                            tier="auto",
+                            reason="extract_record returned empty fields",
+                            confidence=1.0,
+                        )
                 return VerificationResult(
                     ok=True,
                     tier="auto",

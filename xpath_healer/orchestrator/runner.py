@@ -47,6 +47,7 @@ from xpath_healer.orchestrator.executor import ActionExecutor
 from xpath_healer.orchestrator.models import (
     ACTION_CLICK,
     ACTION_EXTRACT,
+    ACTION_EXTRACT_RECORD,
     ACTION_FILL,
     ACTION_HOVER,
     ACTION_NAVIGATE,
@@ -161,6 +162,7 @@ _ACTION_FIELD_TYPE: dict[str, str] = {
     ACTION_HOVER: "button",
     ACTION_SCROLL: "generic",
     ACTION_EXTRACT: "generic",
+    ACTION_EXTRACT_RECORD: "generic",  # locator-less, but kept for completeness
     ACTION_NAVIGATE: "generic",
     ACTION_VERIFY: "generic",
     ACTION_SCREENSHOT: "generic",
@@ -204,6 +206,7 @@ class WorkflowOrchestrator:
         visual_recovery_enabled: bool = True,
         replan_on_url_change: bool = True,
         max_replans: int = 2,
+        telemetry: Any | None = None,
     ) -> None:
         self.facade = facade
         self.decomposer = decomposer
@@ -236,6 +239,13 @@ class WorkflowOrchestrator:
         # outline. Capped to ``max_replans`` per workflow.
         self.replan_on_url_change = bool(replan_on_url_change)
         self.max_replans = max(0, int(max_replans))
+        # Telemetry. Optional; when provided, the orchestrator updates
+        # the counter as steps run. The caller (or one of the wrappers
+        # in xpath_healer.orchestrator.telemetry) keeps the reference
+        # and reads the totals from OrchestrationResult.metadata.
+        from xpath_healer.orchestrator.telemetry import TelemetryCounter as _TC
+
+        self.telemetry: _TC | None = telemetry
         self.logger = logging.getLogger("xpath_healer.orchestrator.runner")
 
     async def run(
@@ -246,6 +256,7 @@ class WorkflowOrchestrator:
         adapter: AutomationAdapter | None = None,
     ) -> OrchestrationResult:
         adapter = adapter or self.facade.adapter
+        run_t0 = time.perf_counter_ns()
 
         # Optional recording for visual diagnosis.
         run_id = goal.cache_key()
@@ -270,21 +281,25 @@ class WorkflowOrchestrator:
                 adapter=adapter,
             )
             if nav.status != "ok":
+                meta_fail = {"error": f"navigate failed: {nav.detail}"}
+                self._stamp_telemetry(meta_fail, run_t0)
                 return OrchestrationResult(
                     status="failed",
                     goal=goal,
                     plan=None,
-                    metadata={"error": f"navigate failed: {nav.detail}"},
+                    metadata=meta_fail,
                 )
 
         # Step 1 — decompose.
         plan = await self.decomposer.decompose(goal=goal, adapter=adapter, page=page)
         if not plan.steps:
+            meta_fail = {"error": "decomposer_produced_no_steps", "decomposer": plan.metadata}
+            self._stamp_telemetry(meta_fail, run_t0)
             return OrchestrationResult(
                 status="failed",
                 goal=goal,
                 plan=plan,
-                metadata={"error": "decomposer_produced_no_steps", "decomposer": plan.metadata},
+                metadata=meta_fail,
             )
 
         completed: list[StepRunRecord] = []
@@ -319,6 +334,12 @@ class WorkflowOrchestrator:
                 vision_inserts_per_step=vision_inserts_per_step,
             )
             completed.append(record)
+            # Telemetry: track heal strategy + per-step duration.
+            if self.telemetry is not None:
+                if record.heal_strategy:
+                    self.telemetry.add_heal_strategy(record.heal_strategy)
+                if record.duration_ms is not None:
+                    self.telemetry.step_durations_ms[record.step_id] = float(record.duration_ms)
 
             # Post-step snapshot for the recorder (no-op when recorder
             # is None / mode is off).
@@ -375,46 +396,53 @@ class WorkflowOrchestrator:
                 continue
 
             if terminal == "abort":
+                meta_abort = {
+                    "abort_reason": (
+                        (record.execution.detail if record.execution else "")
+                        or (record.verification.reason if record.verification else "")
+                    ),
+                }
+                self._stamp_telemetry(meta_abort, run_t0)
                 return OrchestrationResult(
                     status="aborted",
                     goal=goal,
                     plan=plan,
                     completed_steps=completed,
                     failed_step=record,
-                    metadata={
-                        "abort_reason": (
-                            (record.execution.detail if record.execution else "")
-                            or (record.verification.reason if record.verification else "")
-                        ),
-                    },
+                    metadata=meta_abort,
                 )
 
             if terminal == "fail":
+                meta_fail: dict[str, Any] = {}
+                self._stamp_telemetry(meta_fail, run_t0)
                 return OrchestrationResult(
                     status="failed",
                     goal=goal,
                     plan=plan,
                     completed_steps=completed,
                     failed_step=record,
+                    metadata=meta_fail,
                 )
 
             if terminal == "insert_before":
                 # Insert the new step at position i so it becomes the
                 # next thing executed. Current step retries afterwards.
                 if inserts_remaining <= 0 or new_step is None:
+                    meta_budget = {
+                        "error": (
+                            "insert_budget_exhausted"
+                            if inserts_remaining <= 0
+                            else "rewrite_insert_missing_new_step"
+                        )
+                    }
+                    self._stamp_telemetry(meta_budget, run_t0)
                     return OrchestrationResult(
                         status="failed",
                         goal=goal,
                         plan=plan,
                         completed_steps=completed,
                         failed_step=record,
-                        metadata={
-                            "error": (
-                                "insert_budget_exhausted"
-                                if inserts_remaining <= 0
-                                else "rewrite_insert_missing_new_step"
-                            )
-                        },
+                        metadata=meta_budget,
                     )
                 inserts_remaining -= 1
                 plan.steps.insert(i, new_step)
@@ -425,19 +453,21 @@ class WorkflowOrchestrator:
                 # Replace current step with new_step; don't advance i so
                 # the new step runs next (and the original is dropped).
                 if inserts_remaining <= 0 or new_step is None:
+                    meta_budget = {
+                        "error": (
+                            "insert_budget_exhausted"
+                            if inserts_remaining <= 0
+                            else "rewrite_replace_missing_new_step"
+                        )
+                    }
+                    self._stamp_telemetry(meta_budget, run_t0)
                     return OrchestrationResult(
                         status="failed",
                         goal=goal,
                         plan=plan,
                         completed_steps=completed,
                         failed_step=record,
-                        metadata={
-                            "error": (
-                                "insert_budget_exhausted"
-                                if inserts_remaining <= 0
-                                else "rewrite_replace_missing_new_step"
-                            )
-                        },
+                        metadata=meta_budget,
                     )
                 inserts_remaining -= 1
                 plan.steps[i] = new_step
@@ -501,19 +531,21 @@ class WorkflowOrchestrator:
                     dict(item) if isinstance(item, dict) else {"value": str(item)}
                     for item in payload
                 ]
+        meta: dict[str, Any] = {
+            "step_count": len(completed),
+            "verifier_tiers": {
+                rec.step_id: (rec.verification.tier if rec.verification else "n/a")
+                for rec in completed
+            },
+        }
+        self._stamp_telemetry(meta, run_t0)
         return OrchestrationResult(
             status="success",
             goal=goal,
             plan=plan,
             completed_steps=completed,
             extracted_data=extracted,
-            metadata={
-                "step_count": len(completed),
-                "verifier_tiers": {
-                    rec.step_id: (rec.verification.tier if rec.verification else "n/a")
-                    for rec in completed
-                },
-            },
+            metadata=meta,
         )
 
     # ------------------------------------------------------------------
@@ -548,9 +580,12 @@ class WorkflowOrchestrator:
         )
         start_ns = time.perf_counter_ns()
 
-        # Verify-only, navigate, timer-wait, and screenshot steps don't
-        # need a locator; skip straight to execution / verification.
-        locator_less = step.action in (ACTION_NAVIGATE, ACTION_VERIFY, ACTION_SCREENSHOT)
+        # Verify-only, navigate, timer-wait, screenshot, and the
+        # whole-page extract_record action don't need a locator;
+        # skip straight to execution / verification.
+        locator_less = step.action in (
+            ACTION_NAVIGATE, ACTION_VERIFY, ACTION_SCREENSHOT, ACTION_EXTRACT_RECORD,
+        )
         if step.action == ACTION_WAIT and not step.target_label:
             # wait with no target = timer / page load state
             locator_less = True
@@ -775,6 +810,25 @@ class WorkflowOrchestrator:
         if not verification.ok and not step.optional:
             return record, "fail", None
         return record, "ok", None
+
+    # ------------------------------------------------------------------
+    # Telemetry helper
+    # ------------------------------------------------------------------
+
+    def _stamp_telemetry(self, meta: dict[str, Any], run_t0_ns: int) -> None:
+        """Finalise the telemetry counter and stash it under
+        ``meta['telemetry']`` so callers can read measurable evidence
+        for the cost / performance claims. No-op when telemetry is None."""
+        if self.telemetry is None:
+            return
+        try:
+            self.telemetry.total_seconds = (
+                time.perf_counter_ns() - run_t0_ns
+            ) / 1_000_000_000.0
+            meta["telemetry"] = self.telemetry.to_dict()
+        except Exception:
+            # Never let telemetry serialization break the run.
+            self.logger.exception("telemetry stamp failed (non-fatal)")
 
     # ------------------------------------------------------------------
     # Replan helpers (re-decompose when the page changes drastically)
@@ -1154,6 +1208,108 @@ class WorkflowOrchestrator:
     # Gap #2 — Visual recovery hook for the heal cascade.
     # ------------------------------------------------------------------
 
+    async def _extract_a11y_candidates(self, page: Any) -> list[dict[str, Any]]:
+        """Pull elements from Playwright's accessibility snapshot.
+
+        Returns a candidate list compatible with the DOM-scan format
+        (index/tag/text/role/aria_label/css_selector/bbox/visible/enabled).
+        ``css_selector`` here is a Playwright getByRole locator string
+        ('role=button[name="Sign in"]') so the existing heal-cascade
+        consumer can resolve it via ``page.locator(<selector>)``.
+
+        Returns an empty list on any failure (Playwright accessibility
+        API not present, snapshot returned None, etc.) so the caller
+        can safely degrade to DOM-only candidates.
+        """
+        a11y = getattr(page, "accessibility", None)
+        if a11y is None:
+            return []
+        snapshot_fn = getattr(a11y, "snapshot", None)
+        if not callable(snapshot_fn):
+            return []
+        try:
+            # interesting_only=False would dump too many nodes; default
+            # True trims to the user-meaningful subtree.
+            tree = await snapshot_fn()
+        except Exception:
+            return []
+        if not tree:
+            return []
+        # Roles that map to clickable / fillable / selectable controls.
+        # We skip generic landmarks (region, group, banner) — they
+        # contain other candidates rather than being targets themselves.
+        ACTIONABLE_ROLES = {
+            "button", "link", "checkbox", "radio", "menuitem", "menuitemcheckbox",
+            "menuitemradio", "option", "tab", "treeitem", "combobox", "textbox",
+            "searchbox", "slider", "spinbutton", "switch",
+        }
+        out: list[dict[str, Any]] = []
+
+        def walk(node: dict[str, Any]) -> None:
+            if not isinstance(node, dict):
+                return
+            role = str(node.get("role") or "").lower()
+            name = str(node.get("name") or "").strip()
+            disabled = bool(node.get("disabled") or False)
+            if role in ACTIONABLE_ROLES and name:
+                # Playwright role= selector with name pins to the exact node.
+                # CSS-escape the name's quotes by switching delimiter.
+                safe_name = name.replace('"', '\\"')
+                selector = f'role={role}[name="{safe_name}"]'
+                out.append({
+                    "index": len(out),
+                    "tag": role,             # role doubles as tag for the model's reasoning
+                    "text": name[:120],
+                    "role": role,
+                    "aria_label": name,
+                    "placeholder": "",
+                    "href": "",
+                    "type": "",
+                    "css_selector": selector,
+                    "bbox": [0, 0, 0, 0],    # a11y tree doesn't give bbox; vision still has the screenshot
+                    "visible": True,
+                    "enabled": not disabled,
+                    "source": "a11y",
+                })
+            for child in (node.get("children") or []):
+                walk(child)
+
+        try:
+            walk(tree)
+        except Exception:
+            self.logger.exception("a11y tree walk failed")
+            return []
+        # Cap so we never overwhelm the vision prompt.
+        return out[:40]
+
+    @staticmethod
+    def _merge_candidates_deduped(
+        primary: list[dict[str, Any]],
+        secondary: list[dict[str, Any]],
+    ) -> list[dict[str, Any]]:
+        """Append ``secondary`` candidates whose (role, text) pair is
+        not already covered by ``primary``. Caps at 50 total to keep
+        the vision prompt compact."""
+        seen: set[tuple[str, str]] = set()
+        merged: list[dict[str, Any]] = []
+        for c in primary:
+            key = (str(c.get("role") or c.get("tag") or "").lower(), str(c.get("text") or "").strip().lower())
+            seen.add(key)
+            merged.append(c)
+        for c in secondary:
+            key = (str(c.get("role") or c.get("tag") or "").lower(), str(c.get("text") or "").strip().lower())
+            if not key[1]:
+                continue
+            if key in seen:
+                continue
+            seen.add(key)
+            c = dict(c)
+            c["index"] = len(merged)
+            merged.append(c)
+            if len(merged) >= 50:
+                break
+        return merged
+
     async def _try_visual_candidate_heal(
         self,
         *,
@@ -1182,12 +1338,24 @@ class WorkflowOrchestrator:
         page_locator = getattr(page, "locator", None)
         if not (callable(evaluate) and callable(screenshot) and callable(page_locator)):
             return None
-        # Extract candidates via JS.
+        # Extract candidates via JS (DOM layer).
         try:
             candidates = await evaluate(_CANDIDATE_EXTRACTION_JS)
         except Exception:
             self.logger.exception("candidate extraction failed")
             return None
+        # Accessibility-tree candidates (semantic layer per the
+        # "Locator healer eyes" doc, §6). The a11y tree catches
+        # framework-rendered custom controls + shadow-DOM elements
+        # that querySelectorAll misses. Best-effort: silently degrades
+        # to DOM-only when the adapter doesn't expose a11y.
+        try:
+            a11y_candidates = await self._extract_a11y_candidates(page)
+        except Exception:
+            self.logger.exception("a11y candidate extraction failed")
+            a11y_candidates = []
+        if a11y_candidates:
+            candidates = self._merge_candidates_deduped(candidates, a11y_candidates)
         if not candidates:
             return None
         # Take a viewport screenshot (full_page=False is cheaper and matches

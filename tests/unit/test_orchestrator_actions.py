@@ -395,6 +395,155 @@ async def test_extract_llm_mode_uses_resolved_selectors() -> None:
 
 
 @pytest.mark.asyncio
+async def test_extract_record_via_llm_selectors() -> None:
+    """LLM returns absolute CSS selectors; executor queries the page
+    for each field and assembles one row."""
+    from xpath_healer.orchestrator.models import ACTION_EXTRACT_RECORD
+
+    class _PageWithRecord:
+        async def evaluate(self_, script, arg=None):
+            if "outerHTML" in script:
+                return "<main><h1 class='title'>OnePlus 12</h1><span class='p'>₹48,765</span></main>"
+            # Field-selector lookup script.
+            if "out[k]" in script and isinstance(arg, dict):
+                return {k: ("OnePlus 12" if "title" in v else "₹48,765" if "p" in v else "") for k, v in arg.items()}
+            if "innerText" in script:
+                return "OnePlus 12 (256 GB)\nPrice: ₹48,765\nReviews: 4.5\n"
+            return ""
+
+    class _LLMReturnsSelectors:
+        async def chat(self_, messages, *, tools=None, temperature=0.0, max_tokens=None):
+            return ChatResponse(
+                content='{"title": "h1.title", "price": "span.p"}',
+                metadata={},
+            )
+
+    res = await PlaywrightActionExecutor(llm_for_extract=_LLMReturnsSelectors()).execute(
+        step=WorkflowStep(step_id="r", intent="i", action=ACTION_EXTRACT_RECORD),
+        locator=None,
+        page=_PageWithRecord(),
+        value='{"fields": ["title", "price"]}',
+        adapter=None,
+    )
+    assert res.status == "ok"
+    rows = res.page_signal["extracted"]
+    assert len(rows) == 1
+    assert rows[0]["title"] == "OnePlus 12"
+    assert rows[0]["price"] == "₹48,765"
+    assert res.page_signal["extract_mode"] == "record_llm"
+
+
+@pytest.mark.asyncio
+async def test_extract_record_heuristic_fallback_when_no_llm() -> None:
+    """Without an LLM, extract_record falls back to a regex scan of
+    page.body.innerText. Demonstrates the cost-free path."""
+    from xpath_healer.orchestrator.models import ACTION_EXTRACT_RECORD
+
+    class _PageWithText:
+        async def evaluate(self_, script, arg=None):
+            if "outerHTML" in script:
+                return "<main>Price: ₹48,765 Reviews: 4.5</main>"
+            if "innerText" in script:
+                return "Title: OnePlus 12 (256 GB) Glacial White\nPrice: ₹48,765\nReviews: 4.5\n"
+            return ""
+
+    res = await PlaywrightActionExecutor(llm_for_extract=None).execute(
+        step=WorkflowStep(step_id="r", intent="i", action=ACTION_EXTRACT_RECORD),
+        locator=None,
+        page=_PageWithText(),
+        value='{"fields": ["price", "title"]}',
+        adapter=None,
+    )
+    assert res.status == "ok"
+    rows = res.page_signal["extracted"]
+    assert len(rows) == 1
+    # Heuristic regex picks up "Price: ₹48,765" and "Title: OnePlus 12...".
+    assert "48,765" in rows[0].get("price", "")
+    assert "OnePlus" in rows[0].get("title", "")
+    assert res.page_signal["extract_mode"] == "record_heuristic"
+
+
+def test_field_value_looks_plausible_rejects_garbage() -> None:
+    """The quality guard must reject the failure modes seen in the
+    Flipkart drill: LLM picked a selector that returned 'For you' for
+    the price field. After this guard, the heuristic must replace it."""
+    f = PlaywrightActionExecutor._field_value_looks_plausible
+    # Price-like fields demand at least one digit.
+    assert f("price", "For you") is False
+    assert f("price", "₹48,765") is True
+    assert f("product_price", "Best seller") is False
+    assert f("amount", "9999") is True
+    # Reviews must be sentence-length.
+    assert f("review_1", "hi") is False
+    assert f("review_1", "Battery life is great and the camera is excellent.") is True
+    # Rating must contain a digit.
+    assert f("rating", "Awesome") is False
+    assert f("rating", "4.3 / 5") is True
+    # Title / variant / generic — letters required, punctuation rejected.
+    assert f("title", "...") is False
+    assert f("title", "OnePlus 12 (256 GB)") is True
+    assert f("variant", "256 GB + 12 GB") is True
+    # Empty / one-char always rejected.
+    assert f("anything", "") is False
+    assert f("anything", "x") is False
+
+
+@pytest.mark.asyncio
+async def test_extract_record_quality_guard_replaces_garbage_with_heuristic() -> None:
+    """End-to-end: LLM returns a corrupted price selector (matches a
+    button labelled 'For you'). The guard catches it; the heuristic
+    regex pass finds the real price from page text."""
+    from xpath_healer.orchestrator.models import ACTION_EXTRACT_RECORD
+
+    class _Page:
+        async def evaluate(self_, script, arg=None):
+            if "outerHTML" in script:
+                return "<main><h1>OnePlus 12</h1><button>For you</button><span class='p'>₹48,765</span></main>"
+            # LLM selectors lookup: ALL return 'For you' (corrupted).
+            if "out[k]" in script and isinstance(arg, dict):
+                return {k: "For you" for k in arg.keys()}
+            if "innerText" in script:
+                return "OnePlus 12\nPrice: ₹48,765\nVariant: 256 GB"
+            return ""
+
+    class _LLM:
+        async def chat(self_, messages, *, tools=None, temperature=0.0, max_tokens=None):
+            return ChatResponse(
+                content='{"title": "h1", "price": "button", "variant": "h1"}'
+            )
+
+    res = await PlaywrightActionExecutor(llm_for_extract=_LLM()).execute(
+        step=WorkflowStep(step_id="r", intent="i", action=ACTION_EXTRACT_RECORD),
+        locator=None,
+        page=_Page(),
+        value='{"fields": ["title", "price", "rating"]}',
+        adapter=None,
+    )
+    assert res.status == "ok"
+    row = res.page_signal["extracted"][0]
+    # "For you" is REJECTED for price (no digits) and rating (no digits)
+    # but accepted for title (has letters and isn't typed). The
+    # heuristic fills in the rejected slots from page innerText. This
+    # is the exact bug surfaced by the live Flipkart drill.
+    assert row["title"] == "For you"   # passes the title check (generic)
+    assert "48,765" in row["price"]    # rejected -> heuristic-replaced
+
+
+@pytest.mark.asyncio
+async def test_extract_record_no_fields_is_error() -> None:
+    from xpath_healer.orchestrator.models import ACTION_EXTRACT_RECORD
+
+    res = await PlaywrightActionExecutor().execute(
+        step=WorkflowStep(step_id="r", intent="i", action=ACTION_EXTRACT_RECORD),
+        locator=None, page=_RecordingPage(),
+        value='{"fields": []}',
+        adapter=None,
+    )
+    assert res.status == "error"
+    assert "no fields" in res.detail
+
+
+@pytest.mark.asyncio
 async def test_extract_zero_items_is_error() -> None:
     loc = _RecordingLocator(count=0)
     res = await PlaywrightActionExecutor().execute(

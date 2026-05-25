@@ -14,6 +14,7 @@ from xpath_healer.mcp.explorer import _exec_read_outline
 from xpath_healer.orchestrator.models import (
     ACTION_CLICK,
     ACTION_EXTRACT,
+    ACTION_EXTRACT_RECORD,
     ACTION_FILL,
     ACTION_HOVER,
     ACTION_NAVIGATE,
@@ -72,6 +73,17 @@ _SYSTEM_PROMPT = (
     "address / pincode popups with optional click steps and proceed "
     "without setting a delivery address. The goal does not need a "
     "shipping target; setting one risks resetting the search.\n\n"
+    "PAGE_STATE FIRST: when the user message includes a page_state "
+    "object, use it as your primary structural input. Specifically: "
+    "(a) if page_state.modals is non-empty AND no credentials are in "
+    "values, plan optional dismiss-modal click steps targeting the "
+    "modal's close_label FIRST. (b) Read page_state.forms to know "
+    "which fields are filled/empty before planning fill steps. "
+    "(c) Use page_state.buttons / page_state.next_possible_actions "
+    "to ground click targets. (d) If page_state.errors is non-empty, "
+    "do NOT proceed with the main task — surface the error in a "
+    "verify step instead. Treat page_outline as the fallback when a "
+    "label you need is not in page_state.\n\n"
     "STRICT RULES (every plan must satisfy these):\n"
     "  * For steps targeting elements visible in THIS outline, "
     "target_label MUST be drawn from the outline. For provisional "
@@ -115,6 +127,14 @@ _SYSTEM_PROMPT = (
     "target_label points at the list container (e.g. 'product cards'); "
     "value MUST be a JSON object: "
     '{"fields":["name","price","rating"],"limit":5}\n'
+    "      - 'extract_record' : pull ONE record's fields from the WHOLE "
+    "current page (product detail, profile, order summary, etc.). "
+    "target_label can be empty or describe the page (e.g. 'product "
+    "detail page'). value is a JSON object: "
+    '{"fields":["title","price","variant","review_1","review_2"]}.\n'
+    "      USE extract_record (not extract) when the page shows ONE "
+    "primary entity rather than a list. Drill-down workflows almost "
+    "always need extract_record on the per-item page.\n"
     "  * Pull literal values (emails, search queries, prices) from the "
     "goal text and the VALUES dict; never invent values.\n"
     "  * Order matters — every step's preconditions must be satisfied "
@@ -158,6 +178,7 @@ def _commit_plan_tool() -> ToolDefinition:
                                     ACTION_SELECT,
                                     ACTION_VERIFY,
                                     ACTION_EXTRACT,
+                                    ACTION_EXTRACT_RECORD,
                                     ACTION_PRESS_KEY,
                                     ACTION_WAIT,
                                     ACTION_SCROLL,
@@ -231,7 +252,18 @@ class AgenticGoalDecomposer(GoalDecomposer):
     ) -> PlannedWorkflow:
         outline_payload = await self._read_outline_with_retry(adapter, page)
         outline_text = str(outline_payload.get("outline") or "")
-        user_msg = self._build_user_prompt(goal, outline_text)
+        # Structured page-state JSON (per "Locator healer eyes" §8):
+        # gives the planner first-class fields/buttons/modals/errors
+        # alongside the raw outline so it can pattern-match high-level
+        # state (auth_modal? form? product_list?) without re-parsing.
+        from xpath_healer.orchestrator.page_state import PageStateObserver
+
+        try:
+            page_state = await PageStateObserver().observe(page)
+        except Exception:
+            self.logger.exception("PageStateObserver failed (non-fatal)")
+            page_state = {}
+        user_msg = self._build_user_prompt(goal, outline_text, page_state=page_state)
         messages: list[ChatMessage] = [
             ChatMessage(role="system", content=_SYSTEM_PROMPT),
             ChatMessage(role="user", content=user_msg),
@@ -370,7 +402,12 @@ class AgenticGoalDecomposer(GoalDecomposer):
         )
 
     @staticmethod
-    def _build_user_prompt(goal: WorkflowGoal, outline: str) -> str:
+    def _build_user_prompt(
+        goal: WorkflowGoal,
+        outline: str,
+        *,
+        page_state: dict[str, Any] | None = None,
+    ) -> str:
         payload = {
             "goal": goal.text,
             "start_url": goal.start_url,
@@ -378,9 +415,26 @@ class AgenticGoalDecomposer(GoalDecomposer):
             "constraints": dict(goal.constraints),
             "page_outline": outline or "(empty)",
         }
+        # page_state is the structured snapshot — much easier for the
+        # model to read than re-parsing the outline.
+        if page_state:
+            # Trim noisy fields the planner doesn't need to keep the
+            # prompt tight.
+            ps_keep = {
+                k: page_state[k]
+                for k in (
+                    "url", "title", "page_type", "forms", "buttons",
+                    "errors", "modals", "tables_count",
+                    "first_table_columns", "next_possible_actions",
+                )
+                if k in page_state
+            }
+            payload["page_state"] = ps_keep
         return (
-            "Plan the workflow described below. Ground every step in the "
-            "page_outline; do not propose targets that aren't there.\n\n"
+            "Plan the workflow described below. Use page_state for "
+            "high-level structure (page_type, forms, modals, errors) "
+            "and the page_outline for exact visible labels. Do not "
+            "propose targets that aren't in either.\n\n"
             + json.dumps(payload, ensure_ascii=True, default=str)
         )
 

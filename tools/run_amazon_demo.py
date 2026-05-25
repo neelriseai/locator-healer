@@ -83,10 +83,12 @@ _DEFAULT_GOAL_LIST = (
 )
 _DEFAULT_SEARCH_URL_TMPL = "https://www.amazon.in/s?k=mobile+phones+under+{max_price}"
 _DEFAULT_GOAL_DRILL = (
-    "On this Amazon product page, skip any login / address popups, then "
-    "read the product title, the visible price text (including any "
-    "variant currently selected), and the first 2 customer reviews "
-    "(reviewer name + review body)."
+    "You are on an Amazon product detail page. Skip any login / "
+    "address / 'continue shopping' interstitial with optional click "
+    "steps. Then use ONE extract_record step (not extract) to pull "
+    "these fields in a single call from the page: title, price, "
+    "variant, review_1, review_2. The extract_record action targets "
+    "the WHOLE page, not a list of items."
 )
 _DEFAULT_URL = "https://www.amazon.in"
 
@@ -314,6 +316,9 @@ async def main(
         AgenticGoalDecomposer,
         AgenticOutcomeVerifier,
         PlaywrightActionExecutor,
+        TelemetryCounter,
+        TelemetryLLMClient,
+        TelemetryVisualInspector,
         TieredOutcomeVerifier,
         VisualInspector,
         WorkflowOrchestrator,
@@ -321,7 +326,9 @@ async def main(
     )
 
     chat_model = os.environ.get("XH_OPENAI_MODEL") or "gpt-4o-mini"
-    llm = OpenAIChatClient(api_key=api_key, model=chat_model)
+    raw_llm = OpenAIChatClient(api_key=api_key, model=chat_model)
+    counter = TelemetryCounter()
+    llm = TelemetryLLMClient(raw_llm, counter)
 
     recorder = None
     inspector = None
@@ -329,7 +336,10 @@ async def main(
     if record_mode in {"screenshots", "video"}:
         recorder = WorkflowRecorder(out_dir=str(rec_dir), mode=record_mode)
     if visual_policy != "never":
-        inspector = VisualInspector(vision_llm=OpenAIChatClient(api_key=api_key, model=chat_model))
+        inner_vision = VisualInspector(
+            vision_llm=OpenAIChatClient(api_key=api_key, model=chat_model)
+        )
+        inspector = TelemetryVisualInspector(inner_vision, counter)
 
     async with async_playwright() as pw:
         browser, context = await _new_context(pw, headless=headless, recorder=recorder)
@@ -346,6 +356,7 @@ async def main(
                 recorder=recorder,
                 visual_inspector=inspector,
                 visual_policy=visual_policy,
+                telemetry=counter,
             )
 
             # Phase 1 — search + list.

@@ -72,7 +72,8 @@ ACTION_FILL = "fill"
 ACTION_CLICK = "click"
 ACTION_SELECT = "select"
 ACTION_VERIFY = "verify"          # read-only — verifier only
-ACTION_EXTRACT = "extract"        # read-only — structured data pull from a list
+ACTION_EXTRACT = "extract"        # read-only — structured data pull from a LIST
+ACTION_EXTRACT_RECORD = "extract_record"  # read-only — ONE record from the page (PDP)
 ACTION_PRESS_KEY = "press_key"    # keyboard input (Enter, Escape, Tab, ArrowDown...)
 ACTION_WAIT = "wait"              # wait for element / timeout / network idle
 ACTION_SCROLL = "scroll"          # scroll element into view, or page bottom
@@ -82,7 +83,8 @@ ACTION_SCREENSHOT = "screenshot"  # snapshot artifact for proof / debugging
 _KNOWN_ACTIONS = frozenset(
     {
         ACTION_NAVIGATE, ACTION_FILL, ACTION_CLICK, ACTION_SELECT,
-        ACTION_VERIFY, ACTION_EXTRACT, ACTION_PRESS_KEY, ACTION_WAIT,
+        ACTION_VERIFY, ACTION_EXTRACT, ACTION_EXTRACT_RECORD,
+        ACTION_PRESS_KEY, ACTION_WAIT,
         ACTION_SCROLL, ACTION_HOVER, ACTION_SCREENSHOT,
     }
 )

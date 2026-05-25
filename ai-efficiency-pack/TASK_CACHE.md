@@ -6,8 +6,8 @@
 ## Metadata
 
 ```
-Total Entries   : 14
-Valid Entries   : 14
+Total Entries   : 16
+Valid Entries   : 16
 Stale Entries   : 0
 Last Pruned     : (never)
 ```
@@ -825,6 +825,8 @@ An entry should be **updated** (not removed) when:
 | TASK-012 | E2E Phase 7 validation: Flipkart demo with --record screenshots --visual-policy on_failure proved vision tier reverses false-negative text-tier verdict (submit_search ok=True conf=1.0); standalone CLI also identified phone-grid frame | VALID | SCOPE:MODULE | 2026-05-24T20:30:00Z |
 | TASK-013 | Vision integration deepening: Gap #1 vision override (threshold split), Gap #2 visual recovery, Gap #3 vision->rewrite proposal, Gap #4 --zoom + targeted diagnosis question; OpenAI 429 retry; extract _href + auto-discover repeating-structure with product-href bias; custom-dropdown select fallback; optional-step skip; per-step vision-insert cap; replan-on-url-change; verifier short-circuit for read-only actions; candidate-based vision heal per "Locator healer eyes" doc; +13 unit tests | VALID | SCOPE:MODULE | 2026-05-24T22:30:00Z |
 | TASK-014 | E2E drill-down workflows: run_amazon_demo (phase1 success — 3 phones extracted; drill 1/3 partial due to Amazon anti-bot interstitial); run_flipkart_drill_demo (phase1 + drill 3/3 success — OnePlus 12 ₹48,765, Mi 14 CIVI, OnePlus 13R 5G ₹44,999 with real review text); all 3 feature-file layers now pass (L2 was rate-limited; retry fix made it pass) | VALID | SCOPE:MODULE | 2026-05-24T22:55:00Z |
+| TASK-015 | "Locator healer eyes" doc round-2 analysis + 3 high-leverage implementations (PageStateObserver, a11y candidates, scroll+overlay in _click) + 4 skipped duplicate-path proposals documented with reasons. 276 unit tests pass; Flipkart drill 3/3 still success; 3-layer regression all PASS | VALID | SCOPE:MODULE | 2026-05-25T10:30:00Z |
+| TASK-016 | Self-audit "are we deeply iterating?" → all 6 honest-residual items implemented: budget-exhaustion tests, overlay-detection test, force-exercise candidate-heal test, force-exercise page_state test, telemetry harness (TelemetryCounter+wrappers), extract_record action with double-pass quality guard + pattern-first heuristic + h1 fallback. 7 real-run iterations on live Flipkart culminating in 3/3 success with REAL data {title, price, variant} and MEASURED cost (8 LLM calls, ~33k tokens per full multi-page workflow). 292 unit tests pass | VALID | SCOPE:MODULE | 2026-05-25T20:35:00Z |
 
 ---
 

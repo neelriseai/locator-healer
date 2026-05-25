@@ -110,30 +110,6 @@
         "valid_against_hints": true,
         "history": [
           {
-            "timestamp": "2026-03-26T08:01:44.826158+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.9,
-            "stability_score": 0.8,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T08:12:12.710639+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.9,
-            "stability_score": 0.8,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T08:24:35.415185+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.9,
-            "stability_score": 0.8,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
             "timestamp": "2026-03-26T08:26:42.016586+00:00",
             "strategy_id": "metadata.last_good",
             "overall_score": 0.9,
@@ -263,6 +239,30 @@
           },
           {
             "timestamp": "2026-05-24T17:33:01.706858+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.9,
+            "stability_score": 0.8,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T07:03:26.157072+00:00",
+            "strategy_id": "label_proximity_interactable",
+            "overall_score": 0.9,
+            "stability_score": 0.8,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T07:05:35.460439+00:00",
+            "strategy_id": "mcp_explore",
+            "overall_score": 0.956,
+            "stability_score": 0.94,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T07:08:56.645302+00:00",
             "overall_score": 0.9,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
@@ -271,8 +271,8 @@
           }
         ]
       },
-      "last_seen": "2026-05-24T17:33:01.628489+00:00",
-      "success_count": 42,
+      "last_seen": "2026-05-25T07:08:56.473969+00:00",
+      "success_count": 45,
       "fail_count": 1
     },
     "desktop_checkbox_icon": {
@@ -379,30 +379,6 @@
         "locator_value": "//*[contains(@class,'rct-title') and (normalize-space()='Desktop' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'desktop'))]/ancestor::*[contains(@class,'rct-text')][1]//*[contains(@class,'rct-checkbox')][1]",
         "valid_against_hints": true,
         "history": [
-          {
-            "timestamp": "2026-03-26T08:01:46.538763+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.726,
-            "stability_score": 0.64,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T08:12:14.276518+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.726,
-            "stability_score": 0.64,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T08:24:36.672804+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.726,
-            "stability_score": 0.64,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
           {
             "timestamp": "2026-03-26T08:26:43.321928+00:00",
             "strategy_id": "metadata.last_good",
@@ -533,6 +509,30 @@
           },
           {
             "timestamp": "2026-05-24T17:33:06.609783+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T07:03:29.996480+00:00",
+            "strategy_id": "label_proximity_interactable",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T07:05:45.060507+00:00",
+            "strategy_id": "mcp_explore",
+            "overall_score": 0.75,
+            "stability_score": 0.7,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T07:09:02.976887+00:00",
             "overall_score": 0.726,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
@@ -541,8 +541,8 @@
           }
         ]
       },
-      "last_seen": "2026-05-24T17:33:06.539289+00:00",
-      "success_count": 39,
+      "last_seen": "2026-05-25T07:09:02.795723+00:00",
+      "success_count": 42,
       "fail_count": 2
     },
     "downloads_expand_button": {
@@ -652,30 +652,6 @@
         "locator_value": "//*[contains(@class,'rct-title') and (normalize-space()='Downloads' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'downloads'))]/ancestor::*[contains(@class,'rct-text')][1]//*[self::button and (contains(@class,'rct-collapse-btn') or contains(@class,'rct-expand-btn') or contains(@class,'rct-parent-open') or contains(@class,'rct-parent-close') or contains(@class,'rct-icon-expand') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'toggle') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'expand') or contains(translate(normalize-space(@aria-label),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'collapse'))][1]",
         "valid_against_hints": true,
         "history": [
-          {
-            "timestamp": "2026-03-26T06:37:35.864969+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.9,
-            "stability_score": 0.8,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T08:01:48.476487+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.9,
-            "stability_score": 0.8,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T08:12:16.178646+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.9,
-            "stability_score": 0.8,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
           {
             "timestamp": "2026-03-26T08:24:37.838183+00:00",
             "strategy_id": "metadata.last_good",
@@ -806,6 +782,30 @@
           },
           {
             "timestamp": "2026-05-24T17:33:12.204204+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.9,
+            "stability_score": 0.8,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T07:03:32.895659+00:00",
+            "strategy_id": "label_proximity_interactable",
+            "overall_score": 0.9,
+            "stability_score": 0.8,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T07:06:02.698991+00:00",
+            "strategy_id": "mcp_explore",
+            "overall_score": 0.932,
+            "stability_score": 0.88,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T07:09:11.363730+00:00",
             "overall_score": 0.9,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
@@ -814,8 +814,8 @@
           }
         ]
       },
-      "last_seen": "2026-05-24T17:33:12.130187+00:00",
-      "success_count": 38,
+      "last_seen": "2026-05-25T07:09:11.214769+00:00",
+      "success_count": 41,
       "fail_count": 1
     },
     "excel_file_doc_checkbox_icon": {
@@ -922,30 +922,6 @@
         "locator_value": "//*[contains(@class,'rct-title') and (normalize-space()='Excel File.doc' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'excel file.doc'))]/ancestor::*[contains(@class,'rct-text')][1]//*[contains(@class,'rct-checkbox')][1]",
         "valid_against_hints": true,
         "history": [
-          {
-            "timestamp": "2026-03-26T05:36:43.698636+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.726,
-            "stability_score": 0.64,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T06:05:09.278997+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.726,
-            "stability_score": 0.64,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T06:37:36.898019+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.726,
-            "stability_score": 0.64,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
           {
             "timestamp": "2026-03-26T08:01:49.887395+00:00",
             "strategy_id": "metadata.last_good",
@@ -1076,6 +1052,30 @@
           },
           {
             "timestamp": "2026-05-24T17:33:17.139770+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T07:03:36.562616+00:00",
+            "strategy_id": "label_proximity_interactable",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T07:06:19.473907+00:00",
+            "strategy_id": "mcp_explore",
+            "overall_score": 0.75,
+            "stability_score": 0.7,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T07:09:17.866224+00:00",
             "overall_score": 0.726,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
@@ -1084,8 +1084,8 @@
           }
         ]
       },
-      "last_seen": "2026-05-24T17:33:17.073459+00:00",
-      "success_count": 36,
+      "last_seen": "2026-05-25T07:09:17.720219+00:00",
+      "success_count": 39,
       "fail_count": 2
     }
   },
