@@ -1,0 +1,187 @@
+{
+  "repo_root": "C:\\Users\\neela\\Documents\\locator-healer\\locator-healer",
+  "totals": {
+    "files": 154,
+    "symbols": 1531,
+    "tests": 46,
+    "features": 7
+  },
+  "languages": {
+    "python": 154
+  },
+  "test_frameworks": {
+    "pytest": 46
+  },
+  "test_languages": {
+    "python": 46
+  },
+  "top_features": [
+    {
+      "id": "xpath_healer",
+      "files": 83,
+      "symbols": 742,
+      "languages": [
+        "python"
+      ],
+      "tests": 40
+    },
+    {
+      "id": "unit",
+      "files": 39,
+      "symbols": 575,
+      "languages": [
+        "python"
+      ],
+      "tests": 39
+    },
+    {
+      "id": "tools",
+      "files": 12,
+      "symbols": 59,
+      "languages": [
+        "python"
+      ],
+      "tests": 0
+    },
+    {
+      "id": "adapters",
+      "files": 10,
+      "symbols": 57,
+      "languages": [
+        "python"
+      ],
+      "tests": 8
+    },
+    {
+      "id": "integration",
+      "files": 5,
+      "symbols": 84,
+      "languages": [
+        "python"
+      ],
+      "tests": 6
+    },
+    {
+      "id": "service",
+      "files": 3,
+      "symbols": 13,
+      "languages": [
+        "python"
+      ],
+      "tests": 1
+    },
+    {
+      "id": "tests",
+      "files": 2,
+      "symbols": 1,
+      "languages": [
+        "python"
+      ],
+      "tests": 2
+    }
+  ],
+  "largest_files": [
+    {
+      "file": "tests/unit/test_orchestrator_visual.py",
+      "loc": 2125,
+      "language": "python"
+    },
+    {
+      "file": "xpath_healer/core/healing_service.py",
+      "loc": 1920,
+      "language": "python"
+    },
+    {
+      "file": "xpath_healer/orchestrator/runner.py",
+      "loc": 1678,
+      "language": "python"
+    },
+    {
+      "file": "xpath_healer/orchestrator/executor.py",
+      "loc": 1497,
+      "language": "python"
+    },
+    {
+      "file": "xpath_healer/store/pg_repository.py",
+      "loc": 1395,
+      "language": "python"
+    },
+    {
+      "file": "tests/unit/test_orchestrator.py",
+      "loc": 935,
+      "language": "python"
+    },
+    {
+      "file": "xpath_healer/core/page_index.py",
+      "loc": 912,
+      "language": "python"
+    },
+    {
+      "file": "xpath_healer/api/base.py",
+      "loc": 906,
+      "language": "python"
+    },
+    {
+      "file": "tests/unit/test_phase5_additions.py",
+      "loc": 904,
+      "language": "python"
+    },
+    {
+      "file": "xpath_healer/rag/rag_assist.py",
+      "loc": 876,
+      "language": "python"
+    }
+  ],
+  "most_imported_files": [
+    {
+      "file": "xpath_healer/core/models.py",
+      "imported_by": 79,
+      "language": "python"
+    },
+    {
+      "file": "xpath_healer/utils/logging.py",
+      "imported_by": 32,
+      "language": "python"
+    },
+    {
+      "file": "xpath_healer/utils/text.py",
+      "imported_by": 25,
+      "language": "python"
+    },
+    {
+      "file": "xpath_healer/core/context.py",
+      "imported_by": 19,
+      "language": "python"
+    },
+    {
+      "file": "xpath_healer/core/automation.py",
+      "imported_by": 18,
+      "language": "python"
+    },
+    {
+      "file": "xpath_healer/core/workflow.py",
+      "imported_by": 18,
+      "language": "python"
+    },
+    {
+      "file": "xpath_healer/api/facade.py",
+      "imported_by": 17,
+      "language": "python"
+    },
+    {
+      "file": "xpath_healer/llm/client.py",
+      "imported_by": 17,
+      "language": "python"
+    },
+    {
+      "file": "xpath_healer/core/strategies/base.py",
+      "imported_by": 15,
+      "language": "python"
+    },
+    {
+      "file": "xpath_healer/core/config.py",
+      "imported_by": 14,
+      "language": "python"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "adapters": [
+    "adapters"
+  ],
+  "integration": [
+    "integration"
+  ],
+  "service": [
+    "service"
+  ],
+  "tests": [
+    "tests"
+  ],
+  "tools": [
+    "tools"
+  ],
+  "unit": [
+    "unit"
+  ],
+  "xpath_healer": [
+    "xpath healer",
+    "xpath_healer"
+  ]
+}

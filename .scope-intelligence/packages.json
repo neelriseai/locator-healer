@@ -1,0 +1,306 @@
+{
+  "version": "1.0",
+  "packages": [
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.adapters",
+      "language": "python",
+      "files": [
+        "adapters/__init__.py"
+      ],
+      "symbols": 0
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.adapters.appium_python",
+      "language": "python",
+      "files": [
+        "adapters/appium_python/adapter.py",
+        "adapters/appium_python/facade.py",
+        "adapters/appium_python/__init__.py"
+      ],
+      "symbols": 16
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.adapters.playwright_python",
+      "language": "python",
+      "files": [
+        "adapters/playwright_python/adapter.py",
+        "adapters/playwright_python/facade.py",
+        "adapters/playwright_python/__init__.py"
+      ],
+      "symbols": 15
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.adapters.selenium_python",
+      "language": "python",
+      "files": [
+        "adapters/selenium_python/adapter.py",
+        "adapters/selenium_python/facade.py",
+        "adapters/selenium_python/__init__.py"
+      ],
+      "symbols": 26
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.service",
+      "language": "python",
+      "files": [
+        "service/main.py",
+        "service/session_registry.py",
+        "service/__init__.py"
+      ],
+      "symbols": 13
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests",
+      "language": "python",
+      "files": [
+        "tests/conftest.py",
+        "tests/__init__.py"
+      ],
+      "symbols": 1
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.integration",
+      "language": "python",
+      "files": [
+        "tests/integration/conftest.py",
+        "tests/integration/settings.py",
+        "tests/integration/test_demo_qa_healing_bdd.py",
+        "tests/integration/test_demo_qa_healing_selenium.py",
+        "tests/integration/__init__.py"
+      ],
+      "symbols": 84
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "language": "python",
+      "files": [
+        "tests/unit/conftest.py",
+        "tests/unit/fakes.py",
+        "tests/unit/selenium_fakes.py",
+        "tests/unit/test_bidirectional_anchor_field.py",
+        "tests/unit/test_checkbox_proxy_validation.py",
+        "tests/unit/test_dual_repository.py",
+        "tests/unit/test_facade_rag_init.py",
+        "tests/unit/test_facade_repository_init.py",
+        "tests/unit/test_fingerprint.py",
+        "tests/unit/test_healing_retry.py",
+        "tests/unit/test_healing_service.py",
+        "tests/unit/test_healing_service_fingerprint.py",
+        "tests/unit/test_healing_service_graph_context.py",
+        "tests/unit/test_integration_settings.py",
+        "tests/unit/test_mcp_explorer.py",
+        "tests/unit/test_models_serialization.py",
+        "tests/unit/test_option_fingerprint.py",
+        "tests/unit/test_orchestrator.py",
+        "tests/unit/test_orchestrator_actions.py",
+        "tests/unit/test_orchestrator_visual.py",
+        "tests/unit/test_page_indexing.py",
+        "tests/unit/test_pg_repository_schema.py",
+        "tests/unit/test_phase5_additions.py",
+        "tests/unit/test_prompt_dsl.py",
+        "tests/unit/test_rag_assist.py",
+        "tests/unit/test_rag_deep_retry.py",
+        "tests/unit/test_selenium_adapter.py",
+        "tests/unit/test_service_sessions.py",
+        "tests/unit/test_similarity.py",
+        "tests/unit/test_snapshotter.py",
+        "tests/unit/test_stage_switches.py",
+        "tests/unit/test_strategy_registry.py",
+        "tests/unit/test_text_utils.py",
+        "tests/unit/test_validator.py",
+        "tests/unit/test_workflow_context.py",
+        "tests/unit/test_workflow_replay.py",
+        "tests/unit/test_workflow_rewriter.py",
+        "tests/unit/test_workflow_run_history.py",
+        "tests/unit/__init__.py"
+      ],
+      "symbols": 575
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tools",
+      "language": "python",
+      "files": [
+        "tools/adversarial_browser.py",
+        "tools/concurrent_stress.py",
+        "tools/force_vision_candidate_heal.py",
+        "tools/inspect_workflow_video.py",
+        "tools/precision_corpus.py",
+        "tools/rag_db_stats.py",
+        "tools/report_heal_metrics.py",
+        "tools/run_all_layers_headed.py",
+        "tools/run_amazon_demo.py",
+        "tools/run_flipkart_demo.py",
+        "tools/run_flipkart_drill_demo.py",
+        "tools/run_orchestrator_demo.py"
+      ],
+      "symbols": 59
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer",
+      "language": "python",
+      "files": [
+        "xpath_healer/__init__.py"
+      ],
+      "symbols": 1
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.api",
+      "language": "python",
+      "files": [
+        "xpath_healer/api/base.py",
+        "xpath_healer/api/facade.py",
+        "xpath_healer/api/factory.py",
+        "xpath_healer/api/__init__.py"
+      ],
+      "symbols": 25
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core",
+      "language": "python",
+      "files": [
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/builder.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/context.py",
+        "xpath_healer/core/exceptions.py",
+        "xpath_healer/core/fingerprint.py",
+        "xpath_healer/core/graph_container.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/page_index.py",
+        "xpath_healer/core/page_signature.py",
+        "xpath_healer/core/signature.py",
+        "xpath_healer/core/similarity.py",
+        "xpath_healer/core/strategy_registry.py",
+        "xpath_healer/core/validator.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/core/__init__.py"
+      ],
+      "symbols": 241
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core.strategies",
+      "language": "python",
+      "files": [
+        "xpath_healer/core/strategies/attribute_strategy.py",
+        "xpath_healer/core/strategies/axis_hint_field.py",
+        "xpath_healer/core/strategies/base.py",
+        "xpath_healer/core/strategies/bidirectional_anchor_field.py",
+        "xpath_healer/core/strategies/button_text_candidate.py",
+        "xpath_healer/core/strategies/checkbox_icon_by_label.py",
+        "xpath_healer/core/strategies/composite_label_control.py",
+        "xpath_healer/core/strategies/generic_template.py",
+        "xpath_healer/core/strategies/grid_cell_colid.py",
+        "xpath_healer/core/strategies/label_proximity_interactable.py",
+        "xpath_healer/core/strategies/multi_field_text_resolver.py",
+        "xpath_healer/core/strategies/position_fallback.py",
+        "xpath_healer/core/strategies/text_occurrence.py",
+        "xpath_healer/core/strategies/tree_toggle_by_label.py",
+        "xpath_healer/core/strategies/__init__.py"
+      ],
+      "symbols": 52
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.dom",
+      "language": "python",
+      "files": [
+        "xpath_healer/dom/mine.py",
+        "xpath_healer/dom/snapshot.py",
+        "xpath_healer/dom/__init__.py"
+      ],
+      "symbols": 13
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.llm",
+      "language": "python",
+      "files": [
+        "xpath_healer/llm/client.py",
+        "xpath_healer/llm/openai_chat.py",
+        "xpath_healer/llm/__init__.py"
+      ],
+      "symbols": 13
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.mcp",
+      "language": "python",
+      "files": [
+        "xpath_healer/mcp/explorer.py",
+        "xpath_healer/mcp/playwright_mcp_explorer.py",
+        "xpath_healer/mcp/__init__.py"
+      ],
+      "symbols": 27
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.orchestrator",
+      "language": "python",
+      "files": [
+        "xpath_healer/orchestrator/decomposer.py",
+        "xpath_healer/orchestrator/executor.py",
+        "xpath_healer/orchestrator/models.py",
+        "xpath_healer/orchestrator/page_state.py",
+        "xpath_healer/orchestrator/recorder.py",
+        "xpath_healer/orchestrator/runner.py",
+        "xpath_healer/orchestrator/telemetry.py",
+        "xpath_healer/orchestrator/verifier.py",
+        "xpath_healer/orchestrator/visual.py",
+        "xpath_healer/orchestrator/__init__.py"
+      ],
+      "symbols": 130
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.rag",
+      "language": "python",
+      "files": [
+        "xpath_healer/rag/chroma_retriever.py",
+        "xpath_healer/rag/embedder.py",
+        "xpath_healer/rag/llm.py",
+        "xpath_healer/rag/openai_embedder.py",
+        "xpath_healer/rag/openai_llm.py",
+        "xpath_healer/rag/pgvector_retriever.py",
+        "xpath_healer/rag/prompt_builder.py",
+        "xpath_healer/rag/prompt_dsl.py",
+        "xpath_healer/rag/rag_assist.py",
+        "xpath_healer/rag/retriever.py",
+        "xpath_healer/rag/__init__.py"
+      ],
+      "symbols": 92
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.store",
+      "language": "python",
+      "files": [
+        "xpath_healer/store/dual_repository.py",
+        "xpath_healer/store/json_repository.py",
+        "xpath_healer/store/memory_repository.py",
+        "xpath_healer/store/pg_repository.py",
+        "xpath_healer/store/repository.py",
+        "xpath_healer/store/workflow_run_pg_repository.py",
+        "xpath_healer/store/workflow_run_repository.py",
+        "xpath_healer/store/__init__.py"
+      ],
+      "symbols": 116
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.utils",
+      "language": "python",
+      "files": [
+        "xpath_healer/utils/env.py",
+        "xpath_healer/utils/ids.py",
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/utils/text.py",
+        "xpath_healer/utils/timing.py",
+        "xpath_healer/utils/__init__.py"
+      ],
+      "symbols": 22
+    },
+    {
+      "name": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.workflow",
+      "language": "python",
+      "files": [
+        "xpath_healer/workflow/rewriter.py",
+        "xpath_healer/workflow/__init__.py"
+      ],
+      "symbols": 10
+    }
+  ]
+}

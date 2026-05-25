@@ -1,0 +1,365 @@
+{
+  "version": "1.0",
+  "generated_at": "2026-05-25T18:22:13+00:00",
+  "features": [
+    {
+      "id": "adapters",
+      "aliases": [
+        "adapters"
+      ],
+      "owned_packages": [
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.adapters",
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.adapters.appium_python",
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.adapters.playwright_python",
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.adapters.selenium_python"
+      ],
+      "key_files": [
+        "adapters/__init__.py",
+        "adapters/appium_python/__init__.py",
+        "adapters/appium_python/adapter.py",
+        "adapters/appium_python/facade.py",
+        "adapters/playwright_python/__init__.py",
+        "adapters/playwright_python/adapter.py",
+        "adapters/playwright_python/facade.py",
+        "adapters/selenium_python/__init__.py",
+        "adapters/selenium_python/adapter.py",
+        "adapters/selenium_python/facade.py"
+      ],
+      "entry_points": [],
+      "depends_on_features": [
+        "xpath_healer"
+      ],
+      "related_tests": [
+        "tests/conftest.py",
+        "tests/integration/test_demo_qa_healing_selenium.py",
+        "tests/unit/test_checkbox_proxy_validation.py",
+        "tests/unit/test_healing_service_fingerprint.py",
+        "tests/unit/test_phase5_additions.py",
+        "tests/unit/test_selenium_adapter.py",
+        "tests/unit/test_service_sessions.py",
+        "tests/unit/test_validator.py"
+      ],
+      "languages": [
+        "python"
+      ],
+      "file_count": 10,
+      "symbol_count": 57
+    },
+    {
+      "id": "integration",
+      "aliases": [
+        "integration"
+      ],
+      "owned_packages": [
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.integration"
+      ],
+      "key_files": [
+        "tests/integration/__init__.py",
+        "tests/integration/conftest.py",
+        "tests/integration/settings.py",
+        "tests/integration/test_demo_qa_healing_bdd.py",
+        "tests/integration/test_demo_qa_healing_selenium.py"
+      ],
+      "entry_points": [
+        "tests/integration/conftest.py::AsyncRuntime.run",
+        "tests/integration/conftest.py::runtime",
+        "tests/integration/conftest.py::pytest_runtest_makereport"
+      ],
+      "depends_on_features": [
+        "adapters",
+        "xpath_healer"
+      ],
+      "related_tests": [
+        "tests/integration/__init__.py",
+        "tests/integration/conftest.py",
+        "tests/integration/settings.py",
+        "tests/integration/test_demo_qa_healing_bdd.py",
+        "tests/integration/test_demo_qa_healing_selenium.py",
+        "tests/unit/test_integration_settings.py"
+      ],
+      "languages": [
+        "python"
+      ],
+      "file_count": 5,
+      "symbol_count": 84
+    },
+    {
+      "id": "service",
+      "aliases": [
+        "service"
+      ],
+      "owned_packages": [
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.service"
+      ],
+      "key_files": [
+        "service/__init__.py",
+        "service/main.py",
+        "service/session_registry.py"
+      ],
+      "entry_points": [
+        "service/main.py::LocatorSpecModel.to_domain",
+        "service/main.py::LocatorSpecModel.from_domain"
+      ],
+      "depends_on_features": [
+        "xpath_healer"
+      ],
+      "related_tests": [
+        "tests/unit/test_service_sessions.py"
+      ],
+      "languages": [
+        "python"
+      ],
+      "file_count": 3,
+      "symbol_count": 13
+    },
+    {
+      "id": "tests",
+      "aliases": [
+        "tests"
+      ],
+      "owned_packages": [
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests"
+      ],
+      "key_files": [
+        "tests/__init__.py",
+        "tests/conftest.py"
+      ],
+      "entry_points": [],
+      "depends_on_features": [
+        "adapters",
+        "xpath_healer"
+      ],
+      "related_tests": [
+        "tests/__init__.py",
+        "tests/conftest.py"
+      ],
+      "languages": [
+        "python"
+      ],
+      "file_count": 2,
+      "symbol_count": 1
+    },
+    {
+      "id": "tools",
+      "aliases": [
+        "tools"
+      ],
+      "owned_packages": [
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.tools"
+      ],
+      "key_files": [
+        "tools/adversarial_browser.py",
+        "tools/concurrent_stress.py",
+        "tools/force_vision_candidate_heal.py",
+        "tools/inspect_workflow_video.py",
+        "tools/precision_corpus.py",
+        "tools/rag_db_stats.py",
+        "tools/report_heal_metrics.py",
+        "tools/run_all_layers_headed.py",
+        "tools/run_amazon_demo.py",
+        "tools/run_flipkart_demo.py"
+      ],
+      "entry_points": [
+        "tools/adversarial_browser.py::_run_case",
+        "tools/adversarial_browser.py::main",
+        "tools/concurrent_stress.py::main",
+        "tools/force_vision_candidate_heal.py::main",
+        "tools/inspect_workflow_video.py::main",
+        "tools/precision_corpus.py::_run_scenario",
+        "tools/precision_corpus.py::_run_layer",
+        "tools/precision_corpus.py::main",
+        "tools/rag_db_stats.py::_amain",
+        "tools/rag_db_stats.py::main"
+      ],
+      "depends_on_features": [
+        "xpath_healer"
+      ],
+      "related_tests": [],
+      "languages": [
+        "python"
+      ],
+      "file_count": 12,
+      "symbol_count": 59
+    },
+    {
+      "id": "unit",
+      "aliases": [
+        "unit"
+      ],
+      "owned_packages": [
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit"
+      ],
+      "key_files": [
+        "tests/unit/__init__.py",
+        "tests/unit/conftest.py",
+        "tests/unit/fakes.py",
+        "tests/unit/selenium_fakes.py",
+        "tests/unit/test_bidirectional_anchor_field.py",
+        "tests/unit/test_checkbox_proxy_validation.py",
+        "tests/unit/test_dual_repository.py",
+        "tests/unit/test_facade_rag_init.py",
+        "tests/unit/test_facade_repository_init.py",
+        "tests/unit/test_fingerprint.py"
+      ],
+      "entry_points": [
+        "tests/unit/test_orchestrator.py::test_executor_fill_uses_natural_api_when_available",
+        "tests/unit/test_orchestrator.py::test_orchestrator_happy_path_runs_all_steps",
+        "tests/unit/test_orchestrator.py::test_orchestrator_navigates_to_start_url_first",
+        "tests/unit/test_orchestrator_actions.py::test_scroll_into_view_uses_natural_api",
+        "tests/unit/test_orchestrator_actions.py::test_hover_uses_natural_api",
+        "tests/unit/test_orchestrator_visual.py::_make_runner",
+        "tests/unit/test_orchestrator_visual.py::test_extract_a11y_candidates_no_accessibility_api_returns_empty",
+        "tests/unit/test_orchestrator_visual.py::test_telemetry_stamped_on_failed_runs_too",
+        "tests/unit/test_orchestrator_visual.py::test_two_orchestrators_with_separate_counters_run_concurrently_without_leaking_state",
+        "tests/unit/test_orchestrator_visual.py::test_orchestrator_run_resets_telemetry_between_sequential_calls"
+      ],
+      "depends_on_features": [
+        "adapters",
+        "integration",
+        "service",
+        "xpath_healer"
+      ],
+      "related_tests": [
+        "tests/unit/__init__.py",
+        "tests/unit/conftest.py",
+        "tests/unit/fakes.py",
+        "tests/unit/selenium_fakes.py",
+        "tests/unit/test_bidirectional_anchor_field.py",
+        "tests/unit/test_checkbox_proxy_validation.py",
+        "tests/unit/test_dual_repository.py",
+        "tests/unit/test_facade_rag_init.py",
+        "tests/unit/test_facade_repository_init.py",
+        "tests/unit/test_fingerprint.py",
+        "tests/unit/test_healing_retry.py",
+        "tests/unit/test_healing_service.py",
+        "tests/unit/test_healing_service_fingerprint.py",
+        "tests/unit/test_healing_service_graph_context.py",
+        "tests/unit/test_integration_settings.py",
+        "tests/unit/test_mcp_explorer.py",
+        "tests/unit/test_models_serialization.py",
+        "tests/unit/test_option_fingerprint.py",
+        "tests/unit/test_orchestrator.py",
+        "tests/unit/test_orchestrator_actions.py",
+        "tests/unit/test_orchestrator_visual.py",
+        "tests/unit/test_page_indexing.py",
+        "tests/unit/test_pg_repository_schema.py",
+        "tests/unit/test_phase5_additions.py",
+        "tests/unit/test_prompt_dsl.py",
+        "tests/unit/test_rag_assist.py",
+        "tests/unit/test_rag_deep_retry.py",
+        "tests/unit/test_selenium_adapter.py",
+        "tests/unit/test_service_sessions.py",
+        "tests/unit/test_similarity.py",
+        "tests/unit/test_snapshotter.py",
+        "tests/unit/test_stage_switches.py",
+        "tests/unit/test_strategy_registry.py",
+        "tests/unit/test_text_utils.py",
+        "tests/unit/test_validator.py",
+        "tests/unit/test_workflow_context.py",
+        "tests/unit/test_workflow_replay.py",
+        "tests/unit/test_workflow_rewriter.py",
+        "tests/unit/test_workflow_run_history.py"
+      ],
+      "languages": [
+        "python"
+      ],
+      "file_count": 39,
+      "symbol_count": 575
+    },
+    {
+      "id": "xpath_healer",
+      "aliases": [
+        "xpath healer",
+        "xpath_healer"
+      ],
+      "owned_packages": [
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer",
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.api",
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core",
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core.strategies",
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.dom",
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.llm",
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.mcp",
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.orchestrator",
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.rag",
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.store",
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.utils",
+        "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.workflow"
+      ],
+      "key_files": [
+        "xpath_healer/__init__.py",
+        "xpath_healer/api/__init__.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/api/facade.py",
+        "xpath_healer/api/factory.py",
+        "xpath_healer/core/__init__.py",
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/builder.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/context.py"
+      ],
+      "entry_points": [
+        "xpath_healer/api/base.py::BaseHealerFacade._build_workflow_run_repository_from_config",
+        "xpath_healer/core/page_index.py::_SimpleHtmlTreeParser.handle_starttag",
+        "xpath_healer/core/page_index.py::_SimpleHtmlTreeParser.handle_endtag",
+        "xpath_healer/core/page_index.py::_SimpleHtmlTreeParser.handle_data",
+        "xpath_healer/core/validator.py::XPathValidator._run_type_gate",
+        "xpath_healer/core/validator.py::XPathValidator._run_axis_geometry_checks",
+        "xpath_healer/mcp/playwright_mcp_explorer.py::PlaywrightMCPServerExplorer._run_agent_loop",
+        "xpath_healer/orchestrator/recorder.py::WorkflowRecorder.start",
+        "xpath_healer/orchestrator/runner.py::WorkflowOrchestrator.run",
+        "xpath_healer/orchestrator/runner.py::WorkflowOrchestrator._run_step"
+      ],
+      "depends_on_features": [
+        "adapters"
+      ],
+      "related_tests": [
+        "tests/conftest.py",
+        "tests/integration/conftest.py",
+        "tests/integration/settings.py",
+        "tests/integration/test_demo_qa_healing_bdd.py",
+        "tests/integration/test_demo_qa_healing_selenium.py",
+        "tests/unit/fakes.py",
+        "tests/unit/selenium_fakes.py",
+        "tests/unit/test_bidirectional_anchor_field.py",
+        "tests/unit/test_checkbox_proxy_validation.py",
+        "tests/unit/test_dual_repository.py",
+        "tests/unit/test_facade_rag_init.py",
+        "tests/unit/test_facade_repository_init.py",
+        "tests/unit/test_fingerprint.py",
+        "tests/unit/test_healing_retry.py",
+        "tests/unit/test_healing_service.py",
+        "tests/unit/test_healing_service_fingerprint.py",
+        "tests/unit/test_healing_service_graph_context.py",
+        "tests/unit/test_mcp_explorer.py",
+        "tests/unit/test_models_serialization.py",
+        "tests/unit/test_option_fingerprint.py",
+        "tests/unit/test_orchestrator.py",
+        "tests/unit/test_orchestrator_actions.py",
+        "tests/unit/test_orchestrator_visual.py",
+        "tests/unit/test_page_indexing.py",
+        "tests/unit/test_pg_repository_schema.py",
+        "tests/unit/test_phase5_additions.py",
+        "tests/unit/test_prompt_dsl.py",
+        "tests/unit/test_rag_assist.py",
+        "tests/unit/test_rag_deep_retry.py",
+        "tests/unit/test_selenium_adapter.py",
+        "tests/unit/test_similarity.py",
+        "tests/unit/test_snapshotter.py",
+        "tests/unit/test_stage_switches.py",
+        "tests/unit/test_strategy_registry.py",
+        "tests/unit/test_text_utils.py",
+        "tests/unit/test_validator.py",
+        "tests/unit/test_workflow_context.py",
+        "tests/unit/test_workflow_replay.py",
+        "tests/unit/test_workflow_rewriter.py",
+        "tests/unit/test_workflow_run_history.py"
+      ],
+      "languages": [
+        "python"
+      ],
+      "file_count": 83,
+      "symbol_count": 742
+    }
+  ]
+}
