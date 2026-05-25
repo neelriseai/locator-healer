@@ -1,0 +1,204 @@
+{
+  "layers": [
+    {
+      "layer": "deterministic",
+      "total": 5,
+      "status_success": 5,
+      "node_correct": 5,
+      "status_success_rate": 1.0,
+      "node_precision": 1.0,
+      "scenarios": [
+        {
+          "name": "text_box.full_name",
+          "strategy": "bidirectional_anchor_field",
+          "status": "success",
+          "correct": true,
+          "healed": "xpath:xpath://*[(self::label or self::span) and (normalize-space()='Full Name' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'full name'))]/following::input[not(ancestor::*[@role='grid' or contains(@class,'grid')])][1]",
+          "ground_truth": "input#userName",
+          "a_count": 1,
+          "b_count": 1,
+          "detail": "a_tag=input#userName b_tag=input#userName"
+        },
+        {
+          "name": "text_box.email",
+          "strategy": "bidirectional_anchor_field",
+          "status": "success",
+          "correct": true,
+          "healed": "xpath:xpath://*[(self::label or self::span) and (normalize-space()='Email' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'email'))]/following::input[@type='email' and not(ancestor::*[@role='grid' or contains(@class,'grid')])][1]",
+          "ground_truth": "input#userEmail",
+          "a_count": 1,
+          "b_count": 1,
+          "detail": "a_tag=input#userEmail b_tag=input#userEmail"
+        },
+        {
+          "name": "text_box.current_address",
+          "strategy": "bidirectional_anchor_field",
+          "status": "success",
+          "correct": true,
+          "healed": "xpath:xpath://*[(self::label or self::span) and (normalize-space()='Current Address' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'current address'))]/following::textarea[not(ancestor::*[@role='grid' or contains(@class,'grid')])][1]",
+          "ground_truth": "textarea#currentAddress",
+          "a_count": 1,
+          "b_count": 1,
+          "detail": "a_tag=textarea#currentAddress b_tag=textarea#currentAddress"
+        },
+        {
+          "name": "text_box.permanent_address",
+          "strategy": "bidirectional_anchor_field",
+          "status": "success",
+          "correct": true,
+          "healed": "xpath:xpath://*[(self::label or self::span) and (normalize-space()='Permanent Address' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'permanent address'))]/following::textarea[not(ancestor::*[@role='grid' or contains(@class,'grid')])][1]",
+          "ground_truth": "textarea#permanentAddress",
+          "a_count": 1,
+          "b_count": 1,
+          "detail": "a_tag=textarea#permanentAddress b_tag=textarea#permanentAddress"
+        },
+        {
+          "name": "text_box.submit",
+          "strategy": "button_text_candidate",
+          "status": "success",
+          "correct": true,
+          "healed": "role:role:button[name='Submit',exact=True]",
+          "ground_truth": "button#submit",
+          "a_count": 1,
+          "b_count": 1,
+          "detail": "a_tag=button#submit b_tag=button#submit"
+        }
+      ]
+    },
+    {
+      "layer": "agentic",
+      "total": 5,
+      "status_success": 5,
+      "node_correct": 5,
+      "status_success_rate": 1.0,
+      "node_precision": 1.0,
+      "scenarios": [
+        {
+          "name": "text_box.full_name",
+          "strategy": "mcp_explore",
+          "status": "success",
+          "correct": true,
+          "healed": "xpath:xpath://input[@id='userName']",
+          "ground_truth": "input#userName",
+          "a_count": 1,
+          "b_count": 1,
+          "detail": "a_tag=input#userName b_tag=input#userName"
+        },
+        {
+          "name": "text_box.email",
+          "strategy": "mcp_explore",
+          "status": "success",
+          "correct": true,
+          "healed": "xpath:xpath://label[@id='userEmail-label']/following::input[1]",
+          "ground_truth": "input#userEmail",
+          "a_count": 1,
+          "b_count": 1,
+          "detail": "a_tag=input#userEmail b_tag=input#userEmail"
+        },
+        {
+          "name": "text_box.current_address",
+          "strategy": "mcp_explore",
+          "status": "success",
+          "correct": true,
+          "healed": "xpath:xpath://textarea[@id='currentAddress']",
+          "ground_truth": "textarea#currentAddress",
+          "a_count": 1,
+          "b_count": 1,
+          "detail": "a_tag=textarea#currentAddress b_tag=textarea#currentAddress"
+        },
+        {
+          "name": "text_box.permanent_address",
+          "strategy": "mcp_explore",
+          "status": "success",
+          "correct": true,
+          "healed": "xpath:xpath://textarea[@id='permanentAddress']",
+          "ground_truth": "textarea#permanentAddress",
+          "a_count": 1,
+          "b_count": 1,
+          "detail": "a_tag=textarea#permanentAddress b_tag=textarea#permanentAddress"
+        },
+        {
+          "name": "text_box.submit",
+          "strategy": "mcp_explore",
+          "status": "success",
+          "correct": true,
+          "healed": "xpath:xpath://button[@id='submit' and normalize-space()='Submit']",
+          "ground_truth": "button#submit",
+          "a_count": 1,
+          "b_count": 1,
+          "detail": "a_tag=button#submit b_tag=button#submit"
+        }
+      ]
+    },
+    {
+      "layer": "rag",
+      "total": 5,
+      "status_success": 0,
+      "node_correct": 0,
+      "status_success_rate": 0.0,
+      "node_precision": 0.0,
+      "scenarios": [
+        {
+          "name": "text_box.full_name",
+          "strategy": "-",
+          "status": "failed",
+          "correct": false,
+          "healed": ":",
+          "ground_truth": "input#userName",
+          "a_count": 0,
+          "b_count": 0,
+          "detail": "All healing stages failed to produce a valid locator."
+        },
+        {
+          "name": "text_box.email",
+          "strategy": "-",
+          "status": "failed",
+          "correct": false,
+          "healed": ":",
+          "ground_truth": "input#userEmail",
+          "a_count": 0,
+          "b_count": 0,
+          "detail": "All healing stages failed to produce a valid locator."
+        },
+        {
+          "name": "text_box.current_address",
+          "strategy": "-",
+          "status": "failed",
+          "correct": false,
+          "healed": ":",
+          "ground_truth": "textarea#currentAddress",
+          "a_count": 0,
+          "b_count": 0,
+          "detail": "All healing stages failed to produce a valid locator."
+        },
+        {
+          "name": "text_box.permanent_address",
+          "strategy": "-",
+          "status": "failed",
+          "correct": false,
+          "healed": ":",
+          "ground_truth": "textarea#permanentAddress",
+          "a_count": 0,
+          "b_count": 0,
+          "detail": "All healing stages failed to produce a valid locator."
+        },
+        {
+          "name": "text_box.submit",
+          "strategy": "-",
+          "status": "failed",
+          "correct": false,
+          "healed": ":",
+          "ground_truth": "button#submit",
+          "a_count": 0,
+          "b_count": 0,
+          "detail": "All healing stages failed to produce a valid locator."
+        }
+      ]
+    }
+  ],
+  "overall_total": 15,
+  "overall_status_success": 10,
+  "overall_node_correct": 10,
+  "overall_node_precision": 0.6667,
+  "overall_status_success_rate": 0.6667
+}

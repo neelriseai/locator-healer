@@ -1,0 +1,20 @@
+2026-05-24 21:51:27,503 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+
+[phase 1] LIST goal: On amazon.in, dismiss any login / address / location pincode popups (this is a browsing task, no delivery address needed). Then type the exact phrase 'mobile phones under 50000' into the search box and press Enter. After the results load, sort the results by Price: Low to High using the visible sort control. Finally, read the first 3 sorted product cards' title, visible price, and the URL of each product.
+
+  [phase1_list] status=failed steps=4
+    - dismiss_location_popup         click       healer=label_proximity_interactable exec=ok       v=ok (llm)
+    - dismiss_login_popup            click       healer=-                        exec=skipped  v=fail (n/a)
+    - fill_search_box                fill        healer=bidirectional_anchor_field exec=ok       v=ok (auto)
+    - submit_search                  press_key   healer=bidirectional_anchor_field exec=ok       v=fail (llm)
+    FAILED: submit_search (press_key)
+      exec: pressed 'Enter' on element
+      verify: Snapshot shows navigation and search form, but no search results or evidence of query execution.
+      vision: ok=True conf=0.95 finding='The intended outcome did not fully happen; although the modal was dismissed in the last frame, there is no evidence of a search results list, URL/tit
+
+  collected 0 product URLs from phase 1.
+
+  artifact: C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\reports\amazon_demo.json
+  recording: mode=screenshots video=- shots=4 duration=44.7s
+
+  TOP-LINE: phase1=failed drill_ok=0/0

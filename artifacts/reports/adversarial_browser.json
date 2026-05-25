@@ -1,0 +1,281 @@
+{
+  "results": [
+    {
+      "name": "empty_page",
+      "expectation": "fails_gracefully",
+      "status": "failed",
+      "steps": 1,
+      "step_records": [
+        {
+          "step_id": "verify_empty_page",
+          "action": "verify",
+          "target": "",
+          "heal": "-",
+          "exec": "ok",
+          "exec_detail": "verify-only step; no action taken",
+          "verify_ok": true,
+          "verify_tier": "llm",
+          "verify_reason": "The snapshot is empty, indicating no visible elements on the page."
+        }
+      ],
+      "telemetry": {
+        "llm_calls": 2,
+        "llm_prompt_tokens": 2115,
+        "llm_completion_tokens": 73,
+        "llm_total_tokens": 2188,
+        "llm_seconds": 3.649,
+        "vision_calls": 0,
+        "vision_seconds": 0.0,
+        "heal_strategy_counts": {},
+        "step_durations_ms": {
+          "verify_empty_page": 985.7
+        },
+        "total_seconds": 4.405019
+      },
+      "slo": {
+        "ok": true,
+        "checks": {
+          "total_seconds": {
+            "ok": true,
+            "observed": 4.405019,
+            "limit": 240.0
+          },
+          "llm_calls": {
+            "ok": true,
+            "observed": 2,
+            "limit": 20
+          },
+          "llm_total_tokens": {
+            "ok": true,
+            "observed": 2188,
+            "limit": 60000
+          },
+          "vision_calls": {
+            "ok": true,
+            "observed": 0,
+            "limit": 8
+          },
+          "max_step_ms": {
+            "ok": true,
+            "slow_steps": {},
+            "limit": 240000.0
+          }
+        }
+      },
+      "ok": true,
+      "reason": "status=failed steps=1"
+    },
+    {
+      "name": "js_shell_late_mount",
+      "expectation": "succeeds",
+      "status": "success",
+      "steps": 1,
+      "step_records": [
+        {
+          "step_id": "click_add_to_cart",
+          "action": "click",
+          "target": "Add to Cart",
+          "heal": "button_text_candidate",
+          "exec": "ok",
+          "exec_detail": "click dispatched",
+          "verify_ok": true,
+          "verify_tier": "llm",
+          "verify_reason": "The snapshot shows the presence of the 'Add to Cart' button, indicating that the click action was likely successful."
+        }
+      ],
+      "telemetry": {
+        "llm_calls": 2,
+        "llm_prompt_tokens": 2142,
+        "llm_completion_tokens": 97,
+        "llm_total_tokens": 2239,
+        "llm_seconds": 4.314,
+        "vision_calls": 0,
+        "vision_seconds": 0.0,
+        "heal_strategy_counts": {
+          "button_text_candidate": 1
+        },
+        "step_durations_ms": {
+          "click_add_to_cart": 3063.2
+        },
+        "total_seconds": 5.62984
+      },
+      "slo": {
+        "ok": true,
+        "checks": {
+          "total_seconds": {
+            "ok": true,
+            "observed": 5.62984,
+            "limit": 240.0
+          },
+          "llm_calls": {
+            "ok": true,
+            "observed": 2,
+            "limit": 20
+          },
+          "llm_total_tokens": {
+            "ok": true,
+            "observed": 2239,
+            "limit": 60000
+          },
+          "vision_calls": {
+            "ok": true,
+            "observed": 0,
+            "limit": 8
+          },
+          "max_step_ms": {
+            "ok": true,
+            "slow_steps": {},
+            "limit": 240000.0
+          }
+        }
+      },
+      "ok": true,
+      "reason": "status=success steps=1"
+    },
+    {
+      "name": "captcha_wall",
+      "expectation": "fails_or_aborts",
+      "status": "failed",
+      "steps": 2,
+      "step_records": [
+        {
+          "step_id": "verify_human",
+          "action": "verify",
+          "target": "",
+          "heal": "-",
+          "exec": "ok",
+          "exec_detail": "verify-only step; no action taken",
+          "verify_ok": true,
+          "verify_tier": "structural",
+          "verify_reason": "text_visible('Verify you are human')=True"
+        },
+        {
+          "step_id": "click_add_to_cart",
+          "action": "click",
+          "target": "Add to Cart",
+          "heal": "-",
+          "exec": "skipped",
+          "exec_detail": "optional step: heal cascade found no target",
+          "verify_ok": null,
+          "verify_tier": "-",
+          "verify_reason": ""
+        }
+      ],
+      "telemetry": {
+        "llm_calls": 1,
+        "llm_prompt_tokens": 2036,
+        "llm_completion_tokens": 81,
+        "llm_total_tokens": 2117,
+        "llm_seconds": 2.222,
+        "vision_calls": 0,
+        "vision_seconds": 0.0,
+        "heal_strategy_counts": {},
+        "step_durations_ms": {
+          "verify_human": 68.5,
+          "click_add_to_cart": 7564.0
+        },
+        "total_seconds": 10.469883
+      },
+      "slo": {
+        "ok": true,
+        "checks": {
+          "total_seconds": {
+            "ok": true,
+            "observed": 10.469883,
+            "limit": 240.0
+          },
+          "llm_calls": {
+            "ok": true,
+            "observed": 1,
+            "limit": 20
+          },
+          "llm_total_tokens": {
+            "ok": true,
+            "observed": 2117,
+            "limit": 60000
+          },
+          "vision_calls": {
+            "ok": true,
+            "observed": 0,
+            "limit": 8
+          },
+          "max_step_ms": {
+            "ok": true,
+            "slow_steps": {},
+            "limit": 240000.0
+          }
+        }
+      },
+      "ok": true,
+      "reason": "status=failed"
+    },
+    {
+      "name": "huge_page",
+      "expectation": "succeeds_within_slo",
+      "status": "success",
+      "steps": 1,
+      "step_records": [
+        {
+          "step_id": "click_the_real_button",
+          "action": "click",
+          "target": "The Real Button",
+          "heal": "button_text_candidate",
+          "exec": "ok",
+          "exec_detail": "click dispatched",
+          "verify_ok": true,
+          "verify_tier": "llm",
+          "verify_reason": "The snapshot shows the button labelled 'The Real Button', indicating that the click action was directed at the correct e"
+        }
+      ],
+      "telemetry": {
+        "llm_calls": 2,
+        "llm_prompt_tokens": 2217,
+        "llm_completion_tokens": 96,
+        "llm_total_tokens": 2313,
+        "llm_seconds": 3.416,
+        "vision_calls": 0,
+        "vision_seconds": 0.0,
+        "heal_strategy_counts": {
+          "button_text_candidate": 1
+        },
+        "step_durations_ms": {
+          "click_the_real_button": 2218.1
+        },
+        "total_seconds": 4.942768
+      },
+      "slo": {
+        "ok": true,
+        "checks": {
+          "total_seconds": {
+            "ok": true,
+            "observed": 4.942768,
+            "limit": 240.0
+          },
+          "llm_calls": {
+            "ok": true,
+            "observed": 2,
+            "limit": 20
+          },
+          "llm_total_tokens": {
+            "ok": true,
+            "observed": 2313,
+            "limit": 60000
+          },
+          "vision_calls": {
+            "ok": true,
+            "observed": 0,
+            "limit": 8
+          },
+          "max_step_ms": {
+            "ok": true,
+            "slow_steps": {},
+            "limit": 240000.0
+          }
+        }
+      },
+      "ok": true,
+      "reason": "status=success slo_ok=True"
+    }
+  ],
+  "overall_ok": true
+}

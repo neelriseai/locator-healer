@@ -2,6 +2,9 @@
 
 from xpath_healer.core.strategies.attribute_strategy import AttributeStrategy
 from xpath_healer.core.strategies.axis_hint_field import AxisHintFieldResolverStrategy
+from xpath_healer.core.strategies.bidirectional_anchor_field import (
+    BidirectionalAnchorFieldStrategy,
+)
 from xpath_healer.core.strategies.button_text_candidate import ButtonTextCandidateStrategy
 from xpath_healer.core.strategies.checkbox_icon_by_label import CheckboxIconByLabelStrategy
 from xpath_healer.core.strategies.composite_label_control import CompositeLabelControlStrategy
@@ -15,6 +18,7 @@ from xpath_healer.core.strategies.tree_toggle_by_label import TreeToggleByLabelS
 
 __all__ = [
     "GenericTemplateStrategy",
+    "BidirectionalAnchorFieldStrategy",
     "AxisHintFieldResolverStrategy",
     "CompositeLabelControlStrategy",
     "LabelProximityInteractableStrategy",

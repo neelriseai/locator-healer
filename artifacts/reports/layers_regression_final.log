@@ -1,0 +1,122 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\neela\Documents\locator-healer\locator-healer\.venv\Scripts\python.exe
+rootdir: C:\Users\neela\Documents\locator-healer\locator-healer
+configfile: pyproject.toml
+plugins: anyio-4.12.1, asyncio-1.3.0, bdd-8.1.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 4 items / 1 deselected / 3 selected
+
+tests/integration/test_demo_qa_healing_bdd.py::test_tc1_textbox_form_fill_and_submit PASSED [ 33%]
+tests/integration/test_demo_qa_healing_bdd.py::test_tc2_checkbox_tree_expand_and_select_desktop__excel PASSED [ 66%]
+tests/integration/test_demo_qa_healing_bdd.py::test_tc3_webtables_first_row_verification PASSED [100%]
+
+- generated xml file: C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\reports\layer1_deterministic\integration-junit.xml -
+====================== 3 passed, 1 deselected in 44.69s =======================
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\neela\Documents\locator-healer\locator-healer\.venv\Scripts\python.exe
+rootdir: C:\Users\neela\Documents\locator-healer\locator-healer
+configfile: pyproject.toml
+plugins: anyio-4.12.1, asyncio-1.3.0, bdd-8.1.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 4 items / 1 deselected / 3 selected
+
+tests/integration/test_demo_qa_healing_bdd.py::test_tc1_textbox_form_fill_and_submit PASSED [ 33%]
+tests/integration/test_demo_qa_healing_bdd.py::test_tc2_checkbox_tree_expand_and_select_desktop__excel PASSED [ 66%]
+tests/integration/test_demo_qa_healing_bdd.py::test_tc3_webtables_first_row_verification PASSED [100%]
+
+- generated xml file: C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\reports\layer2_agentic_mcp\integration-junit.xml -
+================= 3 passed, 1 deselected in 133.79s (0:02:13) =================
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\neela\Documents\locator-healer\locator-healer\.venv\Scripts\python.exe
+rootdir: C:\Users\neela\Documents\locator-healer\locator-healer
+configfile: pyproject.toml
+plugins: anyio-4.12.1, asyncio-1.3.0, bdd-8.1.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 4 items / 1 deselected / 3 selected
+
+tests/integration/test_demo_qa_healing_bdd.py::test_tc1_textbox_form_fill_and_submit PASSED [ 33%]
+tests/integration/test_demo_qa_healing_bdd.py::test_tc2_checkbox_tree_expand_and_select_desktop__excel PASSED [ 66%]
+tests/integration/test_demo_qa_healing_bdd.py::test_tc3_webtables_first_row_verification PASSED [100%]
+
+- generated xml file: C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\reports\layer3_rag\integration-junit.xml -
+================= 3 passed, 1 deselected in 67.46s (0:01:07) ==================
+
+========================================================================
+  RUN LAYER: layer1_deterministic
+========================================================================
+  HEADED: false
+  OPENAI key set: True
+  PG DSN set    : True
+  Stage flags   :
+    XH_STAGE_DEFAULTS_ENABLED=true
+    XH_STAGE_DOM_MINING_ENABLED=true
+    XH_STAGE_FALLBACK_ENABLED=true
+    XH_STAGE_FINGERPRINT_ENABLED=true
+    XH_STAGE_MCP_EXPLORE_ENABLED=false
+    XH_STAGE_METADATA_ENABLED=false
+    XH_STAGE_OPTION_FINGERPRINT_ENABLED=true
+    XH_STAGE_PAGE_INDEX_ENABLED=true
+    XH_STAGE_POSITION_ENABLED=true
+    XH_STAGE_RAG_ENABLED=false
+    XH_STAGE_RULES_ENABLED=true
+    XH_STAGE_SIGNATURE_ENABLED=true
+    XH_STAGE_WORKFLOW_REPLAY_ENABLED=false
+    XH_STAGE_WORKFLOW_REWRITE_ENABLED=false
+  CMD: C:\Users\neela\Documents\locator-healer\locator-healer\.venv\Scripts\python.exe -m pytest tests/integration/test_demo_qa_healing_bdd.py -v --tb=short -W ignore -p no:cacheprovider -k not raw_fallback_xpath_fails_without_healer
+  RESULT: exit_code=0
+
+========================================================================
+  RUN LAYER: layer2_agentic_mcp
+========================================================================
+  HEADED: false
+  OPENAI key set: True
+  PG DSN set    : True
+  Stage flags   :
+    XH_STAGE_DEFAULTS_ENABLED=false
+    XH_STAGE_DOM_MINING_ENABLED=false
+    XH_STAGE_FALLBACK_ENABLED=true
+    XH_STAGE_FINGERPRINT_ENABLED=false
+    XH_STAGE_MCP_EXPLORE_ENABLED=true
+    XH_STAGE_METADATA_ENABLED=false
+    XH_STAGE_OPTION_FINGERPRINT_ENABLED=false
+    XH_STAGE_PAGE_INDEX_ENABLED=false
+    XH_STAGE_POSITION_ENABLED=false
+    XH_STAGE_RAG_ENABLED=false
+    XH_STAGE_RULES_ENABLED=false
+    XH_STAGE_SIGNATURE_ENABLED=false
+    XH_STAGE_WORKFLOW_REPLAY_ENABLED=false
+    XH_STAGE_WORKFLOW_REWRITE_ENABLED=false
+  CMD: C:\Users\neela\Documents\locator-healer\locator-healer\.venv\Scripts\python.exe -m pytest tests/integration/test_demo_qa_healing_bdd.py -v --tb=short -W ignore -p no:cacheprovider -k not raw_fallback_xpath_fails_without_healer
+  RESULT: exit_code=0
+
+========================================================================
+  RUN LAYER: layer3_rag
+========================================================================
+  HEADED: false
+  OPENAI key set: True
+  PG DSN set    : True
+  Stage flags   :
+    XH_STAGE_DEFAULTS_ENABLED=false
+    XH_STAGE_DOM_MINING_ENABLED=false
+    XH_STAGE_FALLBACK_ENABLED=true
+    XH_STAGE_FINGERPRINT_ENABLED=false
+    XH_STAGE_MCP_EXPLORE_ENABLED=false
+    XH_STAGE_METADATA_ENABLED=false
+    XH_STAGE_OPTION_FINGERPRINT_ENABLED=false
+    XH_STAGE_PAGE_INDEX_ENABLED=false
+    XH_STAGE_POSITION_ENABLED=false
+    XH_STAGE_PROFILE=llm_only
+    XH_STAGE_RAG_ENABLED=true
+    XH_STAGE_RULES_ENABLED=false
+    XH_STAGE_SIGNATURE_ENABLED=false
+    XH_STAGE_WORKFLOW_REPLAY_ENABLED=false
+    XH_STAGE_WORKFLOW_REWRITE_ENABLED=false
+  CMD: C:\Users\neela\Documents\locator-healer\locator-healer\.venv\Scripts\python.exe -m pytest tests/integration/test_demo_qa_healing_bdd.py -v --tb=short -W ignore -p no:cacheprovider -k not raw_fallback_xpath_fails_without_healer
+  RESULT: exit_code=0
+
+========================================================================
+  SUMMARY
+========================================================================
+  layer1_deterministic           PASSED
+  layer2_agentic_mcp             PASSED
+  layer3_rag                     PASSED

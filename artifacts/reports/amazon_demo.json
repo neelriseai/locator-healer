@@ -1,0 +1,305 @@
+{
+  "phase1": {
+    "status": "success",
+    "goal": "You are on an Amazon.in search results page for mobile phones under 50000 rupees. Dismiss any login / address / location pincode popup with an optional click step (browsing task, no delivery address needed). Then EXTRACT the first 3 product cards: for each card pull product title, visible price, and the URL of the product detail page. Use the extract action with fields name, price, and product_url; this is the ONLY data-collection step you need.",
+    "completed": [
+      {
+        "step_id": "dismiss_location_popup",
+        "action": "click",
+        "heal_strategy": "button_text_candidate",
+        "exec_status": "ok",
+        "exec_detail": "click dispatched",
+        "verify_ok": true,
+        "verify_tier": "llm",
+        "verify_reason": "No location/address popup is visible in the snapshot.",
+        "vision": null,
+        "duration_ms": 2089.4029
+      },
+      {
+        "step_id": "extract_product_cards",
+        "action": "extract",
+        "heal_strategy": "extract_auto_discover",
+        "exec_status": "ok",
+        "exec_detail": "extracted 3 items via llm",
+        "verify_ok": true,
+        "verify_tier": "auto",
+        "verify_reason": "extracted 3 items (read-only action)",
+        "vision": null,
+        "duration_ms": 120873.1283
+      }
+    ],
+    "extracted_data": {
+      "extract_product_cards": [
+        {
+          "name": "REDMI A7 Pro 5G (Black, 4GB RAM,128GB Storage) | Segment's Fastest Processor | Segment's Largest Battery | Segment's Largest & Smoothest 6.9in 120Hz Display",
+          "price": "\u20b915,999",
+          "product_url": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo4ODE0ODEyMDg0Mzg2OTQ6MTc3OTcyMzY1ODpzcF9hdGY6MzAxMDM4NzY3NzA1NzMyOjowOjo&url=%2FStorage-Segments-Fastest-Processor-Smoothest%2Fdp%2FB0GS5M4VMH%2Fref%3Dsr_1_1_sspa%3Fdib%3DeyJ2IjoiMSJ9.WC-6-AyDg1Z-p_Spokek0MmMPRu8b-qll-kkELAN1xKo6CMv6MJjwK7obD6zZFYKCd3rjwPHJJilNTueGpHJfJEgUvSgpGc9phNzaZELG3V0v8S76cF0lPVhCXB0I3tIGlv0oOtPgvF_qhZehdiT-64KjGRbK4TjyTjJpe5NdrguiyLFfvGyyPjB9geHJ3XpbzRifIH7SXsmfhAj6sIAyAtNHeyAmgSQleCxHot1Zq4.-mxa_UkBWsDMnd6mIMKDaVkdytVEiZAr6UZtu61v_Mc%26dib_tag%3Dse%26keywords%3Dmobile%2Bphones%2Bunder%2B50000%26qid%3D1779723657%26sr%3D8-1-spons%26aref%3DvsZqfdiYw3%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9hdGY%26psc%3D1&aref=vsZqfdiYw3&sp_cr=ZAZ",
+          "_href": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo4ODE0ODEyMDg0Mzg2OTQ6MTc3OTcyMzY1ODpzcF9hdGY6MzAxMDM4NzY3NzA1NzMyOjowOjo&url=%2FStorage-Segments-Fastest-Processor-Smoothest%2Fdp%2FB0GS5M4VMH%2Fref%3Dsr_1_1_sspa%3Fdib%3DeyJ2IjoiMSJ9.WC-6-AyDg1Z-p_Spokek0MmMPRu8b-qll-kkELAN1xKo6CMv6MJjwK7obD6zZFYKCd3rjwPHJJilNTueGpHJfJEgUvSgpGc9phNzaZELG3V0v8S76cF0lPVhCXB0I3tIGlv0oOtPgvF_qhZehdiT-64KjGRbK4TjyTjJpe5NdrguiyLFfvGyyPjB9geHJ3XpbzRifIH7SXsmfhAj6sIAyAtNHeyAmgSQleCxHot1Zq4.-mxa_UkBWsDMnd6mIMKDaVkdytVEiZAr6UZtu61v_Mc%26dib_tag%3Dse%26keywords%3Dmobile%2Bphones%2Bunder%2B50000%26qid%3D1779723657%26sr%3D8-1-spons%26aref%3DvsZqfdiYw3%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9hdGY%26psc%3D1&aref=vsZqfdiYw3&sp_cr=ZAZ"
+        },
+        {
+          "name": "Apple iPhone 16e 128 GB: Built for Apple Intelligence, A18 Chip, Supersized Battery Life, 48MP Fusion. Camera, 15.40 cm (6.1\u2033) Super Retina XDR Display; Black",
+          "price": "\u20b959,900",
+          "product_url": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo4ODE0ODEyMDg0Mzg2OTQ6MTc3OTcyMzY1ODpzcF9hdGY6MzAwNDg4NjQ1NTQxMzMyOjowOjo&url=%2FiPhone-16e-128-Intelligence-Supersized%2Fdp%2FB0DXQH1DBS%2Fref%3Dsr_1_2_sspa%3Fdib%3DeyJ2IjoiMSJ9.WC-6-AyDg1Z-p_Spokek0MmMPRu8b-qll-kkELAN1xKo6CMv6MJjwK7obD6zZFYKCd3rjwPHJJilNTueGpHJfJEgUvSgpGc9phNzaZELG3V0v8S76cF0lPVhCXB0I3tIGlv0oOtPgvF_qhZehdiT-64KjGRbK4TjyTjJpe5NdrguiyLFfvGyyPjB9geHJ3XpbzRifIH7SXsmfhAj6sIAyAtNHeyAmgSQleCxHot1Zq4.-mxa_UkBWsDMnd6mIMKDaVkdytVEiZAr6UZtu61v_Mc%26dib_tag%3Dse%26keywords%3Dmobile%2Bphones%2Bunder%2B50000%26qid%3D1779723657%26sr%3D8-2-spons%26aref%3DOK9501wQNZ%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9hdGY%26psc%3D1&aref=OK9501wQNZ&sp_cr=ZAZ",
+          "_href": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo4ODE0ODEyMDg0Mzg2OTQ6MTc3OTcyMzY1ODpzcF9hdGY6MzAwNDg4NjQ1NTQxMzMyOjowOjo&url=%2FiPhone-16e-128-Intelligence-Supersized%2Fdp%2FB0DXQH1DBS%2Fref%3Dsr_1_2_sspa%3Fdib%3DeyJ2IjoiMSJ9.WC-6-AyDg1Z-p_Spokek0MmMPRu8b-qll-kkELAN1xKo6CMv6MJjwK7obD6zZFYKCd3rjwPHJJilNTueGpHJfJEgUvSgpGc9phNzaZELG3V0v8S76cF0lPVhCXB0I3tIGlv0oOtPgvF_qhZehdiT-64KjGRbK4TjyTjJpe5NdrguiyLFfvGyyPjB9geHJ3XpbzRifIH7SXsmfhAj6sIAyAtNHeyAmgSQleCxHot1Zq4.-mxa_UkBWsDMnd6mIMKDaVkdytVEiZAr6UZtu61v_Mc%26dib_tag%3Dse%26keywords%3Dmobile%2Bphones%2Bunder%2B50000%26qid%3D1779723657%26sr%3D8-2-spons%26aref%3DOK9501wQNZ%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9hdGY%26psc%3D1&aref=OK9501wQNZ&sp_cr=ZAZ"
+        },
+        {
+          "name": "Samsung Galaxy S25 FE 5G Smartphone with Galaxy AI (Navy, 8GB RAM, 128GB Storage), 12MP Front Camera, ProVisual Engine, Long Battery Life",
+          "price": "\u20b948,950",
+          "product_url": "https://www.amazon.in/Samsung-Smartphone-Storage-ProVisual-Battery/dp/B0FNMR6KTQ/ref=sr_1_3?dib=eyJ2IjoiMSJ9.WC-6-AyDg1Z-p_Spokek0MmMPRu8b-qll-kkELAN1xKo6CMv6MJjwK7obD6zZFYKCd3rjwPHJJilNTueGpHJfJEgUvSgpGc9phNzaZELG3V0v8S76cF0lPVhCXB0I3tIGlv0oOtPgvF_qhZehdiT-64KjGRbK4TjyTjJpe5NdrguiyLFfvGyyPjB9geHJ3XpbzRifIH7SXsmfhAj6sIAyAtNHeyAmgSQleCxHot1Zq4.-mxa_UkBWsDMnd6mIMKDaVkdytVEiZAr6UZtu61v_Mc&dib_tag=se&keywords=mobile+phones+under+50000&qid=1779723657&sr=8-3",
+          "_href": "https://www.amazon.in/Samsung-Smartphone-Storage-ProVisual-Battery/dp/B0FNMR6KTQ/ref=sr_1_3?dib=eyJ2IjoiMSJ9.WC-6-AyDg1Z-p_Spokek0MmMPRu8b-qll-kkELAN1xKo6CMv6MJjwK7obD6zZFYKCd3rjwPHJJilNTueGpHJfJEgUvSgpGc9phNzaZELG3V0v8S76cF0lPVhCXB0I3tIGlv0oOtPgvF_qhZehdiT-64KjGRbK4TjyTjJpe5NdrguiyLFfvGyyPjB9geHJ3XpbzRifIH7SXsmfhAj6sIAyAtNHeyAmgSQleCxHot1Zq4.-mxa_UkBWsDMnd6mIMKDaVkdytVEiZAr6UZtu61v_Mc&dib_tag=se&keywords=mobile+phones+under+50000&qid=1779723657&sr=8-3"
+        }
+      ]
+    },
+    "failed_step": null,
+    "metadata": {
+      "step_count": 2,
+      "verifier_tiers": {
+        "dismiss_location_popup": "llm",
+        "extract_product_cards": "auto"
+      },
+      "telemetry": {
+        "llm_calls": 3,
+        "llm_prompt_tokens": 7238,
+        "llm_completion_tokens": 215,
+        "llm_total_tokens": 7453,
+        "llm_seconds": 4.65,
+        "vision_calls": 0,
+        "vision_seconds": 0.0,
+        "heal_strategy_counts": {
+          "button_text_candidate": 1,
+          "extract_auto_discover": 1
+        },
+        "step_durations_ms": {
+          "dismiss_location_popup": 2089.4,
+          "extract_product_cards": 120873.1
+        },
+        "total_seconds": 130.08483
+      }
+    }
+  },
+  "seeds": [
+    {
+      "url": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo4ODE0ODEyMDg0Mzg2OTQ6MTc3OTcyMzY1ODpzcF9hdGY6MzAxMDM4NzY3NzA1NzMyOjowOjo&url=%2FStorage-Segments-Fastest-Processor-Smoothest%2Fdp%2FB0GS5M4VMH%2Fref%3Dsr_1_1_sspa%3Fdib%3DeyJ2IjoiMSJ9.WC-6-AyDg1Z-p_Spokek0MmMPRu8b-qll-kkELAN1xKo6CMv6MJjwK7obD6zZFYKCd3rjwPHJJilNTueGpHJfJEgUvSgpGc9phNzaZELG3V0v8S76cF0lPVhCXB0I3tIGlv0oOtPgvF_qhZehdiT-64KjGRbK4TjyTjJpe5NdrguiyLFfvGyyPjB9geHJ3XpbzRifIH7SXsmfhAj6sIAyAtNHeyAmgSQleCxHot1Zq4.-mxa_UkBWsDMnd6mIMKDaVkdytVEiZAr6UZtu61v_Mc%26dib_tag%3Dse%26keywords%3Dmobile%2Bphones%2Bunder%2B50000%26qid%3D1779723657%26sr%3D8-1-spons%26aref%3DvsZqfdiYw3%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9hdGY%26psc%3D1&aref=vsZqfdiYw3&sp_cr=ZAZ",
+      "name": "REDMI A7 Pro 5G (Black, 4GB RAM,128GB Storage) | Segment's Fastest Processor | Segment's Largest Battery | Segment's Largest & Smoothest 6.9in 120Hz Display",
+      "price": "\u20b915,999"
+    },
+    {
+      "url": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo4ODE0ODEyMDg0Mzg2OTQ6MTc3OTcyMzY1ODpzcF9hdGY6MzAwNDg4NjQ1NTQxMzMyOjowOjo&url=%2FiPhone-16e-128-Intelligence-Supersized%2Fdp%2FB0DXQH1DBS%2Fref%3Dsr_1_2_sspa%3Fdib%3DeyJ2IjoiMSJ9.WC-6-AyDg1Z-p_Spokek0MmMPRu8b-qll-kkELAN1xKo6CMv6MJjwK7obD6zZFYKCd3rjwPHJJilNTueGpHJfJEgUvSgpGc9phNzaZELG3V0v8S76cF0lPVhCXB0I3tIGlv0oOtPgvF_qhZehdiT-64KjGRbK4TjyTjJpe5NdrguiyLFfvGyyPjB9geHJ3XpbzRifIH7SXsmfhAj6sIAyAtNHeyAmgSQleCxHot1Zq4.-mxa_UkBWsDMnd6mIMKDaVkdytVEiZAr6UZtu61v_Mc%26dib_tag%3Dse%26keywords%3Dmobile%2Bphones%2Bunder%2B50000%26qid%3D1779723657%26sr%3D8-2-spons%26aref%3DOK9501wQNZ%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9hdGY%26psc%3D1&aref=OK9501wQNZ&sp_cr=ZAZ",
+      "name": "Apple iPhone 16e 128 GB: Built for Apple Intelligence, A18 Chip, Supersized Battery Life, 48MP Fusion. Camera, 15.40 cm (6.1\u2033) Super Retina XDR Display; Black",
+      "price": "\u20b959,900"
+    },
+    {
+      "url": "https://www.amazon.in/Samsung-Smartphone-Storage-ProVisual-Battery/dp/B0FNMR6KTQ/ref=sr_1_3?dib=eyJ2IjoiMSJ9.WC-6-AyDg1Z-p_Spokek0MmMPRu8b-qll-kkELAN1xKo6CMv6MJjwK7obD6zZFYKCd3rjwPHJJilNTueGpHJfJEgUvSgpGc9phNzaZELG3V0v8S76cF0lPVhCXB0I3tIGlv0oOtPgvF_qhZehdiT-64KjGRbK4TjyTjJpe5NdrguiyLFfvGyyPjB9geHJ3XpbzRifIH7SXsmfhAj6sIAyAtNHeyAmgSQleCxHot1Zq4.-mxa_UkBWsDMnd6mIMKDaVkdytVEiZAr6UZtu61v_Mc&dib_tag=se&keywords=mobile+phones+under+50000&qid=1779723657&sr=8-3",
+      "name": "Samsung Galaxy S25 FE 5G Smartphone with Galaxy AI (Navy, 8GB RAM, 128GB Storage), 12MP Front Camera, ProVisual Engine, Long Battery Life",
+      "price": "\u20b948,950"
+    }
+  ],
+  "drill_results": [
+    {
+      "seed": {
+        "url": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo4ODE0ODEyMDg0Mzg2OTQ6MTc3OTcyMzY1ODpzcF9hdGY6MzAxMDM4NzY3NzA1NzMyOjowOjo&url=%2FStorage-Segments-Fastest-Processor-Smoothest%2Fdp%2FB0GS5M4VMH%2Fref%3Dsr_1_1_sspa%3Fdib%3DeyJ2IjoiMSJ9.WC-6-AyDg1Z-p_Spokek0MmMPRu8b-qll-kkELAN1xKo6CMv6MJjwK7obD6zZFYKCd3rjwPHJJilNTueGpHJfJEgUvSgpGc9phNzaZELG3V0v8S76cF0lPVhCXB0I3tIGlv0oOtPgvF_qhZehdiT-64KjGRbK4TjyTjJpe5NdrguiyLFfvGyyPjB9geHJ3XpbzRifIH7SXsmfhAj6sIAyAtNHeyAmgSQleCxHot1Zq4.-mxa_UkBWsDMnd6mIMKDaVkdytVEiZAr6UZtu61v_Mc%26dib_tag%3Dse%26keywords%3Dmobile%2Bphones%2Bunder%2B50000%26qid%3D1779723657%26sr%3D8-1-spons%26aref%3DvsZqfdiYw3%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9hdGY%26psc%3D1&aref=vsZqfdiYw3&sp_cr=ZAZ",
+        "name": "REDMI A7 Pro 5G (Black, 4GB RAM,128GB Storage) | Segment's Fastest Processor | Segment's Largest Battery | Segment's Largest & Smoothest 6.9in 120Hz Display",
+        "price": "\u20b915,999"
+      },
+      "status": "success",
+      "data": {
+        "extract_product_details": [
+          {
+            "price": "\u20b915,999.00",
+            "title": "REDMI A7 Pro 5G (Black, 4GB RAM,128GB Storage) | Segment's Fastest Processor | Segment's Largest Battery | Segment's Largest & Smoothest 6.9in 120Hz Display : Amazon.in: Electronics"
+          }
+        ]
+      },
+      "report": {
+        "status": "success",
+        "goal": "You are on an Amazon product detail page. Skip any login / address / 'continue shopping' interstitial with optional click steps. Then use ONE extract_record step (not extract) to pull these fields in a single call from the page: title, price, variant, review_1, review_2. The extract_record action targets the WHOLE page, not a list of items.",
+        "completed": [
+          {
+            "step_id": "extract_product_details",
+            "action": "extract_record",
+            "heal_strategy": "",
+            "exec_status": "ok",
+            "exec_detail": "extracted 2/5 fields via heuristic",
+            "verify_ok": true,
+            "verify_tier": "auto",
+            "verify_reason": "extracted 1 items (read-only action)",
+            "vision": null,
+            "duration_ms": 1123.5957
+          }
+        ],
+        "extracted_data": {
+          "extract_product_details": [
+            {
+              "price": "\u20b915,999.00",
+              "title": "REDMI A7 Pro 5G (Black, 4GB RAM,128GB Storage) | Segment's Fastest Processor | Segment's Largest Battery | Segment's Largest & Smoothest 6.9in 120Hz Display : Amazon.in: Electronics"
+            }
+          ]
+        },
+        "failed_step": null,
+        "metadata": {
+          "step_count": 1,
+          "verifier_tiers": {
+            "extract_product_details": "auto"
+          },
+          "telemetry": {
+            "llm_calls": 5,
+            "llm_prompt_tokens": 15607,
+            "llm_completion_tokens": 330,
+            "llm_total_tokens": 15937,
+            "llm_seconds": 7.077,
+            "vision_calls": 0,
+            "vision_seconds": 0.0,
+            "heal_strategy_counts": {
+              "button_text_candidate": 1,
+              "extract_auto_discover": 1
+            },
+            "step_durations_ms": {
+              "dismiss_location_popup": 2089.4,
+              "extract_product_cards": 120873.1,
+              "extract_product_details": 1123.6
+            },
+            "total_seconds": 11.019708
+          }
+        }
+      }
+    },
+    {
+      "seed": {
+        "url": "https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo4ODE0ODEyMDg0Mzg2OTQ6MTc3OTcyMzY1ODpzcF9hdGY6MzAwNDg4NjQ1NTQxMzMyOjowOjo&url=%2FiPhone-16e-128-Intelligence-Supersized%2Fdp%2FB0DXQH1DBS%2Fref%3Dsr_1_2_sspa%3Fdib%3DeyJ2IjoiMSJ9.WC-6-AyDg1Z-p_Spokek0MmMPRu8b-qll-kkELAN1xKo6CMv6MJjwK7obD6zZFYKCd3rjwPHJJilNTueGpHJfJEgUvSgpGc9phNzaZELG3V0v8S76cF0lPVhCXB0I3tIGlv0oOtPgvF_qhZehdiT-64KjGRbK4TjyTjJpe5NdrguiyLFfvGyyPjB9geHJ3XpbzRifIH7SXsmfhAj6sIAyAtNHeyAmgSQleCxHot1Zq4.-mxa_UkBWsDMnd6mIMKDaVkdytVEiZAr6UZtu61v_Mc%26dib_tag%3Dse%26keywords%3Dmobile%2Bphones%2Bunder%2B50000%26qid%3D1779723657%26sr%3D8-2-spons%26aref%3DOK9501wQNZ%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9hdGY%26psc%3D1&aref=OK9501wQNZ&sp_cr=ZAZ",
+        "name": "Apple iPhone 16e 128 GB: Built for Apple Intelligence, A18 Chip, Supersized Battery Life, 48MP Fusion. Camera, 15.40 cm (6.1\u2033) Super Retina XDR Display; Black",
+        "price": "\u20b959,900"
+      },
+      "status": "success",
+      "data": {
+        "extract_product_details": [
+          {
+            "price": "\u20b959,900.00",
+            "title": "Apple iPhone 16e"
+          }
+        ]
+      },
+      "report": {
+        "status": "success",
+        "goal": "You are on an Amazon product detail page. Skip any login / address / 'continue shopping' interstitial with optional click steps. Then use ONE extract_record step (not extract) to pull these fields in a single call from the page: title, price, variant, review_1, review_2. The extract_record action targets the WHOLE page, not a list of items.",
+        "completed": [
+          {
+            "step_id": "extract_product_details",
+            "action": "extract_record",
+            "heal_strategy": "",
+            "exec_status": "ok",
+            "exec_detail": "extracted 2/5 fields via heuristic",
+            "verify_ok": true,
+            "verify_tier": "auto",
+            "verify_reason": "extracted 1 items (read-only action)",
+            "vision": null,
+            "duration_ms": 1457.3081
+          }
+        ],
+        "extracted_data": {
+          "extract_product_details": [
+            {
+              "price": "\u20b959,900.00",
+              "title": "Apple iPhone 16e"
+            }
+          ]
+        },
+        "failed_step": null,
+        "metadata": {
+          "step_count": 1,
+          "verifier_tiers": {
+            "extract_product_details": "auto"
+          },
+          "telemetry": {
+            "llm_calls": 7,
+            "llm_prompt_tokens": 23855,
+            "llm_completion_tokens": 448,
+            "llm_total_tokens": 24303,
+            "llm_seconds": 9.949,
+            "vision_calls": 0,
+            "vision_seconds": 0.0,
+            "heal_strategy_counts": {
+              "button_text_candidate": 1,
+              "extract_auto_discover": 1
+            },
+            "step_durations_ms": {
+              "dismiss_location_popup": 2089.4,
+              "extract_product_cards": 120873.1,
+              "extract_product_details": 1457.3
+            },
+            "total_seconds": 19.16948
+          }
+        }
+      }
+    },
+    {
+      "seed": {
+        "url": "https://www.amazon.in/Samsung-Smartphone-Storage-ProVisual-Battery/dp/B0FNMR6KTQ/ref=sr_1_3?dib=eyJ2IjoiMSJ9.WC-6-AyDg1Z-p_Spokek0MmMPRu8b-qll-kkELAN1xKo6CMv6MJjwK7obD6zZFYKCd3rjwPHJJilNTueGpHJfJEgUvSgpGc9phNzaZELG3V0v8S76cF0lPVhCXB0I3tIGlv0oOtPgvF_qhZehdiT-64KjGRbK4TjyTjJpe5NdrguiyLFfvGyyPjB9geHJ3XpbzRifIH7SXsmfhAj6sIAyAtNHeyAmgSQleCxHot1Zq4.-mxa_UkBWsDMnd6mIMKDaVkdytVEiZAr6UZtu61v_Mc&dib_tag=se&keywords=mobile+phones+under+50000&qid=1779723657&sr=8-3",
+        "name": "Samsung Galaxy S25 FE 5G Smartphone with Galaxy AI (Navy, 8GB RAM, 128GB Storage), 12MP Front Camera, ProVisual Engine, Long Battery Life",
+        "price": "\u20b948,950"
+      },
+      "status": "success",
+      "data": {
+        "extract_product_details": [
+          {
+            "price": "\u20b948,950.00",
+            "variant": ", and after setting it up, my first impression is that it's wider compared to the 4-generation-old S2 series, almost like an Ultra series phone. It's fast and installed all my apps without lagging, an",
+            "title": "Samsung Galaxy S25 FE 5G Smartphone with Galaxy AI (Navy, 8GB RAM, 128GB Storage), 12MP Front Camera, ProVisual Engine, Long Battery Life : Amazon.in: Electronics"
+          }
+        ]
+      },
+      "report": {
+        "status": "success",
+        "goal": "You are on an Amazon product detail page. Skip any login / address / 'continue shopping' interstitial with optional click steps. Then use ONE extract_record step (not extract) to pull these fields in a single call from the page: title, price, variant, review_1, review_2. The extract_record action targets the WHOLE page, not a list of items.",
+        "completed": [
+          {
+            "step_id": "extract_product_details",
+            "action": "extract_record",
+            "heal_strategy": "",
+            "exec_status": "ok",
+            "exec_detail": "extracted 3/5 fields via heuristic",
+            "verify_ok": true,
+            "verify_tier": "auto",
+            "verify_reason": "extracted 1 items (read-only action)",
+            "vision": null,
+            "duration_ms": 1227.4081
+          }
+        ],
+        "extracted_data": {
+          "extract_product_details": [
+            {
+              "price": "\u20b948,950.00",
+              "variant": ", and after setting it up, my first impression is that it's wider compared to the 4-generation-old S2 series, almost like an Ultra series phone. It's fast and installed all my apps without lagging, an",
+              "title": "Samsung Galaxy S25 FE 5G Smartphone with Galaxy AI (Navy, 8GB RAM, 128GB Storage), 12MP Front Camera, ProVisual Engine, Long Battery Life : Amazon.in: Electronics"
+            }
+          ]
+        },
+        "failed_step": null,
+        "metadata": {
+          "step_count": 1,
+          "verifier_tiers": {
+            "extract_product_details": "auto"
+          },
+          "telemetry": {
+            "llm_calls": 9,
+            "llm_prompt_tokens": 32050,
+            "llm_completion_tokens": 566,
+            "llm_total_tokens": 32616,
+            "llm_seconds": 12.958,
+            "vision_calls": 0,
+            "vision_seconds": 0.0,
+            "heal_strategy_counts": {
+              "button_text_candidate": 1,
+              "extract_auto_discover": 1
+            },
+            "step_durations_ms": {
+              "dismiss_location_popup": 2089.4,
+              "extract_product_cards": 120873.1,
+              "extract_product_details": 1227.4
+            },
+            "total_seconds": 16.239596
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{"workflow_id":"wf-214bdfdaad82","steps":[{"workflow_id":"wf-214bdfdaad82","step_id":"click_checkbox","status":"heal_failed","locator_used":{},"healer_stage":"","page_signature_hash":"c8caead7b4c6c99f","duration_ms":6406.9244,"failure_reason":"All healing stages failed to produce a valid locator.","note":"","recorded_at":"2026-05-25T17:29:25.819330+00:00"}],"metadata":{}}

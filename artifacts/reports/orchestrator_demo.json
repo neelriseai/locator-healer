@@ -1,0 +1,117 @@
+{
+  "status": "failed",
+  "goal": "Fill the Text Box form on demoqa with Full Name 'Demo User', Email 'demo@example.com', Current Address 'Bangalore', Permanent Address 'Mysuru', and click the Submit button.",
+  "plan": [
+    {
+      "step_id": "fill_full_name",
+      "intent": "Fill in the Full Name field",
+      "action": "fill",
+      "target_label": "Full Name",
+      "target_kind": "input",
+      "expected_outcome": "Full Name field shows Demo User",
+      "optional": false
+    },
+    {
+      "step_id": "fill_email",
+      "intent": "Fill in the Email field",
+      "action": "fill",
+      "target_label": "Email",
+      "target_kind": "input",
+      "expected_outcome": "Email field shows demo@example.com",
+      "optional": false
+    },
+    {
+      "step_id": "fill_current_address",
+      "intent": "Fill in the Current Address field",
+      "action": "fill",
+      "target_label": "Current Address",
+      "target_kind": "textarea",
+      "expected_outcome": "Current Address field shows Bangalore",
+      "optional": false
+    },
+    {
+      "step_id": "fill_permanent_address",
+      "intent": "Fill in the Permanent Address field",
+      "action": "fill",
+      "target_label": "Permanent Address",
+      "target_kind": "textarea",
+      "expected_outcome": "Permanent Address field shows Mysuru",
+      "optional": false
+    },
+    {
+      "step_id": "click_submit",
+      "intent": "Submit the form",
+      "action": "click",
+      "target_label": "Submit",
+      "target_kind": "button",
+      "expected_outcome": "Form is submitted",
+      "optional": false
+    }
+  ],
+  "completed": [
+    {
+      "step_id": "fill_full_name",
+      "action": "fill",
+      "heal_status": "success",
+      "heal_strategy": "bidirectional_anchor_field",
+      "locator": "xpath://*[(self::label or self::span) and (normalize-space()='Full Name' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'full name'))]/following::input[not(ancestor::*[@role='grid' or contains(@class,'grid')])][1]",
+      "execution": "ok",
+      "verify_ok": true,
+      "verify_tier": "auto",
+      "duration_ms": 173.2018
+    },
+    {
+      "step_id": "fill_email",
+      "action": "fill",
+      "heal_status": "success",
+      "heal_strategy": "bidirectional_anchor_field",
+      "locator": "xpath://*[(self::label or self::span) and (normalize-space()='Email' or contains(translate(normalize-space(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'),'email'))]/following::input[@type='email' and not(ancestor::*[@role='grid' or contains(@class,'grid')])][1]",
+      "execution": "ok",
+      "verify_ok": true,
+      "verify_tier": "auto",
+      "duration_ms": 174.0427
+    },
+    {
+      "step_id": "fill_current_address",
+      "action": "fill",
+      "heal_status": "success",
+      "heal_strategy": "page_index.rank:7cbe3278-b74d-4873-ba67-7e5694adb8ea",
+      "locator": "css:[id=\"currentAddress-wrapper\"]",
+      "execution": "ok",
+      "verify_ok": true,
+      "verify_tier": "auto",
+      "duration_ms": 398.0864
+    },
+    {
+      "step_id": "fill_permanent_address",
+      "action": "fill",
+      "heal_status": "success",
+      "heal_strategy": "page_index.rank:d9eca41a-550f-47f7-8bcd-933e111524c5",
+      "locator": "css:[id=\"permanentAddress-wrapper\"]",
+      "execution": "ok",
+      "verify_ok": true,
+      "verify_tier": "auto",
+      "duration_ms": 140.0998
+    },
+    {
+      "step_id": "click_submit",
+      "action": "click",
+      "heal_status": "success",
+      "heal_strategy": "button_text_candidate",
+      "locator": "role:button",
+      "execution": "ok",
+      "verify_ok": false,
+      "verify_tier": "llm",
+      "duration_ms": 1063.1053
+    }
+  ],
+  "failed_step": {
+    "step_id": "click_submit",
+    "action": "click",
+    "execution": "click dispatched",
+    "verification": {
+      "ok": false,
+      "reason": "No evidence of form submission in snapshot"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "finding": "Yes, Flipkart showed a results grid.",
+  "evidence": "In frame[4], a grid of phone models is visible.",
+  "frame_index": 4,
+  "confidence": 1.0,
+  "suggested_action": "List the phone models.",
+  "frames_used": 6,
+  "transcript_chars": 0,
+  "source": "",
+  "error": "",
+  "metadata": {}
+}

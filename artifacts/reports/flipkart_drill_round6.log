@@ -1,0 +1,33 @@
+2026-05-25 20:37:29,753 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+
+[phase 1] You are on a Flipkart search results page for mobile phones under 50000 rupees. Dismiss any login / signup popup with an optional click step (this is a browsing task, no login needed). Then EXTRACT the first 3 product cards: for each card pull product title, visible price, and the URL of the product detail page. Use the extract action with fields name, price, and product_url; this is the ONLY data-collection step you need.
+  url: https://www.flipkart.com/search?q=mobile+phones+under+50000
+
+  [phase1_list] status=success steps=1
+    - extract_first_3_products       extract        healer=extract_auto_discover    exec=ok       v=ok (auto)
+    telemetry: llm_calls=2 tokens=5798 vision=0 total=113.71s strategies={'extract_auto_discover': 1}
+
+  collected 3 product URLs from phase 1.
+
+==== drilling 1/3 -> https://www.flipkart.com/oneplus-12-glacial-white-256-gb/p/itm7069fb212f1f2?pid=
+
+  [drill[OnePlus 12 (Glacial White, 256 GB)]] status=success steps=1
+    - extract_product_details        extract_record healer=-                        exec=ok       v=ok (auto)
+    telemetry: llm_calls=4 tokens=15222 vision=0 total=4.77s strategies={'extract_auto_discover': 1}
+
+==== drilling 2/3 -> https://www.flipkart.com/xiaomi-14-civi-hot-pink-512-gb/p/itm52d98cf19215d?pid=M
+
+  [drill[Xiaomi 14 CIVI (Hot Pink, 512 GB)]] status=success steps=1
+    - extract_product_detail         extract_record healer=-                        exec=ok       v=ok (auto)
+    telemetry: llm_calls=6 tokens=24604 vision=0 total=4.56s strategies={'extract_auto_discover': 1}
+
+==== drilling 3/3 -> https://www.flipkart.com/google-pixel-10a-fog-256-gb/p/itmeaa46d52e228a?pid=MOBH
+
+  [drill[Google Pixel 10a (Fog, 256 GB)]] status=success steps=1
+    - extract_product_details        extract_record healer=-                        exec=ok       v=ok (auto)
+    telemetry: llm_calls=8 tokens=33984 vision=0 total=4.62s strategies={'extract_auto_discover': 1}
+
+  artifact: C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\reports\flipkart_drill_demo.json
+  recording: mode=screenshots shots=1
+
+  TOP-LINE: phase1=success drill_ok=3/3

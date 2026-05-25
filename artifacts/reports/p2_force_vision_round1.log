@@ -1,0 +1,26 @@
+2026-05-25 21:24:48,017 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+
+=== Result: failed ===
+  - click_first_product_title action=click heal_strategy=visual_candidate_pick exec=ok verify=fail
+
+=== Telemetry ===
+{
+  "llm_calls": 2,
+  "llm_prompt_tokens": 4937,
+  "llm_completion_tokens": 124,
+  "llm_total_tokens": 5061,
+  "llm_seconds": 9.335,
+  "vision_calls": 2,
+  "vision_seconds": 9.141,
+  "heal_strategy_counts": {
+    "visual_candidate_pick": 1
+  },
+  "step_durations_ms": {
+    "click_first_product_title": 4189.4
+  },
+  "total_seconds": 23.920539
+}
+
+PASS: visual_candidate_pick fired in a live run.
+
+  recording: shots=1

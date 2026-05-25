@@ -1,0 +1,116 @@
+{
+  "workers": 10,
+  "results": [
+    {
+      "worker_id": 0,
+      "element": "full_name",
+      "expected_label": "Full Name",
+      "heal_status": "success",
+      "heal_strategy": "bidirectional_anchor_field",
+      "healed_kind": "xpath",
+      "node_correct": true,
+      "counter_id": 1721400855008,
+      "ok": true
+    },
+    {
+      "worker_id": 1,
+      "element": "email",
+      "expected_label": "Email",
+      "heal_status": "success",
+      "heal_strategy": "bidirectional_anchor_field",
+      "healed_kind": "xpath",
+      "node_correct": true,
+      "counter_id": 1721400127472,
+      "ok": true
+    },
+    {
+      "worker_id": 2,
+      "element": "current_address",
+      "expected_label": "Current Address",
+      "heal_status": "success",
+      "heal_strategy": "bidirectional_anchor_field",
+      "healed_kind": "xpath",
+      "node_correct": true,
+      "counter_id": 1721400127136,
+      "ok": true
+    },
+    {
+      "worker_id": 3,
+      "element": "permanent_address",
+      "expected_label": "Permanent Address",
+      "heal_status": "success",
+      "heal_strategy": "bidirectional_anchor_field",
+      "healed_kind": "xpath",
+      "node_correct": true,
+      "counter_id": 1721400127696,
+      "ok": true
+    },
+    {
+      "worker_id": 4,
+      "element": "submit",
+      "expected_label": "Submit",
+      "heal_status": "success",
+      "heal_strategy": "button_text_candidate",
+      "healed_kind": "role",
+      "node_correct": true,
+      "counter_id": 1721400127808,
+      "ok": true
+    },
+    {
+      "worker_id": 5,
+      "element": "full_name",
+      "expected_label": "Full Name",
+      "heal_status": "success",
+      "heal_strategy": "bidirectional_anchor_field",
+      "healed_kind": "xpath",
+      "node_correct": true,
+      "counter_id": 1721400127920,
+      "ok": true
+    },
+    {
+      "worker_id": 6,
+      "element": "email",
+      "expected_label": "Email",
+      "heal_status": "success",
+      "heal_strategy": "bidirectional_anchor_field",
+      "healed_kind": "xpath",
+      "node_correct": true,
+      "counter_id": 1721400128032,
+      "ok": true
+    },
+    {
+      "worker_id": 7,
+      "element": "current_address",
+      "expected_label": "Current Address",
+      "heal_status": "success",
+      "heal_strategy": "bidirectional_anchor_field",
+      "healed_kind": "xpath",
+      "node_correct": true,
+      "counter_id": 1721400128144,
+      "ok": true
+    },
+    {
+      "worker_id": 8,
+      "element": "permanent_address",
+      "expected_label": "Permanent Address",
+      "heal_status": "success",
+      "heal_strategy": "bidirectional_anchor_field",
+      "healed_kind": "xpath",
+      "node_correct": true,
+      "counter_id": 1721400128256,
+      "ok": true
+    },
+    {
+      "worker_id": 9,
+      "element": "submit",
+      "expected_label": "Submit",
+      "heal_status": "success",
+      "heal_strategy": "button_text_candidate",
+      "healed_kind": "role",
+      "node_correct": true,
+      "counter_id": 1721400128368,
+      "ok": true
+    }
+  ],
+  "overall_ok": true
+}

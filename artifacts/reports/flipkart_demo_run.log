@@ -1,0 +1,29 @@
+2026-05-24 20:25:05,954 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+
+=== Flipkart agentic demo ===
+  goal: On flipkart.com, search for 'mobile phones', sort by Newest, then read the first 5 results and tell me their product name, price (in INR), and overall rating. Skip any product priced above 90000 rupees. Skip any login or popup modals.
+  url:  https://www.flipkart.com
+  headed: True
+
+
+=== RESULT: failed ===
+  plan:
+    - fill_search: fill 'Search for Products, Brands and More'  value='mobile phones'
+    - submit_search: press_key 'Search for Products, Brands and More'  value='Enter'
+    - wait_results: wait ''  value='networkidle'
+    - sort_newest: click 'Newest'
+    - extract_results: extract 'product cards'  value='{"fields":["name","price","rating"],"limit":5}'
+  completed: 2
+    - fill_search                    action=fill        healer=multi_field_text_resolver exec=ok       verify=ok   tier=auto        (222ms)
+    - submit_search                  action=press_key   healer=multi_field_text_resolver exec=ok       verify=fail tier=llm         (1106ms)
+  FAILED step: submit_search (press_key)
+    execution: ok: pressed 'Enter' on element
+    verification: ok=False (llm): No snapshot provided to verify results grid visibility
+    visual: ok=True conf=1.0 finding='The intended outcome of displaying the search results grid did occur after submitting the search.'
+
+  visual findings:
+    - submit_search: ok=True conf=1.0 finding='The intended outcome of displaying the search results grid did occur after submitting the search.'
+
+  recording: mode=screenshots video=- shots=2 duration=12.8s
+
+  artifact: C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\reports\flipkart_demo.json

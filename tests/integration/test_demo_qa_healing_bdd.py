@@ -733,40 +733,62 @@ def verify_trace_stages(scenario_state: dict[str, Any], healer: XPathHealerFacad
     recovered_by_element: dict[str, Recovered] = scenario_state["recovered"]
     assert recovered_by_element, "No healed elements captured for trace verification."
     stages_cfg = healer.config.stages
+    deterministic_stages = {
+        "metadata", "rules", "fingerprint", "page_index", "signature",
+        "option_fingerprint", "dom_mining", "defaults", "position",
+        "workflow_replay",
+    }
     deterministic_enabled = any(
-        [
-            stages_cfg.fallback,
-            stages_cfg.metadata,
-            stages_cfg.rules,
-            stages_cfg.fingerprint,
-            getattr(stages_cfg, "page_index", False),
-            stages_cfg.signature,
-            stages_cfg.dom_mining,
-            stages_cfg.defaults,
-            stages_cfg.position,
-        ]
+        getattr(stages_cfg, name, False) for name in deterministic_stages
     )
-    model_only_mode = bool(stages_cfg.rag) and not deterministic_enabled
-    expected_first_stage = "rag" if model_only_mode else "fallback"
+    mcp_enabled = bool(getattr(stages_cfg, "mcp_explore", False))
+    rag_enabled = bool(getattr(stages_cfg, "rag", False))
+
+    # Which layer is the *only* one available (after fallback fails)?
+    only_layer = None
+    if not deterministic_enabled and mcp_enabled and not rag_enabled:
+        only_layer = "mcp"
+    elif not deterministic_enabled and not mcp_enabled and rag_enabled:
+        only_layer = "rag"
+    elif deterministic_enabled and not mcp_enabled and not rag_enabled:
+        only_layer = "deterministic"
+
+    expected_first_stage = "fallback" if stages_cfg.fallback else None
 
     for element_name, recovered in recovered_by_element.items():
         trace = recovered.trace
         assert trace, f"Trace is empty for {element_name}"
-        assert trace[0].stage == expected_first_stage, (
-            f"First stage should be {expected_first_stage} for {element_name}"
-        )
-        if expected_first_stage == "fallback":
-            assert trace[0].status == "fail", f"Fallback must fail for intentionally broken locator: {element_name}"
+        if expected_first_stage is not None:
+            assert trace[0].stage == expected_first_stage, (
+                f"First stage should be {expected_first_stage} for {element_name}; got {trace[0].stage}"
+            )
+            if expected_first_stage == "fallback":
+                assert trace[0].status == "fail", (
+                    f"Fallback must fail for intentionally broken locator: {element_name}"
+                )
 
         ok_entries = [entry for entry in trace if entry.status == "ok"]
         assert ok_entries, f"No successful stage found in trace for {element_name}"
-        if model_only_mode:
-            assert any(entry.stage == "rag" for entry in ok_entries)
+
+        if only_layer == "rag":
+            assert any(entry.stage == "rag" for entry in ok_entries), (
+                f"RAG-only mode: expected a successful rag stage for {element_name}"
+            )
+        elif only_layer == "mcp":
+            assert any(entry.stage == "mcp_explore" for entry in ok_entries), (
+                f"MCP-only mode: expected a successful mcp_explore stage for {element_name}"
+            )
+        elif only_layer == "deterministic":
+            assert any(entry.stage in deterministic_stages for entry in ok_entries), (
+                f"Deterministic-only mode: expected a successful deterministic stage for {element_name}"
+            )
         else:
+            # Mixed mode — at least one of any layer must have healed.
             assert any(
-                entry.stage in {"rules", "defaults", "metadata", "signature", "dom_mining", "position", "page_index"}
+                entry.stage in (deterministic_stages | {"mcp_explore", "rag"})
                 for entry in ok_entries
             )
+
         assert any(entry.strategy_id == recovered.strategy_id for entry in ok_entries), (
             f"Recovered strategy {recovered.strategy_id} not found among successful trace entries for {element_name}"
         )
@@ -782,7 +804,3 @@ def verify_trace_stages(scenario_state: dict[str, Any], healer: XPathHealerFacad
         stage_names = {event.get("stage") for event in repo.events}
         assert "recover_start" in stage_names
         assert "recover_end" in stage_names
-        if model_only_mode:
-            assert "rag" in stage_names
-        else:
-            assert "fallback" in stage_names

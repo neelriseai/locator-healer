@@ -204,6 +204,24 @@ class ElementSignature:
     short_text: str = ""
     container_path: list[str] = field(default_factory=list)
     component_kind: str | None = None
+    # Choice-element semantics (Phase 2 — label-change tolerant healing).
+    # Free-form dict so different field types can carry different shapes
+    # without schema churn. Conventional keys:
+    #   select / dropdown / combobox:
+    #     {"values": [...], "texts": [...]}
+    #   radio / checkbox group:
+    #     {"group_name": "<name>", "values": [...], "labels": [...]}
+    #   textbox / input:
+    #     {"name": "...", "placeholder": "...", "pattern": "...",
+    #      "autocomplete": "...", "maxlength": "..."}
+    # Empty when the element has no choice/identity semantics worth
+    # persisting — all persisted rows from earlier versions hydrate to {}.
+    option_set: dict[str, Any] = field(default_factory=dict)
+    # Path of stable container tokens from the nearest discriminating
+    # ancestor down to (but not including) the element. Populated by the
+    # graph-grounding pass; consumers use it to scope candidate search.
+    # Empty for legacy rows or when no stable container was found.
+    container_lca_path: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -212,6 +230,8 @@ class ElementSignature:
             "short_text": self.short_text,
             "container_path": self.container_path,
             "component_kind": self.component_kind,
+            "option_set": self.option_set,
+            "container_lca_path": self.container_lca_path,
         }
 
     @classmethod
@@ -222,6 +242,8 @@ class ElementSignature:
             short_text=str(payload.get("short_text") or ""),
             container_path=list(payload.get("container_path") or []),
             component_kind=payload.get("component_kind"),
+            option_set=dict(payload.get("option_set") or {}),
+            container_lca_path=list(payload.get("container_lca_path") or []),
         )
 
 
@@ -328,6 +350,14 @@ class Recovered:
     strategy_id: str | None = None
     trace: list[StrategyTrace] = field(default_factory=list)
     error: str | None = None
+    # Phase 4c — optional workflow-level rewrite proposal. Always
+    # ``None`` for locator-only callers (the rewrite agent only runs
+    # inside recover_workflow_step). Populated when the cascade failed
+    # AND the workflow rewrite agent committed a structured proposal
+    # (action ∈ {"skip", "abort"} in the MVP). The outer agent decides
+    # whether to honour the proposal — the healer never auto-executes.
+    # Typed as ``Any`` to avoid a models ⇄ core.workflow import cycle.
+    rewrite_proposal: Any = None
 
     @property
     def playwright_locator(self) -> Any:
@@ -342,6 +372,9 @@ class Recovered:
         return getattr(self.runtime_locator, "raw", self.runtime_locator)
 
     def to_dict(self) -> dict[str, Any]:
+        rewrite_dict: Any = None
+        if self.rewrite_proposal is not None and hasattr(self.rewrite_proposal, "to_dict"):
+            rewrite_dict = self.rewrite_proposal.to_dict()
         return {
             "status": self.status,
             "correlation_id": self.correlation_id,
@@ -350,6 +383,7 @@ class Recovered:
             "strategy_id": self.strategy_id,
             "trace": [entry.to_dict() for entry in self.trace],
             "error": self.error,
+            "rewrite_proposal": rewrite_dict,
         }
 
 
@@ -366,6 +400,14 @@ class BuildInput:
     hints: HealingHints | None = None
     correlation_id: str = ""
     existing_meta: ElementMeta | None = None
+    # Phase 4a — workflow-aware healing.
+    # ``None`` for plain ``recover_locator`` callers (preserves the
+    # locator-level API surface). Set by ``recover_workflow_step`` so
+    # downstream stages (and the MCP explorer prompt) can reason about
+    # the step in the context of the surrounding workflow.
+    # Typed as ``Any`` here to avoid an import cycle with the workflow
+    # module — runtime checks use ``hasattr(..., "current_step")``.
+    workflow_context: Any = None
 
 
 @dataclass(slots=True)

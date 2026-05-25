@@ -1,0 +1,19 @@
+2026-05-24 22:28:51,623 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+
+[phase 1] LIST goal: You are on an Amazon.in search results page for mobile phones under 50000 rupees. Dismiss any login / address / location pincode popup (this is a browsing task, no delivery address needed). Sort the results by Price: Low to High using the visible sort control. Then read the first 3 sorted product cards' title, visible price, and the URL of each product.
+
+  [phase1_list] status=failed steps=3
+    - sort_by_price_low_to_high      select      healer=-                        exec=-        v=fail (n/a)
+    - sort_by_price_low_to_high__vis_dismiss click       healer=-                        exec=skipped  v=fail (n/a)
+    - sort_by_price_low_to_high      select      healer=page_index.rank:5e706b9e-8221-4b6a-9198-cdab6a84a679 exec=ok       v=fail (llm)
+    FAILED: sort_by_price_low_to_high (select)
+      exec: set value='Price: Low to High' via JS
+      verify: Snapshot shows sort option set but no evidence of results sorted by price
+      vision: ok=False conf=0.98 finding="The sort option changed to 'Price: Low to High', but there is no visible evidence that the results list was actually re-sorted by price."
+
+  collected 0 product URLs from phase 1.
+
+  artifact: C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\reports\amazon_demo.json
+  recording: mode=screenshots video=- shots=3 duration=103.6s
+
+  TOP-LINE: phase1=failed drill_ok=0/0

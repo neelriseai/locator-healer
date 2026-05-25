@@ -1,0 +1,237 @@
+{
+  "phase1": {
+    "status": "success",
+    "goal": "You are on a Flipkart search results page for mobile phones under 50000 rupees. Dismiss any login / signup popup with an optional click step (this is a browsing task, no login needed). Then EXTRACT the first 3 product cards: for each card pull product title, visible price, and the URL of the product detail page. Use the extract action with fields name, price, and product_url; this is the ONLY data-collection step you need.",
+    "completed": [
+      {
+        "step_id": "extract_first_3_products",
+        "action": "extract",
+        "heal_strategy": "extract_auto_discover",
+        "exec_status": "ok",
+        "exec_detail": "extracted 3 items via llm",
+        "verify_ok": true,
+        "verify_tier": "auto"
+      }
+    ],
+    "extracted_data": {
+      "extract_first_3_products": [
+        {
+          "name": "OnePlus 12 (Glacial White, 256 GB)",
+          "price": "₹48,499",
+          "product_url": "https://www.flipkart.com/oneplus-12-glacial-white-256-gb/p/itm7069fb212f1f2?pid=MOBHFHKFG7MEZJH3&lid=LSTMOBHFHKFG7MEZJH3DUD27M&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_1&otracker=search&fm=organic&iid=68f7c5d5-4427-4b20-a903-f28b86583ca6.MOBHFHKFG7MEZJH3.SEARCH&ppt=None&ppn=None&ssid=7ousxcl3400000001779724926513&qH=aa91131d89b4f902&ov_redirect=true",
+          "_href": "https://www.flipkart.com/oneplus-12-glacial-white-256-gb/p/itm7069fb212f1f2?pid=MOBHFHKFG7MEZJH3&lid=LSTMOBHFHKFG7MEZJH3DUD27M&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_1&otracker=search&fm=organic&iid=68f7c5d5-4427-4b20-a903-f28b86583ca6.MOBHFHKFG7MEZJH3.SEARCH&ppt=None&ppn=None&ssid=7ousxcl3400000001779724926513&qH=aa91131d89b4f902&ov_redirect=true"
+        },
+        {
+          "name": "Xiaomi 14 CIVI (Hot Pink, 512 GB)",
+          "price": "₹44,999",
+          "product_url": "https://www.flipkart.com/xiaomi-14-civi-hot-pink-512-gb/p/itm52d98cf19215d?pid=MOBH3YHAWYUWU4SH&lid=LSTMOBH3YHAWYUWU4SHHJYXWY&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_2&otracker=search&fm=organic&iid=68f7c5d5-4427-4b20-a903-f28b86583ca6.MOBH3YHAWYUWU4SH.SEARCH&ppt=None&ppn=None&ssid=7ousxcl3400000001779724926513&qH=aa91131d89b4f902&ov_redirect=true",
+          "_href": "https://www.flipkart.com/xiaomi-14-civi-hot-pink-512-gb/p/itm52d98cf19215d?pid=MOBH3YHAWYUWU4SH&lid=LSTMOBH3YHAWYUWU4SHHJYXWY&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_2&otracker=search&fm=organic&iid=68f7c5d5-4427-4b20-a903-f28b86583ca6.MOBH3YHAWYUWU4SH.SEARCH&ppt=None&ppn=None&ssid=7ousxcl3400000001779724926513&qH=aa91131d89b4f902&ov_redirect=true"
+        },
+        {
+          "name": "Google Pixel 10a (Fog, 256 GB)",
+          "price": "₹49,999",
+          "product_url": "https://www.flipkart.com/google-pixel-10a-fog-256-gb/p/itmeaa46d52e228a?pid=MOBHK7FHFTXREG7T&lid=LSTMOBHK7FHFTXREG7T27ARKT&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_3&otracker=search&fm=organic&iid=68f7c5d5-4427-4b20-a903-f28b86583ca6.MOBHK7FHFTXREG7T.SEARCH&ppt=None&ppn=None&ssid=7ousxcl3400000001779724926513&qH=aa91131d89b4f902&ov_redirect=true",
+          "_href": "https://www.flipkart.com/google-pixel-10a-fog-256-gb/p/itmeaa46d52e228a?pid=MOBHK7FHFTXREG7T&lid=LSTMOBHK7FHFTXREG7T27ARKT&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_3&otracker=search&fm=organic&iid=68f7c5d5-4427-4b20-a903-f28b86583ca6.MOBHK7FHFTXREG7T.SEARCH&ppt=None&ppn=None&ssid=7ousxcl3400000001779724926513&qH=aa91131d89b4f902&ov_redirect=true"
+        }
+      ]
+    },
+    "telemetry": {
+      "llm_calls": 2,
+      "llm_prompt_tokens": 5639,
+      "llm_completion_tokens": 152,
+      "llm_total_tokens": 5791,
+      "llm_seconds": 6.404,
+      "vision_calls": 0,
+      "vision_seconds": 0.0,
+      "heal_strategy_counts": {
+        "extract_auto_discover": 1
+      },
+      "step_durations_ms": {
+        "extract_first_3_products": 188452.6
+      },
+      "total_seconds": 198.384958
+    }
+  },
+  "seeds": [
+    {
+      "url": "https://www.flipkart.com/oneplus-12-glacial-white-256-gb/p/itm7069fb212f1f2?pid=MOBHFHKFG7MEZJH3&lid=LSTMOBHFHKFG7MEZJH3DUD27M&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_1&otracker=search&fm=organic&iid=68f7c5d5-4427-4b20-a903-f28b86583ca6.MOBHFHKFG7MEZJH3.SEARCH&ppt=None&ppn=None&ssid=7ousxcl3400000001779724926513&qH=aa91131d89b4f902&ov_redirect=true",
+      "name": "OnePlus 12 (Glacial White, 256 GB)",
+      "price": "₹48,499"
+    },
+    {
+      "url": "https://www.flipkart.com/xiaomi-14-civi-hot-pink-512-gb/p/itm52d98cf19215d?pid=MOBH3YHAWYUWU4SH&lid=LSTMOBH3YHAWYUWU4SHHJYXWY&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_2&otracker=search&fm=organic&iid=68f7c5d5-4427-4b20-a903-f28b86583ca6.MOBH3YHAWYUWU4SH.SEARCH&ppt=None&ppn=None&ssid=7ousxcl3400000001779724926513&qH=aa91131d89b4f902&ov_redirect=true",
+      "name": "Xiaomi 14 CIVI (Hot Pink, 512 GB)",
+      "price": "₹44,999"
+    },
+    {
+      "url": "https://www.flipkart.com/google-pixel-10a-fog-256-gb/p/itmeaa46d52e228a?pid=MOBHK7FHFTXREG7T&lid=LSTMOBHK7FHFTXREG7T27ARKT&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_3&otracker=search&fm=organic&iid=68f7c5d5-4427-4b20-a903-f28b86583ca6.MOBHK7FHFTXREG7T.SEARCH&ppt=None&ppn=None&ssid=7ousxcl3400000001779724926513&qH=aa91131d89b4f902&ov_redirect=true",
+      "name": "Google Pixel 10a (Fog, 256 GB)",
+      "price": "₹49,999"
+    }
+  ],
+  "drills": [
+    {
+      "seed": {
+        "url": "https://www.flipkart.com/oneplus-12-glacial-white-256-gb/p/itm7069fb212f1f2?pid=MOBHFHKFG7MEZJH3&lid=LSTMOBHFHKFG7MEZJH3DUD27M&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_1&otracker=search&fm=organic&iid=68f7c5d5-4427-4b20-a903-f28b86583ca6.MOBHFHKFG7MEZJH3.SEARCH&ppt=None&ppn=None&ssid=7ousxcl3400000001779724926513&qH=aa91131d89b4f902&ov_redirect=true",
+        "name": "OnePlus 12 (Glacial White, 256 GB)",
+        "price": "₹48,499"
+      },
+      "status": "success",
+      "report": {
+        "status": "success",
+        "goal": "You are on a Flipkart product detail page. Dismiss any login popup with an optional click step. Then use ONE extract_record step (not extract) to pull these fields in a single call from the page: title, price, variant, review_1, review_2. The extract_record action targets the whole page, not a list.",
+        "completed": [
+          {
+            "step_id": "extract_product_details",
+            "action": "extract_record",
+            "heal_strategy": "",
+            "exec_status": "ok",
+            "exec_detail": "extracted 3/5 fields via llm",
+            "verify_ok": true,
+            "verify_tier": "auto"
+          }
+        ],
+        "extracted_data": {
+          "extract_product_details": [
+            {
+              "title": "OnePlus 12 (256 GB Storage, 12 GB RAM) Online at Best Price On Flipkart.com",
+              "price": "₹48,499",
+              "variant": "256 GB + 12 GB"
+            }
+          ]
+        },
+        "telemetry": {
+          "llm_calls": 2,
+          "llm_prompt_tokens": 9275,
+          "llm_completion_tokens": 143,
+          "llm_total_tokens": 9418,
+          "llm_seconds": 3.006,
+          "vision_calls": 0,
+          "vision_seconds": 0.0,
+          "heal_strategy_counts": {},
+          "step_durations_ms": {
+            "extract_product_details": 1219.0
+          },
+          "total_seconds": 6.255522
+        }
+      },
+      "data": {
+        "extract_product_details": [
+          {
+            "title": "OnePlus 12 (256 GB Storage, 12 GB RAM) Online at Best Price On Flipkart.com",
+            "price": "₹48,499",
+            "variant": "256 GB + 12 GB"
+          }
+        ]
+      }
+    },
+    {
+      "seed": {
+        "url": "https://www.flipkart.com/xiaomi-14-civi-hot-pink-512-gb/p/itm52d98cf19215d?pid=MOBH3YHAWYUWU4SH&lid=LSTMOBH3YHAWYUWU4SHHJYXWY&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_2&otracker=search&fm=organic&iid=68f7c5d5-4427-4b20-a903-f28b86583ca6.MOBH3YHAWYUWU4SH.SEARCH&ppt=None&ppn=None&ssid=7ousxcl3400000001779724926513&qH=aa91131d89b4f902&ov_redirect=true",
+        "name": "Xiaomi 14 CIVI (Hot Pink, 512 GB)",
+        "price": "₹44,999"
+      },
+      "status": "success",
+      "report": {
+        "status": "success",
+        "goal": "You are on a Flipkart product detail page. Dismiss any login popup with an optional click step. Then use ONE extract_record step (not extract) to pull these fields in a single call from the page: title, price, variant, review_1, review_2. The extract_record action targets the whole page, not a list.",
+        "completed": [
+          {
+            "step_id": "extract_product_details",
+            "action": "extract_record",
+            "heal_strategy": "",
+            "exec_status": "ok",
+            "exec_detail": "extracted 3/5 fields via llm",
+            "verify_ok": true,
+            "verify_tier": "auto"
+          }
+        ],
+        "extracted_data": {
+          "extract_product_details": [
+            {
+              "title": "Mi 14 CIVI (512 GB Storage, 12 GB RAM) Online at Best Price On Flipkart.com",
+              "price": "₹44,999",
+              "variant": "512 GB + 12 GB"
+            }
+          ]
+        },
+        "telemetry": {
+          "llm_calls": 2,
+          "llm_prompt_tokens": 9268,
+          "llm_completion_tokens": 143,
+          "llm_total_tokens": 9411,
+          "llm_seconds": 3.05,
+          "vision_calls": 0,
+          "vision_seconds": 0.0,
+          "heal_strategy_counts": {},
+          "step_durations_ms": {
+            "extract_product_details": 1162.1
+          },
+          "total_seconds": 5.850218
+        }
+      },
+      "data": {
+        "extract_product_details": [
+          {
+            "title": "Mi 14 CIVI (512 GB Storage, 12 GB RAM) Online at Best Price On Flipkart.com",
+            "price": "₹44,999",
+            "variant": "512 GB + 12 GB"
+          }
+        ]
+      }
+    },
+    {
+      "seed": {
+        "url": "https://www.flipkart.com/google-pixel-10a-fog-256-gb/p/itmeaa46d52e228a?pid=MOBHK7FHFTXREG7T&lid=LSTMOBHK7FHFTXREG7T27ARKT&marketplace=FLIPKART&q=mobile+phones+under+50000&store=tyy%2F4io&srno=s_1_3&otracker=search&fm=organic&iid=68f7c5d5-4427-4b20-a903-f28b86583ca6.MOBHK7FHFTXREG7T.SEARCH&ppt=None&ppn=None&ssid=7ousxcl3400000001779724926513&qH=aa91131d89b4f902&ov_redirect=true",
+        "name": "Google Pixel 10a (Fog, 256 GB)",
+        "price": "₹49,999"
+      },
+      "status": "success",
+      "report": {
+        "status": "success",
+        "goal": "You are on a Flipkart product detail page. Dismiss any login popup with an optional click step. Then use ONE extract_record step (not extract) to pull these fields in a single call from the page: title, price, variant, review_1, review_2. The extract_record action targets the whole page, not a list.",
+        "completed": [
+          {
+            "step_id": "extract_product_detail",
+            "action": "extract_record",
+            "heal_strategy": "",
+            "exec_status": "ok",
+            "exec_detail": "extracted 2/5 fields via llm",
+            "verify_ok": true,
+            "verify_tier": "auto"
+          }
+        ],
+        "extracted_data": {
+          "extract_product_detail": [
+            {
+              "title": "Google Pixel 10a (256 GB Storage, 8 GB RAM) Online at Best Price On Flipkart.com",
+              "price": "₹49,999"
+            }
+          ]
+        },
+        "telemetry": {
+          "llm_calls": 2,
+          "llm_prompt_tokens": 9243,
+          "llm_completion_tokens": 144,
+          "llm_total_tokens": 9387,
+          "llm_seconds": 2.694,
+          "vision_calls": 0,
+          "vision_seconds": 0.0,
+          "heal_strategy_counts": {},
+          "step_durations_ms": {
+            "extract_product_detail": 1475.1
+          },
+          "total_seconds": 6.082897
+        }
+      },
+      "data": {
+        "extract_product_detail": [
+          {
+            "title": "Google Pixel 10a (256 GB Storage, 8 GB RAM) Online at Best Price On Flipkart.com",
+            "price": "₹49,999"
+          }
+        ]
+      }
+    }
+  ]
+}

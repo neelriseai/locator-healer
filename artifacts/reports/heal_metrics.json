@@ -1,0 +1,87 @@
+{
+  "generated_from": "C:\\Users\\neela\\Documents\\locator-healer\\locator-healer\\artifacts\\reports",
+  "layers": [
+    {
+      "layer": "layer1_deterministic",
+      "total_attempts": 11,
+      "success": 11,
+      "fail": 0,
+      "precision": 1.0,
+      "by_strategy": [
+        {
+          "strategy": "bidirectional_anchor_field",
+          "attempts": 4,
+          "success": 4,
+          "fail": 0,
+          "success_rate": 1.0
+        },
+        {
+          "strategy": "label_proximity_interactable",
+          "attempts": 4,
+          "success": 4,
+          "fail": 0,
+          "success_rate": 1.0
+        },
+        {
+          "strategy": "button_text_candidate",
+          "attempts": 1,
+          "success": 1,
+          "fail": 0,
+          "success_rate": 1.0
+        },
+        {
+          "strategy": "page_index.rank:7cfb29f3-7f4a-4575-a4d1-ed2593239fc3",
+          "attempts": 1,
+          "success": 1,
+          "fail": 0,
+          "success_rate": 1.0
+        },
+        {
+          "strategy": "page_index.rank:b2c3e048-adbf-4a4c-bd9f-85a9576bbf91",
+          "attempts": 1,
+          "success": 1,
+          "fail": 0,
+          "success_rate": 1.0
+        }
+      ],
+      "score_stats": {}
+    },
+    {
+      "layer": "layer2_agentic_mcp",
+      "total_attempts": 11,
+      "success": 11,
+      "fail": 0,
+      "precision": 1.0,
+      "by_strategy": [
+        {
+          "strategy": "mcp_explore",
+          "attempts": 11,
+          "success": 11,
+          "fail": 0,
+          "success_rate": 1.0
+        }
+      ],
+      "score_stats": {}
+    },
+    {
+      "layer": "layer3_rag",
+      "total_attempts": 11,
+      "success": 11,
+      "fail": 0,
+      "precision": 1.0,
+      "by_strategy": [
+        {
+          "strategy": "rag_suggest",
+          "attempts": 11,
+          "success": 11,
+          "fail": 0,
+          "success_rate": 1.0
+        }
+      ],
+      "score_stats": {}
+    }
+  ],
+  "overall_attempts": 33,
+  "overall_success": 33,
+  "overall_precision": 1.0
+}

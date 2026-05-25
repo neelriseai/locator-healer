@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head><title>Verify you are human</title></head>
+<body>
+<div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: sans-serif;">
+    <div style="border: 1px solid #ccc; padding: 32px; text-align: center;">
+        <h2>Verify you are human</h2>
+        <p>This site is protected by Cloudflare. Please complete the challenge below.</p>
+        <div style="margin: 16px 0;">
+            <label>
+                <input type="checkbox" id="cf-checkbox" />
+                I am not a robot
+            </label>
+        </div>
+        <div style="color: #999; font-size: 12px;">Cloudflare Turnstile</div>
+    </div>
+</div>
+<!--
+This page intentionally has NO product UI. The vision tier (when run)
+should identify the wall and return suggested_action='abort:captcha'.
+The orchestrator's _proposal_from_vision should then emit an abort
+proposal so the workflow aborts cleanly rather than spinning on
+"can't find Add to Cart".
+-->
+</body>
+</html>

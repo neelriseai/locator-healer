@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head><title>SPA shell</title></head>
+<body>
+<div id="root"></div>
+<script>
+// Simulate an SPA that mounts content 1.5s after page load.
+// Until then, the body has no interactable elements — the decomposer's
+// outline-retry-with-networkidle path should handle this without
+// crashing.
+setTimeout(() => {
+    document.getElementById('root').innerHTML = `
+        <main>
+            <h1>Product details</h1>
+            <button id="add-to-cart" data-testid="add-to-cart">Add to Cart</button>
+            <div class="price">₹19,999</div>
+        </main>
+    `;
+}, 1500);
+</script>
+</body>
+</html>

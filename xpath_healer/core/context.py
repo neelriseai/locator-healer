@@ -32,6 +32,15 @@ class StrategyContext:
     templates: dict[str, list[dict]] = field(default_factory=dict)
     hints_index: dict[str, HealingHints] = field(default_factory=dict)
     rag_assist: object | None = None
+    # Phase 3 — MCP-style exploratory healer. Adapter-agnostic: the
+    # explorer uses ``adapter`` above to issue its DOM-query tool calls,
+    # so the same instance serves Selenium and Playwright facades alike.
+    mcp_assist: object | None = None
+    # Phase 4b — append-log of step outcomes per workflow_id. ``None``
+    # when workflow history is disabled (sensitive workflows / tests).
+    # Typed as ``object | None`` to keep the import surface flat — the
+    # concrete protocol lives in ``store.workflow_run_repository``.
+    workflow_run_repository: object | None = None
 
     def template_set(self, page_name: str, element_name: str) -> list[dict]:
         keys = [

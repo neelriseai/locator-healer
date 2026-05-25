@@ -40,8 +40,11 @@ class DualMetadataRepository(MetadataRepository):
                 pass
             return fallback_result
 
-        if primary_error is not None:
-            raise primary_error
+        # Both backends produced no data. A primary connectivity error
+        # alone must not break callers — "not found anywhere" is the
+        # correct return value when neither store has the row.
+        # Connectivity errors are still recorded by LoggedMetadataRepository
+        # / the primary's own logging; this method just doesn't re-raise.
         return None
 
     async def upsert(self, meta: ElementMeta) -> None:
