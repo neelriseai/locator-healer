@@ -1,0 +1,1572 @@
+{
+  "version": "1.0",
+  "generated_at": "2026-05-25T18:22:13+00:00",
+  "tests": [
+    {
+      "file": "tests/conftest.py",
+      "framework": "pytest",
+      "test_cases": [],
+      "language": "python",
+      "feature": "tests",
+      "covers_files": [
+        "adapters/playwright_python/adapter.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/context.py",
+        "xpath_healer/core/page_index.py",
+        "xpath_healer/core/signature.py",
+        "xpath_healer/core/similarity.py",
+        "xpath_healer/core/validator.py",
+        "xpath_healer/dom/mine.py",
+        "xpath_healer/dom/snapshot.py",
+        "xpath_healer/store/memory_repository.py",
+        "xpath_healer/utils/logging.py"
+      ],
+      "covers_features": [
+        "adapters",
+        "tests",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "pytest",
+        "adapters.playwright_python.adapter",
+        "xpath_healer.core.config",
+        "xpath_healer.core.context",
+        "xpath_healer.core.page_index",
+        "xpath_healer.core.signature",
+        "xpath_healer.core.similarity",
+        "xpath_healer.core.validator",
+        "xpath_healer.dom.mine",
+        "xpath_healer.dom.snapshot",
+        "xpath_healer.store.memory_repository",
+        "xpath_healer.utils.logging"
+      ]
+    },
+    {
+      "file": "tests/__init__.py",
+      "framework": "pytest",
+      "test_cases": [],
+      "language": "python",
+      "feature": "tests",
+      "covers_files": [],
+      "covers_features": [
+        "tests"
+      ],
+      "covers_hints": []
+    },
+    {
+      "file": "tests/integration/conftest.py",
+      "framework": "pytest",
+      "test_cases": [],
+      "language": "python",
+      "feature": "integration",
+      "covers_files": [
+        "tests/integration/settings.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/store/dual_repository.py",
+        "xpath_healer/store/json_repository.py",
+        "xpath_healer/store/pg_repository.py",
+        "xpath_healer/store/repository.py",
+        "xpath_healer/utils/env.py",
+        "xpath_healer/utils/logging.py"
+      ],
+      "covers_features": [
+        "integration",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "__future__",
+        "asyncio",
+        "json",
+        "logging",
+        "os",
+        "re",
+        "html",
+        "datetime",
+        "dataclasses",
+        "pathlib",
+        "typing",
+        "pytest",
+        "playwright.async_api",
+        "tests.integration.settings",
+        "xpath_healer.core.models",
+        "xpath_healer.store.dual_repository",
+        "xpath_healer.store.json_repository",
+        "xpath_healer.store.pg_repository",
+        "xpath_healer.store.repository",
+        "xpath_healer.utils.env"
+      ]
+    },
+    {
+      "file": "tests/integration/settings.py",
+      "framework": "pytest",
+      "test_cases": [],
+      "language": "python",
+      "feature": "integration",
+      "covers_files": [
+        "xpath_healer/utils/env.py"
+      ],
+      "covers_features": [
+        "integration",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "__future__",
+        "json",
+        "os",
+        "dataclasses",
+        "pathlib",
+        "xpath_healer.utils.env"
+      ]
+    },
+    {
+      "file": "tests/integration/test_demo_qa_healing_bdd.py",
+      "framework": "pytest",
+      "test_cases": [],
+      "language": "python",
+      "feature": "integration",
+      "covers_files": [
+        "tests/integration/conftest.py",
+        "tests/integration/settings.py",
+        "xpath_healer/api/facade.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/store/repository.py",
+        "xpath_healer/utils/logging.py"
+      ],
+      "covers_features": [
+        "integration",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "__future__",
+        "typing",
+        "logging",
+        "json",
+        "datetime",
+        "pytest",
+        "playwright.async_api",
+        "pytest_bdd",
+        "xpath_healer.api.facade",
+        "xpath_healer.core.models",
+        "xpath_healer.store.repository",
+        "tests.integration.conftest",
+        "tests.integration.settings"
+      ]
+    },
+    {
+      "file": "tests/integration/test_demo_qa_healing_selenium.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_selenium_text_box_form_fill_and_submit",
+        "test_selenium_checkbox_home_icon_select_and_message_verify",
+        "test_selenium_webtables_first_row_verification",
+        "test_selenium_raw_invalid_fallback_without_healer"
+      ],
+      "language": "python",
+      "feature": "integration",
+      "covers_files": [
+        "adapters/selenium_python/facade.py",
+        "tests/integration/conftest.py",
+        "tests/integration/settings.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/store/repository.py",
+        "xpath_healer/utils/logging.py"
+      ],
+      "covers_features": [
+        "adapters",
+        "integration",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "__future__",
+        "contextlib",
+        "json",
+        "logging",
+        "datetime",
+        "pathlib",
+        "typing",
+        "pytest",
+        "selenium",
+        "selenium.webdriver.common.by",
+        "adapters.selenium_python.facade",
+        "tests.integration.conftest",
+        "tests.integration.settings",
+        "xpath_healer.core.models",
+        "xpath_healer.store.repository"
+      ]
+    },
+    {
+      "file": "tests/integration/__init__.py",
+      "framework": "pytest",
+      "test_cases": [],
+      "language": "python",
+      "feature": "integration",
+      "covers_files": [],
+      "covers_features": [
+        "integration"
+      ],
+      "covers_hints": []
+    },
+    {
+      "file": "tests/unit/conftest.py",
+      "framework": "pytest",
+      "test_cases": [],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [],
+      "covers_features": [
+        "unit"
+      ],
+      "covers_hints": [
+        "__future__",
+        "pytest",
+        "os"
+      ]
+    },
+    {
+      "file": "tests/unit/fakes.py",
+      "framework": "pytest",
+      "test_cases": [],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/utils/text.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "__future__",
+        "re",
+        "dataclasses",
+        "typing",
+        "xpath_healer.utils.text"
+      ]
+    },
+    {
+      "file": "tests/unit/selenium_fakes.py",
+      "framework": "pytest",
+      "test_cases": [],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/utils/text.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "__future__",
+        "re",
+        "dataclasses",
+        "typing",
+        "xpath_healer.utils.text"
+      ]
+    },
+    {
+      "file": "tests/unit/test_bidirectional_anchor_field.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_supports_textbox_and_dropdown_only",
+        "test_textbox_emits_both_directions",
+        "test_textbox_axis_hint_orders_preceding_first",
+        "test_textbox_no_axis_hint_orders_following_first",
+        "test_email_label_emits_type_email_predicate",
+        "test_dob_label_emits_type_date_predicate",
+        "test_dropdown_emits_select_and_combobox_candidates",
+        "test_unknown_field_type_returns_empty"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/core/context.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategies/bidirectional_anchor_field.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "__future__",
+        "pytest",
+        "xpath_healer.core.context",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategies.bidirectional_anchor_field"
+      ]
+    },
+    {
+      "file": "tests/unit/test_checkbox_proxy_validation.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_checkbox_proxy_class_is_accepted",
+        "test_checkbox_icon_strategy_builds_candidates",
+        "test_checkbox_label_proxy_is_accepted",
+        "test_checkbox_text_inside_label_proxy_is_accepted"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "adapters/playwright_python/adapter.py",
+        "tests/unit/fakes.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategies/checkbox_icon_by_label.py",
+        "xpath_healer/core/validator.py"
+      ],
+      "covers_features": [
+        "adapters",
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "pytest",
+        "adapters.playwright_python.adapter",
+        "tests.unit.fakes",
+        "xpath_healer.core.config",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategies.checkbox_icon_by_label",
+        "xpath_healer.core.validator"
+      ]
+    },
+    {
+      "file": "tests/unit/test_dual_repository.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_dual_repository_reads_primary_then_fallback",
+        "test_dual_repository_dual_writes_to_both_backends",
+        "test_dual_repository_page_index_fallback_and_warmup"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/store/dual_repository.py",
+        "xpath_healer/store/memory_repository.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "pytest",
+        "xpath_healer.core.models",
+        "xpath_healer.store.dual_repository",
+        "xpath_healer.store.memory_repository"
+      ]
+    },
+    {
+      "file": "tests/unit/test_facade_rag_init.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_facade_keeps_rag_disabled_for_placeholder_key"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/api/facade.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "xpath_healer.api.facade"
+      ]
+    },
+    {
+      "file": "tests/unit/test_facade_repository_init.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_facade_uses_memory_repository_when_dsn_not_set",
+        "test_facade_uses_dual_repository_when_dsn_is_set"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/api/facade.py",
+        "xpath_healer/store/dual_repository.py",
+        "xpath_healer/store/memory_repository.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "xpath_healer.api.facade",
+        "xpath_healer.store.memory_repository",
+        "xpath_healer.store.dual_repository"
+      ]
+    },
+    {
+      "file": "tests/unit/test_fingerprint.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_fingerprint_build_contains_normalized_tokens_and_hash",
+        "test_fingerprint_compare_returns_exact_hash_match",
+        "test_fingerprint_weighted_scoring_prefers_structural_neighbor"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/core/fingerprint.py",
+        "xpath_healer/core/models.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "xpath_healer.core.fingerprint",
+        "xpath_healer.core.models"
+      ]
+    },
+    {
+      "file": "tests/unit/test_healing_retry.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_retry_happens_for_transient_reason_code",
+        "test_retry_skipped_for_non_transient_reason_code",
+        "test_intent_strictness_overrides_default_hints_setting",
+        "test_resolve_selected_locator_adds_nth_for_multi_match"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/core/builder.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategy_registry.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "types",
+        "pytest",
+        "xpath_healer.core.builder",
+        "xpath_healer.core.config",
+        "xpath_healer.core.healing_service",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategy_registry"
+      ]
+    },
+    {
+      "file": "tests/unit/test_healing_service.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_recover_with_attribute_then_metadata_reuse",
+        "test_persisted_robust_xpath_prefers_successful_locator_when_signature_xpath_is_weak"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "tests/unit/fakes.py",
+        "xpath_healer/api/facade.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/validator.py",
+        "xpath_healer/store/memory_repository.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "pytest",
+        "tests.unit.fakes",
+        "xpath_healer.api.facade",
+        "xpath_healer.core.config",
+        "xpath_healer.core.models",
+        "xpath_healer.core.validator",
+        "xpath_healer.store.memory_repository"
+      ]
+    },
+    {
+      "file": "tests/unit/test_healing_service_fingerprint.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_fingerprint_stage_builds_candidates_from_structural_match"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "adapters/playwright_python/adapter.py",
+        "xpath_healer/core/builder.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/context.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/page_index.py",
+        "xpath_healer/core/strategy_registry.py",
+        "xpath_healer/store/memory_repository.py",
+        "xpath_healer/utils/logging.py"
+      ],
+      "covers_features": [
+        "adapters",
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "logging",
+        "pytest",
+        "adapters.playwright_python.adapter",
+        "xpath_healer.core.builder",
+        "xpath_healer.core.config",
+        "xpath_healer.core.context",
+        "xpath_healer.core.healing_service",
+        "xpath_healer.core.models",
+        "xpath_healer.core.page_index",
+        "xpath_healer.core.strategy_registry",
+        "xpath_healer.store.memory_repository"
+      ]
+    },
+    {
+      "file": "tests/unit/test_healing_service_graph_context.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_graph_context_score_prefers_structural_and_anchor_match"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/core/builder.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategy_registry.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "xpath_healer.core.builder",
+        "xpath_healer.core.healing_service",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategy_registry"
+      ]
+    },
+    {
+      "file": "tests/unit/test_integration_settings.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_load_settings_supports_framework_specific_browser_options"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "tests/integration/settings.py"
+      ],
+      "covers_features": [
+        "integration",
+        "unit"
+      ],
+      "covers_hints": [
+        "json",
+        "os",
+        "pathlib",
+        "tests.integration.settings"
+      ]
+    },
+    {
+      "file": "tests/unit/test_mcp_explorer.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_commit_only_returns_single_locator_with_confidence",
+        "test_multi_commit_results_ranked_by_confidence_desc",
+        "test_count_matches_then_commit_uses_adapter",
+        "test_no_commit_returns_empty_after_one_round_of_prose",
+        "test_max_rounds_budget_caps_loop",
+        "test_read_page_outline_is_registered_first_in_default_tools",
+        "test_read_page_outline_dispatch_returns_outline_payload",
+        "test_read_page_outline_dispatch_defaults_max_chars_when_missing",
+        "test_read_page_outline_resolve_failure_is_graceful",
+        "test_system_prompt_includes_deterministic_playbook",
+        "test_unknown_tool_returned_does_not_break_loop",
+        "test_first_time_element_explore_works_with_no_prior_memory",
+        "test_explorer_works_for_selenium_style_adapter",
+        "test_mcp_explore_candidates_wraps_results_as_candidate_specs",
+        "test_mcp_explore_candidates_returns_empty_when_no_explorer",
+        "test_mcp_explore_candidates_swallows_explorer_exceptions"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/llm/client.py",
+        "xpath_healer/mcp/__init__.py",
+        "xpath_healer/mcp/explorer.py",
+        "xpath_healer/utils/logging.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "__future__",
+        "typing",
+        "pytest",
+        "xpath_healer.core.healing_service",
+        "xpath_healer.core.models",
+        "xpath_healer.llm.client",
+        "xpath_healer.mcp",
+        "xpath_healer.mcp.explorer",
+        "xpath_healer.mcp.explorer",
+        "logging",
+        "logging"
+      ]
+    },
+    {
+      "file": "tests/unit/test_models_serialization.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_locator_spec_roundtrip_and_hash_stability",
+        "test_element_meta_roundtrip",
+        "test_page_index_roundtrip"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/core/models.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "xpath_healer.core.models"
+      ]
+    },
+    {
+      "file": "tests/unit/test_option_fingerprint.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_element_signature_round_trip_includes_option_set_and_lca",
+        "test_element_signature_legacy_payload_hydrates_with_empty_defaults",
+        "test_grounder_returns_ok_when_payload_indicates_match",
+        "test_grounder_returns_failure_for_empty_anchor",
+        "test_grounder_returns_failure_when_payload_not_ok",
+        "test_grounder_swallows_evaluate_exception",
+        "test_option_fingerprint_returns_empty_without_prior_option_set",
+        "test_option_fingerprint_returns_empty_without_anchor_text",
+        "test_option_fingerprint_emits_ranked_candidates_when_container_found",
+        "test_option_fingerprint_drops_all_below_min_score",
+        "test_option_fingerprint_returns_empty_when_grounder_fails"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/core/graph_container.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/models.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "__future__",
+        "typing",
+        "pytest",
+        "xpath_healer.core.graph_container",
+        "xpath_healer.core.healing_service",
+        "xpath_healer.core.models"
+      ]
+    },
+    {
+      "file": "tests/unit/test_orchestrator.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_workflow_goal_cache_key_is_stable_and_value_sensitive",
+        "test_is_known_action_inventory",
+        "test_planned_workflow_value_for_returns_default",
+        "test_decomposer_happy_path_returns_planned_workflow",
+        "test_decomposer_retries_when_no_commit_plan_call",
+        "test_decomposer_returns_empty_plan_when_budget_exhausted",
+        "test_decomposer_rejects_invalid_action_and_retries",
+        "test_decomposer_rejects_duplicate_step_ids_then_accepts_fixed_plan",
+        "test_decomposer_returns_invalid_plan_error_when_retries_exhausted",
+        "test_executor_fill_uses_natural_api_when_available",
+        "test_executor_fill_falls_back_to_evaluate_on_natural_error",
+        "test_executor_click_natural_then_fallback",
+        "test_executor_select_prefers_label_then_value",
+        "test_executor_navigate_via_page_goto",
+        "test_executor_verify_only_step_returns_ok_no_op",
+        "test_executor_unsupported_action_returns_error",
+        "test_verifier_short_circuits_on_executor_error",
+        "test_verifier_auto_pass_when_no_expected_outcome",
+        "test_verifier_auto_pass_when_value_after_matches_expected",
+        "test_verifier_structural_url_contains_pass",
+        "test_verifier_structural_text_visible_pass",
+        "test_verifier_falls_through_to_llm_for_semantic_claim",
+        "test_verifier_without_llm_falls_through_passthrough",
+        "test_verifier_llm_parses_messy_response",
+        "test_orchestrator_happy_path_runs_all_steps",
+        "test_orchestrator_navigates_to_start_url_first",
+        "test_orchestrator_returns_failed_when_decomposer_returns_no_steps",
+        "test_orchestrator_failed_heal_with_no_proposal_yields_failed",
+        "test_orchestrator_rewrite_skip_on_optional_step_continues",
+        "test_orchestrator_rewrite_abort_terminates_with_aborted_status",
+        "test_orchestrator_rewrite_insert_before_inserts_and_retries",
+        "test_orchestrator_rewrite_replace_swaps_current_step",
+        "test_orchestrator_threads_value_into_vars_for_fill"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/llm/client.py",
+        "xpath_healer/orchestrator/__init__.py",
+        "xpath_healer/orchestrator/models.py",
+        "xpath_healer/utils/logging.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "__future__",
+        "json",
+        "logging",
+        "typing",
+        "pytest",
+        "xpath_healer.core.automation",
+        "xpath_healer.core.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.llm.client",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator.models"
+      ]
+    },
+    {
+      "file": "tests/unit/test_orchestrator_actions.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_press_key_on_element_uses_locator_press",
+        "test_press_key_no_locator_uses_page_keyboard",
+        "test_press_key_empty_value_is_error",
+        "test_wait_timeout_string_parses_seconds_and_milliseconds",
+        "test_wait_load_state_routes_to_page",
+        "test_wait_element_state_calls_locator_wait_for",
+        "test_wait_unrecognized_value_returns_error",
+        "test_scroll_into_view_uses_natural_api",
+        "test_scroll_page_bottom_uses_page_evaluate",
+        "test_scroll_page_pixels_uses_scrollBy",
+        "test_hover_uses_natural_api",
+        "test_hover_no_locator_is_error",
+        "test_screenshot_auto_path_under_artifacts",
+        "test_screenshot_explicit_path",
+        "test_extract_heuristic_mode_pulls_price_and_rating",
+        "test_extract_llm_mode_uses_resolved_selectors",
+        "test_extract_record_via_llm_selectors",
+        "test_extract_record_heuristic_fallback_when_no_llm",
+        "test_field_value_looks_plausible_rejects_garbage",
+        "test_extract_record_quality_guard_replaces_garbage_with_heuristic",
+        "test_extract_record_no_fields_is_error",
+        "test_extract_zero_items_is_error",
+        "test_extract_value_parses_csv_fallback",
+        "test_extract_llm_returning_invalid_json_falls_back_to_heuristic",
+        "test_orchestrator_surfaces_extract_results_in_extracted_data"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/llm/client.py",
+        "xpath_healer/orchestrator/__init__.py",
+        "xpath_healer/orchestrator/models.py",
+        "xpath_healer/utils/logging.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "__future__",
+        "json",
+        "logging",
+        "typing",
+        "pytest",
+        "xpath_healer.core.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.llm.client",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.llm.client"
+      ]
+    },
+    {
+      "file": "tests/unit/test_orchestrator_visual.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_visual_usage_policy_normalize_defaults_to_on_failure",
+        "test_visual_usage_policy_normalize_accepts_known_values",
+        "test_recorder_off_mode_is_noop_when_out_dir_missing",
+        "test_recorder_screenshots_mode_writes_png_per_step",
+        "test_recorder_video_mode_emits_context_kwargs",
+        "test_recorder_rejects_unknown_mode",
+        "test_inspector_without_vision_llm_returns_no_vision_llm_error",
+        "test_inspector_returns_no_frames_when_nothing_available",
+        "test_inspector_mock_vision_llm_parses_json_answer",
+        "test_inspector_extracts_json_from_prose_wrapped_response",
+        "test_inspector_swallows_vision_llm_exception",
+        "test_orchestrator_visual_policy_never_does_not_call_inspector",
+        "test_orchestrator_visual_policy_on_failure_invokes_inspector",
+        "test_orchestrator_visual_policy_does_not_fire_on_success",
+        "test_orchestrator_visual_policy_always_fires_every_step",
+        "test_vision_promotes_fail_to_ok_when_confident_and_verifier_unsure",
+        "test_vision_does_not_override_when_text_tier_was_confident",
+        "test_vision_overrides_when_text_tier_was_only_moderately_confident",
+        "test_vision_does_not_override_when_vision_unsure",
+        "test_vision_does_not_promote_when_suggested_action_is_abort",
+        "test_vision_does_not_promote_ok_terminal",
+        "test_proposal_from_vision_dismiss_modal_emits_insert_before",
+        "test_proposal_from_vision_abort_emits_abort",
+        "test_proposal_from_vision_returns_none_for_empty_suggestion",
+        "test_proposal_from_vision_returns_none_when_unsure",
+        "test_pick_stronger_proposal_picks_higher_confidence",
+        "test_visual_recovery_inserts_dismiss_modal_step",
+        "test_visual_recovery_disabled_does_not_call_inspector",
+        "test_inspect_with_screenshots_ignores_zoom_silently",
+        "test_merge_candidates_deduped_keeps_unique_pairs",
+        "test_extract_a11y_candidates_walks_tree",
+        "test_extract_a11y_candidates_no_accessibility_api_returns_empty",
+        "test_page_state_observer_normalises_evaluate_failure",
+        "test_page_state_observer_returns_evaluate_output",
+        "test_max_recovery_inserts_zero_blocks_vision_inserts",
+        "test_max_replans_zero_skips_replan_after_url_change",
+        "test_vision_insert_cap_holds_across_consecutive_failures",
+        "test_click_recovers_via_js_when_native_throws_intercepted",
+        "test_click_uses_scroll_into_view_before_native_click",
+        "test_candidate_heal_drives_execution_when_cascade_fails",
+        "test_decomposer_prompt_includes_page_state_when_present",
+        "test_telemetry_counts_llm_calls_tokens_and_heal_strategies",
+        "test_telemetry_counts_vision_calls_via_wrapper",
+        "test_telemetry_stamped_on_failed_runs_too",
+        "test_openai_chat_retries_on_rate_limit_then_succeeds",
+        "test_openai_chat_gives_up_after_max_retries",
+        "test_replan_fires_when_url_path_changes_with_budget",
+        "test_no_replan_when_url_query_only_changed",
+        "test_slo_check_passes_when_all_targets_met",
+        "test_slo_check_fails_when_token_budget_exceeded",
+        "test_slo_check_flags_slow_steps",
+        "test_slo_check_returns_safely_on_empty_telemetry",
+        "test_two_orchestrators_with_separate_counters_run_concurrently_without_leaking_state",
+        "test_orchestrator_run_resets_telemetry_between_sequential_calls",
+        "test_orchestrator_handles_50_step_plan_without_blowing_up",
+        "test_long_workflow_budget_caps_hold_under_repeated_failures",
+        "test_decomposer_handles_empty_page_gracefully",
+        "test_decomposer_handles_js_shell_with_no_dom_gracefully",
+        "test_goal_action_unmet_demotes_verify_only_success_to_failed",
+        "test_goal_action_unmet_accepts_verify_only_when_goal_is_verification",
+        "test_goal_action_unmet_passes_when_real_action_succeeded",
+        "test_visual_recovery_proposes_abort_on_captcha_finding",
+        "test_vision_does_not_demote_ok_yet"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/llm/__init__.py",
+        "xpath_healer/llm/client.py",
+        "xpath_healer/llm/openai_chat.py",
+        "xpath_healer/mcp/__init__.py",
+        "xpath_healer/orchestrator/__init__.py",
+        "xpath_healer/orchestrator/executor.py",
+        "xpath_healer/orchestrator/models.py",
+        "xpath_healer/orchestrator/visual.py",
+        "xpath_healer/utils/logging.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "__future__",
+        "asyncio",
+        "json",
+        "logging",
+        "pathlib",
+        "typing",
+        "pytest",
+        "xpath_healer.core.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.llm.client",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.core.workflow",
+        "xpath_healer.core.workflow",
+        "xpath_healer.core.workflow",
+        "xpath_healer.core.workflow",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator.executor",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.orchestrator.executor",
+        "xpath_healer.core.workflow",
+        "xpath_healer.orchestrator.visual",
+        "xpath_healer.mcp",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.llm",
+        "xpath_healer.llm.openai_chat",
+        "xpath_healer.llm",
+        "xpath_healer.llm.openai_chat",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.mcp",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.core.workflow",
+        "pathlib",
+        "pathlib",
+        "pathlib"
+      ]
+    },
+    {
+      "file": "tests/unit/test_page_indexing.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_page_indexer_ranks_submit_order_candidate_first",
+        "test_recover_uses_page_index_stage_when_enabled"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "tests/unit/fakes.py",
+        "xpath_healer/api/facade.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/page_index.py",
+        "xpath_healer/store/memory_repository.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "pytest",
+        "tests.unit.fakes",
+        "xpath_healer.api.facade",
+        "xpath_healer.core.config",
+        "xpath_healer.core.models",
+        "xpath_healer.core.page_index",
+        "xpath_healer.store.memory_repository"
+      ]
+    },
+    {
+      "file": "tests/unit/test_pg_repository_schema.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_schema_sql_contains_required_tables_and_indexes",
+        "test_safe_uuid_text_rejects_invalid_values"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/store/pg_repository.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "xpath_healer.store.pg_repository"
+      ]
+    },
+    {
+      "file": "tests/unit/test_phase5_additions.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_page_signature_empty_input_returns_empty",
+        "test_page_signature_stable_for_same_structure",
+        "test_page_signature_changes_when_stable_attrs_change",
+        "test_page_signature_ignores_volatile_attrs",
+        "test_replay_signature_match_yields_top_tier_score",
+        "test_replay_signature_mismatch_downgrades_score",
+        "test_replay_unknown_signature_uses_legacy_tier",
+        "test_supported_actions_include_insert_replace",
+        "test_action_requires_new_step_for_insert_and_replace",
+        "test_rewriter_commits_insert_before_with_new_step",
+        "test_rewriter_rejects_insert_without_new_step_and_recovers",
+        "test_rewriter_rejects_insert_with_incomplete_new_step",
+        "test_auto_apply_policy_round_trip_and_disabled",
+        "test_auto_apply_gate_sets_true_when_policy_met",
+        "test_auto_apply_gate_blocks_disallowed_action",
+        "test_auto_apply_gate_blocks_below_min_confidence",
+        "test_auto_apply_gate_requires_prior_confirmations",
+        "test_no_policy_means_no_auto_apply_flag_set",
+        "test_playwright_mcp_server_explorer_uses_server_tools_then_commits",
+        "test_playwright_mcp_server_explorer_returns_empty_on_connect_failure",
+        "test_appium_adapter_translates_locator_kinds",
+        "test_appium_evaluate_returns_none_for_js_arrow_script",
+        "test_appium_evaluate_forwards_mobile_scripts",
+        "test_appium_bounding_box_uses_location_and_size",
+        "test_appium_capture_page_html_returns_page_source",
+        "test_appium_facade_pre_wires_adapter",
+        "test_pg_workflow_run_repo_record_step_runs_insert_and_prune",
+        "test_pg_workflow_run_repo_update_step_status_returns_true_when_found",
+        "test_pg_workflow_run_repo_update_returns_false_when_no_heal_record",
+        "test_pg_workflow_run_repo_find_step_history_maps_rows"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "adapters/appium_python/adapter.py",
+        "adapters/appium_python/facade.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/page_signature.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/llm/client.py",
+        "xpath_healer/mcp/__init__.py",
+        "xpath_healer/store/memory_repository.py",
+        "xpath_healer/store/workflow_run_pg_repository.py",
+        "xpath_healer/store/workflow_run_repository.py",
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/workflow/__init__.py"
+      ],
+      "covers_features": [
+        "adapters",
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "__future__",
+        "logging",
+        "typing",
+        "pytest",
+        "xpath_healer.api.base",
+        "xpath_healer.core.healing_service",
+        "xpath_healer.core.models",
+        "xpath_healer.core.page_signature",
+        "xpath_healer.core.workflow",
+        "xpath_healer.llm.client",
+        "xpath_healer.mcp",
+        "xpath_healer.store.workflow_run_repository",
+        "xpath_healer.workflow",
+        "adapters.appium_python.adapter",
+        "adapters.appium_python.adapter",
+        "adapters.appium_python.adapter",
+        "adapters.appium_python.adapter",
+        "adapters.appium_python.adapter",
+        "adapters.appium_python.facade",
+        "xpath_healer.store.memory_repository",
+        "xpath_healer.store.workflow_run_pg_repository",
+        "xpath_healer.store.workflow_run_pg_repository",
+        "xpath_healer.store.workflow_run_pg_repository",
+        "xpath_healer.store.workflow_run_pg_repository"
+      ]
+    },
+    {
+      "file": "tests/unit/test_prompt_dsl.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_prompt_dsl_uses_compact_sections",
+        "test_prompt_payload_exposes_compact_dom_signature_and_output_schema",
+        "test_extract_dom_context_reads_controls_beyond_initial_html_prefix",
+        "test_extract_dom_context_preserves_visible_text_case_and_label_proxy_type"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/rag/prompt_builder.py",
+        "xpath_healer/rag/prompt_dsl.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "xpath_healer.core.models",
+        "xpath_healer.rag.prompt_builder",
+        "xpath_healer.rag.prompt_dsl"
+      ]
+    },
+    {
+      "file": "tests/unit/test_rag_assist.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_rag_assist_uses_context_rerank_and_filters_weak_candidates",
+        "test_rag_assist_includes_dom_context_without_retrieval_hits"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/rag/rag_assist.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "pytest",
+        "xpath_healer.core.models",
+        "xpath_healer.rag.rag_assist"
+      ]
+    },
+    {
+      "file": "tests/unit/test_rag_deep_retry.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_rag_deep_retry_runs_after_low_confidence_and_failed_validation",
+        "test_rag_deep_retry_can_be_disabled"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "tests/unit/fakes.py",
+        "xpath_healer/api/facade.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/models.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "pytest",
+        "tests.unit.fakes",
+        "xpath_healer.api.facade",
+        "xpath_healer.core.config",
+        "xpath_healer.core.models"
+      ]
+    },
+    {
+      "file": "tests/unit/test_selenium_adapter.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_selenium_validator_accepts_button_role_locator",
+        "test_selenium_facade_recovers_with_attribute_strategy",
+        "test_selenium_text_xpath_is_valid_relative_xpath",
+        "test_selenium_role_locator_uses_associated_label_name"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "adapters/selenium_python/adapter.py",
+        "adapters/selenium_python/facade.py",
+        "tests/unit/selenium_fakes.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/validator.py",
+        "xpath_healer/store/memory_repository.py"
+      ],
+      "covers_features": [
+        "adapters",
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "pytest",
+        "adapters.selenium_python.adapter",
+        "adapters.selenium_python.facade",
+        "tests.unit.selenium_fakes",
+        "xpath_healer.core.config",
+        "xpath_healer.core.models",
+        "xpath_healer.core.validator",
+        "xpath_healer.store.memory_repository"
+      ]
+    },
+    {
+      "file": "tests/unit/test_service_sessions.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_heal_endpoint_resolves_selenium_session_from_registry",
+        "test_heal_endpoint_supports_sync_resolver_callback"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "adapters/selenium_python/facade.py",
+        "service/main.py",
+        "service/session_registry.py",
+        "tests/unit/selenium_fakes.py"
+      ],
+      "covers_features": [
+        "adapters",
+        "service",
+        "unit"
+      ],
+      "covers_hints": [
+        "pytest",
+        "fastapi.testclient",
+        "adapters.selenium_python.facade",
+        "service.main",
+        "service.session_registry",
+        "tests.unit.selenium_fakes"
+      ]
+    },
+    {
+      "file": "tests/unit/test_similarity.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_similarity_prefers_stable_attributes"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/similarity.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "xpath_healer.core.models",
+        "xpath_healer.core.similarity"
+      ]
+    },
+    {
+      "file": "tests/unit/test_snapshotter.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_snapshot_cache_invalidates_when_page_url_changes"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/dom/snapshot.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "pytest",
+        "xpath_healer.dom.snapshot"
+      ]
+    },
+    {
+      "file": "tests/unit/test_stage_switches.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_stage_profile_llm_only",
+        "test_recover_with_only_rag_stage_enabled"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "tests/unit/fakes.py",
+        "xpath_healer/api/facade.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/models.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "pytest",
+        "tests.unit.fakes",
+        "xpath_healer.api.facade",
+        "xpath_healer.core.config",
+        "xpath_healer.core.models"
+      ]
+    },
+    {
+      "file": "tests/unit/test_strategy_registry.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_registry_orders_by_priority_and_filters_stage"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/core/context.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategies/base.py",
+        "xpath_healer/core/strategy_registry.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "pytest",
+        "xpath_healer.core.context",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategy_registry",
+        "xpath_healer.core.strategies.base"
+      ]
+    },
+    {
+      "file": "tests/unit/test_text_utils.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_normalize_text_collapses_spaces_and_casefolds",
+        "test_token_subset_match"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/utils/text.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "xpath_healer.utils.text"
+      ]
+    },
+    {
+      "file": "tests/unit/test_validator.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_button_validation_passes_on_text_match",
+        "test_strict_single_match_rejects_ambiguous_locator",
+        "test_textbox_validation_rejects_button"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "adapters/playwright_python/adapter.py",
+        "tests/unit/fakes.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/validator.py"
+      ],
+      "covers_features": [
+        "adapters",
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "pytest",
+        "adapters.playwright_python.adapter",
+        "tests.unit.fakes",
+        "xpath_healer.core.config",
+        "xpath_healer.core.models",
+        "xpath_healer.core.validator"
+      ]
+    },
+    {
+      "file": "tests/unit/test_workflow_context.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_workflow_step_round_trip",
+        "test_step_outcome_round_trip",
+        "test_workflow_context_round_trip",
+        "test_build_input_defaults_workflow_context_to_none",
+        "test_build_input_accepts_workflow_context",
+        "test_mcp_prompt_omits_workflow_when_context_absent",
+        "test_mcp_prompt_includes_workflow_when_context_present",
+        "test_recover_workflow_step_threads_context_into_build_input",
+        "test_recover_workflow_step_rejects_missing_context",
+        "test_recover_workflow_step_rejects_wrong_context_type",
+        "test_recover_locator_sets_workflow_context_none_explicitly",
+        "test_recover_locator_warns_when_vars_contain_workflow_shaped_keys",
+        "test_recover_locator_does_not_warn_on_plain_vars",
+        "test_workflow_shaped_keys_inventory_is_non_empty"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/llm/client.py",
+        "xpath_healer/mcp/__init__.py",
+        "xpath_healer/utils/logging.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "__future__",
+        "json",
+        "logging",
+        "pytest",
+        "xpath_healer.api.base",
+        "xpath_healer.core.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.llm.client",
+        "xpath_healer.mcp",
+        "xpath_healer.core.models"
+      ]
+    },
+    {
+      "file": "tests/unit/test_workflow_replay.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_replay_returns_empty_without_workflow_context",
+        "test_replay_returns_empty_without_repo",
+        "test_replay_returns_empty_when_no_history_exists",
+        "test_replay_returns_empty_when_repo_raises",
+        "test_replay_returns_step_succeeded_record_with_high_score",
+        "test_replay_returns_heal_succeeded_record_with_medium_score",
+        "test_replay_skips_failed_and_skipped_records",
+        "test_replay_orders_by_score_desc_step_succeeded_before_heal",
+        "test_replay_dedupes_identical_locators_across_runs",
+        "test_replay_bounds_returned_candidates_to_three",
+        "test_replay_skips_records_with_unusable_locator_payloads"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/store/workflow_run_repository.py",
+        "xpath_healer/utils/logging.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "__future__",
+        "logging",
+        "typing",
+        "pytest",
+        "xpath_healer.core.healing_service",
+        "xpath_healer.core.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.store.workflow_run_repository"
+      ]
+    },
+    {
+      "file": "tests/unit/test_workflow_rewriter.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_workflow_rewrite_proposal_round_trip",
+        "test_is_mvp_rewrite_action_accepts_all_supported_actions",
+        "test_recovered_to_dict_emits_rewrite_proposal_when_present",
+        "test_recovered_to_dict_emits_null_rewrite_proposal_when_absent",
+        "test_rewriter_commits_skip_proposal",
+        "test_rewriter_commits_abort_proposal",
+        "test_rewriter_uses_count_then_commits",
+        "test_rewriter_no_commit_returns_none_proposal",
+        "test_rewriter_max_rounds_budget_caps_loop",
+        "test_rewriter_unknown_tool_does_not_break_loop",
+        "test_rewriter_prompt_includes_workflow_and_cascade_error",
+        "test_recover_workflow_step_attaches_rewrite_proposal_on_failure",
+        "test_recover_workflow_step_does_not_invoke_rewriter_on_success",
+        "test_recover_workflow_step_no_rewriter_yields_none_proposal",
+        "test_recover_workflow_step_swallows_rewriter_exceptions",
+        "test_recover_workflow_step_rewriter_returning_none_proposal_is_no_op"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/llm/client.py",
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/workflow/__init__.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "__future__",
+        "logging",
+        "typing",
+        "pytest",
+        "xpath_healer.api.base",
+        "xpath_healer.core.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.llm.client",
+        "xpath_healer.workflow"
+      ]
+    },
+    {
+      "file": "tests/unit/test_workflow_run_history.py",
+      "framework": "pytest",
+      "test_cases": [
+        "test_step_run_round_trip",
+        "test_workflow_run_round_trip",
+        "test_record_step_and_get_run",
+        "test_get_run_returns_none_for_unknown_workflow",
+        "test_retention_cap_evicts_oldest",
+        "test_find_step_history_returns_most_recent_first",
+        "test_find_step_history_respects_limit",
+        "test_update_step_status_upgrades_most_recent_heal_record",
+        "test_update_step_status_returns_false_when_no_heal_record",
+        "test_update_step_status_only_upgrades_heal_records",
+        "test_json_repo_persists_across_instances",
+        "test_json_repo_sanitises_path_traversal_in_workflow_id",
+        "test_json_repo_recovers_from_corrupt_file",
+        "test_concurrent_records_to_same_workflow_are_serialised",
+        "test_safe_record_step_no_op_when_repo_is_none",
+        "test_safe_update_step_status_returns_false_when_repo_is_none",
+        "test_safe_helpers_swallow_repo_exceptions",
+        "test_recover_workflow_step_auto_records_heal_succeeded",
+        "test_recover_workflow_step_auto_records_heal_failed",
+        "test_recover_workflow_step_no_op_recording_when_repo_disabled",
+        "test_report_step_outcome_upgrades_heal_succeeded_to_step_succeeded",
+        "test_report_step_outcome_returns_false_when_no_repo"
+      ],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/store/workflow_run_repository.py",
+        "xpath_healer/utils/logging.py"
+      ],
+      "covers_features": [
+        "unit",
+        "xpath_healer"
+      ],
+      "covers_hints": [
+        "__future__",
+        "asyncio",
+        "logging",
+        "pathlib",
+        "pytest",
+        "xpath_healer.api.base",
+        "xpath_healer.core.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.store.workflow_run_repository"
+      ]
+    },
+    {
+      "file": "tests/unit/__init__.py",
+      "framework": "pytest",
+      "test_cases": [],
+      "language": "python",
+      "feature": "unit",
+      "covers_files": [],
+      "covers_features": [
+        "unit"
+      ],
+      "covers_hints": []
+    }
+  ]
+}

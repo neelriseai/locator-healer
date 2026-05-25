@@ -1,0 +1,401 @@
+{
+  "version": "1.0",
+  "generated_at": "2026-05-25T18:22:13+00:00",
+  "by_file": {
+    "service/main.py": {
+      "routes": [
+        {
+          "method": "GET",
+          "path": "/health",
+          "handler": null,
+          "framework": "flask",
+          "line": 71
+        },
+        {
+          "method": "POST",
+          "path": "/generate",
+          "handler": null,
+          "framework": "flask",
+          "line": 75
+        },
+        {
+          "method": "POST",
+          "path": "/heal",
+          "handler": null,
+          "framework": "flask",
+          "line": 87
+        }
+      ],
+      "configs": [],
+      "db_models": [],
+      "events": []
+    },
+    "tools/adversarial_browser.py": {
+      "routes": [],
+      "configs": [
+        {
+          "name": "OPENAI_API_KEY",
+          "default": null,
+          "line": 57
+        },
+        {
+          "name": "OPENAI_API_KEY",
+          "default": "",
+          "line": 125
+        }
+      ],
+      "db_models": [],
+      "events": []
+    },
+    "tools/concurrent_stress.py": {
+      "routes": [],
+      "configs": [
+        {
+          "name": "OPENAI_API_KEY",
+          "default": null,
+          "line": 53
+        }
+      ],
+      "db_models": [],
+      "events": []
+    },
+    "tools/force_vision_candidate_heal.py": {
+      "routes": [],
+      "configs": [
+        {
+          "name": "OPENAI_API_KEY",
+          "default": null,
+          "line": 61
+        },
+        {
+          "name": "OPENAI_API_KEY",
+          "default": "",
+          "line": 65
+        }
+      ],
+      "db_models": [],
+      "events": []
+    },
+    "tools/inspect_workflow_video.py": {
+      "routes": [],
+      "configs": [
+        {
+          "name": "OPENAI_API_KEY",
+          "default": null,
+          "line": 41
+        },
+        {
+          "name": "OPENAI_API_KEY",
+          "default": "",
+          "line": 48
+        }
+      ],
+      "db_models": [],
+      "events": []
+    },
+    "tools/precision_corpus.py": {
+      "routes": [],
+      "configs": [
+        {
+          "name": "OPENAI_API_KEY",
+          "default": null,
+          "line": 60
+        },
+        {
+          "name": "OPENAI_API_KEY",
+          "default": "",
+          "line": 492
+        }
+      ],
+      "db_models": [],
+      "events": []
+    },
+    "tools/run_amazon_demo.py": {
+      "routes": [],
+      "configs": [
+        {
+          "name": "OPENAI_API_KEY",
+          "default": null,
+          "line": 68
+        },
+        {
+          "name": "OPENAI_API_KEY",
+          "default": "",
+          "line": 314
+        },
+        {
+          "name": "XH_OPENAI_MODEL",
+          "default": "",
+          "line": 335
+        }
+      ],
+      "db_models": [],
+      "events": []
+    },
+    "tools/run_flipkart_demo.py": {
+      "routes": [],
+      "configs": [
+        {
+          "name": "OPENAI_API_KEY",
+          "default": null,
+          "line": 46
+        },
+        {
+          "name": "OPENAI_API_KEY",
+          "default": "",
+          "line": 69
+        },
+        {
+          "name": "XH_OPENAI_MODEL",
+          "default": "",
+          "line": 93
+        }
+      ],
+      "db_models": [],
+      "events": []
+    },
+    "tools/run_flipkart_drill_demo.py": {
+      "routes": [],
+      "configs": [
+        {
+          "name": "OPENAI_API_KEY",
+          "default": null,
+          "line": 48
+        },
+        {
+          "name": "OPENAI_API_KEY",
+          "default": "",
+          "line": 193
+        },
+        {
+          "name": "XH_OPENAI_MODEL",
+          "default": "",
+          "line": 214
+        }
+      ],
+      "db_models": [],
+      "events": []
+    },
+    "tools/run_orchestrator_demo.py": {
+      "routes": [],
+      "configs": [
+        {
+          "name": "OPENAI_API_KEY",
+          "default": null,
+          "line": 36
+        },
+        {
+          "name": "OPENAI_API_KEY",
+          "default": "",
+          "line": 57
+        },
+        {
+          "name": "XH_OPENAI_MODEL",
+          "default": "",
+          "line": 80
+        }
+      ],
+      "db_models": [],
+      "events": []
+    },
+    "xpath_healer/orchestrator/visual.py": {
+      "routes": [],
+      "configs": [
+        {
+          "name": "OPENAI_API_KEY",
+          "default": "",
+          "line": 480
+        }
+      ],
+      "db_models": [],
+      "events": []
+    }
+  },
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/health",
+      "handler": null,
+      "framework": "flask",
+      "line": 71,
+      "file": "service/main.py",
+      "feature": "service"
+    },
+    {
+      "method": "POST",
+      "path": "/generate",
+      "handler": null,
+      "framework": "flask",
+      "line": 75,
+      "file": "service/main.py",
+      "feature": "service"
+    },
+    {
+      "method": "POST",
+      "path": "/heal",
+      "handler": null,
+      "framework": "flask",
+      "line": 87,
+      "file": "service/main.py",
+      "feature": "service"
+    }
+  ],
+  "configs": [
+    {
+      "name": "OPENAI_API_KEY",
+      "default": null,
+      "line": 57,
+      "file": "tools/adversarial_browser.py",
+      "feature": "tools"
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "default": "",
+      "line": 125,
+      "file": "tools/adversarial_browser.py",
+      "feature": "tools"
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "default": null,
+      "line": 53,
+      "file": "tools/concurrent_stress.py",
+      "feature": "tools"
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "default": null,
+      "line": 61,
+      "file": "tools/force_vision_candidate_heal.py",
+      "feature": "tools"
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "default": "",
+      "line": 65,
+      "file": "tools/force_vision_candidate_heal.py",
+      "feature": "tools"
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "default": null,
+      "line": 41,
+      "file": "tools/inspect_workflow_video.py",
+      "feature": "tools"
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "default": "",
+      "line": 48,
+      "file": "tools/inspect_workflow_video.py",
+      "feature": "tools"
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "default": null,
+      "line": 60,
+      "file": "tools/precision_corpus.py",
+      "feature": "tools"
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "default": "",
+      "line": 492,
+      "file": "tools/precision_corpus.py",
+      "feature": "tools"
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "default": null,
+      "line": 68,
+      "file": "tools/run_amazon_demo.py",
+      "feature": "tools"
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "default": "",
+      "line": 314,
+      "file": "tools/run_amazon_demo.py",
+      "feature": "tools"
+    },
+    {
+      "name": "XH_OPENAI_MODEL",
+      "default": "",
+      "line": 335,
+      "file": "tools/run_amazon_demo.py",
+      "feature": "tools"
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "default": null,
+      "line": 46,
+      "file": "tools/run_flipkart_demo.py",
+      "feature": "tools"
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "default": "",
+      "line": 69,
+      "file": "tools/run_flipkart_demo.py",
+      "feature": "tools"
+    },
+    {
+      "name": "XH_OPENAI_MODEL",
+      "default": "",
+      "line": 93,
+      "file": "tools/run_flipkart_demo.py",
+      "feature": "tools"
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "default": null,
+      "line": 48,
+      "file": "tools/run_flipkart_drill_demo.py",
+      "feature": "tools"
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "default": "",
+      "line": 193,
+      "file": "tools/run_flipkart_drill_demo.py",
+      "feature": "tools"
+    },
+    {
+      "name": "XH_OPENAI_MODEL",
+      "default": "",
+      "line": 214,
+      "file": "tools/run_flipkart_drill_demo.py",
+      "feature": "tools"
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "default": null,
+      "line": 36,
+      "file": "tools/run_orchestrator_demo.py",
+      "feature": "tools"
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "default": "",
+      "line": 57,
+      "file": "tools/run_orchestrator_demo.py",
+      "feature": "tools"
+    },
+    {
+      "name": "XH_OPENAI_MODEL",
+      "default": "",
+      "line": 80,
+      "file": "tools/run_orchestrator_demo.py",
+      "feature": "tools"
+    },
+    {
+      "name": "OPENAI_API_KEY",
+      "default": "",
+      "line": 480,
+      "file": "xpath_healer/orchestrator/visual.py",
+      "feature": "xpath_healer"
+    }
+  ],
+  "db_models": [],
+  "events": []
+}

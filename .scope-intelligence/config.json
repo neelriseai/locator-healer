@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "ignore_globs": [
+    ".git/**",
+    "node_modules/**",
+    "venv/**",
+    ".venv/**",
+    "__pycache__/**",
+    "dist/**",
+    "build/**",
+    "target/**",
+    "out/**",
+    ".scope-intelligence/**",
+    ".idea/**",
+    ".vscode/**",
+    "*.min.js",
+    "*.lock"
+  ],
+  "feature_roots": [
+    "src",
+    "app",
+    "lib",
+    "packages",
+    "modules",
+    "services"
+  ],
+  "feature_overrides": {},
+  "aliases": {},
+  "max_file_size_kb": 512
+}

@@ -1,0 +1,5831 @@
+{
+  "version": "1.0",
+  "generated_at": "2026-05-25T18:22:13+00:00",
+  "files": {
+    "adapters/__init__.py": {
+      "language": "python",
+      "feature": "adapters",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.adapters",
+      "hash": "14d8242222e5f4fe",
+      "imports_raw": [],
+      "imports": [],
+      "imported_by": [],
+      "symbols": [],
+      "loc": 3
+    },
+    "service/main.py": {
+      "language": "python",
+      "feature": "service",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.service",
+      "hash": "e440340e8bd98ce9",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "fastapi",
+        "pydantic",
+        "xpath_healer.api",
+        "xpath_healer.core.models",
+        "service.session_registry"
+      ],
+      "imports": [
+        "xpath_healer/api/__init__.py",
+        "xpath_healer/core/models.py",
+        "service/session_registry.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_service_sessions.py"
+      ],
+      "symbols": [
+        "LocatorSpecModel",
+        "to_domain",
+        "from_domain",
+        "HealRequest",
+        "GenerateRequest",
+        "create_app"
+      ],
+      "loc": 124
+    },
+    "service/session_registry.py": {
+      "language": "python",
+      "feature": "service",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.service",
+      "hash": "cb6c265c459c5b06",
+      "imports_raw": [
+        "__future__",
+        "inspect",
+        "collections.abc",
+        "typing"
+      ],
+      "imports": [],
+      "imported_by": [
+        "service/main.py",
+        "tests/unit/test_service_sessions.py"
+      ],
+      "symbols": [
+        "AutomationSessionRegistry",
+        "__init__",
+        "register",
+        "get",
+        "remove",
+        "resolve",
+        "resolve_session"
+      ],
+      "loc": 40
+    },
+    "service/__init__.py": {
+      "language": "python",
+      "feature": "service",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.service",
+      "hash": "fdcc3bbe09f998c6",
+      "imports_raw": [],
+      "imports": [],
+      "imported_by": [],
+      "symbols": [],
+      "loc": 3
+    },
+    "tests/conftest.py": {
+      "language": "python",
+      "feature": "tests",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests",
+      "hash": "1ba6ea7988a8c609",
+      "imports_raw": [
+        "pytest",
+        "adapters.playwright_python.adapter",
+        "xpath_healer.core.config",
+        "xpath_healer.core.context",
+        "xpath_healer.core.page_index",
+        "xpath_healer.core.signature",
+        "xpath_healer.core.similarity",
+        "xpath_healer.core.validator",
+        "xpath_healer.dom.mine",
+        "xpath_healer.dom.snapshot",
+        "xpath_healer.store.memory_repository",
+        "xpath_healer.utils.logging"
+      ],
+      "imports": [
+        "adapters/playwright_python/adapter.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/context.py",
+        "xpath_healer/core/page_index.py",
+        "xpath_healer/core/signature.py",
+        "xpath_healer/core/similarity.py",
+        "xpath_healer/core/validator.py",
+        "xpath_healer/dom/mine.py",
+        "xpath_healer/dom/snapshot.py",
+        "xpath_healer/store/memory_repository.py",
+        "xpath_healer/utils/logging.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "simple_context"
+      ],
+      "loc": 39
+    },
+    "tests/__init__.py": {
+      "language": "python",
+      "feature": "tests",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests",
+      "hash": "33b1ab7e3e545647",
+      "imports_raw": [],
+      "imports": [],
+      "imported_by": [],
+      "symbols": [],
+      "loc": 3
+    },
+    "tools/adversarial_browser.py": {
+      "language": "python",
+      "feature": "tools",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tools",
+      "hash": "b23c9bf05e8ed2f0",
+      "imports_raw": [
+        "__future__",
+        "asyncio",
+        "io",
+        "json",
+        "os",
+        "sys",
+        "pathlib",
+        "typing",
+        "playwright.async_api",
+        "xpath_healer.api.facade",
+        "xpath_healer.llm.openai_chat",
+        "xpath_healer.orchestrator"
+      ],
+      "imports": [
+        "xpath_healer/api/facade.py",
+        "xpath_healer/llm/openai_chat.py",
+        "xpath_healer/orchestrator/__init__.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "_file_url",
+        "_run_case",
+        "_evaluate_expectation",
+        "main"
+      ],
+      "loc": 277
+    },
+    "tools/concurrent_stress.py": {
+      "language": "python",
+      "feature": "tools",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tools",
+      "hash": "613c261043f0b900",
+      "imports_raw": [
+        "__future__",
+        "argparse",
+        "asyncio",
+        "io",
+        "json",
+        "os",
+        "sys",
+        "pathlib",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.orchestrator.telemetry",
+        "playwright.async_api",
+        "xpath_healer.api.facade",
+        "tools.precision_corpus"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/orchestrator/telemetry.py",
+        "xpath_healer/api/facade.py",
+        "tools/precision_corpus.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "_worker",
+        "main"
+      ],
+      "loc": 207
+    },
+    "tools/force_vision_candidate_heal.py": {
+      "language": "python",
+      "feature": "tools",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tools",
+      "hash": "2b93b4f4af8acf1a",
+      "imports_raw": [
+        "__future__",
+        "asyncio",
+        "io",
+        "json",
+        "os",
+        "sys",
+        "pathlib",
+        "typing",
+        "playwright.async_api",
+        "xpath_healer.api.facade",
+        "xpath_healer.llm.openai_chat",
+        "xpath_healer.orchestrator",
+        "argparse"
+      ],
+      "imports": [
+        "xpath_healer/api/facade.py",
+        "xpath_healer/llm/openai_chat.py",
+        "xpath_healer/orchestrator/__init__.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "main"
+      ],
+      "loc": 185
+    },
+    "tools/inspect_workflow_video.py": {
+      "language": "python",
+      "feature": "tools",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tools",
+      "hash": "3679b8636cf38c00",
+      "imports_raw": [
+        "__future__",
+        "argparse",
+        "asyncio",
+        "json",
+        "os",
+        "sys",
+        "pathlib",
+        "xpath_healer.llm.openai_chat",
+        "xpath_healer.orchestrator"
+      ],
+      "imports": [
+        "xpath_healer/llm/openai_chat.py",
+        "xpath_healer/orchestrator/__init__.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "main",
+        "_build_parser"
+      ],
+      "loc": 122
+    },
+    "tools/precision_corpus.py": {
+      "language": "python",
+      "feature": "tools",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tools",
+      "hash": "f78da31471bc9b24",
+      "imports_raw": [
+        "__future__",
+        "argparse",
+        "asyncio",
+        "io",
+        "json",
+        "os",
+        "sys",
+        "dataclasses",
+        "pathlib",
+        "typing",
+        "xpath_healer.core.models",
+        "playwright.async_api",
+        "xpath_healer.api.facade"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/api/facade.py"
+      ],
+      "imported_by": [
+        "tools/concurrent_stress.py"
+      ],
+      "symbols": [
+        "Scenario",
+        "vars",
+        "_broken",
+        "_base_env",
+        "_deterministic_env",
+        "_agentic_env",
+        "_rag_env",
+        "_resolve_healed_to_element",
+        "_is_same_node",
+        "ScenarioResult",
+        "_run_scenario",
+        "_run_layer",
+        "main"
+      ],
+      "loc": 550
+    },
+    "tools/rag_db_stats.py": {
+      "language": "python",
+      "feature": "tools",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tools",
+      "hash": "ea8e5bdb8ad9cb12",
+      "imports_raw": [
+        "__future__",
+        "argparse",
+        "asyncio",
+        "json",
+        "os",
+        "sys",
+        "datetime",
+        "pathlib",
+        "typing",
+        "asyncpg"
+      ],
+      "imports": [],
+      "imported_by": [],
+      "symbols": [
+        "_coerce_num",
+        "_round",
+        "_int",
+        "_fmt",
+        "_flatten_numeric",
+        "_fetch_stats",
+        "_print_summary",
+        "_print_compare",
+        "_amain",
+        "main"
+      ],
+      "loc": 447
+    },
+    "tools/report_heal_metrics.py": {
+      "language": "python",
+      "feature": "tools",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tools",
+      "hash": "e19a216f6d9786ad",
+      "imports_raw": [
+        "__future__",
+        "io",
+        "json",
+        "statistics",
+        "sys",
+        "collections",
+        "pathlib",
+        "typing"
+      ],
+      "imports": [],
+      "imported_by": [],
+      "symbols": [
+        "_heal_attempt_records",
+        "_summarise_layer",
+        "main"
+      ],
+      "loc": 167
+    },
+    "tools/run_all_layers_headed.py": {
+      "language": "python",
+      "feature": "tools",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tools",
+      "hash": "2a4999ca8994741a",
+      "imports_raw": [
+        "__future__",
+        "os",
+        "shutil",
+        "subprocess",
+        "sys",
+        "pathlib"
+      ],
+      "imports": [],
+      "imported_by": [],
+      "symbols": [
+        "_deterministic_env",
+        "_agentic_env",
+        "_rag_env",
+        "_wipe",
+        "_run_layer",
+        "main"
+      ],
+      "loc": 246
+    },
+    "tools/run_amazon_demo.py": {
+      "language": "python",
+      "feature": "tools",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tools",
+      "hash": "06a597a905e7adea",
+      "imports_raw": [
+        "__future__",
+        "argparse",
+        "asyncio",
+        "json",
+        "io",
+        "os",
+        "sys",
+        "pathlib",
+        "typing",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "playwright.async_api",
+        "xpath_healer.api.facade",
+        "xpath_healer.llm.openai_chat",
+        "xpath_healer.orchestrator"
+      ],
+      "imports": [
+        "xpath_healer/orchestrator/__init__.py",
+        "xpath_healer/api/facade.py",
+        "xpath_healer/llm/openai_chat.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "_new_context",
+        "_phase1_list",
+        "_phase2_drill",
+        "_print_result",
+        "_to_jsonable_result",
+        "_collect_urls",
+        "main"
+      ],
+      "loc": 474
+    },
+    "tools/run_flipkart_demo.py": {
+      "language": "python",
+      "feature": "tools",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tools",
+      "hash": "2b2d46989828b083",
+      "imports_raw": [
+        "__future__",
+        "argparse",
+        "asyncio",
+        "json",
+        "os",
+        "sys",
+        "pathlib",
+        "typing",
+        "playwright.async_api",
+        "xpath_healer.api.facade",
+        "xpath_healer.llm.openai_chat",
+        "xpath_healer.orchestrator"
+      ],
+      "imports": [
+        "xpath_healer/api/facade.py",
+        "xpath_healer/llm/openai_chat.py",
+        "xpath_healer/orchestrator/__init__.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "main",
+        "_print_summary",
+        "_to_jsonable"
+      ],
+      "loc": 326
+    },
+    "tools/run_flipkart_drill_demo.py": {
+      "language": "python",
+      "feature": "tools",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tools",
+      "hash": "0af5598ff46df6fa",
+      "imports_raw": [
+        "__future__",
+        "argparse",
+        "asyncio",
+        "io",
+        "json",
+        "os",
+        "sys",
+        "pathlib",
+        "typing",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "playwright.async_api",
+        "xpath_healer.api.facade",
+        "xpath_healer.llm.openai_chat",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator"
+      ],
+      "imports": [
+        "xpath_healer/orchestrator/__init__.py",
+        "xpath_healer/api/facade.py",
+        "xpath_healer/llm/openai_chat.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "_new_context",
+        "_phase1",
+        "_phase2",
+        "_print_result",
+        "_collect_urls",
+        "_to_jsonable",
+        "main"
+      ],
+      "loc": 333
+    },
+    "tools/run_orchestrator_demo.py": {
+      "language": "python",
+      "feature": "tools",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tools",
+      "hash": "024fcbd370adc568",
+      "imports_raw": [
+        "__future__",
+        "argparse",
+        "asyncio",
+        "json",
+        "os",
+        "sys",
+        "pathlib",
+        "typing",
+        "playwright.async_api",
+        "xpath_healer.api.facade",
+        "xpath_healer.llm.openai_chat",
+        "xpath_healer.orchestrator"
+      ],
+      "imports": [
+        "xpath_healer/api/facade.py",
+        "xpath_healer/llm/openai_chat.py",
+        "xpath_healer/orchestrator/__init__.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "main"
+      ],
+      "loc": 196
+    },
+    "xpath_healer/__init__.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer",
+      "hash": "6639a72526ec32e6",
+      "imports_raw": [
+        "xpath_healer.api.facade",
+        "xpath_healer.api.factory",
+        "xpath_healer.api.factory"
+      ],
+      "imports": [
+        "xpath_healer/api/facade.py",
+        "xpath_healer/api/factory.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "__getattr__"
+      ],
+      "loc": 20
+    },
+    "xpath_healer/api/base.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.api",
+      "hash": "8e6005e8f2bca152",
+      "imports_raw": [
+        "__future__",
+        "asyncio",
+        "json",
+        "os",
+        "time",
+        "datetime",
+        "typing",
+        "xpath_healer.core.automation",
+        "xpath_healer.core.builder",
+        "xpath_healer.core.config",
+        "xpath_healer.core.context",
+        "xpath_healer.core.healing_service",
+        "xpath_healer.core.models",
+        "xpath_healer.core.page_index",
+        "xpath_healer.core.signature",
+        "xpath_healer.core.similarity",
+        "xpath_healer.core.strategies",
+        "xpath_healer.core.strategy_registry",
+        "xpath_healer.core.validator",
+        "xpath_healer.dom.mine",
+        "xpath_healer.dom.snapshot",
+        "xpath_healer.store.dual_repository",
+        "xpath_healer.store.json_repository",
+        "xpath_healer.store.memory_repository",
+        "xpath_healer.store.pg_repository",
+        "xpath_healer.store.repository",
+        "xpath_healer.utils.logging",
+        "xpath_healer.core.workflow",
+        "xpath_healer.store.workflow_run_repository",
+        "xpath_healer.core.workflow",
+        "xpath_healer.core.workflow",
+        "xpath_healer.store.workflow_run_repository",
+        "xpath_healer.core.workflow",
+        "xpath_healer.core.page_signature",
+        "xpath_healer.rag",
+        "xpath_healer.llm.openai_chat",
+        "xpath_healer.mcp",
+        "xpath_healer.llm.openai_chat",
+        "xpath_healer.workflow",
+        "xpath_healer.store.workflow_run_repository",
+        "hashlib",
+        "xpath_healer.mcp",
+        "xpath_healer.store.workflow_run_pg_repository"
+      ],
+      "imports": [
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/builder.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/context.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/page_index.py",
+        "xpath_healer/core/signature.py",
+        "xpath_healer/core/similarity.py",
+        "xpath_healer/core/strategies/__init__.py",
+        "xpath_healer/core/strategy_registry.py",
+        "xpath_healer/core/validator.py",
+        "xpath_healer/dom/mine.py",
+        "xpath_healer/dom/snapshot.py",
+        "xpath_healer/store/dual_repository.py",
+        "xpath_healer/store/json_repository.py",
+        "xpath_healer/store/memory_repository.py",
+        "xpath_healer/store/pg_repository.py",
+        "xpath_healer/store/repository.py",
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/store/workflow_run_repository.py",
+        "xpath_healer/core/page_signature.py",
+        "xpath_healer/rag/__init__.py",
+        "xpath_healer/llm/openai_chat.py",
+        "xpath_healer/mcp/__init__.py",
+        "xpath_healer/workflow/__init__.py",
+        "xpath_healer/store/workflow_run_pg_repository.py"
+      ],
+      "imported_by": [
+        "adapters/appium_python/facade.py",
+        "adapters/playwright_python/facade.py",
+        "adapters/selenium_python/facade.py",
+        "tests/unit/test_phase5_additions.py",
+        "tests/unit/test_workflow_context.py",
+        "tests/unit/test_workflow_rewriter.py",
+        "tests/unit/test_workflow_run_history.py",
+        "xpath_healer/api/__init__.py"
+      ],
+      "symbols": [
+        "BaseHealerFacade",
+        "__init__",
+        "recover_locator",
+        "recover_workflow_step",
+        "report_step_outcome",
+        "_attach_rewrite_proposal",
+        "_evaluate_auto_apply",
+        "_record_heal_outcome",
+        "_warn_if_workflow_shaped",
+        "generate_locator_async",
+        "generate_locator",
+        "validate_candidate",
+        "persist_success",
+        "register_strategy",
+        "_default_strategies",
+        "_generate_minimal_fallback",
+        "_build_rag_assist_from_env",
+        "_build_mcp_assist_from_env",
+        "_build_workflow_rewriter_from_env",
+        "_build_workflow_run_repository_from_config",
+        "_build_repository_from_env"
+      ],
+      "loc": 906
+    },
+    "xpath_healer/api/facade.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.api",
+      "hash": "df02dd801981db39",
+      "imports_raw": [
+        "adapters.playwright_python.facade"
+      ],
+      "imports": [
+        "adapters/playwright_python/facade.py"
+      ],
+      "imported_by": [
+        "tests/integration/test_demo_qa_healing_bdd.py",
+        "tests/unit/test_facade_rag_init.py",
+        "tests/unit/test_facade_repository_init.py",
+        "tests/unit/test_healing_service.py",
+        "tests/unit/test_page_indexing.py",
+        "tests/unit/test_rag_deep_retry.py",
+        "tests/unit/test_stage_switches.py",
+        "tools/adversarial_browser.py",
+        "tools/concurrent_stress.py",
+        "tools/force_vision_candidate_heal.py",
+        "tools/precision_corpus.py",
+        "tools/run_amazon_demo.py",
+        "tools/run_flipkart_demo.py",
+        "tools/run_flipkart_drill_demo.py",
+        "tools/run_orchestrator_demo.py",
+        "xpath_healer/__init__.py",
+        "xpath_healer/api/__init__.py"
+      ],
+      "symbols": [
+        "XPathHealerFacade"
+      ],
+      "loc": 8
+    },
+    "xpath_healer/api/factory.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.api",
+      "hash": "58f76408a17f55bb",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "adapters.playwright_python.adapter",
+        "adapters.playwright_python.facade",
+        "adapters.selenium_python.adapter",
+        "adapters.selenium_python.facade",
+        "xpath_healer.core.automation",
+        "xpath_healer.core.config"
+      ],
+      "imports": [
+        "adapters/playwright_python/adapter.py",
+        "adapters/playwright_python/facade.py",
+        "adapters/selenium_python/adapter.py",
+        "adapters/selenium_python/facade.py",
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/config.py"
+      ],
+      "imported_by": [
+        "xpath_healer/__init__.py",
+        "xpath_healer/api/__init__.py"
+      ],
+      "symbols": [
+        "create_adapter",
+        "create_healer_facade"
+      ],
+      "loc": 37
+    },
+    "xpath_healer/api/__init__.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.api",
+      "hash": "3eb739b4eb52f458",
+      "imports_raw": [
+        "xpath_healer.api.base",
+        "xpath_healer.api.facade",
+        "xpath_healer.api.factory",
+        "xpath_healer.api.factory"
+      ],
+      "imports": [
+        "xpath_healer/api/base.py",
+        "xpath_healer/api/facade.py",
+        "xpath_healer/api/factory.py"
+      ],
+      "imported_by": [
+        "service/main.py"
+      ],
+      "symbols": [
+        "__getattr__"
+      ],
+      "loc": 24
+    },
+    "xpath_healer/core/automation.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core",
+      "hash": "f59ab494f8575b87",
+      "imports_raw": [
+        "__future__",
+        "abc",
+        "typing",
+        "xpath_healer.core.models"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py"
+      ],
+      "imported_by": [
+        "adapters/appium_python/adapter.py",
+        "adapters/playwright_python/adapter.py",
+        "adapters/selenium_python/adapter.py",
+        "tests/unit/test_orchestrator.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/api/factory.py",
+        "xpath_healer/core/context.py",
+        "xpath_healer/core/graph_container.py",
+        "xpath_healer/core/signature.py",
+        "xpath_healer/core/validator.py",
+        "xpath_healer/dom/snapshot.py",
+        "xpath_healer/mcp/explorer.py",
+        "xpath_healer/mcp/playwright_mcp_explorer.py",
+        "xpath_healer/orchestrator/decomposer.py",
+        "xpath_healer/orchestrator/executor.py",
+        "xpath_healer/orchestrator/runner.py",
+        "xpath_healer/orchestrator/verifier.py",
+        "xpath_healer/workflow/rewriter.py"
+      ],
+      "symbols": [
+        "RuntimeLocator",
+        "count",
+        "nth",
+        "is_visible",
+        "is_enabled",
+        "evaluate",
+        "bounding_box",
+        "AutomationAdapter",
+        "resolve_locator",
+        "capture_page_html"
+      ],
+      "loc": 41
+    },
+    "xpath_healer/core/builder.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core",
+      "hash": "e6a730b84302b715",
+      "imports_raw": [
+        "__future__",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategy_registry"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategy_registry.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_healing_retry.py",
+        "tests/unit/test_healing_service_fingerprint.py",
+        "tests/unit/test_healing_service_graph_context.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/healing_service.py"
+      ],
+      "symbols": [
+        "XPathBuilder",
+        "__init__",
+        "build_all_candidates"
+      ],
+      "loc": 21
+    },
+    "xpath_healer/core/config.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core",
+      "hash": "7ab079b399c12cd1",
+      "imports_raw": [
+        "__future__",
+        "os",
+        "dataclasses",
+        "xpath_healer.utils.text"
+      ],
+      "imports": [
+        "xpath_healer/utils/text.py"
+      ],
+      "imported_by": [
+        "tests/conftest.py",
+        "tests/unit/test_checkbox_proxy_validation.py",
+        "tests/unit/test_healing_retry.py",
+        "tests/unit/test_healing_service.py",
+        "tests/unit/test_healing_service_fingerprint.py",
+        "tests/unit/test_page_indexing.py",
+        "tests/unit/test_rag_deep_retry.py",
+        "tests/unit/test_selenium_adapter.py",
+        "tests/unit/test_stage_switches.py",
+        "tests/unit/test_validator.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/api/factory.py",
+        "xpath_healer/core/context.py",
+        "xpath_healer/core/validator.py"
+      ],
+      "symbols": [
+        "ValidatorGeometryConfig",
+        "ValidatorAxisConfig",
+        "ValidatorConfig",
+        "DomSnapshotConfig",
+        "StoreConfig",
+        "RagConfig",
+        "PromptConfig",
+        "LlmConfig",
+        "StageConfig",
+        "FingerprintConfig",
+        "RetryConfig",
+        "WorkflowHistoryConfig",
+        "LoggingConfig",
+        "AdapterConfig",
+        "HealerConfig",
+        "to_dict",
+        "from_env"
+      ],
+      "loc": 332
+    },
+    "xpath_healer/core/context.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core",
+      "hash": "dc2ff348bd5718dc",
+      "imports_raw": [
+        "__future__",
+        "dataclasses",
+        "logging",
+        "xpath_healer.core.automation",
+        "xpath_healer.core.config",
+        "xpath_healer.core.models",
+        "xpath_healer.core.page_index",
+        "xpath_healer.core.signature",
+        "xpath_healer.core.similarity",
+        "xpath_healer.core.validator",
+        "xpath_healer.dom.mine",
+        "xpath_healer.dom.snapshot",
+        "xpath_healer.store.repository"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/page_index.py",
+        "xpath_healer/core/signature.py",
+        "xpath_healer/core/similarity.py",
+        "xpath_healer/core/validator.py",
+        "xpath_healer/dom/mine.py",
+        "xpath_healer/dom/snapshot.py",
+        "xpath_healer/store/repository.py"
+      ],
+      "imported_by": [
+        "tests/conftest.py",
+        "tests/unit/test_bidirectional_anchor_field.py",
+        "tests/unit/test_healing_service_fingerprint.py",
+        "tests/unit/test_strategy_registry.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/strategies/attribute_strategy.py",
+        "xpath_healer/core/strategies/axis_hint_field.py",
+        "xpath_healer/core/strategies/bidirectional_anchor_field.py",
+        "xpath_healer/core/strategies/button_text_candidate.py",
+        "xpath_healer/core/strategies/checkbox_icon_by_label.py",
+        "xpath_healer/core/strategies/composite_label_control.py",
+        "xpath_healer/core/strategies/generic_template.py",
+        "xpath_healer/core/strategies/grid_cell_colid.py",
+        "xpath_healer/core/strategies/label_proximity_interactable.py",
+        "xpath_healer/core/strategies/multi_field_text_resolver.py",
+        "xpath_healer/core/strategies/position_fallback.py",
+        "xpath_healer/core/strategies/text_occurrence.py",
+        "xpath_healer/core/strategies/tree_toggle_by_label.py"
+      ],
+      "symbols": [
+        "StrategyContext",
+        "template_set",
+        "resolve_hints"
+      ],
+      "loc": 77
+    },
+    "xpath_healer/core/exceptions.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core",
+      "hash": "d4a1184123cd9853",
+      "imports_raw": [
+        "__future__",
+        "dataclasses",
+        "xpath_healer.core.models"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py"
+      ],
+      "imported_by": [
+        "adapters/appium_python/adapter.py",
+        "adapters/selenium_python/adapter.py"
+      ],
+      "symbols": [
+        "XPathHealerError",
+        "RecoveryFailed",
+        "__str__"
+      ],
+      "loc": 23
+    },
+    "xpath_healer/core/fingerprint.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core",
+      "hash": "439de9e924dc31b5",
+      "imports_raw": [
+        "__future__",
+        "hashlib",
+        "dataclasses",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.utils.text"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/utils/text.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_fingerprint.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/page_index.py"
+      ],
+      "symbols": [
+        "Fingerprint",
+        "FingerprintMatch",
+        "FingerprintService",
+        "__init__",
+        "build",
+        "compare",
+        "_token_similarity",
+        "_container_similarity",
+        "confidence_band",
+        "to_dict"
+      ],
+      "loc": 148
+    },
+    "xpath_healer/core/graph_container.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core",
+      "hash": "6a98f5a045fd562a",
+      "imports_raw": [
+        "__future__",
+        "dataclasses",
+        "typing",
+        "xpath_healer.core.automation",
+        "xpath_healer.core.models"
+      ],
+      "imports": [
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/models.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_option_fingerprint.py",
+        "xpath_healer/core/healing_service.py"
+      ],
+      "symbols": [
+        "GroundedContainer",
+        "ok",
+        "GraphContainerGrounder",
+        "__init__",
+        "ground"
+      ],
+      "loc": 348
+    },
+    "xpath_healer/core/healing_service.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core",
+      "hash": "7b9a6c6a0041fa16",
+      "imports_raw": [
+        "__future__",
+        "asyncio",
+        "datetime",
+        "typing",
+        "xpath_healer.core.builder",
+        "xpath_healer.core.context",
+        "xpath_healer.core.fingerprint",
+        "xpath_healer.core.models",
+        "xpath_healer.utils.ids",
+        "xpath_healer.utils.logging",
+        "xpath_healer.utils.text",
+        "xpath_healer.utils.timing",
+        "xpath_healer.core.workflow",
+        "xpath_healer.core.graph_container",
+        "xpath_healer.core.page_signature"
+      ],
+      "imports": [
+        "xpath_healer/core/builder.py",
+        "xpath_healer/core/context.py",
+        "xpath_healer/core/fingerprint.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/utils/ids.py",
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/utils/text.py",
+        "xpath_healer/utils/timing.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/core/graph_container.py",
+        "xpath_healer/core/page_signature.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_healing_retry.py",
+        "tests/unit/test_healing_service_fingerprint.py",
+        "tests/unit/test_healing_service_graph_context.py",
+        "tests/unit/test_mcp_explorer.py",
+        "tests/unit/test_option_fingerprint.py",
+        "tests/unit/test_phase5_additions.py",
+        "tests/unit/test_workflow_replay.py",
+        "xpath_healer/api/base.py"
+      ],
+      "symbols": [
+        "HealingService",
+        "__init__",
+        "recover_locator",
+        "_evaluate_candidates",
+        "_evaluate_candidates_parallel",
+        "_validate_candidate_with_retry",
+        "_should_retry_validation",
+        "_stage_enabled",
+        "_metadata_candidates",
+        "_fingerprint_candidates",
+        "_fingerprint_locator",
+        "_page_index_candidates",
+        "_signature_candidates",
+        "_graph_context_score",
+        "_container_overlap_score",
+        "_anchor_text_score",
+        "_field_type_compatibility",
+        "_workflow_replay_candidates",
+        "_mcp_explore_candidates",
+        "_dom_mining_candidates",
+        "_option_fingerprint_candidates",
+        "_score_option_candidates_in_container",
+        "_rag_candidates",
+        "_rag_retry_reason",
+        "_rag_failure_reason_codes",
+        "_on_success",
+        "_persist_success",
+        "_persist_failure",
+        "_log_stage_event",
+        "_capture_live_locator_variants",
+        "_is_weak_css",
+        "_is_weak_xpath",
+        "_choose_primary_robust_locator",
+        "_preferred_css_variant",
+        "_preferred_xpath_variant",
+        "_is_weak_metadata_locator",
+        "_build_quality_metrics",
+        "_uniqueness_score",
+        "_stability_score",
+        "_similarity_to_previous",
+        "_coerce_stage_score",
+        "_resolve_selected_locator"
+      ],
+      "loc": 1920
+    },
+    "xpath_healer/core/models.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core",
+      "hash": "c36754459c6f6568",
+      "imports_raw": [
+        "__future__",
+        "hashlib",
+        "json",
+        "uuid",
+        "dataclasses",
+        "datetime",
+        "typing",
+        "xpath_healer.utils.text"
+      ],
+      "imports": [
+        "xpath_healer/utils/text.py"
+      ],
+      "imported_by": [
+        "adapters/appium_python/adapter.py",
+        "adapters/playwright_python/adapter.py",
+        "adapters/selenium_python/adapter.py",
+        "service/main.py",
+        "tests/integration/conftest.py",
+        "tests/integration/test_demo_qa_healing_bdd.py",
+        "tests/integration/test_demo_qa_healing_selenium.py",
+        "tests/unit/test_bidirectional_anchor_field.py",
+        "tests/unit/test_checkbox_proxy_validation.py",
+        "tests/unit/test_dual_repository.py",
+        "tests/unit/test_fingerprint.py",
+        "tests/unit/test_healing_retry.py",
+        "tests/unit/test_healing_service.py",
+        "tests/unit/test_healing_service_fingerprint.py",
+        "tests/unit/test_healing_service_graph_context.py",
+        "tests/unit/test_mcp_explorer.py",
+        "tests/unit/test_models_serialization.py",
+        "tests/unit/test_option_fingerprint.py",
+        "tests/unit/test_orchestrator.py",
+        "tests/unit/test_orchestrator_actions.py",
+        "tests/unit/test_orchestrator_visual.py",
+        "tests/unit/test_page_indexing.py",
+        "tests/unit/test_phase5_additions.py",
+        "tests/unit/test_prompt_dsl.py",
+        "tests/unit/test_rag_assist.py",
+        "tests/unit/test_rag_deep_retry.py",
+        "tests/unit/test_selenium_adapter.py",
+        "tests/unit/test_similarity.py",
+        "tests/unit/test_stage_switches.py",
+        "tests/unit/test_strategy_registry.py",
+        "tests/unit/test_validator.py",
+        "tests/unit/test_workflow_context.py",
+        "tests/unit/test_workflow_replay.py",
+        "tests/unit/test_workflow_rewriter.py",
+        "tests/unit/test_workflow_run_history.py",
+        "tools/concurrent_stress.py",
+        "tools/precision_corpus.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/builder.py",
+        "xpath_healer/core/context.py",
+        "xpath_healer/core/exceptions.py",
+        "xpath_healer/core/fingerprint.py",
+        "xpath_healer/core/graph_container.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/page_index.py",
+        "xpath_healer/core/signature.py",
+        "xpath_healer/core/similarity.py",
+        "xpath_healer/core/strategies/attribute_strategy.py",
+        "xpath_healer/core/strategies/axis_hint_field.py",
+        "xpath_healer/core/strategies/base.py",
+        "xpath_healer/core/strategies/bidirectional_anchor_field.py",
+        "xpath_healer/core/strategies/button_text_candidate.py",
+        "xpath_healer/core/strategies/checkbox_icon_by_label.py",
+        "xpath_healer/core/strategies/composite_label_control.py",
+        "xpath_healer/core/strategies/generic_template.py",
+        "xpath_healer/core/strategies/grid_cell_colid.py",
+        "xpath_healer/core/strategies/label_proximity_interactable.py",
+        "xpath_healer/core/strategies/multi_field_text_resolver.py",
+        "xpath_healer/core/strategies/position_fallback.py",
+        "xpath_healer/core/strategies/text_occurrence.py",
+        "xpath_healer/core/strategies/tree_toggle_by_label.py",
+        "xpath_healer/core/strategy_registry.py",
+        "xpath_healer/core/validator.py",
+        "xpath_healer/dom/mine.py",
+        "xpath_healer/mcp/explorer.py",
+        "xpath_healer/mcp/playwright_mcp_explorer.py",
+        "xpath_healer/orchestrator/executor.py",
+        "xpath_healer/orchestrator/runner.py",
+        "xpath_healer/orchestrator/verifier.py",
+        "xpath_healer/rag/prompt_builder.py",
+        "xpath_healer/rag/prompt_dsl.py",
+        "xpath_healer/rag/rag_assist.py",
+        "xpath_healer/store/dual_repository.py",
+        "xpath_healer/store/json_repository.py",
+        "xpath_healer/store/memory_repository.py",
+        "xpath_healer/store/pg_repository.py",
+        "xpath_healer/store/repository.py",
+        "xpath_healer/workflow/rewriter.py"
+      ],
+      "symbols": [
+        "LocatorSpec",
+        "__post_init__",
+        "__str__",
+        "to_dict",
+        "from_dict",
+        "stable_hash",
+        "HealingHints",
+        "to_dict",
+        "from_dict",
+        "Intent",
+        "from_vars",
+        "to_dict",
+        "ValidationResult",
+        "success",
+        "fail",
+        "to_dict",
+        "ElementSignature",
+        "to_dict",
+        "from_dict",
+        "ElementMeta",
+        "key",
+        "to_dict",
+        "from_dict",
+        "StrategyTrace",
+        "to_dict",
+        "Recovered",
+        "playwright_locator",
+        "raw_locator",
+        "to_dict",
+        "BuildInput",
+        "CandidateSpec",
+        "IndexedElement",
+        "to_dict",
+        "from_dict",
+        "PageIndex",
+        "key",
+        "to_dict",
+        "from_dict"
+      ],
+      "loc": 538
+    },
+    "xpath_healer/core/page_index.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core",
+      "hash": "601292d7cd27d45b",
+      "imports_raw": [
+        "__future__",
+        "hashlib",
+        "re",
+        "uuid",
+        "dataclasses",
+        "html.parser",
+        "typing",
+        "xpath_healer.core.fingerprint",
+        "xpath_healer.core.models",
+        "xpath_healer.utils.text",
+        "bs4",
+        "bs4"
+      ],
+      "imports": [
+        "xpath_healer/core/fingerprint.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/utils/text.py"
+      ],
+      "imported_by": [
+        "tests/conftest.py",
+        "tests/unit/test_healing_service_fingerprint.py",
+        "tests/unit/test_page_indexing.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/context.py"
+      ],
+      "symbols": [
+        "RankedIndexedElement",
+        "_ExpectedProfile",
+        "_FallbackNode",
+        "_SimpleHtmlTreeParser",
+        "__init__",
+        "handle_starttag",
+        "handle_endtag",
+        "handle_data",
+        "PageIndexer",
+        "__init__",
+        "dom_hash",
+        "build_page_index",
+        "rank_candidates",
+        "_parse",
+        "_build_elements_without_bs4",
+        "_is_indexable",
+        "_is_indexable_fallback",
+        "_normalized_attrs",
+        "_stable_attrs",
+        "_container_tokens",
+        "_container_tokens_fallback",
+        "_neighbor_text",
+        "_neighbor_text_fallback",
+        "_position_signature",
+        "_position_signature_fallback",
+        "_element_name",
+        "_field_type_for_role",
+        "_infer_role",
+        "_css_selector",
+        "_xpath_selector",
+        "_css_escape",
+        "_xpath_literal",
+        "_expected_profile",
+        "_synthetic_signature",
+        "_score_element",
+        "_text_similarity",
+        "_container_similarity",
+        "_id_similarity",
+        "_fingerprint_similarity",
+        "_signature_from_indexed_element",
+        "_role_match",
+        "_infer_role_from_tag",
+        "_neighbor_similarity",
+        "_position_similarity",
+        "_locator_for",
+        "_split_tokens",
+        "_dedupe_tokens",
+        "_expected_position_signature"
+      ],
+      "loc": 912
+    },
+    "xpath_healer/core/page_signature.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core",
+      "hash": "3026fb6ff4770622",
+      "imports_raw": [
+        "__future__",
+        "hashlib",
+        "re",
+        "typing"
+      ],
+      "imports": [],
+      "imported_by": [
+        "tests/unit/test_phase5_additions.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/healing_service.py"
+      ],
+      "symbols": [
+        "compute_page_signature_hash",
+        "_iter_tokens"
+      ],
+      "loc": 69
+    },
+    "xpath_healer/core/signature.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core",
+      "hash": "3dde3484786017ca",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.automation",
+        "xpath_healer.core.models",
+        "xpath_healer.utils.text"
+      ],
+      "imports": [
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/utils/text.py"
+      ],
+      "imported_by": [
+        "tests/conftest.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/context.py"
+      ],
+      "symbols": [
+        "SignatureExtractor",
+        "__init__",
+        "capture",
+        "from_dom_payload",
+        "build_robust_locator",
+        "build_robust_xpath",
+        "_css_escape",
+        "_xpath_literal"
+      ],
+      "loc": 236
+    },
+    "xpath_healer/core/similarity.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core",
+      "hash": "e27e09080aa35c79",
+      "imports_raw": [
+        "__future__",
+        "re",
+        "dataclasses",
+        "xpath_healer.core.models",
+        "xpath_healer.utils.text"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/utils/text.py"
+      ],
+      "imported_by": [
+        "tests/conftest.py",
+        "tests/unit/test_similarity.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/context.py"
+      ],
+      "symbols": [
+        "SimilarityScore",
+        "SimilarityService",
+        "__init__",
+        "score",
+        "is_similar",
+        "_attribute_score",
+        "_weight_for_attr",
+        "_container_score",
+        "_volatility_penalty"
+      ],
+      "loc": 111
+    },
+    "xpath_healer/core/strategy_registry.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core",
+      "hash": "89834bf6eecc0196",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategies.base"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategies/base.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_healing_retry.py",
+        "tests/unit/test_healing_service_fingerprint.py",
+        "tests/unit/test_healing_service_graph_context.py",
+        "tests/unit/test_strategy_registry.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/builder.py"
+      ],
+      "symbols": [
+        "StrategyRegistry",
+        "__init__",
+        "register",
+        "ordered",
+        "evaluate_all"
+      ],
+      "loc": 48
+    },
+    "xpath_healer/core/validator.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core",
+      "hash": "374ced860249abca",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.automation",
+        "xpath_healer.core.config",
+        "xpath_healer.core.models",
+        "xpath_healer.utils.text"
+      ],
+      "imports": [
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/utils/text.py"
+      ],
+      "imported_by": [
+        "tests/conftest.py",
+        "tests/unit/test_checkbox_proxy_validation.py",
+        "tests/unit/test_healing_service.py",
+        "tests/unit/test_selenium_adapter.py",
+        "tests/unit/test_validator.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/context.py"
+      ],
+      "symbols": [
+        "XPathValidator",
+        "__init__",
+        "validate_candidate",
+        "_resolve_strictness",
+        "_extract_node_info",
+        "_run_type_gate",
+        "_run_axis_geometry_checks",
+        "_geometry_axis_match",
+        "_text_match",
+        "_locator_error_reason",
+        "_safe_bool_call",
+        "_safe_eval",
+        "_safe_box"
+      ],
+      "loc": 463
+    },
+    "xpath_healer/core/workflow.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core",
+      "hash": "44c156922f82d04e",
+      "imports_raw": [
+        "__future__",
+        "dataclasses",
+        "datetime",
+        "typing"
+      ],
+      "imports": [],
+      "imported_by": [
+        "tests/unit/test_orchestrator.py",
+        "tests/unit/test_orchestrator_actions.py",
+        "tests/unit/test_orchestrator_visual.py",
+        "tests/unit/test_phase5_additions.py",
+        "tests/unit/test_workflow_context.py",
+        "tests/unit/test_workflow_replay.py",
+        "tests/unit/test_workflow_rewriter.py",
+        "tests/unit/test_workflow_run_history.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/orchestrator/decomposer.py",
+        "xpath_healer/orchestrator/executor.py",
+        "xpath_healer/orchestrator/models.py",
+        "xpath_healer/orchestrator/runner.py",
+        "xpath_healer/orchestrator/verifier.py",
+        "xpath_healer/store/workflow_run_pg_repository.py",
+        "xpath_healer/store/workflow_run_repository.py",
+        "xpath_healer/workflow/rewriter.py"
+      ],
+      "symbols": [
+        "WorkflowStep",
+        "to_dict",
+        "from_dict",
+        "StepOutcome",
+        "to_dict",
+        "from_dict",
+        "WorkflowContext",
+        "to_dict",
+        "from_dict",
+        "StepRun",
+        "to_dict",
+        "from_dict",
+        "WorkflowRewriteProposal",
+        "to_dict",
+        "from_dict",
+        "AutoApplyPolicy",
+        "to_dict",
+        "from_dict",
+        "disabled",
+        "is_mvp_rewrite_action",
+        "is_supported_rewrite_action",
+        "action_requires_new_step",
+        "WorkflowRun",
+        "to_dict",
+        "from_dict"
+      ],
+      "loc": 425
+    },
+    "xpath_healer/core/__init__.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core",
+      "hash": "dbe9adb58c8d0179",
+      "imports_raw": [],
+      "imports": [],
+      "imported_by": [],
+      "symbols": [],
+      "loc": 3
+    },
+    "xpath_healer/dom/mine.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.dom",
+      "hash": "911b8564e6b7abbf",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.utils.text",
+        "bs4",
+        "bs4"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/utils/text.py"
+      ],
+      "imported_by": [
+        "tests/conftest.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/context.py"
+      ],
+      "symbols": [
+        "DomMiner",
+        "__init__",
+        "mine",
+        "_build_from_attrs",
+        "_css_escape",
+        "_parse",
+        "_tags_for"
+      ],
+      "loc": 118
+    },
+    "xpath_healer/dom/snapshot.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.dom",
+      "hash": "52f0d6ee3acc8a15",
+      "imports_raw": [
+        "__future__",
+        "time",
+        "dataclasses",
+        "typing",
+        "xpath_healer.core.automation"
+      ],
+      "imports": [
+        "xpath_healer/core/automation.py"
+      ],
+      "imported_by": [
+        "tests/conftest.py",
+        "tests/unit/test_snapshotter.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/context.py"
+      ],
+      "symbols": [
+        "SnapshotRecord",
+        "DomSnapshotter",
+        "__init__",
+        "capture",
+        "_cache_key",
+        "_page_token"
+      ],
+      "loc": 64
+    },
+    "xpath_healer/dom/__init__.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.dom",
+      "hash": "e0e02d25fde8193e",
+      "imports_raw": [],
+      "imports": [],
+      "imported_by": [],
+      "symbols": [],
+      "loc": 3
+    },
+    "xpath_healer/llm/client.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.llm",
+      "hash": "0a98d93a1cd35af0",
+      "imports_raw": [
+        "__future__",
+        "dataclasses",
+        "typing"
+      ],
+      "imports": [],
+      "imported_by": [
+        "tests/unit/test_mcp_explorer.py",
+        "tests/unit/test_orchestrator.py",
+        "tests/unit/test_orchestrator_actions.py",
+        "tests/unit/test_orchestrator_visual.py",
+        "tests/unit/test_phase5_additions.py",
+        "tests/unit/test_workflow_context.py",
+        "tests/unit/test_workflow_rewriter.py",
+        "xpath_healer/llm/__init__.py",
+        "xpath_healer/llm/openai_chat.py",
+        "xpath_healer/mcp/explorer.py",
+        "xpath_healer/mcp/playwright_mcp_explorer.py",
+        "xpath_healer/orchestrator/decomposer.py",
+        "xpath_healer/orchestrator/executor.py",
+        "xpath_healer/orchestrator/telemetry.py",
+        "xpath_healer/orchestrator/verifier.py",
+        "xpath_healer/orchestrator/visual.py",
+        "xpath_healer/workflow/rewriter.py"
+      ],
+      "symbols": [
+        "ToolDefinition",
+        "to_openai",
+        "ToolCall",
+        "ChatMessage",
+        "ChatResponse",
+        "LLMClient",
+        "chat"
+      ],
+      "loc": 76
+    },
+    "xpath_healer/llm/openai_chat.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.llm",
+      "hash": "ef6dc174644b282b",
+      "imports_raw": [
+        "__future__",
+        "asyncio",
+        "json",
+        "logging",
+        "random",
+        "re",
+        "typing",
+        "xpath_healer.llm.client",
+        "openai"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/llm/client.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_orchestrator_visual.py",
+        "tools/adversarial_browser.py",
+        "tools/force_vision_candidate_heal.py",
+        "tools/inspect_workflow_video.py",
+        "tools/run_amazon_demo.py",
+        "tools/run_flipkart_demo.py",
+        "tools/run_flipkart_drill_demo.py",
+        "tools/run_orchestrator_demo.py",
+        "xpath_healer/api/base.py"
+      ],
+      "symbols": [
+        "_parse_retry_after",
+        "OpenAIChatClient",
+        "__init__",
+        "chat",
+        "_chat_with_retry",
+        "_message_to_openai"
+      ],
+      "loc": 253
+    },
+    "xpath_healer/llm/__init__.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.llm",
+      "hash": "26aabe76f8501a26",
+      "imports_raw": [
+        "xpath_healer.llm.client"
+      ],
+      "imports": [
+        "xpath_healer/llm/client.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_orchestrator_visual.py"
+      ],
+      "symbols": [],
+      "loc": 31
+    },
+    "xpath_healer/mcp/explorer.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.mcp",
+      "hash": "2cd7173e8242c7ad",
+      "imports_raw": [
+        "__future__",
+        "json",
+        "logging",
+        "dataclasses",
+        "typing",
+        "xpath_healer.core.automation",
+        "xpath_healer.core.models",
+        "xpath_healer.llm.client"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/llm/client.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_mcp_explorer.py",
+        "xpath_healer/mcp/__init__.py",
+        "xpath_healer/mcp/playwright_mcp_explorer.py",
+        "xpath_healer/orchestrator/decomposer.py",
+        "xpath_healer/orchestrator/verifier.py",
+        "xpath_healer/workflow/rewriter.py"
+      ],
+      "symbols": [
+        "ExplorationResult",
+        "MCPExploratoryHealer",
+        "explore",
+        "build_default_tools",
+        "AgenticMCPExplorer",
+        "__init__",
+        "explore",
+        "_dispatch_tool",
+        "_record_commit",
+        "_build_user_prompt",
+        "_exec_count",
+        "_exec_read_outline",
+        "_exec_inspect"
+      ],
+      "loc": 695
+    },
+    "xpath_healer/mcp/playwright_mcp_explorer.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.mcp",
+      "hash": "f0928711ec13710c",
+      "imports_raw": [
+        "__future__",
+        "asyncio",
+        "json",
+        "logging",
+        "dataclasses",
+        "typing",
+        "xpath_healer.core.automation",
+        "xpath_healer.core.models",
+        "xpath_healer.llm.client",
+        "xpath_healer.mcp.explorer",
+        "mcp",
+        "mcp.client.stdio"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/llm/client.py",
+        "xpath_healer/mcp/explorer.py"
+      ],
+      "imported_by": [
+        "xpath_healer/mcp/__init__.py"
+      ],
+      "symbols": [
+        "_MCPSession",
+        "is_alive",
+        "PlaywrightMCPServerExplorer",
+        "__init__",
+        "explore",
+        "_connect",
+        "_disconnect",
+        "_call_tool",
+        "_run_agent_loop",
+        "_adapt_server_tools",
+        "_serialise_tool_result",
+        "_record_commit",
+        "_build_user_prompt",
+        "_default_commit_tools"
+      ],
+      "loc": 394
+    },
+    "xpath_healer/mcp/__init__.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.mcp",
+      "hash": "46c237bec661dc16",
+      "imports_raw": [
+        "xpath_healer.mcp.explorer",
+        "xpath_healer.mcp.playwright_mcp_explorer"
+      ],
+      "imports": [
+        "xpath_healer/mcp/explorer.py",
+        "xpath_healer/mcp/playwright_mcp_explorer.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_mcp_explorer.py",
+        "tests/unit/test_orchestrator_visual.py",
+        "tests/unit/test_phase5_additions.py",
+        "tests/unit/test_workflow_context.py",
+        "xpath_healer/api/base.py"
+      ],
+      "symbols": [],
+      "loc": 34
+    },
+    "xpath_healer/orchestrator/decomposer.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.orchestrator",
+      "hash": "93b77b498c1a3fc9",
+      "imports_raw": [
+        "__future__",
+        "json",
+        "logging",
+        "uuid",
+        "typing",
+        "xpath_healer.core.automation",
+        "xpath_healer.core.workflow",
+        "xpath_healer.llm.client",
+        "xpath_healer.mcp.explorer",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.orchestrator.page_state"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/llm/client.py",
+        "xpath_healer/mcp/explorer.py",
+        "xpath_healer/orchestrator/models.py",
+        "xpath_healer/orchestrator/page_state.py"
+      ],
+      "imported_by": [
+        "xpath_healer/orchestrator/__init__.py",
+        "xpath_healer/orchestrator/runner.py"
+      ],
+      "symbols": [
+        "_commit_plan_tool",
+        "GoalDecomposer",
+        "decompose",
+        "AgenticGoalDecomposer",
+        "__init__",
+        "decompose",
+        "_read_outline_with_retry",
+        "_build_user_prompt",
+        "_parse_steps"
+      ],
+      "loc": 478
+    },
+    "xpath_healer/orchestrator/executor.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.orchestrator",
+      "hash": "6b8d103c8f2551aa",
+      "imports_raw": [
+        "__future__",
+        "json",
+        "logging",
+        "re",
+        "typing",
+        "xpath_healer.core.automation",
+        "xpath_healer.core.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.llm.client",
+        "xpath_healer.orchestrator.models",
+        "pathlib",
+        "re",
+        "asyncio",
+        "asyncio",
+        "asyncio",
+        "asyncio",
+        "collections"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/llm/client.py",
+        "xpath_healer/orchestrator/models.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_orchestrator_visual.py",
+        "xpath_healer/orchestrator/__init__.py",
+        "xpath_healer/orchestrator/runner.py"
+      ],
+      "symbols": [
+        "_parse_duration_ms",
+        "ActionExecutor",
+        "execute",
+        "PlaywrightActionExecutor",
+        "__init__",
+        "execute",
+        "_navigate",
+        "_fill",
+        "_click",
+        "_select",
+        "_extract",
+        "_extract_record",
+        "_resolve_record_field_selectors",
+        "_field_value_looks_plausible",
+        "_heuristic_record_fields",
+        "_auto_discover_list_locator",
+        "_parse_extract_value",
+        "_resolve_field_selectors",
+        "_parse_selector_response",
+        "_press_key",
+        "_wait",
+        "_scroll",
+        "_hover",
+        "_screenshot",
+        "_heuristic_row"
+      ],
+      "loc": 1497
+    },
+    "xpath_healer/orchestrator/models.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.orchestrator",
+      "hash": "93ee3105276fdfb5",
+      "imports_raw": [
+        "__future__",
+        "hashlib",
+        "dataclasses",
+        "typing",
+        "xpath_healer.core.workflow"
+      ],
+      "imports": [
+        "xpath_healer/core/workflow.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_orchestrator.py",
+        "tests/unit/test_orchestrator_actions.py",
+        "tests/unit/test_orchestrator_visual.py",
+        "xpath_healer/orchestrator/__init__.py",
+        "xpath_healer/orchestrator/decomposer.py",
+        "xpath_healer/orchestrator/executor.py",
+        "xpath_healer/orchestrator/runner.py",
+        "xpath_healer/orchestrator/verifier.py"
+      ],
+      "symbols": [
+        "WorkflowGoal",
+        "cache_key",
+        "PlannedWorkflow",
+        "value_for",
+        "is_known_action",
+        "ExecutionResult",
+        "VerificationResult",
+        "StepRunRecord",
+        "OrchestrationResult"
+      ],
+      "loc": 170
+    },
+    "xpath_healer/orchestrator/page_state.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.orchestrator",
+      "hash": "43c0043d5cb9c8bd",
+      "imports_raw": [
+        "__future__",
+        "logging",
+        "typing"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py"
+      ],
+      "imported_by": [
+        "xpath_healer/orchestrator/__init__.py",
+        "xpath_healer/orchestrator/decomposer.py"
+      ],
+      "symbols": [
+        "PageStateObserver",
+        "__init__",
+        "observe",
+        "short_summary"
+      ],
+      "loc": 271
+    },
+    "xpath_healer/orchestrator/recorder.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.orchestrator",
+      "hash": "98950662b83c54e3",
+      "imports_raw": [
+        "__future__",
+        "asyncio",
+        "json",
+        "logging",
+        "time",
+        "dataclasses",
+        "pathlib",
+        "typing",
+        "re"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py"
+      ],
+      "imported_by": [
+        "xpath_healer/orchestrator/__init__.py"
+      ],
+      "symbols": [
+        "StepSnapshot",
+        "RecordingInfo",
+        "duration_seconds",
+        "to_dict",
+        "WorkflowRecorder",
+        "__init__",
+        "context_kwargs",
+        "start",
+        "snapshot",
+        "finalize",
+        "_slug"
+      ],
+      "loc": 236
+    },
+    "xpath_healer/orchestrator/runner.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.orchestrator",
+      "hash": "94221ccfbffb2f38",
+      "imports_raw": [
+        "__future__",
+        "logging",
+        "time",
+        "uuid",
+        "typing",
+        "xpath_healer.core.automation",
+        "xpath_healer.core.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.orchestrator.decomposer",
+        "xpath_healer.orchestrator.executor",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.orchestrator.verifier",
+        "xpath_healer.orchestrator.visual",
+        "xpath_healer.orchestrator.telemetry",
+        "xpath_healer.orchestrator.visual",
+        "xpath_healer.core.workflow",
+        "tempfile",
+        "pathlib",
+        "xpath_healer.orchestrator.visual",
+        "tempfile",
+        "pathlib",
+        "xpath_healer.orchestrator.models",
+        "urllib.parse"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/orchestrator/decomposer.py",
+        "xpath_healer/orchestrator/executor.py",
+        "xpath_healer/orchestrator/models.py",
+        "xpath_healer/orchestrator/verifier.py",
+        "xpath_healer/orchestrator/visual.py",
+        "xpath_healer/orchestrator/telemetry.py"
+      ],
+      "imported_by": [
+        "xpath_healer/orchestrator/__init__.py"
+      ],
+      "symbols": [
+        "_derive_field_type",
+        "WorkflowOrchestrator",
+        "__init__",
+        "run",
+        "_run_step",
+        "_is_verification_only_goal",
+        "_goal_action_unmet",
+        "_stamp_telemetry",
+        "_current_url",
+        "_page_changed_significantly",
+        "_replan_remaining",
+        "_maybe_visual_diagnosis",
+        "_diagnosis_question",
+        "_revise_terminal_with_vision",
+        "_proposal_from_vision",
+        "_extract_a11y_candidates",
+        "_merge_candidates_deduped",
+        "_try_visual_candidate_heal",
+        "_try_visual_recovery",
+        "_pick_stronger_proposal",
+        "_handle_rewrite",
+        "_vars_for"
+      ],
+      "loc": 1678
+    },
+    "xpath_healer/orchestrator/telemetry.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.orchestrator",
+      "hash": "5fbfe5b57bd340e1",
+      "imports_raw": [
+        "__future__",
+        "time",
+        "dataclasses",
+        "typing",
+        "xpath_healer.llm.client"
+      ],
+      "imports": [
+        "xpath_healer/llm/client.py"
+      ],
+      "imported_by": [
+        "tools/concurrent_stress.py",
+        "xpath_healer/orchestrator/__init__.py",
+        "xpath_healer/orchestrator/runner.py"
+      ],
+      "symbols": [
+        "SLO",
+        "check",
+        "TelemetryCounter",
+        "add_heal_strategy",
+        "reset",
+        "to_dict",
+        "TelemetryLLMClient",
+        "__init__",
+        "chat",
+        "_call_and_count",
+        "TelemetryVisualInspector",
+        "__init__",
+        "inspect",
+        "pick_candidate"
+      ],
+      "loc": 227
+    },
+    "xpath_healer/orchestrator/verifier.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.orchestrator",
+      "hash": "783bf07d27dc3f81",
+      "imports_raw": [
+        "__future__",
+        "json",
+        "logging",
+        "re",
+        "typing",
+        "xpath_healer.core.automation",
+        "xpath_healer.core.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.llm.client",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.mcp.explorer"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/llm/client.py",
+        "xpath_healer/orchestrator/models.py",
+        "xpath_healer/mcp/explorer.py"
+      ],
+      "imported_by": [
+        "xpath_healer/orchestrator/__init__.py",
+        "xpath_healer/orchestrator/runner.py"
+      ],
+      "symbols": [
+        "OutcomeVerifier",
+        "verify",
+        "_extract_structural_claim",
+        "_structural_url_contains",
+        "_structural_text_visible",
+        "AgenticOutcomeVerifier",
+        "__init__",
+        "verify",
+        "_snapshot",
+        "_parse_response",
+        "TieredOutcomeVerifier",
+        "__init__",
+        "verify"
+      ],
+      "loc": 358
+    },
+    "xpath_healer/orchestrator/visual.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.orchestrator",
+      "hash": "e9b2c17f73f41a5e",
+      "imports_raw": [
+        "__future__",
+        "asyncio",
+        "base64",
+        "json",
+        "logging",
+        "os",
+        "shutil",
+        "subprocess",
+        "tempfile",
+        "dataclasses",
+        "pathlib",
+        "typing",
+        "xpath_healer.llm.client",
+        "re",
+        "re",
+        "openai"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/llm/client.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_orchestrator_visual.py",
+        "xpath_healer/orchestrator/__init__.py",
+        "xpath_healer/orchestrator/runner.py"
+      ],
+      "symbols": [
+        "VisualUsagePolicy",
+        "normalize",
+        "FrameSample",
+        "CandidatePick",
+        "to_dict",
+        "InspectionResult",
+        "to_dict",
+        "VisualInspectorProto",
+        "inspect",
+        "VisualInspector",
+        "__init__",
+        "inspect",
+        "pick_candidate",
+        "_download",
+        "_extract_frames",
+        "_probe_duration",
+        "_maybe_transcript",
+        "_fetch_native_subs",
+        "_whisper_transcribe",
+        "_ask_vision",
+        "_parse_candidate_response",
+        "_png_to_data_url",
+        "_parse_vision_response"
+      ],
+      "loc": 726
+    },
+    "xpath_healer/orchestrator/__init__.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.orchestrator",
+      "hash": "82178e07beeb658e",
+      "imports_raw": [
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.orchestrator.decomposer",
+        "xpath_healer.orchestrator.executor",
+        "xpath_healer.orchestrator.verifier",
+        "xpath_healer.orchestrator.runner",
+        "xpath_healer.orchestrator.page_state",
+        "xpath_healer.orchestrator.recorder",
+        "xpath_healer.orchestrator.telemetry",
+        "xpath_healer.orchestrator.visual"
+      ],
+      "imports": [
+        "xpath_healer/orchestrator/models.py",
+        "xpath_healer/orchestrator/decomposer.py",
+        "xpath_healer/orchestrator/executor.py",
+        "xpath_healer/orchestrator/verifier.py",
+        "xpath_healer/orchestrator/runner.py",
+        "xpath_healer/orchestrator/page_state.py",
+        "xpath_healer/orchestrator/recorder.py",
+        "xpath_healer/orchestrator/telemetry.py",
+        "xpath_healer/orchestrator/visual.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_orchestrator.py",
+        "tests/unit/test_orchestrator_actions.py",
+        "tests/unit/test_orchestrator_visual.py",
+        "tools/adversarial_browser.py",
+        "tools/force_vision_candidate_heal.py",
+        "tools/inspect_workflow_video.py",
+        "tools/run_amazon_demo.py",
+        "tools/run_flipkart_demo.py",
+        "tools/run_flipkart_drill_demo.py",
+        "tools/run_orchestrator_demo.py"
+      ],
+      "symbols": [],
+      "loc": 86
+    },
+    "xpath_healer/rag/chroma_retriever.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.rag",
+      "hash": "ea8661467788b855",
+      "imports_raw": [
+        "__future__",
+        "json",
+        "os",
+        "typing",
+        "xpath_healer.rag.retriever",
+        "chromadb"
+      ],
+      "imports": [
+        "xpath_healer/rag/retriever.py"
+      ],
+      "imported_by": [
+        "xpath_healer/rag/__init__.py",
+        "xpath_healer/rag/pgvector_retriever.py"
+      ],
+      "symbols": [
+        "ChromaRetriever",
+        "__init__",
+        "set_query_context",
+        "connect",
+        "close",
+        "retrieve",
+        "_build_where",
+        "_query_collection",
+        "_decode_json",
+        "_row_to_rag_doc",
+        "_row_to_element_candidate"
+      ],
+      "loc": 190
+    },
+    "xpath_healer/rag/embedder.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.rag",
+      "hash": "42110c7eb119e01c",
+      "imports_raw": [
+        "__future__",
+        "abc"
+      ],
+      "imports": [],
+      "imported_by": [
+        "xpath_healer/rag/__init__.py",
+        "xpath_healer/rag/openai_embedder.py",
+        "xpath_healer/rag/rag_assist.py"
+      ],
+      "symbols": [
+        "Embedder",
+        "embed_text"
+      ],
+      "loc": 13
+    },
+    "xpath_healer/rag/llm.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.rag",
+      "hash": "729d50d716a59533",
+      "imports_raw": [
+        "__future__",
+        "abc",
+        "typing"
+      ],
+      "imports": [],
+      "imported_by": [
+        "xpath_healer/rag/__init__.py",
+        "xpath_healer/rag/openai_llm.py",
+        "xpath_healer/rag/rag_assist.py"
+      ],
+      "symbols": [
+        "LLM",
+        "suggest_locators"
+      ],
+      "loc": 14
+    },
+    "xpath_healer/rag/openai_embedder.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.rag",
+      "hash": "f8107e2e527d671f",
+      "imports_raw": [
+        "__future__",
+        "xpath_healer.rag.embedder",
+        "logging",
+        "openai"
+      ],
+      "imports": [
+        "xpath_healer/rag/embedder.py",
+        "xpath_healer/utils/logging.py"
+      ],
+      "imported_by": [
+        "xpath_healer/rag/__init__.py",
+        "xpath_healer/store/pg_repository.py"
+      ],
+      "symbols": [
+        "OpenAIEmbedder",
+        "__init__",
+        "embed_text"
+      ],
+      "loc": 85
+    },
+    "xpath_healer/rag/openai_llm.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.rag",
+      "hash": "58ae2e596e6b96a7",
+      "imports_raw": [
+        "__future__",
+        "json",
+        "re",
+        "typing",
+        "logging",
+        "xpath_healer.rag.llm",
+        "openai"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/rag/llm.py"
+      ],
+      "imported_by": [
+        "xpath_healer/rag/__init__.py"
+      ],
+      "symbols": [
+        "OpenAILLM",
+        "__init__",
+        "suggest_locators",
+        "_parse_json_content"
+      ],
+      "loc": 147
+    },
+    "xpath_healer/rag/pgvector_retriever.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.rag",
+      "hash": "9b2b7c5fb0ca800e",
+      "imports_raw": [
+        "xpath_healer.rag.chroma_retriever"
+      ],
+      "imports": [
+        "xpath_healer/rag/chroma_retriever.py"
+      ],
+      "imported_by": [
+        "xpath_healer/rag/__init__.py"
+      ],
+      "symbols": [
+        "PgVectorRetriever",
+        "__init__"
+      ],
+      "loc": 36
+    },
+    "xpath_healer/rag/prompt_builder.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.rag",
+      "hash": "96d9182a73757934",
+      "imports_raw": [
+        "__future__",
+        "re",
+        "html.parser",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.rag.prompt_dsl",
+        "xpath_healer.utils.text"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/rag/prompt_dsl.py",
+        "xpath_healer/utils/text.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_prompt_dsl.py",
+        "xpath_healer/rag/rag_assist.py"
+      ],
+      "symbols": [
+        "build_prompt_payload",
+        "build_dom_signature",
+        "extract_dom_context",
+        "_top_tokens",
+        "_compact_context_candidates",
+        "_common_scope",
+        "_bounded_document",
+        "_focused_dom_excerpt",
+        "_DomContextParser",
+        "__init__",
+        "handle_starttag",
+        "handle_startendtag",
+        "handle_endtag",
+        "handle_data",
+        "entities",
+        "_finalize_node",
+        "_should_track",
+        "_resolve_label",
+        "_bind_label_control",
+        "_implicit_role",
+        "_prompt_text"
+      ],
+      "loc": 428
+    },
+    "xpath_healer/rag/prompt_dsl.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.rag",
+      "hash": "59c66c517f71b9c8",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.utils.text"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/utils/text.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_prompt_dsl.py",
+        "xpath_healer/rag/prompt_builder.py"
+      ],
+      "symbols": [
+        "build_prompt_dsl",
+        "_compact_dom",
+        "_compact_locator",
+        "_compact_attr_tokens",
+        "_compact_parent_hint",
+        "_candidate_locator_line",
+        "_dom_entity_line",
+        "_graph_hint_lines",
+        "_node_hint",
+        "_first_hint",
+        "_prompt_text"
+      ],
+      "loc": 255
+    },
+    "xpath_healer/rag/rag_assist.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.rag",
+      "hash": "c53040e990948d83",
+      "imports_raw": [
+        "__future__",
+        "json",
+        "re",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.rag.embedder",
+        "xpath_healer.rag.llm",
+        "xpath_healer.rag.prompt_builder",
+        "xpath_healer.rag.retriever"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/rag/embedder.py",
+        "xpath_healer/rag/llm.py",
+        "xpath_healer/rag/prompt_builder.py",
+        "xpath_healer/rag/retriever.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_rag_assist.py",
+        "xpath_healer/rag/__init__.py"
+      ],
+      "symbols": [
+        "RagAssist",
+        "__init__",
+        "suggest",
+        "_build_query",
+        "_prefer_actionable",
+        "_rerank_context",
+        "_query_tokens",
+        "_token_overlap",
+        "_label_match_expr",
+        "_build_intent_seed_context",
+        "_allowed_context_keys",
+        "_parse_suggestions",
+        "_normalize_candidate_payload",
+        "_strip_kind_prefix",
+        "_parse_compact_role_value",
+        "_parse_scalar",
+        "_is_weak_locator",
+        "_is_native_toggle_selector",
+        "_is_grounded",
+        "_hallucination_red_flags",
+        "_grounded_reason",
+        "_is_unstable_pattern",
+        "_coerce_confidence",
+        "_dedupe_key",
+        "_locator_ground_key",
+        "_build_dom_seed_context",
+        "_rank_dom_context",
+        "_entity_field_type",
+        "_entity_locators",
+        "_dom_seed_similarity",
+        "_field_type_similarity",
+        "_dom_seed_stability",
+        "_token_set",
+        "_normalize_ground_value"
+      ],
+      "loc": 876
+    },
+    "xpath_healer/rag/retriever.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.rag",
+      "hash": "ccf00dfe6eb0a28a",
+      "imports_raw": [
+        "__future__",
+        "abc",
+        "typing"
+      ],
+      "imports": [],
+      "imported_by": [
+        "xpath_healer/rag/__init__.py",
+        "xpath_healer/rag/chroma_retriever.py",
+        "xpath_healer/rag/rag_assist.py"
+      ],
+      "symbols": [
+        "Retriever",
+        "retrieve"
+      ],
+      "loc": 14
+    },
+    "xpath_healer/rag/__init__.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.rag",
+      "hash": "a3e779c45dd1f532",
+      "imports_raw": [
+        "xpath_healer.rag.embedder",
+        "xpath_healer.rag.llm",
+        "xpath_healer.rag.chroma_retriever",
+        "xpath_healer.rag.openai_embedder",
+        "xpath_healer.rag.openai_llm",
+        "xpath_healer.rag.pgvector_retriever",
+        "xpath_healer.rag.rag_assist",
+        "xpath_healer.rag.retriever"
+      ],
+      "imports": [
+        "xpath_healer/rag/embedder.py",
+        "xpath_healer/rag/llm.py",
+        "xpath_healer/rag/chroma_retriever.py",
+        "xpath_healer/rag/openai_embedder.py",
+        "xpath_healer/rag/openai_llm.py",
+        "xpath_healer/rag/pgvector_retriever.py",
+        "xpath_healer/rag/rag_assist.py",
+        "xpath_healer/rag/retriever.py"
+      ],
+      "imported_by": [
+        "xpath_healer/api/base.py"
+      ],
+      "symbols": [],
+      "loc": 22
+    },
+    "xpath_healer/store/dual_repository.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.store",
+      "hash": "fa05b3ee5326e3a4",
+      "imports_raw": [
+        "__future__",
+        "asyncio",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.store.repository"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/store/repository.py"
+      ],
+      "imported_by": [
+        "tests/integration/conftest.py",
+        "tests/unit/test_dual_repository.py",
+        "tests/unit/test_facade_repository_init.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/store/__init__.py"
+      ],
+      "symbols": [
+        "DualMetadataRepository",
+        "__init__",
+        "find",
+        "upsert",
+        "find_candidates_by_page",
+        "get_page_index",
+        "upsert_page_index",
+        "log_event",
+        "close",
+        "_close_backend"
+      ],
+      "loc": 164
+    },
+    "xpath_healer/store/json_repository.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.store",
+      "hash": "ed4a0619c79817a5",
+      "imports_raw": [
+        "__future__",
+        "json",
+        "re",
+        "pathlib",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.store.repository"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/store/repository.py"
+      ],
+      "imported_by": [
+        "tests/integration/conftest.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/store/__init__.py"
+      ],
+      "symbols": [
+        "_safe_name",
+        "JsonMetadataRepository",
+        "__init__",
+        "find",
+        "upsert",
+        "find_candidates_by_page",
+        "get_page_index",
+        "upsert_page_index",
+        "log_event",
+        "_page_file",
+        "_read_page_file",
+        "_write_page_file"
+      ],
+      "loc": 116
+    },
+    "xpath_healer/store/memory_repository.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.store",
+      "hash": "9e34aad935989960",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.store.repository"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/store/repository.py"
+      ],
+      "imported_by": [
+        "tests/conftest.py",
+        "tests/unit/test_dual_repository.py",
+        "tests/unit/test_facade_repository_init.py",
+        "tests/unit/test_healing_service.py",
+        "tests/unit/test_healing_service_fingerprint.py",
+        "tests/unit/test_page_indexing.py",
+        "tests/unit/test_phase5_additions.py",
+        "tests/unit/test_selenium_adapter.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/store/__init__.py"
+      ],
+      "symbols": [
+        "InMemoryMetadataRepository",
+        "__init__",
+        "find",
+        "upsert",
+        "find_candidates_by_page",
+        "get_page_index",
+        "upsert_page_index",
+        "log_event"
+      ],
+      "loc": 51
+    },
+    "xpath_healer/store/pg_repository.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.store",
+      "hash": "f9874b9bfeadc216",
+      "imports_raw": [
+        "__future__",
+        "json",
+        "logging",
+        "os",
+        "uuid",
+        "datetime",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.store.repository",
+        "asyncpg",
+        "chromadb",
+        "xpath_healer.rag.openai_embedder"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/store/repository.py",
+        "xpath_healer/rag/openai_embedder.py"
+      ],
+      "imported_by": [
+        "tests/integration/conftest.py",
+        "tests/unit/test_pg_repository_schema.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/store/__init__.py"
+      ],
+      "symbols": [
+        "PostgresMetadataRepository",
+        "__init__",
+        "connect",
+        "close",
+        "init_schema",
+        "_ensure_pool",
+        "find",
+        "upsert",
+        "find_candidates_by_page",
+        "get_page_index",
+        "upsert_page_index",
+        "log_event",
+        "search_rag_documents",
+        "upsert_rag_document",
+        "_upsert_element_rag_document",
+        "_upsert_chroma_element_meta",
+        "_add_chroma_rag_document",
+        "_get_chroma_rag_collection",
+        "_get_chroma_elements_collection",
+        "_ensure_chroma_collections",
+        "_query_chroma_collection",
+        "_chroma_where",
+        "_stable_chroma_id",
+        "_chroma_sanitize_metadata",
+        "_build_embedding_text",
+        "_build_prompt_compact_text",
+        "_fingerprint_tokens",
+        "_locator_fragment",
+        "_embed_text",
+        "_resolve_embedder",
+        "_normalize_vector_size",
+        "_safe_env_bool",
+        "_safe_env_int",
+        "schema_sql",
+        "_json_or_none",
+        "_json_or_empty",
+        "_safe_uuid_text",
+        "_decode_json",
+        "_row_to_payload",
+        "_load_locator_variants",
+        "_load_quality_metrics",
+        "_sync_locator_variants",
+        "_sync_quality_metrics"
+      ],
+      "loc": 1395
+    },
+    "xpath_healer/store/repository.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.store",
+      "hash": "3e7be9e86316f4ca",
+      "imports_raw": [
+        "__future__",
+        "abc",
+        "typing",
+        "xpath_healer.core.models"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py"
+      ],
+      "imported_by": [
+        "tests/integration/conftest.py",
+        "tests/integration/test_demo_qa_healing_bdd.py",
+        "tests/integration/test_demo_qa_healing_selenium.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/context.py",
+        "xpath_healer/store/__init__.py",
+        "xpath_healer/store/dual_repository.py",
+        "xpath_healer/store/json_repository.py",
+        "xpath_healer/store/memory_repository.py",
+        "xpath_healer/store/pg_repository.py"
+      ],
+      "symbols": [
+        "MetadataRepository",
+        "find",
+        "upsert",
+        "find_candidates_by_page",
+        "get_page_index",
+        "upsert_page_index",
+        "log_event"
+      ],
+      "loc": 41
+    },
+    "xpath_healer/store/workflow_run_pg_repository.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.store",
+      "hash": "c880b245e21180f3",
+      "imports_raw": [
+        "__future__",
+        "json",
+        "logging",
+        "typing",
+        "xpath_healer.core.workflow",
+        "xpath_healer.store.workflow_run_repository",
+        "asyncpg"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/store/workflow_run_repository.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_phase5_additions.py",
+        "xpath_healer/api/base.py"
+      ],
+      "symbols": [
+        "PostgresWorkflowRunRepository",
+        "__init__",
+        "connect",
+        "close",
+        "init_schema",
+        "_ensure_pool",
+        "schema_sql",
+        "record_step",
+        "update_step_status",
+        "get_run",
+        "find_step_history",
+        "_row_to_step_run"
+      ],
+      "loc": 260
+    },
+    "xpath_healer/store/workflow_run_repository.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.store",
+      "hash": "244d5d6db94eca95",
+      "imports_raw": [
+        "__future__",
+        "asyncio",
+        "contextlib",
+        "json",
+        "os",
+        "pathlib",
+        "typing",
+        "xpath_healer.core.workflow"
+      ],
+      "imports": [
+        "xpath_healer/core/workflow.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_phase5_additions.py",
+        "tests/unit/test_workflow_replay.py",
+        "tests/unit/test_workflow_run_history.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/store/workflow_run_pg_repository.py"
+      ],
+      "symbols": [
+        "WorkflowRunRepository",
+        "record_step",
+        "update_step_status",
+        "get_run",
+        "find_step_history",
+        "InMemoryWorkflowRunRepository",
+        "__init__",
+        "_lock_for",
+        "record_step",
+        "update_step_status",
+        "get_run",
+        "find_step_history",
+        "JsonWorkflowRunRepository",
+        "__init__",
+        "_lock_for",
+        "_path_for",
+        "_read",
+        "_write",
+        "record_step",
+        "update_step_status",
+        "get_run",
+        "find_step_history",
+        "safe_record_step",
+        "safe_update_step_status"
+      ],
+      "loc": 304
+    },
+    "xpath_healer/store/__init__.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.store",
+      "hash": "ea37046ee84af293",
+      "imports_raw": [
+        "xpath_healer.store.dual_repository",
+        "xpath_healer.store.json_repository",
+        "xpath_healer.store.memory_repository",
+        "xpath_healer.store.pg_repository",
+        "xpath_healer.store.repository"
+      ],
+      "imports": [
+        "xpath_healer/store/dual_repository.py",
+        "xpath_healer/store/json_repository.py",
+        "xpath_healer/store/memory_repository.py",
+        "xpath_healer/store/pg_repository.py",
+        "xpath_healer/store/repository.py"
+      ],
+      "imported_by": [],
+      "symbols": [],
+      "loc": 16
+    },
+    "xpath_healer/utils/env.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.utils",
+      "hash": "8419cb834ae045dd",
+      "imports_raw": [
+        "__future__",
+        "os",
+        "pathlib"
+      ],
+      "imports": [],
+      "imported_by": [
+        "tests/integration/conftest.py",
+        "tests/integration/settings.py"
+      ],
+      "symbols": [
+        "get_env",
+        "load_env_into_process",
+        "_file_env_values",
+        "_candidate_env_files",
+        "_parse_env_file",
+        "_strip_matching_quotes",
+        "_looks_like_placeholder"
+      ],
+      "loc": 105
+    },
+    "xpath_healer/utils/ids.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.utils",
+      "hash": "d75ff88ad93c34f4",
+      "imports_raw": [
+        "__future__",
+        "uuid"
+      ],
+      "imports": [],
+      "imported_by": [
+        "xpath_healer/core/healing_service.py"
+      ],
+      "symbols": [
+        "new_correlation_id"
+      ],
+      "loc": 11
+    },
+    "xpath_healer/utils/logging.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.utils",
+      "hash": "eabe1cd5e65485c1",
+      "imports_raw": [
+        "__future__",
+        "json",
+        "logging",
+        "typing"
+      ],
+      "imports": [],
+      "imported_by": [
+        "tests/conftest.py",
+        "tests/integration/conftest.py",
+        "tests/integration/test_demo_qa_healing_bdd.py",
+        "tests/integration/test_demo_qa_healing_selenium.py",
+        "tests/unit/test_healing_service_fingerprint.py",
+        "tests/unit/test_mcp_explorer.py",
+        "tests/unit/test_orchestrator.py",
+        "tests/unit/test_orchestrator_actions.py",
+        "tests/unit/test_orchestrator_visual.py",
+        "tests/unit/test_phase5_additions.py",
+        "tests/unit/test_workflow_context.py",
+        "tests/unit/test_workflow_replay.py",
+        "tests/unit/test_workflow_rewriter.py",
+        "tests/unit/test_workflow_run_history.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/context.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/llm/openai_chat.py",
+        "xpath_healer/mcp/explorer.py",
+        "xpath_healer/mcp/playwright_mcp_explorer.py",
+        "xpath_healer/orchestrator/decomposer.py",
+        "xpath_healer/orchestrator/executor.py",
+        "xpath_healer/orchestrator/page_state.py",
+        "xpath_healer/orchestrator/recorder.py",
+        "xpath_healer/orchestrator/runner.py",
+        "xpath_healer/orchestrator/verifier.py",
+        "xpath_healer/orchestrator/visual.py",
+        "xpath_healer/rag/openai_embedder.py",
+        "xpath_healer/rag/openai_llm.py",
+        "xpath_healer/store/pg_repository.py",
+        "xpath_healer/store/workflow_run_pg_repository.py",
+        "xpath_healer/workflow/rewriter.py"
+      ],
+      "symbols": [
+        "configure_logging",
+        "get_logger",
+        "event"
+      ],
+      "loc": 26
+    },
+    "xpath_healer/utils/text.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.utils",
+      "hash": "4fefc43fad87071c",
+      "imports_raw": [
+        "__future__",
+        "re",
+        "difflib",
+        "typing",
+        "rapidfuzz.fuzz"
+      ],
+      "imports": [],
+      "imported_by": [
+        "adapters/playwright_python/adapter.py",
+        "adapters/selenium_python/adapter.py",
+        "tests/unit/fakes.py",
+        "tests/unit/selenium_fakes.py",
+        "tests/unit/test_text_utils.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/fingerprint.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/page_index.py",
+        "xpath_healer/core/signature.py",
+        "xpath_healer/core/similarity.py",
+        "xpath_healer/core/strategies/attribute_strategy.py",
+        "xpath_healer/core/strategies/axis_hint_field.py",
+        "xpath_healer/core/strategies/bidirectional_anchor_field.py",
+        "xpath_healer/core/strategies/checkbox_icon_by_label.py",
+        "xpath_healer/core/strategies/grid_cell_colid.py",
+        "xpath_healer/core/strategies/label_proximity_interactable.py",
+        "xpath_healer/core/strategies/position_fallback.py",
+        "xpath_healer/core/strategies/text_occurrence.py",
+        "xpath_healer/core/strategies/tree_toggle_by_label.py",
+        "xpath_healer/core/validator.py",
+        "xpath_healer/dom/mine.py",
+        "xpath_healer/rag/prompt_builder.py",
+        "xpath_healer/rag/prompt_dsl.py"
+      ],
+      "symbols": [
+        "normalize_text",
+        "tokenize",
+        "token_subset_match",
+        "contains_match",
+        "exact_match",
+        "safe_join",
+        "fuzzy_ratio",
+        "coerce_bool"
+      ],
+      "loc": 82
+    },
+    "xpath_healer/utils/timing.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.utils",
+      "hash": "7739a7de9ca5756e",
+      "imports_raw": [
+        "__future__",
+        "time",
+        "contextlib",
+        "dataclasses",
+        "typing"
+      ],
+      "imports": [],
+      "imported_by": [
+        "xpath_healer/core/healing_service.py"
+      ],
+      "symbols": [
+        "Timing",
+        "elapsed_ms",
+        "timed"
+      ],
+      "loc": 30
+    },
+    "xpath_healer/utils/__init__.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.utils",
+      "hash": "eedb31b10fa156ab",
+      "imports_raw": [],
+      "imports": [],
+      "imported_by": [],
+      "symbols": [],
+      "loc": 3
+    },
+    "xpath_healer/workflow/rewriter.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.workflow",
+      "hash": "68f7548556e1ecb5",
+      "imports_raw": [
+        "__future__",
+        "json",
+        "logging",
+        "dataclasses",
+        "typing",
+        "xpath_healer.core.automation",
+        "xpath_healer.core.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.llm.client",
+        "xpath_healer.mcp.explorer"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/llm/client.py",
+        "xpath_healer/mcp/explorer.py"
+      ],
+      "imported_by": [
+        "xpath_healer/workflow/__init__.py"
+      ],
+      "symbols": [
+        "_new_step_schema",
+        "RewriteResult",
+        "WorkflowRewriter",
+        "rewrite",
+        "build_default_rewrite_tools",
+        "AgenticWorkflowRewriter",
+        "__init__",
+        "rewrite",
+        "_dispatch_tool",
+        "_build_user_prompt"
+      ],
+      "loc": 485
+    },
+    "xpath_healer/workflow/__init__.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.workflow",
+      "hash": "607302c2c2839a58",
+      "imports_raw": [
+        "xpath_healer.workflow.rewriter"
+      ],
+      "imports": [
+        "xpath_healer/workflow/rewriter.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_phase5_additions.py",
+        "tests/unit/test_workflow_rewriter.py",
+        "xpath_healer/api/base.py"
+      ],
+      "symbols": [],
+      "loc": 25
+    },
+    "xpath_healer/core/strategies/attribute_strategy.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core.strategies",
+      "hash": "316550a788fb6ca2",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategies.base",
+        "xpath_healer.utils.text",
+        "xpath_healer.core.context"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategies/base.py",
+        "xpath_healer/utils/text.py",
+        "xpath_healer/core/context.py"
+      ],
+      "imported_by": [
+        "xpath_healer/core/strategies/__init__.py"
+      ],
+      "symbols": [
+        "AttributeStrategy",
+        "supports",
+        "build",
+        "_find_value",
+        "_css_escape"
+      ],
+      "loc": 81
+    },
+    "xpath_healer/core/strategies/axis_hint_field.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core.strategies",
+      "hash": "2db76533b7e0a864",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategies.base",
+        "xpath_healer.utils.text",
+        "xpath_healer.core.context"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategies/base.py",
+        "xpath_healer/utils/text.py",
+        "xpath_healer/core/context.py"
+      ],
+      "imported_by": [
+        "xpath_healer/core/strategies/__init__.py"
+      ],
+      "symbols": [
+        "AxisHintFieldResolverStrategy",
+        "supports",
+        "build",
+        "_label_expr"
+      ],
+      "loc": 78
+    },
+    "xpath_healer/core/strategies/base.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core.strategies",
+      "hash": "c7b1c765dae2379b",
+      "imports_raw": [
+        "__future__",
+        "abc",
+        "collections",
+        "xpath_healer.core.models"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_strategy_registry.py",
+        "xpath_healer/core/strategies/attribute_strategy.py",
+        "xpath_healer/core/strategies/axis_hint_field.py",
+        "xpath_healer/core/strategies/bidirectional_anchor_field.py",
+        "xpath_healer/core/strategies/button_text_candidate.py",
+        "xpath_healer/core/strategies/checkbox_icon_by_label.py",
+        "xpath_healer/core/strategies/composite_label_control.py",
+        "xpath_healer/core/strategies/generic_template.py",
+        "xpath_healer/core/strategies/grid_cell_colid.py",
+        "xpath_healer/core/strategies/label_proximity_interactable.py",
+        "xpath_healer/core/strategies/multi_field_text_resolver.py",
+        "xpath_healer/core/strategies/position_fallback.py",
+        "xpath_healer/core/strategies/text_occurrence.py",
+        "xpath_healer/core/strategies/tree_toggle_by_label.py",
+        "xpath_healer/core/strategy_registry.py"
+      ],
+      "symbols": [
+        "Strategy",
+        "supports",
+        "build",
+        "safe_format",
+        "dedupe_locators"
+      ],
+      "loc": 40
+    },
+    "xpath_healer/core/strategies/bidirectional_anchor_field.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core.strategies",
+      "hash": "bf1bb69a2463c090",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategies.base",
+        "xpath_healer.utils.text",
+        "xpath_healer.core.context"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategies/base.py",
+        "xpath_healer/utils/text.py",
+        "xpath_healer/core/context.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_bidirectional_anchor_field.py",
+        "xpath_healer/core/strategies/__init__.py"
+      ],
+      "symbols": [
+        "_resolve_input_subtypes",
+        "BidirectionalAnchorFieldStrategy",
+        "supports",
+        "build",
+        "_textbox_candidates",
+        "_dropdown_candidates",
+        "_label_expr"
+      ],
+      "loc": 295
+    },
+    "xpath_healer/core/strategies/button_text_candidate.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core.strategies",
+      "hash": "507030fd14852881",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategies.base",
+        "xpath_healer.core.context"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategies/base.py",
+        "xpath_healer/core/context.py"
+      ],
+      "imported_by": [
+        "xpath_healer/core/strategies/__init__.py"
+      ],
+      "symbols": [
+        "ButtonTextCandidateStrategy",
+        "supports",
+        "build"
+      ],
+      "loc": 65
+    },
+    "xpath_healer/core/strategies/checkbox_icon_by_label.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core.strategies",
+      "hash": "58bd3c3857054709",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategies.base",
+        "xpath_healer.utils.text",
+        "xpath_healer.core.context"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategies/base.py",
+        "xpath_healer/utils/text.py",
+        "xpath_healer/core/context.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_checkbox_proxy_validation.py",
+        "xpath_healer/core/strategies/__init__.py"
+      ],
+      "symbols": [
+        "CheckboxIconByLabelStrategy",
+        "supports",
+        "build"
+      ],
+      "loc": 65
+    },
+    "xpath_healer/core/strategies/composite_label_control.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core.strategies",
+      "hash": "5f43c2568e77111b",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategies.base",
+        "xpath_healer.core.context"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategies/base.py",
+        "xpath_healer/core/context.py"
+      ],
+      "imported_by": [
+        "xpath_healer/core/strategies/__init__.py"
+      ],
+      "symbols": [
+        "CompositeLabelControlStrategy",
+        "supports",
+        "build"
+      ],
+      "loc": 56
+    },
+    "xpath_healer/core/strategies/generic_template.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core.strategies",
+      "hash": "7a47484f6634c8cc",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategies.base",
+        "xpath_healer.core.context"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategies/base.py",
+        "xpath_healer/core/context.py"
+      ],
+      "imported_by": [
+        "xpath_healer/core/strategies/__init__.py"
+      ],
+      "symbols": [
+        "GenericTemplateStrategy",
+        "supports",
+        "build",
+        "_infer_kind"
+      ],
+      "loc": 58
+    },
+    "xpath_healer/core/strategies/grid_cell_colid.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core.strategies",
+      "hash": "8fe9fdc626e5c381",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategies.base",
+        "xpath_healer.utils.text",
+        "xpath_healer.core.context"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategies/base.py",
+        "xpath_healer/utils/text.py",
+        "xpath_healer/core/context.py"
+      ],
+      "imported_by": [
+        "xpath_healer/core/strategies/__init__.py"
+      ],
+      "symbols": [
+        "GridCellByColIdStrategy",
+        "supports",
+        "build"
+      ],
+      "loc": 70
+    },
+    "xpath_healer/core/strategies/label_proximity_interactable.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core.strategies",
+      "hash": "f7c96df55e88fb58",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategies.base",
+        "xpath_healer.utils.text",
+        "xpath_healer.core.context"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategies/base.py",
+        "xpath_healer/utils/text.py",
+        "xpath_healer/core/context.py"
+      ],
+      "imported_by": [
+        "xpath_healer/core/strategies/__init__.py"
+      ],
+      "symbols": [
+        "LabelProximityInteractableStrategy",
+        "supports",
+        "build"
+      ],
+      "loc": 101
+    },
+    "xpath_healer/core/strategies/multi_field_text_resolver.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core.strategies",
+      "hash": "72631be64762be43",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategies.base",
+        "xpath_healer.core.context"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategies/base.py",
+        "xpath_healer/core/context.py"
+      ],
+      "imported_by": [
+        "xpath_healer/core/strategies/__init__.py"
+      ],
+      "symbols": [
+        "MultiFieldTextResolverStrategy",
+        "supports",
+        "build"
+      ],
+      "loc": 94
+    },
+    "xpath_healer/core/strategies/position_fallback.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core.strategies",
+      "hash": "f46ebfe39e8f9b94",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategies.base",
+        "xpath_healer.utils.text",
+        "xpath_healer.core.context"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategies/base.py",
+        "xpath_healer/utils/text.py",
+        "xpath_healer/core/context.py"
+      ],
+      "imported_by": [
+        "xpath_healer/core/strategies/__init__.py"
+      ],
+      "symbols": [
+        "PositionFallbackStrategy",
+        "supports",
+        "build"
+      ],
+      "loc": 55
+    },
+    "xpath_healer/core/strategies/text_occurrence.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core.strategies",
+      "hash": "d4feb9c735ed2cd5",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategies.base",
+        "xpath_healer.utils.text",
+        "xpath_healer.core.context"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategies/base.py",
+        "xpath_healer/utils/text.py",
+        "xpath_healer/core/context.py"
+      ],
+      "imported_by": [
+        "xpath_healer/core/strategies/__init__.py"
+      ],
+      "symbols": [
+        "TextOccurrenceStrategy",
+        "supports",
+        "build"
+      ],
+      "loc": 41
+    },
+    "xpath_healer/core/strategies/tree_toggle_by_label.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core.strategies",
+      "hash": "6580b51b6f31ceac",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategies.base",
+        "xpath_healer.utils.text",
+        "xpath_healer.core.context"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategies/base.py",
+        "xpath_healer/utils/text.py",
+        "xpath_healer/core/context.py"
+      ],
+      "imported_by": [
+        "xpath_healer/core/strategies/__init__.py"
+      ],
+      "symbols": [
+        "TreeToggleByLabelStrategy",
+        "supports",
+        "build"
+      ],
+      "loc": 77
+    },
+    "xpath_healer/core/strategies/__init__.py": {
+      "language": "python",
+      "feature": "xpath_healer",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.xpath_healer.core.strategies",
+      "hash": "037d494b42690256",
+      "imports_raw": [
+        "xpath_healer.core.strategies.attribute_strategy",
+        "xpath_healer.core.strategies.axis_hint_field",
+        "xpath_healer.core.strategies.bidirectional_anchor_field",
+        "xpath_healer.core.strategies.button_text_candidate",
+        "xpath_healer.core.strategies.checkbox_icon_by_label",
+        "xpath_healer.core.strategies.composite_label_control",
+        "xpath_healer.core.strategies.generic_template",
+        "xpath_healer.core.strategies.grid_cell_colid",
+        "xpath_healer.core.strategies.label_proximity_interactable",
+        "xpath_healer.core.strategies.multi_field_text_resolver",
+        "xpath_healer.core.strategies.position_fallback",
+        "xpath_healer.core.strategies.text_occurrence",
+        "xpath_healer.core.strategies.tree_toggle_by_label"
+      ],
+      "imports": [
+        "xpath_healer/core/strategies/attribute_strategy.py",
+        "xpath_healer/core/strategies/axis_hint_field.py",
+        "xpath_healer/core/strategies/bidirectional_anchor_field.py",
+        "xpath_healer/core/strategies/button_text_candidate.py",
+        "xpath_healer/core/strategies/checkbox_icon_by_label.py",
+        "xpath_healer/core/strategies/composite_label_control.py",
+        "xpath_healer/core/strategies/generic_template.py",
+        "xpath_healer/core/strategies/grid_cell_colid.py",
+        "xpath_healer/core/strategies/label_proximity_interactable.py",
+        "xpath_healer/core/strategies/multi_field_text_resolver.py",
+        "xpath_healer/core/strategies/position_fallback.py",
+        "xpath_healer/core/strategies/text_occurrence.py",
+        "xpath_healer/core/strategies/tree_toggle_by_label.py"
+      ],
+      "imported_by": [
+        "xpath_healer/api/base.py"
+      ],
+      "symbols": [],
+      "loc": 34
+    },
+    "tests/integration/conftest.py": {
+      "language": "python",
+      "feature": "integration",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.integration",
+      "hash": "f4980cdadbc83251",
+      "imports_raw": [
+        "__future__",
+        "asyncio",
+        "json",
+        "logging",
+        "os",
+        "re",
+        "html",
+        "datetime",
+        "dataclasses",
+        "pathlib",
+        "typing",
+        "pytest",
+        "playwright.async_api",
+        "tests.integration.settings",
+        "xpath_healer.core.models",
+        "xpath_healer.store.dual_repository",
+        "xpath_healer.store.json_repository",
+        "xpath_healer.store.pg_repository",
+        "xpath_healer.store.repository",
+        "xpath_healer.utils.env"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "tests/integration/settings.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/store/dual_repository.py",
+        "xpath_healer/store/json_repository.py",
+        "xpath_healer/store/pg_repository.py",
+        "xpath_healer/store/repository.py",
+        "xpath_healer/utils/env.py"
+      ],
+      "imported_by": [
+        "tests/integration/test_demo_qa_healing_bdd.py",
+        "tests/integration/test_demo_qa_healing_selenium.py"
+      ],
+      "symbols": [
+        "_slug",
+        "_append_jsonl",
+        "_load_jsonl",
+        "AsyncRuntime",
+        "run",
+        "_env_bool",
+        "_env_int",
+        "_playwright_window_size",
+        "_resolve_playwright_launch",
+        "LoggedMetadataRepository",
+        "__init__",
+        "_record_db_op",
+        "find",
+        "upsert",
+        "find_candidates_by_page",
+        "get_page_index",
+        "upsert_page_index",
+        "log_event",
+        "close",
+        "integration_settings",
+        "pytest_configure",
+        "integration_logger",
+        "healing_flow_logger",
+        "prepare_artifacts",
+        "metadata_repository",
+        "metadata_repository_lifecycle",
+        "runtime",
+        "page",
+        "pytest_runtest_makereport",
+        "pytest_bdd_before_scenario",
+        "pytest_bdd_after_step",
+        "pytest_bdd_step_error",
+        "pytest_sessionfinish"
+      ],
+      "loc": 833
+    },
+    "tests/integration/settings.py": {
+      "language": "python",
+      "feature": "integration",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.integration",
+      "hash": "898b2c2a43fc580a",
+      "imports_raw": [
+        "__future__",
+        "json",
+        "os",
+        "dataclasses",
+        "pathlib",
+        "xpath_healer.utils.env"
+      ],
+      "imports": [
+        "xpath_healer/utils/env.py"
+      ],
+      "imported_by": [
+        "tests/integration/conftest.py",
+        "tests/integration/test_demo_qa_healing_bdd.py",
+        "tests/integration/test_demo_qa_healing_selenium.py",
+        "tests/unit/test_integration_settings.py"
+      ],
+      "symbols": [
+        "_env_bool",
+        "IntegrationSettings",
+        "load_settings",
+        "ensure_artifact_dirs"
+      ],
+      "loc": 145
+    },
+    "tests/integration/test_demo_qa_healing_bdd.py": {
+      "language": "python",
+      "feature": "integration",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.integration",
+      "hash": "e8062510a3aac43c",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "logging",
+        "json",
+        "datetime",
+        "pytest",
+        "playwright.async_api",
+        "pytest_bdd",
+        "xpath_healer.api.facade",
+        "xpath_healer.core.models",
+        "xpath_healer.store.repository",
+        "tests.integration.conftest",
+        "tests.integration.settings"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/api/facade.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/store/repository.py",
+        "tests/integration/conftest.py",
+        "tests/integration/settings.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "healer",
+        "scenario_state",
+        "_append_jsonl",
+        "_capture_dom_paths",
+        "_try_highlight_table_cell",
+        "_broken_fallback",
+        "_heal",
+        "_safe_click",
+        "open_demo_page",
+        "heal_and_fill_text_box",
+        "heal_and_click_submit",
+        "verify_submitted_output",
+        "heal_and_click_home_checkbox_icon",
+        "heal_and_click_home_expand_button",
+        "heal_and_click_desktop_checkbox_icon",
+        "heal_and_click_downloads_expand_button",
+        "heal_and_click_excel_checkbox_icon",
+        "verify_checkbox_message",
+        "verify_checkbox_message_desktop_excel",
+        "verify_row_first_name",
+        "verify_row_last_name_from_table",
+        "query_raw_invalid_fallback_without_healer",
+        "report_and_logs_should_show_xpath_failure_reason",
+        "verify_trace_stages"
+      ],
+      "loc": 807
+    },
+    "tests/integration/test_demo_qa_healing_selenium.py": {
+      "language": "python",
+      "feature": "integration",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.integration",
+      "hash": "1f8464575e5c1b04",
+      "imports_raw": [
+        "__future__",
+        "contextlib",
+        "json",
+        "logging",
+        "datetime",
+        "pathlib",
+        "typing",
+        "pytest",
+        "selenium",
+        "selenium.webdriver.common.by",
+        "adapters.selenium_python.facade",
+        "tests.integration.conftest",
+        "tests.integration.settings",
+        "xpath_healer.core.models",
+        "xpath_healer.store.repository"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "adapters/selenium_python/facade.py",
+        "tests/integration/conftest.py",
+        "tests/integration/settings.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/store/repository.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "_slug",
+        "_append_jsonl",
+        "_broken_fallback",
+        "SeleniumStepReporter",
+        "__init__",
+        "_record",
+        "step",
+        "_chrome_driver",
+        "_edge_driver",
+        "_firefox_driver",
+        "_build_selenium_driver",
+        "selenium_driver",
+        "selenium_healer",
+        "selenium_steps",
+        "_recover",
+        "_first",
+        "_capture_dom_paths",
+        "_safe_click",
+        "_try_highlight_table_cell",
+        "test_selenium_text_box_form_fill_and_submit",
+        "test_selenium_checkbox_home_icon_select_and_message_verify",
+        "test_selenium_webtables_first_row_verification",
+        "test_selenium_raw_invalid_fallback_without_healer"
+      ],
+      "loc": 741
+    },
+    "tests/integration/__init__.py": {
+      "language": "python",
+      "feature": "integration",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.integration",
+      "hash": "0856ee45665ddef2",
+      "imports_raw": [],
+      "imports": [],
+      "imported_by": [],
+      "symbols": [],
+      "loc": 3
+    },
+    "tests/unit/conftest.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "48ae6a83d9e65f9d",
+      "imports_raw": [
+        "__future__",
+        "pytest",
+        "os"
+      ],
+      "imports": [],
+      "imported_by": [],
+      "symbols": [
+        "_isolate_env"
+      ],
+      "loc": 44
+    },
+    "tests/unit/fakes.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "865ea866fa659657",
+      "imports_raw": [
+        "__future__",
+        "re",
+        "dataclasses",
+        "typing",
+        "xpath_healer.utils.text"
+      ],
+      "imports": [
+        "xpath_healer/utils/text.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_checkbox_proxy_validation.py",
+        "tests/unit/test_healing_service.py",
+        "tests/unit/test_page_indexing.py",
+        "tests/unit/test_rag_deep_retry.py",
+        "tests/unit/test_stage_switches.py",
+        "tests/unit/test_validator.py"
+      ],
+      "symbols": [
+        "FakeElement",
+        "is_visible",
+        "is_enabled",
+        "inner_text",
+        "bounding_box",
+        "evaluate",
+        "_html",
+        "FakeLocator",
+        "__init__",
+        "count",
+        "nth",
+        "first",
+        "last",
+        "filter",
+        "locator",
+        "get_by_text",
+        "get_by_role",
+        "is_visible",
+        "is_enabled",
+        "inner_text",
+        "evaluate",
+        "bounding_box",
+        "FakePage",
+        "__init__",
+        "add_element",
+        "register_selector",
+        "locator",
+        "get_by_text",
+        "get_by_role",
+        "evaluate",
+        "_html",
+        "_tag_matches_role",
+        "_match_css",
+        "_match_css_part"
+      ],
+      "loc": 235
+    },
+    "tests/unit/selenium_fakes.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "b758c66e6206ca8c",
+      "imports_raw": [
+        "__future__",
+        "re",
+        "dataclasses",
+        "typing",
+        "xpath_healer.utils.text"
+      ],
+      "imports": [
+        "xpath_healer/utils/text.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_selenium_adapter.py",
+        "tests/unit/test_service_sessions.py"
+      ],
+      "symbols": [
+        "FakeSeleniumElement",
+        "find_elements",
+        "get_attribute",
+        "is_displayed",
+        "is_enabled",
+        "_html",
+        "FakeSeleniumDriver",
+        "__init__",
+        "add_element",
+        "find_elements",
+        "execute_script",
+        "_html",
+        "_match_css",
+        "_match_xpath"
+      ],
+      "loc": 169
+    },
+    "tests/unit/test_bidirectional_anchor_field.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "6de812ed47d3670f",
+      "imports_raw": [
+        "__future__",
+        "pytest",
+        "xpath_healer.core.context",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategies.bidirectional_anchor_field"
+      ],
+      "imports": [
+        "xpath_healer/core/context.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategies/bidirectional_anchor_field.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "_make_input",
+        "_values",
+        "test_supports_textbox_and_dropdown_only",
+        "test_textbox_emits_both_directions",
+        "test_textbox_axis_hint_orders_preceding_first",
+        "test_textbox_no_axis_hint_orders_following_first",
+        "test_email_label_emits_type_email_predicate",
+        "test_dob_label_emits_type_date_predicate",
+        "test_dropdown_emits_select_and_combobox_candidates",
+        "test_unknown_field_type_returns_empty"
+      ],
+      "loc": 166
+    },
+    "tests/unit/test_checkbox_proxy_validation.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "d451ab8abf89518b",
+      "imports_raw": [
+        "pytest",
+        "adapters.playwright_python.adapter",
+        "tests.unit.fakes",
+        "xpath_healer.core.config",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategies.checkbox_icon_by_label",
+        "xpath_healer.core.validator"
+      ],
+      "imports": [
+        "adapters/playwright_python/adapter.py",
+        "tests/unit/fakes.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategies/checkbox_icon_by_label.py",
+        "xpath_healer/core/validator.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_checkbox_proxy_class_is_accepted",
+        "test_checkbox_icon_strategy_builds_candidates",
+        "test_checkbox_label_proxy_is_accepted",
+        "test_checkbox_text_inside_label_proxy_is_accepted"
+      ],
+      "loc": 88
+    },
+    "tests/unit/test_dual_repository.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "52ca369a51b224e7",
+      "imports_raw": [
+        "pytest",
+        "xpath_healer.core.models",
+        "xpath_healer.store.dual_repository",
+        "xpath_healer.store.memory_repository"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/store/dual_repository.py",
+        "xpath_healer/store/memory_repository.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_dual_repository_reads_primary_then_fallback",
+        "test_dual_repository_dual_writes_to_both_backends",
+        "test_dual_repository_page_index_fallback_and_warmup"
+      ],
+      "loc": 80
+    },
+    "tests/unit/test_facade_rag_init.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "49795263f8a8d29b",
+      "imports_raw": [
+        "xpath_healer.api.facade"
+      ],
+      "imports": [
+        "xpath_healer/api/facade.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_facade_keeps_rag_disabled_for_placeholder_key"
+      ],
+      "loc": 11
+    },
+    "tests/unit/test_facade_repository_init.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "97955b015387a572",
+      "imports_raw": [
+        "xpath_healer.api.facade",
+        "xpath_healer.store.memory_repository",
+        "xpath_healer.store.dual_repository"
+      ],
+      "imports": [
+        "xpath_healer/api/facade.py",
+        "xpath_healer/store/memory_repository.py",
+        "xpath_healer/store/dual_repository.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_facade_uses_memory_repository_when_dsn_not_set",
+        "test_facade_uses_dual_repository_when_dsn_is_set"
+      ],
+      "loc": 16
+    },
+    "tests/unit/test_fingerprint.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "79b1422acc770804",
+      "imports_raw": [
+        "xpath_healer.core.fingerprint",
+        "xpath_healer.core.models"
+      ],
+      "imports": [
+        "xpath_healer/core/fingerprint.py",
+        "xpath_healer/core/models.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_fingerprint_build_contains_normalized_tokens_and_hash",
+        "test_fingerprint_compare_returns_exact_hash_match",
+        "test_fingerprint_weighted_scoring_prefers_structural_neighbor"
+      ],
+      "loc": 83
+    },
+    "tests/unit/test_healing_retry.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "06d08c4aeab10dcb",
+      "imports_raw": [
+        "types",
+        "pytest",
+        "xpath_healer.core.builder",
+        "xpath_healer.core.config",
+        "xpath_healer.core.healing_service",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategy_registry"
+      ],
+      "imports": [
+        "xpath_healer/core/builder.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategy_registry.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "_ScriptedValidator",
+        "__init__",
+        "validate_candidate",
+        "_build_input",
+        "test_retry_happens_for_transient_reason_code",
+        "test_retry_skipped_for_non_transient_reason_code",
+        "test_intent_strictness_overrides_default_hints_setting",
+        "test_resolve_selected_locator_adds_nth_for_multi_match"
+      ],
+      "loc": 119
+    },
+    "tests/unit/test_healing_service.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "d83343a3ad321ce3",
+      "imports_raw": [
+        "pytest",
+        "tests.unit.fakes",
+        "xpath_healer.api.facade",
+        "xpath_healer.core.config",
+        "xpath_healer.core.models",
+        "xpath_healer.core.validator",
+        "xpath_healer.store.memory_repository"
+      ],
+      "imports": [
+        "tests/unit/fakes.py",
+        "xpath_healer/api/facade.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/validator.py",
+        "xpath_healer/store/memory_repository.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_recover_with_attribute_then_metadata_reuse",
+        "test_persisted_robust_xpath_prefers_successful_locator_when_signature_xpath_is_weak"
+      ],
+      "loc": 106
+    },
+    "tests/unit/test_healing_service_fingerprint.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "a2f8e41bc50d89db",
+      "imports_raw": [
+        "logging",
+        "pytest",
+        "adapters.playwright_python.adapter",
+        "xpath_healer.core.builder",
+        "xpath_healer.core.config",
+        "xpath_healer.core.context",
+        "xpath_healer.core.healing_service",
+        "xpath_healer.core.models",
+        "xpath_healer.core.page_index",
+        "xpath_healer.core.strategy_registry",
+        "xpath_healer.store.memory_repository"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "adapters/playwright_python/adapter.py",
+        "xpath_healer/core/builder.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/context.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/page_index.py",
+        "xpath_healer/core/strategy_registry.py",
+        "xpath_healer/store/memory_repository.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_fingerprint_stage_builds_candidates_from_structural_match"
+      ],
+      "loc": 79
+    },
+    "tests/unit/test_healing_service_graph_context.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "ac565e490c816022",
+      "imports_raw": [
+        "xpath_healer.core.builder",
+        "xpath_healer.core.healing_service",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategy_registry"
+      ],
+      "imports": [
+        "xpath_healer/core/builder.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategy_registry.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_graph_context_score_prefers_structural_and_anchor_match"
+      ],
+      "loc": 57
+    },
+    "tests/unit/test_integration_settings.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "f3bc316930cb8784",
+      "imports_raw": [
+        "json",
+        "os",
+        "pathlib",
+        "tests.integration.settings"
+      ],
+      "imports": [
+        "tests/integration/settings.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_load_settings_supports_framework_specific_browser_options"
+      ],
+      "loc": 57
+    },
+    "tests/unit/test_mcp_explorer.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "75d6e50b0c836736",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "pytest",
+        "xpath_healer.core.healing_service",
+        "xpath_healer.core.models",
+        "xpath_healer.llm.client",
+        "xpath_healer.mcp",
+        "xpath_healer.mcp.explorer",
+        "xpath_healer.mcp.explorer",
+        "logging",
+        "logging"
+      ],
+      "imports": [
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/llm/client.py",
+        "xpath_healer/mcp/__init__.py",
+        "xpath_healer/mcp/explorer.py",
+        "xpath_healer/utils/logging.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "_ScriptedLLM",
+        "__init__",
+        "chat",
+        "_FakeRuntimeLocator",
+        "__init__",
+        "count",
+        "nth",
+        "evaluate",
+        "is_visible",
+        "is_enabled",
+        "bounding_box",
+        "_ScriptedAdapter",
+        "__init__",
+        "script",
+        "resolve_locator",
+        "capture_page_html",
+        "_build_input",
+        "_meta_with_signature",
+        "_commit_call",
+        "test_commit_only_returns_single_locator_with_confidence",
+        "test_multi_commit_results_ranked_by_confidence_desc",
+        "test_count_matches_then_commit_uses_adapter",
+        "test_no_commit_returns_empty_after_one_round_of_prose",
+        "test_max_rounds_budget_caps_loop",
+        "test_read_page_outline_is_registered_first_in_default_tools",
+        "test_read_page_outline_dispatch_returns_outline_payload",
+        "test_read_page_outline_dispatch_defaults_max_chars_when_missing",
+        "test_read_page_outline_resolve_failure_is_graceful",
+        "test_system_prompt_includes_deterministic_playbook",
+        "test_unknown_tool_returned_does_not_break_loop",
+        "test_first_time_element_explore_works_with_no_prior_memory",
+        "test_explorer_works_for_selenium_style_adapter",
+        "_FakeContext",
+        "__init__",
+        "test_mcp_explore_candidates_wraps_results_as_candidate_specs",
+        "test_mcp_explore_candidates_returns_empty_when_no_explorer",
+        "test_mcp_explore_candidates_swallows_explorer_exceptions"
+      ],
+      "loc": 535
+    },
+    "tests/unit/test_models_serialization.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "56581b6ddbf2b18b",
+      "imports_raw": [
+        "xpath_healer.core.models"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_locator_spec_roundtrip_and_hash_stability",
+        "test_element_meta_roundtrip",
+        "test_page_index_roundtrip"
+      ],
+      "loc": 71
+    },
+    "tests/unit/test_option_fingerprint.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "49fedfe3dd7f4b05",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "pytest",
+        "xpath_healer.core.graph_container",
+        "xpath_healer.core.healing_service",
+        "xpath_healer.core.models"
+      ],
+      "imports": [
+        "xpath_healer/core/graph_container.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/models.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_element_signature_round_trip_includes_option_set_and_lca",
+        "test_element_signature_legacy_payload_hydrates_with_empty_defaults",
+        "_ScriptedLocator",
+        "__init__",
+        "count",
+        "nth",
+        "first",
+        "is_visible",
+        "is_enabled",
+        "bounding_box",
+        "evaluate",
+        "_ScriptedAdapter",
+        "__init__",
+        "resolve_locator",
+        "capture_page_html",
+        "_ScriptedPage",
+        "__init__",
+        "queue",
+        "_next_payload",
+        "test_grounder_returns_ok_when_payload_indicates_match",
+        "test_grounder_returns_failure_for_empty_anchor",
+        "test_grounder_returns_failure_when_payload_not_ok",
+        "test_grounder_swallows_evaluate_exception",
+        "_build_input",
+        "_meta_with_option_set",
+        "_FakeContext",
+        "__init__",
+        "test_option_fingerprint_returns_empty_without_prior_option_set",
+        "test_option_fingerprint_returns_empty_without_anchor_text",
+        "test_option_fingerprint_emits_ranked_candidates_when_container_found",
+        "test_option_fingerprint_drops_all_below_min_score",
+        "test_option_fingerprint_returns_empty_when_grounder_fails"
+      ],
+      "loc": 352
+    },
+    "tests/unit/test_orchestrator.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "8aca40cd6237d8f5",
+      "imports_raw": [
+        "__future__",
+        "json",
+        "logging",
+        "typing",
+        "pytest",
+        "xpath_healer.core.automation",
+        "xpath_healer.core.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.llm.client",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator.models"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/llm/client.py",
+        "xpath_healer/orchestrator/__init__.py",
+        "xpath_healer/orchestrator/models.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "_ScriptedLLM",
+        "__init__",
+        "chat",
+        "_FakeLocator",
+        "__init__",
+        "fill",
+        "click",
+        "select_option",
+        "evaluate",
+        "_FakePage",
+        "__init__",
+        "url",
+        "goto",
+        "_OutlineAdapter",
+        "__init__",
+        "resolve_locator",
+        "capture_page_html",
+        "_FacadeFake",
+        "__init__",
+        "recover_workflow_step",
+        "report_step_outcome",
+        "_success_recovery",
+        "_failed_recovery",
+        "test_workflow_goal_cache_key_is_stable_and_value_sensitive",
+        "test_is_known_action_inventory",
+        "test_planned_workflow_value_for_returns_default",
+        "_commit_plan_response",
+        "test_decomposer_happy_path_returns_planned_workflow",
+        "test_decomposer_retries_when_no_commit_plan_call",
+        "test_decomposer_returns_empty_plan_when_budget_exhausted",
+        "test_decomposer_rejects_invalid_action_and_retries",
+        "test_decomposer_rejects_duplicate_step_ids_then_accepts_fixed_plan",
+        "test_decomposer_returns_invalid_plan_error_when_retries_exhausted",
+        "test_executor_fill_uses_natural_api_when_available",
+        "test_executor_fill_falls_back_to_evaluate_on_natural_error",
+        "test_executor_click_natural_then_fallback",
+        "test_executor_select_prefers_label_then_value",
+        "test_executor_navigate_via_page_goto",
+        "test_executor_verify_only_step_returns_ok_no_op",
+        "test_executor_unsupported_action_returns_error",
+        "test_verifier_short_circuits_on_executor_error",
+        "test_verifier_auto_pass_when_no_expected_outcome",
+        "test_verifier_auto_pass_when_value_after_matches_expected",
+        "test_verifier_structural_url_contains_pass",
+        "test_verifier_structural_text_visible_pass",
+        "test_verifier_falls_through_to_llm_for_semantic_claim",
+        "test_verifier_without_llm_falls_through_passthrough",
+        "test_verifier_llm_parses_messy_response",
+        "test_orchestrator_happy_path_runs_all_steps",
+        "test_orchestrator_navigates_to_start_url_first",
+        "test_orchestrator_returns_failed_when_decomposer_returns_no_steps",
+        "test_orchestrator_failed_heal_with_no_proposal_yields_failed",
+        "test_orchestrator_rewrite_skip_on_optional_step_continues",
+        "test_orchestrator_rewrite_abort_terminates_with_aborted_status",
+        "test_orchestrator_rewrite_insert_before_inserts_and_retries",
+        "test_orchestrator_rewrite_replace_swaps_current_step",
+        "test_orchestrator_threads_value_into_vars_for_fill"
+      ],
+      "loc": 935
+    },
+    "tests/unit/test_orchestrator_actions.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "d7618e673f7b80f3",
+      "imports_raw": [
+        "__future__",
+        "json",
+        "logging",
+        "typing",
+        "pytest",
+        "xpath_healer.core.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.llm.client",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.llm.client"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/llm/client.py",
+        "xpath_healer/orchestrator/__init__.py",
+        "xpath_healer/orchestrator/models.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "_ScriptedLLM",
+        "__init__",
+        "chat",
+        "_RecordingLocator",
+        "__init__",
+        "count",
+        "nth",
+        "press",
+        "wait_for",
+        "scroll_into_view_if_needed",
+        "hover",
+        "evaluate",
+        "_RecordingPage",
+        "__init__",
+        "wait_for_load_state",
+        "screenshot",
+        "evaluate",
+        "test_press_key_on_element_uses_locator_press",
+        "test_press_key_no_locator_uses_page_keyboard",
+        "test_press_key_empty_value_is_error",
+        "test_wait_timeout_string_parses_seconds_and_milliseconds",
+        "test_wait_load_state_routes_to_page",
+        "test_wait_element_state_calls_locator_wait_for",
+        "test_wait_unrecognized_value_returns_error",
+        "test_scroll_into_view_uses_natural_api",
+        "test_scroll_page_bottom_uses_page_evaluate",
+        "test_scroll_page_pixels_uses_scrollBy",
+        "test_hover_uses_natural_api",
+        "test_hover_no_locator_is_error",
+        "test_screenshot_auto_path_under_artifacts",
+        "test_screenshot_explicit_path",
+        "test_extract_heuristic_mode_pulls_price_and_rating",
+        "test_extract_llm_mode_uses_resolved_selectors",
+        "test_extract_record_via_llm_selectors",
+        "test_extract_record_heuristic_fallback_when_no_llm",
+        "test_field_value_looks_plausible_rejects_garbage",
+        "test_extract_record_quality_guard_replaces_garbage_with_heuristic",
+        "test_extract_record_no_fields_is_error",
+        "test_extract_zero_items_is_error",
+        "test_extract_value_parses_csv_fallback",
+        "test_extract_llm_returning_invalid_json_falls_back_to_heuristic",
+        "_FakeAdapter",
+        "resolve_locator",
+        "capture_page_html",
+        "_FacadeFake",
+        "__init__",
+        "recover_workflow_step",
+        "report_step_outcome",
+        "test_orchestrator_surfaces_extract_results_in_extracted_data",
+        "_build_commit_plan"
+      ],
+      "loc": 721
+    },
+    "tests/unit/test_orchestrator_visual.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "9b8ff795c44415e4",
+      "imports_raw": [
+        "__future__",
+        "asyncio",
+        "json",
+        "logging",
+        "pathlib",
+        "typing",
+        "pytest",
+        "xpath_healer.core.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.llm.client",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.core.workflow",
+        "xpath_healer.core.workflow",
+        "xpath_healer.core.workflow",
+        "xpath_healer.core.workflow",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator.executor",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.orchestrator.executor",
+        "xpath_healer.core.workflow",
+        "xpath_healer.orchestrator.visual",
+        "xpath_healer.mcp",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.llm",
+        "xpath_healer.llm.openai_chat",
+        "xpath_healer.llm",
+        "xpath_healer.llm.openai_chat",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator",
+        "xpath_healer.mcp",
+        "xpath_healer.orchestrator",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.orchestrator.models",
+        "xpath_healer.core.workflow",
+        "pathlib",
+        "pathlib",
+        "pathlib"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/llm/client.py",
+        "xpath_healer/orchestrator/__init__.py",
+        "xpath_healer/orchestrator/models.py",
+        "xpath_healer/orchestrator/executor.py",
+        "xpath_healer/orchestrator/visual.py",
+        "xpath_healer/mcp/__init__.py",
+        "xpath_healer/llm/__init__.py",
+        "xpath_healer/llm/openai_chat.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "_ScriptedLLM",
+        "__init__",
+        "chat",
+        "_FakePage",
+        "__init__",
+        "screenshot",
+        "test_visual_usage_policy_normalize_defaults_to_on_failure",
+        "test_visual_usage_policy_normalize_accepts_known_values",
+        "test_recorder_off_mode_is_noop_when_out_dir_missing",
+        "test_recorder_screenshots_mode_writes_png_per_step",
+        "test_recorder_video_mode_emits_context_kwargs",
+        "test_recorder_rejects_unknown_mode",
+        "test_inspector_without_vision_llm_returns_no_vision_llm_error",
+        "test_inspector_returns_no_frames_when_nothing_available",
+        "test_inspector_mock_vision_llm_parses_json_answer",
+        "test_inspector_extracts_json_from_prose_wrapped_response",
+        "test_inspector_swallows_vision_llm_exception",
+        "_NoOpAdapter",
+        "resolve_locator",
+        "capture_page_html",
+        "_FacadeFake",
+        "__init__",
+        "recover_workflow_step",
+        "report_step_outcome",
+        "_CountingInspector",
+        "__init__",
+        "inspect",
+        "_plan_one_click_step",
+        "test_orchestrator_visual_policy_never_does_not_call_inspector",
+        "test_orchestrator_visual_policy_on_failure_invokes_inspector",
+        "test_orchestrator_visual_policy_does_not_fire_on_success",
+        "test_orchestrator_visual_policy_always_fires_every_step",
+        "_make_runner",
+        "_step_rec",
+        "test_vision_promotes_fail_to_ok_when_confident_and_verifier_unsure",
+        "test_vision_does_not_override_when_text_tier_was_confident",
+        "test_vision_overrides_when_text_tier_was_only_moderately_confident",
+        "test_vision_does_not_override_when_vision_unsure",
+        "test_vision_does_not_promote_when_suggested_action_is_abort",
+        "test_vision_does_not_promote_ok_terminal",
+        "test_proposal_from_vision_dismiss_modal_emits_insert_before",
+        "test_proposal_from_vision_abort_emits_abort",
+        "test_proposal_from_vision_returns_none_for_empty_suggestion",
+        "test_proposal_from_vision_returns_none_when_unsure",
+        "test_pick_stronger_proposal_picks_higher_confidence",
+        "_DismissModalInspector",
+        "__init__",
+        "inspect",
+        "test_visual_recovery_inserts_dismiss_modal_step",
+        "test_visual_recovery_disabled_does_not_call_inspector",
+        "test_inspect_with_screenshots_ignores_zoom_silently",
+        "test_merge_candidates_deduped_keeps_unique_pairs",
+        "test_extract_a11y_candidates_walks_tree",
+        "test_extract_a11y_candidates_no_accessibility_api_returns_empty",
+        "test_page_state_observer_normalises_evaluate_failure",
+        "test_page_state_observer_returns_evaluate_output",
+        "_plan_two_step_with_optional_dismiss",
+        "test_max_recovery_inserts_zero_blocks_vision_inserts",
+        "test_max_replans_zero_skips_replan_after_url_change",
+        "test_vision_insert_cap_holds_across_consecutive_failures",
+        "test_click_recovers_via_js_when_native_throws_intercepted",
+        "test_click_uses_scroll_into_view_before_native_click",
+        "test_candidate_heal_drives_execution_when_cascade_fails",
+        "test_decomposer_prompt_includes_page_state_when_present",
+        "test_telemetry_counts_llm_calls_tokens_and_heal_strategies",
+        "test_telemetry_counts_vision_calls_via_wrapper",
+        "test_telemetry_stamped_on_failed_runs_too",
+        "test_openai_chat_retries_on_rate_limit_then_succeeds",
+        "test_openai_chat_gives_up_after_max_retries",
+        "test_replan_fires_when_url_path_changes_with_budget",
+        "test_no_replan_when_url_query_only_changed",
+        "test_slo_check_passes_when_all_targets_met",
+        "test_slo_check_fails_when_token_budget_exceeded",
+        "test_slo_check_flags_slow_steps",
+        "test_slo_check_returns_safely_on_empty_telemetry",
+        "test_two_orchestrators_with_separate_counters_run_concurrently_without_leaking_state",
+        "test_orchestrator_run_resets_telemetry_between_sequential_calls",
+        "test_orchestrator_handles_50_step_plan_without_blowing_up",
+        "test_long_workflow_budget_caps_hold_under_repeated_failures",
+        "test_decomposer_handles_empty_page_gracefully",
+        "test_decomposer_handles_js_shell_with_no_dom_gracefully",
+        "test_goal_action_unmet_demotes_verify_only_success_to_failed",
+        "test_goal_action_unmet_accepts_verify_only_when_goal_is_verification",
+        "test_goal_action_unmet_passes_when_real_action_succeeded",
+        "test_visual_recovery_proposes_abort_on_captcha_finding",
+        "test_vision_does_not_demote_ok_yet"
+      ],
+      "loc": 2125
+    },
+    "tests/unit/test_page_indexing.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "dfb022558d328d2d",
+      "imports_raw": [
+        "pytest",
+        "tests.unit.fakes",
+        "xpath_healer.api.facade",
+        "xpath_healer.core.config",
+        "xpath_healer.core.models",
+        "xpath_healer.core.page_index",
+        "xpath_healer.store.memory_repository"
+      ],
+      "imports": [
+        "tests/unit/fakes.py",
+        "xpath_healer/api/facade.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/page_index.py",
+        "xpath_healer/store/memory_repository.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_page_indexer_ranks_submit_order_candidate_first",
+        "test_recover_uses_page_index_stage_when_enabled"
+      ],
+      "loc": 82
+    },
+    "tests/unit/test_pg_repository_schema.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "8d44f2fb9d16c683",
+      "imports_raw": [
+        "xpath_healer.store.pg_repository"
+      ],
+      "imports": [
+        "xpath_healer/store/pg_repository.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_schema_sql_contains_required_tables_and_indexes",
+        "test_safe_uuid_text_rejects_invalid_values"
+      ],
+      "loc": 26
+    },
+    "tests/unit/test_phase5_additions.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "b4c70674123c0aec",
+      "imports_raw": [
+        "__future__",
+        "logging",
+        "typing",
+        "pytest",
+        "xpath_healer.api.base",
+        "xpath_healer.core.healing_service",
+        "xpath_healer.core.models",
+        "xpath_healer.core.page_signature",
+        "xpath_healer.core.workflow",
+        "xpath_healer.llm.client",
+        "xpath_healer.mcp",
+        "xpath_healer.store.workflow_run_repository",
+        "xpath_healer.workflow",
+        "adapters.appium_python.adapter",
+        "adapters.appium_python.adapter",
+        "adapters.appium_python.adapter",
+        "adapters.appium_python.adapter",
+        "adapters.appium_python.adapter",
+        "adapters.appium_python.facade",
+        "xpath_healer.store.memory_repository",
+        "xpath_healer.store.workflow_run_pg_repository",
+        "xpath_healer.store.workflow_run_pg_repository",
+        "xpath_healer.store.workflow_run_pg_repository",
+        "xpath_healer.store.workflow_run_pg_repository"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/page_signature.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/llm/client.py",
+        "xpath_healer/mcp/__init__.py",
+        "xpath_healer/store/workflow_run_repository.py",
+        "xpath_healer/workflow/__init__.py",
+        "adapters/appium_python/adapter.py",
+        "adapters/appium_python/facade.py",
+        "xpath_healer/store/memory_repository.py",
+        "xpath_healer/store/workflow_run_pg_repository.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_page_signature_empty_input_returns_empty",
+        "test_page_signature_stable_for_same_structure",
+        "test_page_signature_changes_when_stable_attrs_change",
+        "test_page_signature_ignores_volatile_attrs",
+        "_SnapShotter",
+        "__init__",
+        "capture",
+        "_CtxForReplay",
+        "__init__",
+        "_replay_input",
+        "test_replay_signature_match_yields_top_tier_score",
+        "test_replay_signature_mismatch_downgrades_score",
+        "test_replay_unknown_signature_uses_legacy_tier",
+        "test_supported_actions_include_insert_replace",
+        "test_action_requires_new_step_for_insert_and_replace",
+        "_ScriptedLLM",
+        "__init__",
+        "chat",
+        "_NoopAdapter",
+        "resolve_locator",
+        "capture_page_html",
+        "_wf_inp",
+        "test_rewriter_commits_insert_before_with_new_step",
+        "test_rewriter_rejects_insert_without_new_step_and_recovers",
+        "test_rewriter_rejects_insert_with_incomplete_new_step",
+        "test_auto_apply_policy_round_trip_and_disabled",
+        "_StubRewriter",
+        "__init__",
+        "rewrite",
+        "_AutoApplyFacade",
+        "__init__",
+        "_wf_context",
+        "test_auto_apply_gate_sets_true_when_policy_met",
+        "test_auto_apply_gate_blocks_disallowed_action",
+        "test_auto_apply_gate_blocks_below_min_confidence",
+        "test_auto_apply_gate_requires_prior_confirmations",
+        "test_no_policy_means_no_auto_apply_flag_set",
+        "_FakeMCPSession",
+        "__init__",
+        "call_tool",
+        "test_playwright_mcp_server_explorer_uses_server_tools_then_commits",
+        "test_playwright_mcp_server_explorer_returns_empty_on_connect_failure",
+        "_FakeAppiumElement",
+        "__init__",
+        "get_attribute",
+        "is_displayed",
+        "is_enabled",
+        "_FakeAppiumDriver",
+        "__init__",
+        "add",
+        "find_elements",
+        "execute_script",
+        "test_appium_adapter_translates_locator_kinds",
+        "test_appium_evaluate_returns_none_for_js_arrow_script",
+        "test_appium_evaluate_forwards_mobile_scripts",
+        "test_appium_bounding_box_uses_location_and_size",
+        "test_appium_capture_page_html_returns_page_source",
+        "test_appium_facade_pre_wires_adapter",
+        "_FakePGConn",
+        "__init__",
+        "transaction",
+        "execute",
+        "fetchrow",
+        "fetch",
+        "_FakePGPool",
+        "__init__",
+        "acquire",
+        "close",
+        "test_pg_workflow_run_repo_record_step_runs_insert_and_prune",
+        "test_pg_workflow_run_repo_update_step_status_returns_true_when_found",
+        "test_pg_workflow_run_repo_update_returns_false_when_no_heal_record",
+        "test_pg_workflow_run_repo_find_step_history_maps_rows"
+      ],
+      "loc": 904
+    },
+    "tests/unit/test_prompt_dsl.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "bf8d12028ad940aa",
+      "imports_raw": [
+        "xpath_healer.core.models",
+        "xpath_healer.rag.prompt_builder",
+        "xpath_healer.rag.prompt_dsl"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/rag/prompt_builder.py",
+        "xpath_healer/rag/prompt_dsl.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_prompt_dsl_uses_compact_sections",
+        "test_prompt_payload_exposes_compact_dom_signature_and_output_schema",
+        "test_extract_dom_context_reads_controls_beyond_initial_html_prefix",
+        "test_extract_dom_context_preserves_visible_text_case_and_label_proxy_type"
+      ],
+      "loc": 98
+    },
+    "tests/unit/test_rag_assist.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "971600314cec9201",
+      "imports_raw": [
+        "pytest",
+        "xpath_healer.core.models",
+        "xpath_healer.rag.rag_assist"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/rag/rag_assist.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "StubEmbedder",
+        "embed_text",
+        "StubRetriever",
+        "__init__",
+        "set_query_context",
+        "retrieve",
+        "StubLLM",
+        "__init__",
+        "suggest_locators",
+        "test_rag_assist_uses_context_rerank_and_filters_weak_candidates",
+        "test_rag_assist_includes_dom_context_without_retrieval_hits"
+      ],
+      "loc": 140
+    },
+    "tests/unit/test_rag_deep_retry.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "dd0693ccfd193d1e",
+      "imports_raw": [
+        "pytest",
+        "tests.unit.fakes",
+        "xpath_healer.api.facade",
+        "xpath_healer.core.config",
+        "xpath_healer.core.models"
+      ],
+      "imports": [
+        "tests/unit/fakes.py",
+        "xpath_healer/api/facade.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/models.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "_ScriptedRagAssist",
+        "__init__",
+        "suggest",
+        "_llm_only_rag_config",
+        "test_rag_deep_retry_runs_after_low_confidence_and_failed_validation",
+        "test_rag_deep_retry_can_be_disabled"
+      ],
+      "loc": 122
+    },
+    "tests/unit/test_selenium_adapter.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "6c311ae1bf15dbcb",
+      "imports_raw": [
+        "pytest",
+        "adapters.selenium_python.adapter",
+        "adapters.selenium_python.facade",
+        "tests.unit.selenium_fakes",
+        "xpath_healer.core.config",
+        "xpath_healer.core.models",
+        "xpath_healer.core.validator",
+        "xpath_healer.store.memory_repository"
+      ],
+      "imports": [
+        "adapters/selenium_python/adapter.py",
+        "adapters/selenium_python/facade.py",
+        "tests/unit/selenium_fakes.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/validator.py",
+        "xpath_healer/store/memory_repository.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_selenium_validator_accepts_button_role_locator",
+        "test_selenium_facade_recovers_with_attribute_strategy",
+        "test_selenium_text_xpath_is_valid_relative_xpath",
+        "test_selenium_role_locator_uses_associated_label_name"
+      ],
+      "loc": 104
+    },
+    "tests/unit/test_service_sessions.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "c30f70f44a570707",
+      "imports_raw": [
+        "pytest",
+        "fastapi.testclient",
+        "adapters.selenium_python.facade",
+        "service.main",
+        "service.session_registry",
+        "tests.unit.selenium_fakes"
+      ],
+      "imports": [
+        "adapters/selenium_python/facade.py",
+        "service/main.py",
+        "service/session_registry.py",
+        "tests/unit/selenium_fakes.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "_selenium_driver",
+        "test_heal_endpoint_resolves_selenium_session_from_registry",
+        "test_heal_endpoint_supports_sync_resolver_callback"
+      ],
+      "loc": 72
+    },
+    "tests/unit/test_similarity.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "14164bee0c24b23b",
+      "imports_raw": [
+        "xpath_healer.core.models",
+        "xpath_healer.core.similarity"
+      ],
+      "imports": [
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/similarity.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_similarity_prefers_stable_attributes"
+      ],
+      "loc": 33
+    },
+    "tests/unit/test_snapshotter.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "46ecca84c007ace9",
+      "imports_raw": [
+        "pytest",
+        "xpath_healer.dom.snapshot"
+      ],
+      "imports": [
+        "xpath_healer/dom/snapshot.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "StubAdapter",
+        "__init__",
+        "capture_page_html",
+        "StubPage",
+        "__init__",
+        "test_snapshot_cache_invalidates_when_page_url_changes"
+      ],
+      "loc": 34
+    },
+    "tests/unit/test_stage_switches.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "005c888e0b763cbe",
+      "imports_raw": [
+        "pytest",
+        "tests.unit.fakes",
+        "xpath_healer.api.facade",
+        "xpath_healer.core.config",
+        "xpath_healer.core.models"
+      ],
+      "imports": [
+        "tests/unit/fakes.py",
+        "xpath_healer/api/facade.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/models.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "StubRagAssist",
+        "suggest",
+        "test_stage_profile_llm_only",
+        "test_recover_with_only_rag_stage_enabled"
+      ],
+      "loc": 70
+    },
+    "tests/unit/test_strategy_registry.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "e1a52c845a20e48d",
+      "imports_raw": [
+        "pytest",
+        "xpath_healer.core.context",
+        "xpath_healer.core.models",
+        "xpath_healer.core.strategy_registry",
+        "xpath_healer.core.strategies.base"
+      ],
+      "imports": [
+        "xpath_healer/core/context.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/strategy_registry.py",
+        "xpath_healer/core/strategies/base.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "_StrategyA",
+        "supports",
+        "build",
+        "_StrategyB",
+        "supports",
+        "build",
+        "test_registry_orders_by_priority_and_filters_stage"
+      ],
+      "loc": 51
+    },
+    "tests/unit/test_text_utils.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "e2a3853a9bbe2308",
+      "imports_raw": [
+        "xpath_healer.utils.text"
+      ],
+      "imports": [
+        "xpath_healer/utils/text.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_normalize_text_collapses_spaces_and_casefolds",
+        "test_token_subset_match"
+      ],
+      "loc": 12
+    },
+    "tests/unit/test_validator.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "9815edb7eee9192b",
+      "imports_raw": [
+        "pytest",
+        "adapters.playwright_python.adapter",
+        "tests.unit.fakes",
+        "xpath_healer.core.config",
+        "xpath_healer.core.models",
+        "xpath_healer.core.validator"
+      ],
+      "imports": [
+        "adapters/playwright_python/adapter.py",
+        "tests/unit/fakes.py",
+        "xpath_healer/core/config.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/validator.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_button_validation_passes_on_text_match",
+        "test_strict_single_match_rejects_ambiguous_locator",
+        "test_textbox_validation_rejects_button"
+      ],
+      "loc": 59
+    },
+    "tests/unit/test_workflow_context.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "8987d6c39a5e30b7",
+      "imports_raw": [
+        "__future__",
+        "json",
+        "logging",
+        "pytest",
+        "xpath_healer.api.base",
+        "xpath_healer.core.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.llm.client",
+        "xpath_healer.mcp",
+        "xpath_healer.core.models"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/llm/client.py",
+        "xpath_healer/mcp/__init__.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_workflow_step_round_trip",
+        "test_step_outcome_round_trip",
+        "test_workflow_context_round_trip",
+        "test_build_input_defaults_workflow_context_to_none",
+        "test_build_input_accepts_workflow_context",
+        "_RecordingLLM",
+        "__init__",
+        "chat",
+        "_NoopAdapter",
+        "resolve_locator",
+        "capture_page_html",
+        "test_mcp_prompt_omits_workflow_when_context_absent",
+        "test_mcp_prompt_includes_workflow_when_context_present",
+        "_StubFacade",
+        "__init__",
+        "test_recover_workflow_step_threads_context_into_build_input",
+        "test_recover_workflow_step_rejects_missing_context",
+        "test_recover_workflow_step_rejects_wrong_context_type",
+        "test_recover_locator_sets_workflow_context_none_explicitly",
+        "test_recover_locator_warns_when_vars_contain_workflow_shaped_keys",
+        "test_recover_locator_does_not_warn_on_plain_vars",
+        "test_workflow_shaped_keys_inventory_is_non_empty"
+      ],
+      "loc": 391
+    },
+    "tests/unit/test_workflow_replay.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "4442a03a56d06672",
+      "imports_raw": [
+        "__future__",
+        "logging",
+        "typing",
+        "pytest",
+        "xpath_healer.core.healing_service",
+        "xpath_healer.core.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.store.workflow_run_repository"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/core/healing_service.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/store/workflow_run_repository.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "_FakeCtx",
+        "__init__",
+        "_wf_inp",
+        "_no_wf_inp",
+        "_step",
+        "test_replay_returns_empty_without_workflow_context",
+        "test_replay_returns_empty_without_repo",
+        "test_replay_returns_empty_when_no_history_exists",
+        "test_replay_returns_empty_when_repo_raises",
+        "test_replay_returns_step_succeeded_record_with_high_score",
+        "test_replay_returns_heal_succeeded_record_with_medium_score",
+        "test_replay_skips_failed_and_skipped_records",
+        "test_replay_orders_by_score_desc_step_succeeded_before_heal",
+        "test_replay_dedupes_identical_locators_across_runs",
+        "test_replay_bounds_returned_candidates_to_three",
+        "test_replay_skips_records_with_unusable_locator_payloads"
+      ],
+      "loc": 293
+    },
+    "tests/unit/test_workflow_rewriter.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "a0c1afc75628ebfa",
+      "imports_raw": [
+        "__future__",
+        "logging",
+        "typing",
+        "pytest",
+        "xpath_healer.api.base",
+        "xpath_healer.core.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.llm.client",
+        "xpath_healer.workflow"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/llm/client.py",
+        "xpath_healer/workflow/__init__.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "_ScriptedLLM",
+        "__init__",
+        "chat",
+        "_NoopAdapter",
+        "resolve_locator",
+        "capture_page_html",
+        "test_workflow_rewrite_proposal_round_trip",
+        "test_is_mvp_rewrite_action_accepts_all_supported_actions",
+        "test_recovered_to_dict_emits_rewrite_proposal_when_present",
+        "test_recovered_to_dict_emits_null_rewrite_proposal_when_absent",
+        "_wf_inp",
+        "test_rewriter_commits_skip_proposal",
+        "test_rewriter_commits_abort_proposal",
+        "test_rewriter_uses_count_then_commits",
+        "test_rewriter_no_commit_returns_none_proposal",
+        "test_rewriter_max_rounds_budget_caps_loop",
+        "test_rewriter_unknown_tool_does_not_break_loop",
+        "test_rewriter_prompt_includes_workflow_and_cascade_error",
+        "_StubRewriter",
+        "__init__",
+        "rewrite",
+        "_BoomRewriter",
+        "rewrite",
+        "_StubFacade",
+        "__init__",
+        "_wf_context",
+        "test_recover_workflow_step_attaches_rewrite_proposal_on_failure",
+        "test_recover_workflow_step_does_not_invoke_rewriter_on_success",
+        "test_recover_workflow_step_no_rewriter_yields_none_proposal",
+        "test_recover_workflow_step_swallows_rewriter_exceptions",
+        "test_recover_workflow_step_rewriter_returning_none_proposal_is_no_op"
+      ],
+      "loc": 486
+    },
+    "tests/unit/test_workflow_run_history.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "c56bda2f57d37b9f",
+      "imports_raw": [
+        "__future__",
+        "asyncio",
+        "logging",
+        "pathlib",
+        "pytest",
+        "xpath_healer.api.base",
+        "xpath_healer.core.models",
+        "xpath_healer.core.workflow",
+        "xpath_healer.store.workflow_run_repository"
+      ],
+      "imports": [
+        "xpath_healer/utils/logging.py",
+        "xpath_healer/api/base.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/workflow.py",
+        "xpath_healer/store/workflow_run_repository.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "test_step_run_round_trip",
+        "test_workflow_run_round_trip",
+        "in_memory_repo",
+        "json_repo",
+        "any_repo",
+        "_step",
+        "test_record_step_and_get_run",
+        "test_get_run_returns_none_for_unknown_workflow",
+        "test_retention_cap_evicts_oldest",
+        "test_find_step_history_returns_most_recent_first",
+        "test_find_step_history_respects_limit",
+        "test_update_step_status_upgrades_most_recent_heal_record",
+        "test_update_step_status_returns_false_when_no_heal_record",
+        "test_update_step_status_only_upgrades_heal_records",
+        "test_json_repo_persists_across_instances",
+        "test_json_repo_sanitises_path_traversal_in_workflow_id",
+        "test_json_repo_recovers_from_corrupt_file",
+        "test_concurrent_records_to_same_workflow_are_serialised",
+        "test_safe_record_step_no_op_when_repo_is_none",
+        "test_safe_update_step_status_returns_false_when_repo_is_none",
+        "test_safe_helpers_swallow_repo_exceptions",
+        "_RecordingFacade",
+        "__init__",
+        "_wf_context",
+        "test_recover_workflow_step_auto_records_heal_succeeded",
+        "test_recover_workflow_step_auto_records_heal_failed",
+        "test_recover_workflow_step_no_op_recording_when_repo_disabled",
+        "test_report_step_outcome_upgrades_heal_succeeded_to_step_succeeded",
+        "test_report_step_outcome_returns_false_when_no_repo"
+      ],
+      "loc": 448
+    },
+    "tests/unit/__init__.py": {
+      "language": "python",
+      "feature": "unit",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.tests.unit",
+      "hash": "175f847144e5e354",
+      "imports_raw": [],
+      "imports": [],
+      "imported_by": [],
+      "symbols": [],
+      "loc": 3
+    },
+    "adapters/appium_python/adapter.py": {
+      "language": "python",
+      "feature": "adapters",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.adapters.appium_python",
+      "hash": "2bd2fef68d558073",
+      "imports_raw": [
+        "__future__",
+        "asyncio",
+        "typing",
+        "xpath_healer.core.automation",
+        "xpath_healer.core.models",
+        "appium.webdriver.common.appiumby",
+        "selenium.common.exceptions"
+      ],
+      "imports": [
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/core/exceptions.py"
+      ],
+      "imported_by": [
+        "adapters/appium_python/__init__.py",
+        "adapters/appium_python/facade.py",
+        "tests/unit/test_phase5_additions.py"
+      ],
+      "symbols": [
+        "AppiumRuntimeLocator",
+        "__init__",
+        "__getattr__",
+        "_elements",
+        "count",
+        "nth",
+        "is_visible",
+        "is_enabled",
+        "evaluate",
+        "bounding_box",
+        "AppiumPythonAdapter",
+        "resolve_locator",
+        "capture_page_html",
+        "_translate_locator"
+      ],
+      "loc": 252
+    },
+    "adapters/appium_python/facade.py": {
+      "language": "python",
+      "feature": "adapters",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.adapters.appium_python",
+      "hash": "c95e8a71f047756a",
+      "imports_raw": [
+        "__future__",
+        "adapters.appium_python.adapter",
+        "xpath_healer.api.base"
+      ],
+      "imports": [
+        "adapters/appium_python/adapter.py",
+        "xpath_healer/api/base.py"
+      ],
+      "imported_by": [
+        "tests/unit/test_phase5_additions.py"
+      ],
+      "symbols": [
+        "AppiumHealerFacade",
+        "__init__"
+      ],
+      "loc": 20
+    },
+    "adapters/appium_python/__init__.py": {
+      "language": "python",
+      "feature": "adapters",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.adapters.appium_python",
+      "hash": "c724349ca40f3ef0",
+      "imports_raw": [
+        "adapters.appium_python.adapter"
+      ],
+      "imports": [
+        "adapters/appium_python/adapter.py"
+      ],
+      "imported_by": [],
+      "symbols": [],
+      "loc": 11
+    },
+    "adapters/playwright_python/adapter.py": {
+      "language": "python",
+      "feature": "adapters",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.adapters.playwright_python",
+      "hash": "08f8c703b44eedaf",
+      "imports_raw": [
+        "__future__",
+        "typing",
+        "xpath_healer.core.automation",
+        "xpath_healer.core.models",
+        "xpath_healer.utils.text"
+      ],
+      "imports": [
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/utils/text.py"
+      ],
+      "imported_by": [
+        "adapters/playwright_python/__init__.py",
+        "adapters/playwright_python/facade.py",
+        "tests/conftest.py",
+        "tests/unit/test_checkbox_proxy_validation.py",
+        "tests/unit/test_healing_service_fingerprint.py",
+        "tests/unit/test_validator.py",
+        "xpath_healer/api/factory.py"
+      ],
+      "symbols": [
+        "PlaywrightRuntimeLocator",
+        "__init__",
+        "__getattr__",
+        "count",
+        "nth",
+        "is_visible",
+        "is_enabled",
+        "evaluate",
+        "bounding_box",
+        "PlaywrightPythonAdapter",
+        "resolve_locator",
+        "capture_page_html"
+      ],
+      "loc": 94
+    },
+    "adapters/playwright_python/facade.py": {
+      "language": "python",
+      "feature": "adapters",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.adapters.playwright_python",
+      "hash": "3b9c02220d20ce67",
+      "imports_raw": [
+        "__future__",
+        "xpath_healer.api.base",
+        "adapters.playwright_python.adapter"
+      ],
+      "imports": [
+        "xpath_healer/api/base.py",
+        "adapters/playwright_python/adapter.py"
+      ],
+      "imported_by": [
+        "adapters/playwright_python/__init__.py",
+        "xpath_healer/api/facade.py",
+        "xpath_healer/api/factory.py"
+      ],
+      "symbols": [
+        "PlaywrightHealerFacade",
+        "__init__"
+      ],
+      "loc": 14
+    },
+    "adapters/playwright_python/__init__.py": {
+      "language": "python",
+      "feature": "adapters",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.adapters.playwright_python",
+      "hash": "36437446dc2b9892",
+      "imports_raw": [
+        "adapters.playwright_python.adapter",
+        "adapters.playwright_python.facade"
+      ],
+      "imports": [
+        "adapters/playwright_python/adapter.py",
+        "adapters/playwright_python/facade.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "__getattr__"
+      ],
+      "loc": 16
+    },
+    "adapters/selenium_python/adapter.py": {
+      "language": "python",
+      "feature": "adapters",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.adapters.selenium_python",
+      "hash": "0589bfda211ecabc",
+      "imports_raw": [
+        "__future__",
+        "asyncio",
+        "typing",
+        "xpath_healer.core.automation",
+        "xpath_healer.core.models",
+        "xpath_healer.utils.text",
+        "selenium.webdriver.common.by",
+        "selenium.common.exceptions"
+      ],
+      "imports": [
+        "xpath_healer/core/automation.py",
+        "xpath_healer/core/models.py",
+        "xpath_healer/utils/text.py",
+        "xpath_healer/core/exceptions.py"
+      ],
+      "imported_by": [
+        "adapters/selenium_python/__init__.py",
+        "adapters/selenium_python/facade.py",
+        "tests/unit/test_selenium_adapter.py",
+        "xpath_healer/api/factory.py"
+      ],
+      "symbols": [
+        "SeleniumRuntimeLocator",
+        "__init__",
+        "__getattr__",
+        "_elements",
+        "count",
+        "nth",
+        "is_visible",
+        "is_enabled",
+        "evaluate",
+        "bounding_box",
+        "SeleniumPythonAdapter",
+        "resolve_locator",
+        "capture_page_html",
+        "_driver_for",
+        "_search_roots",
+        "_find_elements",
+        "_dedupe_elements",
+        "_element_name",
+        "_text_xpath",
+        "_find_role_elements",
+        "_semantic_role_css",
+        "_wrap_arrow_function",
+        "_xpath_literal"
+      ],
+      "loc": 311
+    },
+    "adapters/selenium_python/facade.py": {
+      "language": "python",
+      "feature": "adapters",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.adapters.selenium_python",
+      "hash": "be0573ec0a8d8723",
+      "imports_raw": [
+        "__future__",
+        "xpath_healer.api.base",
+        "adapters.selenium_python.adapter"
+      ],
+      "imports": [
+        "xpath_healer/api/base.py",
+        "adapters/selenium_python/adapter.py"
+      ],
+      "imported_by": [
+        "adapters/selenium_python/__init__.py",
+        "tests/integration/test_demo_qa_healing_selenium.py",
+        "tests/unit/test_selenium_adapter.py",
+        "tests/unit/test_service_sessions.py",
+        "xpath_healer/api/factory.py"
+      ],
+      "symbols": [
+        "SeleniumHealerFacade",
+        "__init__"
+      ],
+      "loc": 14
+    },
+    "adapters/selenium_python/__init__.py": {
+      "language": "python",
+      "feature": "adapters",
+      "package": "C:\\.Users.neela.Documents.locator-healer.locator-healer.adapters.selenium_python",
+      "hash": "ce7a767ca64126ba",
+      "imports_raw": [
+        "adapters.selenium_python.adapter",
+        "adapters.selenium_python.facade"
+      ],
+      "imports": [
+        "adapters/selenium_python/adapter.py",
+        "adapters/selenium_python/facade.py"
+      ],
+      "imported_by": [],
+      "symbols": [
+        "__getattr__"
+      ],
+      "loc": 16
+    }
+  },
+  "external": {
+    "python": [
+      "playwright>=1.43.0",
+      "selenium>=4.29.0",
+      "fastapi>=0.116.0",
+      "pydantic>=2.7.0",
+      "uvicorn>=0.33.0",
+      "rapidfuzz>=3.9.0",
+      "beautifulsoup4>=4.12.0",
+      "lxml>=5.2.0",
+      "asyncpg>=0.30.0",
+      "chromadb>=0.5.0",
+      "openai>=1.66.0",
+      "pytest>=8.3.0",
+      "pytest-asyncio>=0.25.0",
+      "pytest-bdd>=8.1.0"
+    ]
+  }
+}
