@@ -1,0 +1,18 @@
+2026-05-25 22:06:12,728 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+========================================================================
+  Ground-truth precision corpus
+========================================================================
+
+  Layer: deterministic
+    [deterministic ] text_box.full_name             -> OK           strategy=bidirectional_anchor_field     healed=xpath:xpath://*[(self::label or self::span) and (normalize-space()
+    [deterministic ] text_box.email                 -> OK           strategy=bidirectional_anchor_field     healed=xpath:xpath://*[(self::label or self::span) and (normalize-space()
+    [deterministic ] text_box.current_address       -> OK           strategy=bidirectional_anchor_field     healed=xpath:xpath://*[(self::label or self::span) and (normalize-space()
+    [deterministic ] text_box.permanent_address     -> OK           strategy=bidirectional_anchor_field     healed=xpath:xpath://*[(self::label or self::span) and (normalize-space()
+    [deterministic ] text_box.submit                -> OK           strategy=button_text_candidate          healed=role:role:button[name='Submit',exact=True]
+    -> total=5 status_success=5 node_correct=5 precision=1.0
+
+  OVERALL:
+    status_success_rate (loose) = 1.0
+    node_precision (strict)     = 1.0
+
+  wrote: C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\reports\precision_corpus.json

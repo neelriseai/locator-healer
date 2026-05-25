@@ -118,30 +118,6 @@
         "valid_against_hints": true,
         "history": [
           {
-            "timestamp": "2026-03-26T08:27:04.681779+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.972,
-            "stability_score": 0.93,
-            "similarity_score": 1.0,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T08:33:53.657320+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.972,
-            "stability_score": 0.93,
-            "similarity_score": 1.0,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T09:17:35.174539+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.972,
-            "stability_score": 0.93,
-            "similarity_score": 1.0,
-            "uniqueness_score": 1.0
-          },
-          {
             "timestamp": "2026-04-07T03:19:50.196495+00:00",
             "strategy_id": "metadata.last_good",
             "overall_score": 0.972,
@@ -271,6 +247,30 @@
           },
           {
             "timestamp": "2026-05-25T07:09:34.812212+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.972,
+            "stability_score": 0.93,
+            "similarity_score": 1.0,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T18:02:46.937298+00:00",
+            "strategy_id": "page_index.rank:812002bd-3164-4d3b-9f50-f4d0efe126b5",
+            "overall_score": 0.5297,
+            "stability_score": 0.81,
+            "similarity_score": 1.0,
+            "uniqueness_score": 0.0143
+          },
+          {
+            "timestamp": "2026-05-25T18:05:01.409529+00:00",
+            "strategy_id": "mcp_explore",
+            "overall_score": 0.94,
+            "stability_score": 0.85,
+            "similarity_score": 1.0,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T18:06:55.081673+00:00",
             "overall_score": 0.972,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
@@ -279,8 +279,8 @@
           }
         ]
       },
-      "last_seen": "2026-05-25T07:09:34.651865+00:00",
-      "success_count": 59,
+      "last_seen": "2026-05-25T18:06:54.904195+00:00",
+      "success_count": 62,
       "fail_count": 1
     },
     "row1_last_name_vega": {
@@ -398,30 +398,6 @@
         "locator_value": "gridcell",
         "valid_against_hints": true,
         "history": [
-          {
-            "timestamp": "2026-03-26T08:27:24.363915+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.972,
-            "stability_score": 0.93,
-            "similarity_score": 1.0,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T08:34:12.620563+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.972,
-            "stability_score": 0.93,
-            "similarity_score": 1.0,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T09:17:53.087911+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.972,
-            "stability_score": 0.93,
-            "similarity_score": 1.0,
-            "uniqueness_score": 1.0
-          },
           {
             "timestamp": "2026-04-07T03:20:10.947756+00:00",
             "strategy_id": "metadata.last_good",
@@ -552,6 +528,30 @@
           },
           {
             "timestamp": "2026-05-25T07:09:41.213808+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.972,
+            "stability_score": 0.93,
+            "similarity_score": 1.0,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T18:02:49.748406+00:00",
+            "strategy_id": "page_index.rank:67554edf-d0e3-4d54-b23d-a7f0c9d7b239",
+            "overall_score": 0.5297,
+            "stability_score": 0.81,
+            "similarity_score": 1.0,
+            "uniqueness_score": 0.0143
+          },
+          {
+            "timestamp": "2026-05-25T18:05:17.340295+00:00",
+            "strategy_id": "mcp_explore",
+            "overall_score": 0.964,
+            "stability_score": 0.91,
+            "similarity_score": 1.0,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T18:07:01.179555+00:00",
             "overall_score": 0.972,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
@@ -560,8 +560,8 @@
           }
         ]
       },
-      "last_seen": "2026-05-25T07:09:41.040951+00:00",
-      "success_count": 59,
+      "last_seen": "2026-05-25T18:07:01.017333+00:00",
+      "success_count": 62,
       "fail_count": 0
     }
   },

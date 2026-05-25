@@ -1,0 +1,1 @@
+{"workflow_id":"wf-3f76fe1824b4","steps":[{"workflow_id":"wf-3f76fe1824b4","step_id":"click_add_to_cart","status":"heal_failed","locator_used":{},"healer_stage":"","page_signature_hash":"c8caead7b4c6c99f","duration_ms":7558.8525,"failure_reason":"All healing stages failed to produce a valid locator.","note":"","recorded_at":"2026-05-25T17:39:12.379710+00:00"}],"metadata":{}}

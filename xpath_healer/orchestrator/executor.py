@@ -710,23 +710,36 @@ class PlaywrightActionExecutor(ActionExecutor):
                 if v and not record.get(k):
                     record[k] = v
 
-            # Title-like fields: fall back to <h1>, then <title>. Many
-            # e-commerce PDPs don't put the product name in <h1> but
-            # almost always set <title> to it.
+            # Title-like fields: try several candidates and pick the
+            # most-plausible. Amazon's h1 is often a tooltip rather than
+            # the product name, while Flipkart puts the product name in
+            # the h1. So we collect both <title>, <h1>, og:title and
+            # pick whichever is longest + non-trivial.
             for f in [field for field in missing if not record.get(field)]:
                 if any(tok in f.lower() for tok in ("title", "name", "product")):
                     try:
-                        h1_or_title = await evaluate(
+                        candidates = await evaluate(
                             """() => {
+                                const out = [];
+                                const og = document.querySelector('meta[property="og:title"]');
+                                if (og) out.push(og.getAttribute('content') || '');
                                 const h1 = document.querySelector('h1');
-                                if (h1 && h1.innerText.trim()) return h1.innerText.trim();
-                                return (document.title || '').trim();
+                                if (h1) out.push(h1.innerText.trim());
+                                out.push((document.title || '').trim());
+                                return out;
                             }"""
                         )
                     except Exception:
-                        h1_or_title = ""
-                    if h1_or_title:
-                        record[f] = str(h1_or_title)[:200]
+                        candidates = []
+                    # Reject anything containing tooltip/help boilerplate.
+                    REJECT = ("keyboard shortcut", "add to your order", "frequently bought together")
+                    valid = [
+                        c for c in (candidates or [])
+                        if c and len(c) >= 8 and not any(t in c.lower() for t in REJECT)
+                    ]
+                    if valid:
+                        # Longest valid candidate is most informative.
+                        record[f] = max(valid, key=len)[:200]
 
         # Step 4: re-run the quality guard on the final merged record.
         # The heuristic can also pick promotional text that happens to
@@ -825,7 +838,7 @@ class PlaywrightActionExecutor(ActionExecutor):
     # the generic label-based search so it can spot a price on a page
     # where no "Price:" label precedes it.
     _PRICE_PATTERN = re.compile(
-        r"(?:₹|Rs\.?|INR|\$|USD|€|£)\s*[\d][\d,]*(?:\.\d+)?",
+        r"(?:₹|Rs\.?|INR|\$|USD|€|£)\s*([\d][\d,]*(?:\.\d+)?)",
         flags=re.IGNORECASE,
     )
     _RATING_PATTERN = re.compile(
@@ -852,11 +865,72 @@ class PlaywrightActionExecutor(ActionExecutor):
         out: dict[str, str] = {}
         for field in fields:
             fl_under = field.lower()
-            # Price-typed field: first currency-prefixed digit cluster.
-            if any(tok in fl_under for tok in ("price", "amount", "cost", "mrp")):
-                m = cls._PRICE_PATTERN.search(page_text)
-                if m:
-                    out[field] = m.group(0).strip()
+            # Price-typed field: the real selling price on a PDP almost
+            # always appears MULTIPLE times (main block, sticky header,
+            # "EMI from ₹X/mo" text). So pick the MOST FREQUENT price
+            # over a minimum threshold (excludes ₹100 cashback / ₹500
+            # off banners). Tie-break by EARLIEST occurrence (top of
+            # page is the main product area). Falls back to first match
+            # if no value repeats. MRP fields stay max-greedy.
+            if any(tok in fl_under for tok in ("price", "amount", "cost")):
+                matches = list(cls._PRICE_PATTERN.finditer(page_text))
+                if not matches:
+                    pass  # fall through to label search
+                else:
+                    THRESHOLD = 1000
+                    # Reject prices preceded (within ~40 chars) by EMI /
+                    # monthly / per-month / no-cost-EMI / cashback /
+                    # save / off — these are financing or discount
+                    # callouts, not the real selling price.
+                    EMI_CTX = (
+                        "emi", "/mo", "/ month", "per month", "no cost emi",
+                        "cashback", "save ", "save\xa0", "off", "with axis",
+                        "with hdfc", "with icici",
+                    )
+                    parsed: list[tuple[int, int, str]] = []  # (value, pos, raw)
+                    for m in matches:
+                        try:
+                            val = int(m.group(1).replace(",", "").split(".")[0])
+                        except (TypeError, ValueError):
+                            continue
+                        if val < THRESHOLD:
+                            continue
+                        # Look at the ~40 chars preceding this match.
+                        ctx = page_text[max(0, m.start() - 40):m.start()].lower()
+                        if any(tok in ctx for tok in EMI_CTX):
+                            continue
+                        parsed.append((val, m.start(), m.group(0).strip()))
+                    if parsed:
+                        from collections import Counter
+                        freq = Counter(v for v, _, _ in parsed)
+                        max_freq = max(freq.values())
+                        if max_freq > 1:
+                            # Most frequent value at min position (earliest).
+                            top_value = next(
+                                v for v, _ in freq.most_common() if freq[v] == max_freq
+                            )
+                            chosen = min(
+                                (p for p in parsed if p[0] == top_value),
+                                key=lambda p: p[1],
+                            )
+                            out[field] = chosen[2]
+                            continue
+                        # No repeats — pick the EARLIEST above threshold.
+                        # That's typically the main-block price; the
+                        # below-fold comparison ads come later in
+                        # innerText.
+                        out[field] = min(parsed, key=lambda p: p[1])[2]
+                        continue
+                    # All matches under threshold — fall through.
+            if "mrp" in fl_under:
+                # MRP is the highest crossed-out price.
+                matches = list(cls._PRICE_PATTERN.finditer(page_text))
+                if matches:
+                    best = max(
+                        matches,
+                        key=lambda m: int(m.group(1).replace(",", "").split(".")[0] or "0"),
+                    )
+                    out[field] = best.group(0).strip()
                     continue
             # Rating-typed field: a number-with-optional-decimal token.
             if any(tok in fl_under for tok in ("rating", "stars", "score")):

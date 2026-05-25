@@ -1431,6 +1431,684 @@ async def test_telemetry_stamped_on_failed_runs_too(tmp_path) -> None:
     assert tele["llm_total_tokens"] == 55
 
 
+# ===========================================================================
+# P3a — OpenAI 429 retry with backoff
+# ===========================================================================
+
+
+@pytest.mark.asyncio
+async def test_openai_chat_retries_on_rate_limit_then_succeeds(monkeypatch) -> None:
+    """Mock the OpenAI client to raise RateLimitError twice then return
+    a real response. The wrapper MUST retry both errors transparently
+    and return the eventual success."""
+    from xpath_healer.llm import openai_chat as oc_mod
+
+    # Mock RateLimitError so we don't depend on openai's exception
+    # hierarchy quirks during testing.
+    class _FakeRateLimitError(Exception):
+        def __init__(self_, msg):
+            super().__init__(msg)
+            self_.message = msg
+
+    monkeypatch.setattr(oc_mod, "RateLimitError", _FakeRateLimitError)
+
+    calls = {"n": 0}
+
+    class _FakeCreate:
+        async def __call__(self_, **kwargs):
+            calls["n"] += 1
+            if calls["n"] <= 2:
+                raise _FakeRateLimitError("Rate limit reached. Please try again in 100ms.")
+            # Real-looking response on the third try.
+            class _Msg:
+                content = "ok"
+                tool_calls = None
+            class _Choice:
+                message = _Msg()
+            class _Resp:
+                choices = [_Choice()]
+                model = "gpt-4o-mini"
+                usage = None
+            return _Resp()
+
+    class _FakeCompletions:
+        create = _FakeCreate()
+
+    class _FakeChat:
+        completions = _FakeCompletions()
+
+    class _FakeClient:
+        chat = _FakeChat()
+
+    # Avoid the AsyncOpenAI import path entirely.
+    monkeypatch.setattr(oc_mod, "AsyncOpenAI", lambda **k: _FakeClient())
+    monkeypatch.setattr(oc_mod, "AsyncAzureOpenAI", None)
+
+    from xpath_healer.llm.openai_chat import OpenAIChatClient
+    client = OpenAIChatClient(
+        api_key="test", model="gpt-4o-mini",
+        max_retries=5, base_retry_delay=0.01, max_retry_delay=0.05,
+    )
+    response = await client.chat([ChatMessage(role="user", content="hi")])
+    assert response.content == "ok"
+    assert calls["n"] == 3  # 2 rate-limits + 1 success
+
+
+@pytest.mark.asyncio
+async def test_openai_chat_gives_up_after_max_retries(monkeypatch) -> None:
+    """If the rate limit never clears, the wrapper must give up after
+    max_retries and re-raise so the caller sees the failure."""
+    from xpath_healer.llm import openai_chat as oc_mod
+
+    class _FakeRateLimitError(Exception):
+        def __init__(self_, msg):
+            super().__init__(msg)
+            self_.message = msg
+
+    monkeypatch.setattr(oc_mod, "RateLimitError", _FakeRateLimitError)
+
+    class _AlwaysRateLimited:
+        async def __call__(self_, **kwargs):
+            raise _FakeRateLimitError("try again in 10ms")
+
+    class _C:
+        chat = type("X", (), {"completions": type("Y", (), {"create": _AlwaysRateLimited()})()})
+
+    monkeypatch.setattr(oc_mod, "AsyncOpenAI", lambda **k: _C())
+    monkeypatch.setattr(oc_mod, "AsyncAzureOpenAI", None)
+    from xpath_healer.llm.openai_chat import OpenAIChatClient
+    client = OpenAIChatClient(
+        api_key="t", model="gpt-4o-mini",
+        max_retries=2, base_retry_delay=0.01, max_retry_delay=0.02,
+    )
+    with pytest.raises(_FakeRateLimitError):
+        await client.chat([ChatMessage(role="user", content="hi")])
+
+
+# ===========================================================================
+# P3b — replan-on-URL-change focused unit test
+# ===========================================================================
+
+
+@pytest.mark.asyncio
+async def test_replan_fires_when_url_path_changes_with_budget(tmp_path) -> None:
+    """When the URL path changes between steps AND max_replans > 0, the
+    decomposer MUST be called a second time to re-plan the remaining
+    work for the new page."""
+    class _OkLocator:
+        async def click(self_):
+            return None
+        async def scroll_into_view_if_needed(self_, timeout=0):
+            return None
+        async def evaluate(self_, script, arg=None):
+            return True
+
+    class _PageThatNavigates:
+        def __init__(self_):
+            # Initial /a (baseline) -> after step 1, URL flipped to /b
+            # (DIFFERENT path) -> replan should fire because plan still
+            # has step 2 ('stale_step') queued on the old page.
+            self_._idx = 0
+            self_._urls = [
+                "https://x.test/a",   # initial (baseline)
+                "https://x.test/b",   # after step 1 — path changed, replan!
+                "https://x.test/b",   # after step 2 (the replanned step)
+            ]
+        @property
+        def url(self_):
+            i = min(self_._idx, len(self_._urls) - 1)
+            self_._idx += 1
+            return self_._urls[i]
+        async def goto(self_, url, **kw):
+            return None
+        async def screenshot(self_, *, path, full_page=False):
+            from pathlib import Path
+            Path(path).parent.mkdir(parents=True, exist_ok=True)
+            Path(path).write_bytes(b"\x89PNG\r\n\x1a\n")
+
+    facade = _FacadeFake(
+        recovered=Recovered(
+            status="success", correlation_id="c",
+            locator_spec=LocatorSpec(kind="xpath", value="//x"),
+            runtime_locator=_OkLocator(),
+            strategy_id="rules",
+        ),
+    )
+
+    decomposer_calls: list[str] = []
+
+    class _Decomposer:
+        async def decompose(self_, *, goal, adapter, page):
+            decomposer_calls.append(f"call[{len(decomposer_calls)}]")
+            # First call: 2 steps. Replan call: 1 step.
+            replanning = bool((goal.constraints or {}).get("replanning"))
+            steps_payload = (
+                [{"step_id": "after_replan", "intent": "x", "action": "click", "target_label": "Done"}]
+                if replanning else
+                [
+                    {"step_id": "first_step", "intent": "x", "action": "click", "target_label": "Open"},
+                    {"step_id": "second_step", "intent": "x", "action": "click", "target_label": "Stale"},
+                ]
+            )
+            return await AgenticGoalDecomposer(_ScriptedLLM([
+                ChatResponse(tool_calls=[
+                    ToolCall(id="c", name="commit_plan", arguments={"steps": steps_payload}),
+                ])
+            ])).decompose(goal=goal, adapter=adapter, page=page)
+
+    orch = WorkflowOrchestrator(
+        facade=facade,
+        decomposer=_Decomposer(),
+        executor=PlaywrightActionExecutor(),
+        verifier=TieredOutcomeVerifier(llm_verifier=None),
+        max_replans=2,
+        replan_on_url_change=True,
+    )
+    result = await orch.run(
+        page=_PageThatNavigates(),
+        goal=WorkflowGoal(text="navigate", start_url="https://x.test/a"),
+    )
+    # Two decompose calls: initial plan + one replan after URL changed.
+    assert len(decomposer_calls) == 2
+    # Final plan must end with the replan-substituted step, not the stale one.
+    plan_ids = [s.step_id for s in result.plan.steps]
+    assert "after_replan" in plan_ids
+
+
+@pytest.mark.asyncio
+async def test_no_replan_when_url_query_only_changed(tmp_path) -> None:
+    """Same path with different query string is NOT a significant page
+    change. Decomposer must be called exactly once."""
+    class _OkLocator:
+        async def click(self_):
+            return None
+        async def scroll_into_view_if_needed(self_, timeout=0):
+            return None
+        async def evaluate(self_, script, arg=None):
+            return True
+
+    class _PageQueryOnlyChange:
+        def __init__(self_):
+            self_._idx = 0
+            self_._urls = ["https://x.test/a", "https://x.test/a?p=1", "https://x.test/a?p=2"]
+        @property
+        def url(self_):
+            i = min(self_._idx, len(self_._urls) - 1)
+            self_._idx += 1
+            return self_._urls[i]
+        async def goto(self_, url, **kw):
+            return None
+
+    facade = _FacadeFake(
+        recovered=Recovered(
+            status="success", correlation_id="c",
+            locator_spec=LocatorSpec(kind="xpath", value="//x"),
+            runtime_locator=_OkLocator(),
+            strategy_id="rules",
+        ),
+    )
+    decomposer_calls: list[str] = []
+    class _Decomposer:
+        async def decompose(self_, *, goal, adapter, page):
+            decomposer_calls.append("x")
+            return await AgenticGoalDecomposer(_ScriptedLLM([
+                ChatResponse(tool_calls=[
+                    ToolCall(id="c", name="commit_plan", arguments={"steps": [
+                        {"step_id": "s1", "intent": "x", "action": "click", "target_label": "A"},
+                        {"step_id": "s2", "intent": "x", "action": "click", "target_label": "B"},
+                    ]}),
+                ])
+            ])).decompose(goal=goal, adapter=adapter, page=page)
+
+    orch = WorkflowOrchestrator(
+        facade=facade,
+        decomposer=_Decomposer(),
+        executor=PlaywrightActionExecutor(),
+        verifier=TieredOutcomeVerifier(llm_verifier=None),
+        max_replans=2,
+        replan_on_url_change=True,
+    )
+    await orch.run(
+        page=_PageQueryOnlyChange(),
+        goal=WorkflowGoal(text="x", start_url="https://x.test/a"),
+    )
+    assert len(decomposer_calls) == 1  # no replan for query-only change
+
+
+# ===========================================================================
+# P4 — SLO benchmark harness
+# ===========================================================================
+
+
+def test_slo_check_passes_when_all_targets_met() -> None:
+    from xpath_healer.orchestrator import SLO
+
+    slo = SLO(max_total_seconds=10.0, max_llm_calls=5, max_llm_tokens=10_000, max_vision_calls=3, max_step_ms=5_000)
+    report = slo.check({
+        "total_seconds": 4.2,
+        "llm_calls": 3,
+        "llm_total_tokens": 2_500,
+        "vision_calls": 1,
+        "step_durations_ms": {"s1": 1200, "s2": 800},
+    })
+    assert report["ok"] is True
+    for name, c in report["checks"].items():
+        assert c["ok"] is True, f"{name} should pass"
+
+
+def test_slo_check_fails_when_token_budget_exceeded() -> None:
+    from xpath_healer.orchestrator import SLO
+
+    slo = SLO(max_llm_tokens=5_000)
+    report = slo.check({"llm_total_tokens": 12_000, "total_seconds": 1, "llm_calls": 1, "vision_calls": 0, "step_durations_ms": {}})
+    assert report["ok"] is False
+    assert report["checks"]["llm_total_tokens"]["ok"] is False
+    assert report["checks"]["llm_total_tokens"]["observed"] == 12_000
+
+
+def test_slo_check_flags_slow_steps() -> None:
+    """Any individual step exceeding max_step_ms must surface in the
+    report so we can identify which step is the bottleneck."""
+    from xpath_healer.orchestrator import SLO
+
+    slo = SLO(max_step_ms=2_000)
+    report = slo.check({
+        "total_seconds": 5, "llm_calls": 1, "llm_total_tokens": 100, "vision_calls": 0,
+        "step_durations_ms": {"fast": 800, "slow_extract": 5_500, "ok_step": 1_200},
+    })
+    assert report["ok"] is False
+    slow = report["checks"]["max_step_ms"]["slow_steps"]
+    assert "slow_extract" in slow
+    assert slow["slow_extract"] == 5_500
+    assert "fast" not in slow
+
+
+def test_slo_check_returns_safely_on_empty_telemetry() -> None:
+    from xpath_healer.orchestrator import SLO
+
+    report = SLO().check({})
+    assert report["ok"] is False
+    assert "error" in report
+
+
+# ===========================================================================
+# Robustness: concurrent + long-workflow + adversarial-input
+# ===========================================================================
+
+
+@pytest.mark.asyncio
+async def test_two_orchestrators_with_separate_counters_run_concurrently_without_leaking_state() -> None:
+    """Spec: each WorkflowOrchestrator owns its own TelemetryCounter,
+    and two simultaneous run()s must not see each other's tokens /
+    heal-strategy / step-duration data. (Same orchestrator + counter
+    across two concurrent runs is documented as unsafe — caller is
+    expected to instantiate per-run.)"""
+    from xpath_healer.orchestrator import (
+        TelemetryCounter, TelemetryLLMClient,
+    )
+
+    class _CountingLLM(LLMClient):
+        def __init__(self_, tag: str) -> None:
+            self_.tag = tag
+        async def chat(self_, messages, *, tools=None, temperature=0.0, max_tokens=None):
+            return ChatResponse(
+                tool_calls=[
+                    ToolCall(
+                        id=f"c-{self_.tag}", name="commit_plan",
+                        arguments={
+                            "steps": [
+                                {"step_id": f"only_step_{self_.tag}", "intent": "x", "action": "click", "target_label": "Save"}
+                            ]
+                        },
+                    )
+                ],
+                metadata={"usage": {"prompt_tokens": 10, "completion_tokens": 5, "total_tokens": 15}},
+            )
+
+    class _OkLocator:
+        async def click(self_):
+            return None
+        async def scroll_into_view_if_needed(self_, timeout=0):
+            return None
+        async def evaluate(self_, script, arg=None):
+            return True
+
+    def _make_orch(tag: str):
+        facade = _FacadeFake(
+            recovered=Recovered(
+                status="success", correlation_id=tag,
+                locator_spec=LocatorSpec(kind="xpath", value="//x"),
+                runtime_locator=_OkLocator(),
+                strategy_id=f"strategy_{tag}",
+            ),
+        )
+        counter = TelemetryCounter()
+        wrapped_llm = TelemetryLLMClient(_CountingLLM(tag), counter)
+        orch = WorkflowOrchestrator(
+            facade=facade,
+            decomposer=AgenticGoalDecomposer(wrapped_llm),
+            executor=PlaywrightActionExecutor(),
+            verifier=TieredOutcomeVerifier(llm_verifier=None),
+            telemetry=counter,
+        )
+        return orch, counter
+
+    orch_a, counter_a = _make_orch("A")
+    orch_b, counter_b = _make_orch("B")
+
+    # Drive both runs concurrently.
+    results = await asyncio.gather(
+        orch_a.run(page=_FakePage(), goal=WorkflowGoal(text="run A")),
+        orch_b.run(page=_FakePage(), goal=WorkflowGoal(text="run B")),
+    )
+    assert all(r.status == "success" for r in results)
+
+    # Each counter must reflect exactly ONE LLM call (its own decomposer)
+    # and ONE strategy (its own facade's). No bleeding.
+    assert counter_a.llm_calls == 1
+    assert counter_b.llm_calls == 1
+    assert counter_a.heal_strategy_counts == {"strategy_A": 1}
+    assert counter_b.heal_strategy_counts == {"strategy_B": 1}
+    # The two counters are physically distinct objects.
+    assert counter_a is not counter_b
+    # Step-duration keys are namespaced by step_id so they don't collide.
+    assert set(counter_a.step_durations_ms.keys()) == {"only_step_A"}
+    assert set(counter_b.step_durations_ms.keys()) == {"only_step_B"}
+
+
+@pytest.mark.asyncio
+async def test_orchestrator_run_resets_telemetry_between_sequential_calls() -> None:
+    """Same orchestrator + counter across two sequential run() calls
+    must reset between runs — each run's telemetry reflects only its
+    own work. This is the contract the drill demos depend on."""
+    from xpath_healer.orchestrator import TelemetryCounter, TelemetryLLMClient
+
+    class _Plan(LLMClient):
+        async def chat(self_, messages, *, tools=None, temperature=0.0, max_tokens=None):
+            return ChatResponse(
+                tool_calls=[
+                    ToolCall(
+                        id="c", name="commit_plan",
+                        arguments={
+                            "steps": [
+                                {"step_id": "step_x", "intent": "x", "action": "click", "target_label": "X"}
+                            ]
+                        },
+                    )
+                ],
+                metadata={"usage": {"prompt_tokens": 50, "completion_tokens": 10, "total_tokens": 60}},
+            )
+
+    class _OkLocator:
+        async def click(self_): return None
+        async def scroll_into_view_if_needed(self_, timeout=0): return None
+        async def evaluate(self_, script, arg=None): return True
+
+    counter = TelemetryCounter()
+    facade = _FacadeFake(
+        recovered=Recovered(
+            status="success", correlation_id="c",
+            locator_spec=LocatorSpec(kind="xpath", value="//x"),
+            runtime_locator=_OkLocator(),
+            strategy_id="rules",
+        ),
+    )
+    orch = WorkflowOrchestrator(
+        facade=facade,
+        decomposer=AgenticGoalDecomposer(TelemetryLLMClient(_Plan(), counter)),
+        executor=PlaywrightActionExecutor(),
+        verifier=TieredOutcomeVerifier(llm_verifier=None),
+        telemetry=counter,
+    )
+    # Run #1.
+    r1 = await orch.run(page=_FakePage(), goal=WorkflowGoal(text="first"))
+    t1 = (r1.metadata or {}).get("telemetry") or {}
+    assert t1["llm_calls"] == 1
+    assert t1["llm_total_tokens"] == 60
+    # Run #2 — counter MUST be reset, not cumulative.
+    r2 = await orch.run(page=_FakePage(), goal=WorkflowGoal(text="second"))
+    t2 = (r2.metadata or {}).get("telemetry") or {}
+    assert t2["llm_calls"] == 1, "telemetry must reset between runs"
+    assert t2["llm_total_tokens"] == 60
+
+
+# ---------------------------------------------------------------------------
+# Long workflow stress
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.asyncio
+async def test_orchestrator_handles_50_step_plan_without_blowing_up() -> None:
+    """Stress: a 50-step plan must complete without crashing, without
+    runaway memory (records grow linearly), and without budget bugs.
+    Real workflows rarely hit 50 steps but the orchestrator should
+    handle it gracefully — we don't want a hidden quadratic anywhere."""
+    from xpath_healer.orchestrator import TelemetryCounter
+
+    N = 50
+    steps_payload = [
+        {"step_id": f"step_{i:02d}", "intent": "x", "action": "click", "target_label": "OK"}
+        for i in range(N)
+    ]
+    llm = _ScriptedLLM([
+        ChatResponse(tool_calls=[
+            ToolCall(id="c", name="commit_plan", arguments={"steps": steps_payload}),
+        ])
+    ])
+
+    class _OkLocator:
+        async def click(self_): return None
+        async def scroll_into_view_if_needed(self_, timeout=0): return None
+        async def evaluate(self_, script, arg=None): return True
+
+    facade = _FacadeFake(
+        recovered=Recovered(
+            status="success", correlation_id="c",
+            locator_spec=LocatorSpec(kind="xpath", value="//x"),
+            runtime_locator=_OkLocator(),
+            strategy_id="rules",
+        ),
+    )
+    counter = TelemetryCounter()
+    orch = WorkflowOrchestrator(
+        facade=facade,
+        decomposer=AgenticGoalDecomposer(llm),
+        executor=PlaywrightActionExecutor(),
+        verifier=TieredOutcomeVerifier(llm_verifier=None),
+        telemetry=counter,
+    )
+    result = await orch.run(page=_FakePage(), goal=WorkflowGoal(text="50-step run"))
+    assert result.status == "success"
+    # Every step ran, every step's duration was recorded.
+    assert len(result.completed_steps) == N
+    assert len(counter.step_durations_ms) == N
+    # The heal-strategy counter is N (one per step).
+    assert counter.heal_strategy_counts.get("rules") == N
+
+
+@pytest.mark.asyncio
+async def test_long_workflow_budget_caps_hold_under_repeated_failures() -> None:
+    """A 50-step plan where EVERY step fails its heal must stop at the
+    first failure (one fail-fast exit) instead of burning the entire
+    plan budget. Robustness invariant: failures don't compound."""
+    N = 50
+    steps_payload = [
+        {"step_id": f"step_{i:02d}", "intent": "x", "action": "click", "target_label": "OK"}
+        for i in range(N)
+    ]
+    llm = _ScriptedLLM([
+        ChatResponse(tool_calls=[
+            ToolCall(id="c", name="commit_plan", arguments={"steps": steps_payload}),
+        ])
+    ])
+    facade = _FacadeFake(
+        recovered=Recovered(status="failed", correlation_id="c", error="never finds it"),
+    )
+    orch = WorkflowOrchestrator(
+        facade=facade,
+        decomposer=AgenticGoalDecomposer(llm),
+        executor=PlaywrightActionExecutor(),
+        verifier=TieredOutcomeVerifier(llm_verifier=None),
+        max_recovery_inserts=0,  # no inserts → first failure is terminal
+    )
+    result = await orch.run(page=_FakePage(), goal=WorkflowGoal(text="50-step fail"))
+    assert result.status == "failed"
+    # We must have stopped at step 1 (index 0), NOT executed all 50.
+    assert len(result.completed_steps) == 1
+
+
+# ---------------------------------------------------------------------------
+# Adversarial inputs
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.asyncio
+async def test_decomposer_handles_empty_page_gracefully() -> None:
+    """An empty (about:blank-style) page has no outline + no state.
+    The decomposer must not crash and must return a plan or empty
+    metadata that the orchestrator interprets as failure, not
+    exception."""
+    from xpath_healer.orchestrator import PageStateObserver
+
+    class _EmptyPage:
+        url = "about:blank"
+        async def evaluate(self_, script, arg=None):
+            # observe() expects a dict shape; about:blank yields ~nothing.
+            return None
+        async def wait_for_load_state(self_, *a, **k):
+            return None
+
+    observer = PageStateObserver()
+    state = await observer.observe(_EmptyPage())
+    # Must NOT raise; returns empty dict because eval gave None.
+    assert state == {}
+
+
+@pytest.mark.asyncio
+async def test_decomposer_handles_js_shell_with_no_dom_gracefully(monkeypatch) -> None:
+    """A JS-rendered SPA shell can return an empty outline even after
+    networkidle (the page is still mounting React/Vue). The decomposer's
+    outline-retry-with-networkidle path should fire once; if the second
+    read is still empty, return an empty plan with an explicit error
+    in metadata — NOT crash."""
+    from xpath_healer.mcp import explorer as exp_mod
+    from xpath_healer.orchestrator import decomposer as dcm_mod
+
+    async def fake_outline_always_empty(adapter, page, *, max_chars=8000, focus_text=""):
+        return {"outline": "", "total_nodes_emitted": 0}
+
+    monkeypatch.setattr(exp_mod, "_exec_read_outline", fake_outline_always_empty)
+    monkeypatch.setattr(dcm_mod, "_exec_read_outline", fake_outline_always_empty)
+
+    class _JsShell:
+        async def wait_for_load_state(self_, *a, **k):
+            return None
+        async def evaluate(self_, script, arg=None):
+            return None
+
+    class _LLM(LLMClient):
+        async def chat(self_, messages, *, tools=None, temperature=0.0, max_tokens=None):
+            # If outline is empty, model has nothing to plan against.
+            return ChatResponse(content="", tool_calls=[])
+
+    plan = await AgenticGoalDecomposer(_LLM(), max_attempts=1).decompose(
+        goal=WorkflowGoal(text="x"), adapter=_NoOpAdapter(), page=_JsShell(),
+    )
+    # Empty plan, but no crash. Metadata carries the diagnostic.
+    assert plan.steps == []
+    assert plan.metadata.get("error")
+
+
+@pytest.mark.asyncio
+async def test_goal_action_unmet_demotes_verify_only_success_to_failed() -> None:
+    """Surfaced by adversarial_browser harness on empty_page/captcha_wall:
+    the decomposer can plan a verify-only step that auto-passes
+    (LLM-tier: "snapshot is empty, indicating no visible elements").
+    The orchestrator now demotes such a run to status=failed when
+    the goal text explicitly demanded an action."""
+    from xpath_healer.orchestrator.models import (
+        ExecutionResult, StepRunRecord, VerificationResult,
+    )
+
+    # Goal: "Click the Submit button" (demands a click action).
+    goal = WorkflowGoal(text="Click the Submit button.")
+    # Completed: ONE verify step that "passed" by confirming the page is empty.
+    rec = StepRunRecord(step_id="verify_empty", action="verify", target_label="")
+    rec.execution = ExecutionResult(status="ok", action="verify")
+    rec.verification = VerificationResult(
+        ok=True, tier="llm", reason="snapshot is empty", confidence=0.7,
+    )
+    unmet = WorkflowOrchestrator._goal_action_unmet(goal=goal, completed=[rec])
+    assert unmet  # non-empty error string
+
+
+@pytest.mark.asyncio
+async def test_goal_action_unmet_accepts_verify_only_when_goal_is_verification() -> None:
+    """A goal that only asks to verify/check should NOT be demoted by
+    the new contract — verify-only success is the user's intent."""
+    from xpath_healer.orchestrator.models import (
+        ExecutionResult, StepRunRecord, VerificationResult,
+    )
+
+    goal = WorkflowGoal(text="Verify the page title says 'Login'.")
+    rec = StepRunRecord(step_id="vt", action="verify", target_label="")
+    rec.execution = ExecutionResult(status="ok", action="verify")
+    rec.verification = VerificationResult(
+        ok=True, tier="structural", reason="text_visible('Login')=True", confidence=1.0,
+    )
+    unmet = WorkflowOrchestrator._goal_action_unmet(goal=goal, completed=[rec])
+    assert unmet == ""  # empty = no error = success allowed
+
+
+@pytest.mark.asyncio
+async def test_goal_action_unmet_passes_when_real_action_succeeded() -> None:
+    """A click goal with a click step that succeeded should NOT be
+    demoted — the contract requires AT LEAST ONE successful real
+    action, not pure verify."""
+    from xpath_healer.orchestrator.models import (
+        ExecutionResult, StepRunRecord, VerificationResult,
+    )
+
+    goal = WorkflowGoal(text="Click Submit and verify the form posts.")
+    click_rec = StepRunRecord(step_id="click_submit", action="click", target_label="Submit")
+    click_rec.execution = ExecutionResult(status="ok", action="click")
+    click_rec.verification = VerificationResult(
+        ok=True, tier="auto", reason="executor ok", confidence=1.0,
+    )
+    verify_rec = StepRunRecord(step_id="verify_posted", action="verify", target_label="")
+    verify_rec.execution = ExecutionResult(status="ok", action="verify")
+    verify_rec.verification = VerificationResult(
+        ok=True, tier="llm", reason="form posted", confidence=0.9,
+    )
+    unmet = WorkflowOrchestrator._goal_action_unmet(
+        goal=goal, completed=[click_rec, verify_rec]
+    )
+    assert unmet == ""
+
+
+@pytest.mark.asyncio
+async def test_visual_recovery_proposes_abort_on_captcha_finding() -> None:
+    """When vision sees a captcha wall, _proposal_from_vision must
+    emit an abort proposal (not insert dismiss-modal, which would loop)."""
+    from xpath_healer.core.workflow import REWRITE_ACTION_ABORT, WorkflowStep
+
+    orch = _make_runner(visual_override_threshold=0.8)
+    finding = InspectionResult(
+        ok=False,
+        finding="cloudflare verify-human wall blocks the page",
+        confidence=0.99,
+        suggested_action="abort:cloudflare_captcha",
+    )
+    rec = _step_rec(verify_ok=False, verify_conf=0.4, finding=finding)
+    step = WorkflowStep(step_id="s1", intent="x", action="click", target_label="Buy")
+    proposal = orch._proposal_from_vision(record=rec, step=step)
+    assert proposal is not None
+    assert proposal.action == REWRITE_ACTION_ABORT
+    # Auto-applied so the orchestrator stops without further prompting.
+    assert proposal.auto_applied is True
+    assert "cloudflare" in proposal.reason.lower()
+
+
 def test_vision_does_not_demote_ok_yet() -> None:
     """The current implementation only promotes fail->ok, not ok->fail.
     Documents the gap and locks the safe direction so a future demote

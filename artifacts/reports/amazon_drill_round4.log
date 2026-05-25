@@ -1,0 +1,33 @@
+2026-05-25 21:10:57,409 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+
+[phase 1] LIST goal: You are on an Amazon.in search results page for mobile phones under 50000 rupees. Dismiss any login / address / location pincode popup with an optional click step (browsing task, no delivery address needed). Then EXTRACT the first 3 product cards: for each card pull product title, visible price, and the URL of the product detail page. Use the extract action with fields name, price, and product_url; this is the ONLY data-collection step you need.
+
+  [phase1_list] status=success steps=2
+    - dismiss_location_popup         click          healer=button_text_candidate    exec=ok       v=ok (llm)
+    - extract_product_cards          extract        healer=extract_auto_discover    exec=ok       v=ok (auto)
+    telemetry: llm_calls=3 tokens=7453 vision=0 total=130.08s strategies={'button_text_candidate': 1, 'extract_auto_discover': 1}
+
+  collected 3 product URLs from phase 1.
+
+==== drilling 1/3 -> https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo4ODE0ODEyMDg0Mzg2OTQ6MTc3OTcyMzY
+
+  [drill[https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo4ODE0ODEyMDg]] status=success steps=1
+    - extract_product_details        extract_record healer=-                        exec=ok       v=ok (auto)
+    telemetry: llm_calls=5 tokens=15937 vision=0 total=11.02s strategies={'button_text_candidate': 1, 'extract_auto_discover': 1}
+
+==== drilling 2/3 -> https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo4ODE0ODEyMDg0Mzg2OTQ6MTc3OTcyMzY
+
+  [drill[https://www.amazon.in/sspa/click?ie=UTF8&spc=MTo4ODE0ODEyMDg]] status=success steps=1
+    - extract_product_details        extract_record healer=-                        exec=ok       v=ok (auto)
+    telemetry: llm_calls=7 tokens=24303 vision=0 total=19.17s strategies={'button_text_candidate': 1, 'extract_auto_discover': 1}
+
+==== drilling 3/3 -> https://www.amazon.in/Samsung-Smartphone-Storage-ProVisual-Battery/dp/B0FNMR6KTQ
+
+  [drill[https://www.amazon.in/Samsung-Smartphone-Storage-ProVisual-B]] status=success steps=1
+    - extract_product_details        extract_record healer=-                        exec=ok       v=ok (auto)
+    telemetry: llm_calls=9 tokens=32616 vision=0 total=16.24s strategies={'button_text_candidate': 1, 'extract_auto_discover': 1}
+
+  artifact: C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\reports\amazon_demo.json
+  recording: mode=screenshots video=- shots=1 duration=16.2s
+
+  TOP-LINE: phase1=success drill_ok=3/3

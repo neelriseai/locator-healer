@@ -1,0 +1,36 @@
+2026-05-25 22:09:39,650 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+2026-05-25 22:09:57,108 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+2026-05-25 22:10:48,255 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+========================================================================
+  Ground-truth precision corpus
+========================================================================
+
+  Layer: deterministic
+    [deterministic ] text_box.full_name             -> OK           strategy=bidirectional_anchor_field     healed=xpath:xpath://*[(self::label or self::span) and (normalize-space()
+    [deterministic ] text_box.email                 -> OK           strategy=bidirectional_anchor_field     healed=xpath:xpath://*[(self::label or self::span) and (normalize-space()
+    [deterministic ] text_box.current_address       -> OK           strategy=bidirectional_anchor_field     healed=xpath:xpath://*[(self::label or self::span) and (normalize-space()
+    [deterministic ] text_box.permanent_address     -> OK           strategy=bidirectional_anchor_field     healed=xpath:xpath://*[(self::label or self::span) and (normalize-space()
+    [deterministic ] text_box.submit                -> OK           strategy=button_text_candidate          healed=role:role:button[name='Submit',exact=True]
+    -> total=5 status_success=5 node_correct=5 precision=1.0
+
+  Layer: agentic
+    [agentic       ] text_box.full_name             -> OK           strategy=mcp_explore                    healed=xpath:xpath://input[@id='userName']
+    [agentic       ] text_box.email                 -> OK           strategy=mcp_explore                    healed=xpath:xpath://label[@id='userEmail-label']/following::input[1]
+    [agentic       ] text_box.current_address       -> OK           strategy=mcp_explore                    healed=xpath:xpath://textarea[@id='currentAddress']
+    [agentic       ] text_box.permanent_address     -> OK           strategy=mcp_explore                    healed=xpath:xpath://textarea[@id='permanentAddress']
+    [agentic       ] text_box.submit                -> OK           strategy=mcp_explore                    healed=xpath:xpath://button[@id='submit' and normalize-space()='Submit']
+    -> total=5 status_success=5 node_correct=5 precision=1.0
+
+  Layer: rag
+    [rag           ] text_box.full_name             -> failed       strategy=-                              healed=:
+    [rag           ] text_box.email                 -> failed       strategy=-                              healed=:
+    [rag           ] text_box.current_address       -> failed       strategy=-                              healed=:
+    [rag           ] text_box.permanent_address     -> failed       strategy=-                              healed=:
+    [rag           ] text_box.submit                -> failed       strategy=-                              healed=:
+    -> total=5 status_success=0 node_correct=0 precision=0.0
+
+  OVERALL:
+    status_success_rate (loose) = 0.6667
+    node_precision (strict)     = 0.6667
+
+  wrote: C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\reports\precision_corpus.json

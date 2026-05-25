@@ -258,6 +258,15 @@ class WorkflowOrchestrator:
         adapter = adapter or self.facade.adapter
         run_t0 = time.perf_counter_ns()
 
+        # Per-run telemetry: clear any leftover state from a previous
+        # run that shared this counter. Without this, drill #N's SLO
+        # check would include phase-1's slow step durations.
+        if self.telemetry is not None:
+            try:
+                self.telemetry.reset()
+            except Exception:
+                self.logger.exception("telemetry reset failed (non-fatal)")
+
         # Optional recording for visual diagnosis.
         run_id = goal.cache_key()
         if self.recorder is not None:
@@ -538,6 +547,23 @@ class WorkflowOrchestrator:
                 for rec in completed
             },
         }
+        # Goal-vs-action contract: if the goal text demanded a real
+        # action (click / fill / submit / etc.) but only verify /
+        # screenshot / skipped steps ran, that's a planning miss
+        # dressed up as success. Flip to failed so adversarial pages
+        # (empty / captcha-only) don't slip through with "success".
+        unmet_reason = self._goal_action_unmet(goal=goal, completed=completed)
+        if unmet_reason:
+            meta["error"] = unmet_reason
+            self._stamp_telemetry(meta, run_t0)
+            return OrchestrationResult(
+                status="failed",
+                goal=goal,
+                plan=plan,
+                completed_steps=completed,
+                extracted_data=extracted,
+                metadata=meta,
+            )
         self._stamp_telemetry(meta, run_t0)
         return OrchestrationResult(
             status="success",
@@ -812,6 +838,90 @@ class WorkflowOrchestrator:
         return record, "ok", None
 
     # ------------------------------------------------------------------
+    # Goal-vs-action correctness check
+    # ------------------------------------------------------------------
+
+    # Action verbs that, when present in a goal, demand a real
+    # mutating step (not just a verify / screenshot / wait). If a
+    # workflow contains any of these but the orchestrator never
+    # successfully executed a corresponding action step, it's a
+    # planning miss dressed up as success.
+    _GOAL_ACTION_VERBS: tuple[str, ...] = (
+        "click", "press", "tap", "submit", "fill", "type", "enter",
+        "select", "choose", "pick", "search", "buy", "purchase",
+        "add to cart", "checkout", "open", "navigate", "go to",
+        "log in", "login", "sign in", "sign up", "register",
+        "extract", "scrape", "read",
+    )
+
+    # Action verbs in the WorkflowStep dataclass that count as
+    # "real" actions (vs verify/screenshot/wait which don't change
+    # state). Includes the read-only extract actions because they
+    # ARE the goal in scraping workflows.
+    _REAL_ACTION_KINDS: frozenset[str] = frozenset({
+        ACTION_FILL, ACTION_CLICK, ACTION_SELECT, ACTION_PRESS_KEY,
+        ACTION_HOVER, ACTION_SCROLL, ACTION_NAVIGATE,
+        ACTION_EXTRACT, ACTION_EXTRACT_RECORD,
+    })
+
+    # Verbs that signal a verification-only primary intent. When the
+    # goal STARTS with one of these (modulo whitespace / "Please"),
+    # verify-step success is the right answer and we don't demand a
+    # mutating action.
+    _GOAL_VERIFY_PREFIXES: tuple[str, ...] = (
+        "verify", "check", "confirm", "ensure", "assert",
+        "make sure", "validate", "is ", "does ", "are ",
+    )
+
+    @classmethod
+    def _is_verification_only_goal(cls, goal_text: str) -> bool:
+        """True if the goal's primary intent is verification (vs an
+        action). Looks at the leading verb only — body text may
+        mention nouns like 'Login' without changing intent."""
+        s = (goal_text or "").strip().lower()
+        # Strip a leading politeness/imperative prefix.
+        for skip in ("please ", "could you ", "can you ", "kindly "):
+            if s.startswith(skip):
+                s = s[len(skip):]
+                break
+        return any(s.startswith(prefix) for prefix in cls._GOAL_VERIFY_PREFIXES)
+
+    @classmethod
+    def _goal_action_unmet(
+        cls,
+        *,
+        goal: WorkflowGoal,
+        completed: list[StepRunRecord],
+    ) -> str:
+        """Return an error string if the goal demanded an action but
+        none of the completed steps actually performed one. Empty
+        string means "goal was satisfied OR no action was demanded".
+
+        Verification-only goals (those starting with verify/check/
+        confirm/ensure/etc.) are exempt — a verify-step success IS
+        the right answer there.
+        """
+        if cls._is_verification_only_goal(goal.text or ""):
+            return ""
+        goal_lc = (goal.text or "").lower()
+        if not any(verb in goal_lc for verb in cls._GOAL_ACTION_VERBS):
+            return ""  # no action verbs and not a verify goal — allow
+        # Did any real-action step exec=ok AND verify=ok AND wasn't skipped?
+        for rec in completed:
+            action = (rec.action or "").lower().strip()
+            if action not in cls._REAL_ACTION_KINDS:
+                continue
+            if rec.execution is None or rec.execution.status != "ok":
+                continue
+            if rec.verification is not None and not rec.verification.ok:
+                continue
+            return ""  # at least one real action succeeded
+        return (
+            "goal_demanded_action_but_no_real_action_step_succeeded "
+            "(all completed steps were verify/skipped/optional)"
+        )
+
+    # ------------------------------------------------------------------
     # Telemetry helper
     # ------------------------------------------------------------------
 
@@ -867,7 +977,12 @@ class WorkflowOrchestrator:
         if not now:
             return False
         if not since_url:
-            return True
+            # No baseline URL (e.g. the workflow started without a
+            # start_url and the first step navigated). That's the
+            # workflow's initial page-load, not a mid-run reroute.
+            # Don't trigger replan in this case — the decomposer was
+            # already called on this same page (after any auto-nav).
+            return False
         # Compare path roots quickly.
         try:
             from urllib.parse import urlparse

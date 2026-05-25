@@ -42,6 +42,7 @@ from xpath_healer.orchestrator.recorder import (
     WorkflowRecorder,
 )
 from xpath_healer.orchestrator.telemetry import (
+    SLO,
     TelemetryCounter,
     TelemetryLLMClient,
     TelemetryVisualInspector,
@@ -69,6 +70,7 @@ __all__ = [
     "PlannedWorkflow",
     "PlaywrightActionExecutor",
     "RecordingInfo",
+    "SLO",
     "StepSnapshot",
     "TelemetryCounter",
     "TelemetryLLMClient",

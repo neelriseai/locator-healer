@@ -1,0 +1,6 @@
+2026-05-25 22:39:53,237 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+2026-05-25 22:39:57,011 WARNING xpath_healer.llm.openai_chat OpenAI APIConnectionError (attempt=1/5) — sleeping 1.48s
+2026-05-25 22:39:59,909 WARNING xpath_healer.llm.openai_chat OpenAI APIConnectionError (attempt=2/5) — sleeping 2.36s
+2026-05-25 22:40:03,687 WARNING xpath_healer.llm.openai_chat OpenAI APIConnectionError (attempt=3/5) — sleeping 4.45s
+2026-05-25 22:40:09,448 WARNING xpath_healer.llm.openai_chat OpenAI APIConnectionError (attempt=4/5) — sleeping 8.06s
+2026-05-25 22:40:18,792 WARNING xpath_healer.llm.openai_chat OpenAI APIConnectionError (attempt=5/5) — sleeping 16.09s

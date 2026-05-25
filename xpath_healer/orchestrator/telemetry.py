@@ -30,6 +30,61 @@ from xpath_healer.llm.client import (
 
 
 @dataclass(slots=True)
+class SLO:
+    """Service-level objectives for a workflow run.
+
+    Numbers come from the cost / performance targets we want to commit
+    to. Keep them concrete so we can detect regressions, not vibes.
+
+    Defaults are calibrated to "an n-step browsing-and-extract workflow
+    with one decomposer + one verifier LLM call per page". A run with
+    persistent failures + many retries will exceed these; that should
+    visibly fail the SLO instead of silently degrading.
+    """
+
+    # Total wall time per workflow run, measured in seconds. Real
+    # e-commerce phase-1 runs hit ~200s on slow networks (Flipkart's
+    # heavy JS, anti-bot delays). Per-product drills typically <15s.
+    max_total_seconds: float = 240.0
+    # Per-step wall time before we flag a slow step. Tuned for the
+    # known slow case (extract_auto_discover on Flipkart's lazy-loaded
+    # results grid can take 100s+ from cold cache).
+    max_step_ms: float = 240_000.0
+    # Cost ceiling per workflow run.
+    max_llm_tokens: int = 60_000
+    # Cap the LLM call count — each call is at least one decomposer or
+    # verifier or extract; >20 means we have an unrecovered cascade.
+    max_llm_calls: int = 20
+    # Vision is more expensive per token (image input); cap separately.
+    max_vision_calls: int = 8
+
+    def check(self, telemetry: dict[str, Any]) -> dict[str, Any]:
+        """Compare telemetry to the SLO. Returns a report dict with
+        per-target ``ok`` / ``observed`` / ``limit``. Never raises."""
+        if not telemetry:
+            return {"ok": False, "error": "no telemetry"}
+        checks: dict[str, dict[str, Any]] = {}
+        def _add(name: str, observed: float, limit: float, *, lower_is_better: bool = True) -> None:
+            ok = (observed <= limit) if lower_is_better else (observed >= limit)
+            checks[name] = {"ok": bool(ok), "observed": observed, "limit": limit}
+        _add("total_seconds", float(telemetry.get("total_seconds") or 0.0), self.max_total_seconds)
+        _add("llm_calls", int(telemetry.get("llm_calls") or 0), self.max_llm_calls)
+        _add("llm_total_tokens", int(telemetry.get("llm_total_tokens") or 0), self.max_llm_tokens)
+        _add("vision_calls", int(telemetry.get("vision_calls") or 0), self.max_vision_calls)
+        slow_steps = {
+            sid: ms for sid, ms in (telemetry.get("step_durations_ms") or {}).items()
+            if float(ms) > self.max_step_ms
+        }
+        checks["max_step_ms"] = {
+            "ok": not slow_steps,
+            "slow_steps": slow_steps,
+            "limit": self.max_step_ms,
+        }
+        all_ok = all(c.get("ok") for c in checks.values())
+        return {"ok": all_ok, "checks": checks}
+
+
+@dataclass(slots=True)
 class TelemetryCounter:
     """Per-workflow-run counters. Pure data; no locking needed because
     the orchestrator runs steps sequentially within a single asyncio
@@ -59,6 +114,20 @@ class TelemetryCounter:
         if not strategy:
             return
         self.heal_strategy_counts[strategy] = self.heal_strategy_counts.get(strategy, 0) + 1
+
+    def reset(self) -> None:
+        """Zero every counter. Used between workflow runs so each
+        run's telemetry / SLO check reflects only its own work."""
+        self.llm_calls = 0
+        self.llm_prompt_tokens = 0
+        self.llm_completion_tokens = 0
+        self.llm_total_tokens = 0
+        self.llm_seconds = 0.0
+        self.vision_calls = 0
+        self.vision_seconds = 0.0
+        self.heal_strategy_counts = {}
+        self.step_durations_ms = {}
+        self.total_seconds = 0.0
 
     def to_dict(self) -> dict[str, Any]:
         return {

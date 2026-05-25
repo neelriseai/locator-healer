@@ -198,8 +198,15 @@ def _print_result(result, *, label: str) -> None:
         strat = r.heal_strategy or "-"
         exec_ok = (r.execution.status if r.execution else "-")
         print(
-            f"    - {r.step_id:30s} {r.action:11s} healer={strat:24s} "
+            f"    - {r.step_id:30s} {r.action:14s} healer={strat:24s} "
             f"exec={exec_ok:8s} v={'ok' if v_ok else 'fail'} ({v_tier})"
+        )
+    tele = (result.metadata or {}).get("telemetry")
+    if tele:
+        print(
+            f"    telemetry: llm_calls={tele['llm_calls']} "
+            f"tokens={tele['llm_total_tokens']} vision={tele['vision_calls']} "
+            f"total={tele['total_seconds']:.2f}s strategies={tele['heal_strategy_counts']}"
         )
     if result.failed_step is not None:
         f = result.failed_step

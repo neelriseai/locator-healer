@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head><title>Big page</title></head>
+<body>
+<main>
+    <h1>Product details</h1>
+    <button id="real-target" data-testid="real-target">The Real Button</button>
+    <div class="price">₹49,999</div>
+</main>
+<!--
+A page with thousands of irrelevant nodes. The decomposer outline
+read should respect its max_chars cap and not OOM; the candidate-
+based vision heal should still find the real-target button via DOM
+filtering, not by raw size.
+-->
+<script>
+const container = document.createElement('div');
+for (let i = 0; i < 3000; i++) {
+    const div = document.createElement('div');
+    div.className = `noise-${i % 7}`;
+    div.textContent = `Filler row ${i}`;
+    container.appendChild(div);
+}
+document.body.appendChild(container);
+</script>
+</body>
+</html>

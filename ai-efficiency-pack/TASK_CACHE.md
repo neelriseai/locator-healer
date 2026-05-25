@@ -6,8 +6,8 @@
 ## Metadata
 
 ```
-Total Entries   : 16
-Valid Entries   : 16
+Total Entries   : 19
+Valid Entries   : 19
 Stale Entries   : 0
 Last Pruned     : (never)
 ```
@@ -827,6 +827,9 @@ An entry should be **updated** (not removed) when:
 | TASK-014 | E2E drill-down workflows: run_amazon_demo (phase1 success — 3 phones extracted; drill 1/3 partial due to Amazon anti-bot interstitial); run_flipkart_drill_demo (phase1 + drill 3/3 success — OnePlus 12 ₹48,765, Mi 14 CIVI, OnePlus 13R 5G ₹44,999 with real review text); all 3 feature-file layers now pass (L2 was rate-limited; retry fix made it pass) | VALID | SCOPE:MODULE | 2026-05-24T22:55:00Z |
 | TASK-015 | "Locator healer eyes" doc round-2 analysis + 3 high-leverage implementations (PageStateObserver, a11y candidates, scroll+overlay in _click) + 4 skipped duplicate-path proposals documented with reasons. 276 unit tests pass; Flipkart drill 3/3 still success; 3-layer regression all PASS | VALID | SCOPE:MODULE | 2026-05-25T10:30:00Z |
 | TASK-016 | Self-audit "are we deeply iterating?" → all 6 honest-residual items implemented: budget-exhaustion tests, overlay-detection test, force-exercise candidate-heal test, force-exercise page_state test, telemetry harness (TelemetryCounter+wrappers), extract_record action with double-pass quality guard + pattern-first heuristic + h1 fallback. 7 real-run iterations on live Flipkart culminating in 3/3 success with REAL data {title, price, variant} and MEASURED cost (8 LLM calls, ~33k tokens per full multi-page workflow). 292 unit tests pass | VALID | SCOPE:MODULE | 2026-05-25T20:35:00Z |
+| TASK-017 | "Are we deeply iterating?" round 2 — P1 Amazon re-validation (frequency-based price heuristic + EMI-context filter; final round: prices match seed prices EXACTLY: ₹15,999/₹59,900/₹48,950); P2 LIVE proof of visual_candidate_pick on Flipkart with cascade disabled (only path left → fired correctly with telemetry visual_candidate_pick=1); P3a 2 OpenAI 429 retry-with-backoff tests; P3b 2 replan-on-URL-change tests + fix to empty-baseline bug; P4 SLO + benchmark harness with .check() + per-run telemetry reset + wired into demo; final round 11: 4 runs all SLO PASS. 300 unit tests pass | VALID | SCOPE:MODULE | 2026-05-25T21:30:00Z |
+| TASK-018 | Robustness + measurable accuracy round — concurrent run isolation (2 tests), long workflow stress (2 tests: 50-step happy path + 50-step fail-fast), adversarial inputs (3 tests: empty page / JS-shell-no-DOM / captcha-vision-abort), precision/recall harness consuming existing per-layer healing-calls.jsonl → 33/33 successful heals = 100% precision across L1/L2/L3. Selenium-in-orchestrator deliberately deferred per "don't introduce new issues". 307 unit tests pass (+7 new) | VALID | SCOPE:MODULE | 2026-05-25T22:00:00Z |
+| TASK-019 | Closing the "shallow" gaps from the previous self-audit — STRICT precision via node-identity (Playwright element handles + isSameNode comparison): L1=5/5 + L2=5/5 (vs prior loose "status=success"). Real-browser adversarial fixtures (vs mocks) SURFACED a real bug: orchestrator returned status=success on empty / captcha pages when a goal demanded "click X" but only verify steps ran; FIXED with goal-vs-action contract (_goal_action_unmet + _is_verification_only_goal helpers in WorkflowOrchestrator). Real concurrent stress: 5 + 10 simultaneous Playwright workers sharing ONE XPathHealerFacade, every heal node-correct + every counter isolated. 310 unit tests pass (+3); 3-layer feature regression PASS | VALID | SCOPE:MODULE | 2026-05-25T23:30:00Z |
 
 ---
 

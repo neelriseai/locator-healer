@@ -1,0 +1,26 @@
+2026-05-25 23:08:42,869 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+2026-05-25 23:08:51,410 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+2026-05-25 23:09:01,176 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+2026-05-25 23:09:15,679 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+========================================================================
+  Real-browser adversarial harness
+========================================================================
+
+  Case: empty_page  (expectation=fails_gracefully)
+    PASS: status=failed steps=1
+    telemetry: llm_calls=2 tokens=2188 vision=0 total=4.405019s
+
+  Case: js_shell_late_mount  (expectation=succeeds)
+    PASS: status=success steps=1
+    telemetry: llm_calls=2 tokens=2239 vision=0 total=5.62984s
+
+  Case: captcha_wall  (expectation=fails_or_aborts)
+    PASS: status=failed
+    telemetry: llm_calls=1 tokens=2117 vision=0 total=10.469883s
+
+  Case: huge_page  (expectation=succeeds_within_slo)
+    PASS: status=success slo_ok=True
+    telemetry: llm_calls=2 tokens=2313 vision=0 total=4.942768s
+
+  OVERALL: PASS
+  wrote: C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\reports\adversarial_browser.json

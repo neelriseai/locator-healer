@@ -282,9 +282,29 @@ async def main(*, headless: bool, limit: int, max_price: int, record_mode: str, 
                 except Exception:
                     pass
 
+            # SLO check across every run.
+            from xpath_healer.orchestrator import SLO
+            slo = SLO()
+            slo_results: list[dict[str, Any]] = []
+            phase1_tele = (phase1.metadata or {}).get("telemetry") or {}
+            phase1_slo = slo.check(phase1_tele)
+            slo_results.append({"label": "phase1", "slo": phase1_slo})
+            for i, dr in enumerate(drills, 1):
+                tele = ((dr.get("report") or {}).get("telemetry")) or {}
+                slo_results.append({"label": f"drill_{i}", "slo": slo.check(tele)})
+            all_slo_ok = all(r["slo"].get("ok") for r in slo_results)
+            print("\n=== SLO checks ===")
+            for r in slo_results:
+                status = "PASS" if r["slo"].get("ok") else "FAIL"
+                print(f"  {r['label']:10s} {status}")
+                if not r["slo"].get("ok"):
+                    for name, c in (r["slo"].get("checks") or {}).items():
+                        if not c.get("ok"):
+                            print(f"    {name}: observed={c.get('observed') or c.get('slow_steps')} limit={c.get('limit')}")
+
             ok_drills = sum(1 for d in drills if d.get("status") == "success")
-            print(f"\n  TOP-LINE: phase1={phase1.status} drill_ok={ok_drills}/{len(drills)}")
-            return 0 if (phase1.status == "success" and ok_drills > 0) else 1
+            print(f"\n  TOP-LINE: phase1={phase1.status} drill_ok={ok_drills}/{len(drills)} slo={'PASS' if all_slo_ok else 'FAIL'}")
+            return 0 if (phase1.status == "success" and ok_drills > 0 and all_slo_ok) else 1
         finally:
             await context.close()
             await browser.close()

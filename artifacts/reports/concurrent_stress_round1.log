@@ -1,0 +1,14 @@
+2026-05-25 23:30:23,251 WARNING xpath_healer RAG disabled: XH_PG_DSN is not configured.
+
+=== Concurrent stress: 5 workers ===
+  worker[0] OK: element=full_name heal_status=success node_correct=True strategy=bidirectional_anchor_field
+  worker[1] OK: element=email heal_status=success node_correct=True strategy=bidirectional_anchor_field
+  worker[2] OK: element=current_address heal_status=success node_correct=True strategy=bidirectional_anchor_field
+  worker[3] OK: element=permanent_address heal_status=success node_correct=True strategy=bidirectional_anchor_field
+  worker[4] OK: element=submit heal_status=success node_correct=True strategy=button_text_candidate
+
+  workers_ok = 5 / 5
+  distinct telemetry counters (must equal workers) = 5 / 5
+  OVERALL: PASS
+
+  wrote: C:\Users\neela\Documents\locator-healer\locator-healer\artifacts\reports\concurrent_stress.json

@@ -113,30 +113,6 @@
         "valid_against_hints": true,
         "history": [
           {
-            "timestamp": "2026-03-26T08:26:27.453829+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T08:33:16.229360+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T09:16:57.503903+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.916,
-            "stability_score": 0.84,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
             "timestamp": "2026-04-07T03:18:56.576070+00:00",
             "strategy_id": "metadata.last_good",
             "overall_score": 0.916,
@@ -266,6 +242,30 @@
           },
           {
             "timestamp": "2026-05-25T07:08:20.410115+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T18:01:55.500228+00:00",
+            "strategy_id": "bidirectional_anchor_field",
+            "overall_score": 0.932,
+            "stability_score": 0.88,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T18:03:19.266697+00:00",
+            "strategy_id": "mcp_explore",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T18:05:42.810729+00:00",
             "overall_score": 0.916,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
@@ -274,8 +274,8 @@
           }
         ]
       },
-      "last_seen": "2026-05-25T07:08:20.170650+00:00",
-      "success_count": 59,
+      "last_seen": "2026-05-25T18:05:42.570527+00:00",
+      "success_count": 62,
       "fail_count": 1
     },
     "email": {
@@ -394,30 +394,6 @@
         "locator_value": "textbox",
         "valid_against_hints": true,
         "history": [
-          {
-            "timestamp": "2026-03-26T08:26:29.696212+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.956,
-            "stability_score": 0.94,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T08:33:18.845700+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.956,
-            "stability_score": 0.94,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T09:17:00.528561+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.956,
-            "stability_score": 0.94,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
           {
             "timestamp": "2026-04-07T03:19:02.158547+00:00",
             "strategy_id": "metadata.last_good",
@@ -548,6 +524,30 @@
           },
           {
             "timestamp": "2026-05-25T07:08:26.048894+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.964,
+            "stability_score": 0.96,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T18:02:02.571005+00:00",
+            "strategy_id": "bidirectional_anchor_field",
+            "overall_score": 0.932,
+            "stability_score": 0.88,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T18:03:30.798254+00:00",
+            "strategy_id": "mcp_explore",
+            "overall_score": 0.916,
+            "stability_score": 0.84,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T18:05:48.256523+00:00",
             "overall_score": 0.964,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
@@ -556,8 +556,8 @@
           }
         ]
       },
-      "last_seen": "2026-05-25T07:08:25.895829+00:00",
-      "success_count": 59,
+      "last_seen": "2026-05-25T18:05:48.076852+00:00",
+      "success_count": 62,
       "fail_count": 0
     },
     "current_address": {
@@ -667,30 +667,6 @@
         "locator_value": "[id=\"currentAddress\"]",
         "valid_against_hints": true,
         "history": [
-          {
-            "timestamp": "2026-03-26T08:26:30.730565+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T08:33:19.843629+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T09:17:02.140031+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.904,
-            "stability_score": 0.81,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
           {
             "timestamp": "2026-04-07T03:19:05.830419+00:00",
             "strategy_id": "metadata.last_good",
@@ -821,6 +797,30 @@
           },
           {
             "timestamp": "2026-05-25T07:08:29.784666+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T18:02:04.894438+00:00",
+            "strategy_id": "bidirectional_anchor_field",
+            "overall_score": 0.92,
+            "stability_score": 0.85,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T18:03:36.850367+00:00",
+            "strategy_id": "mcp_explore",
+            "overall_score": 0.944,
+            "stability_score": 0.91,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T18:05:51.902600+00:00",
             "overall_score": 0.904,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
@@ -829,8 +829,8 @@
           }
         ]
       },
-      "last_seen": "2026-05-25T07:08:29.647523+00:00",
-      "success_count": 59,
+      "last_seen": "2026-05-25T18:05:51.755349+00:00",
+      "success_count": 62,
       "fail_count": 0
     },
     "permanent_address": {
@@ -936,30 +936,6 @@
         "locator_value": "#permanentAddress",
         "valid_against_hints": true,
         "history": [
-          {
-            "timestamp": "2026-03-26T08:26:31.708603+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.782,
-            "stability_score": 0.78,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T08:33:20.933277+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.782,
-            "stability_score": 0.78,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T09:17:03.130022+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.782,
-            "stability_score": 0.78,
-            "similarity_score": 0.35,
-            "uniqueness_score": 1.0
-          },
           {
             "timestamp": "2026-04-07T03:19:10.917019+00:00",
             "strategy_id": "metadata.last_good",
@@ -1090,6 +1066,30 @@
           },
           {
             "timestamp": "2026-05-25T07:08:33.596935+00:00",
+            "strategy_id": "rag_suggest",
+            "overall_score": 0.782,
+            "stability_score": 0.78,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T18:02:07.351473+00:00",
+            "strategy_id": "bidirectional_anchor_field",
+            "overall_score": 0.798,
+            "stability_score": 0.82,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T18:03:41.966938+00:00",
+            "strategy_id": "mcp_explore",
+            "overall_score": 0.726,
+            "stability_score": 0.64,
+            "similarity_score": 0.35,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T18:05:55.952520+00:00",
             "overall_score": 0.782,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
@@ -1098,8 +1098,8 @@
           }
         ]
       },
-      "last_seen": "2026-05-25T07:08:33.455670+00:00",
-      "success_count": 59,
+      "last_seen": "2026-05-25T18:05:55.805602+00:00",
+      "success_count": 62,
       "fail_count": 0
     },
     "submit": {
@@ -1109,14 +1109,17 @@
       "element_name": "submit",
       "field_type": "button",
       "last_good_locator": {
-        "kind": "css",
-        "value": "[id=\"submit\"]",
-        "options": {},
+        "kind": "role",
+        "value": "button",
+        "options": {
+          "name": "Submit",
+          "exact": true
+        },
         "scope": null
       },
       "robust_locator": {
         "kind": "css",
-        "value": "[id=\"submit\"]",
+        "value": "#submit",
         "options": {},
         "scope": null
       },
@@ -1167,9 +1170,12 @@
           "scope": null
         },
         "last_good": {
-          "kind": "css",
-          "value": "[id=\"submit\"]",
-          "options": {},
+          "kind": "role",
+          "value": "button",
+          "options": {
+            "name": "Submit",
+            "exact": true
+          },
           "scope": null
         },
         "live_xpath": {
@@ -1180,7 +1186,7 @@
         },
         "robust_css": {
           "kind": "css",
-          "value": "[id=\"submit\"]",
+          "value": "#submit",
           "options": {},
           "scope": null
         },
@@ -1193,44 +1199,20 @@
       },
       "quality_metrics": {
         "uniqueness_score": 1.0,
-        "stability_score": 0.81,
+        "stability_score": 0.93,
         "similarity_score": 0.9,
-        "overall_score": 0.904,
+        "overall_score": 0.952,
         "matched_count": 1,
         "chosen_index": 0,
         "validation_reasons": [
           "validated"
         ],
         "strategy_id": "rag_suggest",
-        "strategy_score": 0.94,
-        "locator_kind": "css",
-        "locator_value": "[id=\"submit\"]",
+        "strategy_score": 0.96,
+        "locator_kind": "role",
+        "locator_value": "button",
         "valid_against_hints": true,
         "history": [
-          {
-            "timestamp": "2026-03-26T08:26:33.171330+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.952,
-            "stability_score": 0.93,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T08:33:22.453150+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.952,
-            "stability_score": 0.93,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
-          {
-            "timestamp": "2026-03-26T09:17:04.467098+00:00",
-            "strategy_id": "metadata.last_good",
-            "overall_score": 0.952,
-            "stability_score": 0.93,
-            "similarity_score": 0.9,
-            "uniqueness_score": 1.0
-          },
           {
             "timestamp": "2026-04-07T03:19:12.741114+00:00",
             "strategy_id": "metadata.last_good",
@@ -1361,16 +1343,40 @@
           },
           {
             "timestamp": "2026-05-25T07:08:38.653364+00:00",
+            "strategy_id": "rag_suggest",
             "overall_score": 0.904,
+            "stability_score": 0.81,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T18:02:11.073024+00:00",
+            "strategy_id": "button_text_candidate",
+            "overall_score": 0.952,
+            "stability_score": 0.93,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T18:03:48.193476+00:00",
+            "strategy_id": "mcp_explore",
+            "overall_score": 0.944,
+            "stability_score": 0.91,
+            "similarity_score": 0.9,
+            "uniqueness_score": 1.0
+          },
+          {
+            "timestamp": "2026-05-25T18:06:00.528410+00:00",
+            "overall_score": 0.952,
             "strategy_id": "rag_suggest",
             "uniqueness_score": 1.0,
-            "stability_score": 0.81,
+            "stability_score": 0.93,
             "similarity_score": 0.9
           }
         ]
       },
-      "last_seen": "2026-05-25T07:08:38.483175+00:00",
-      "success_count": 59,
+      "last_seen": "2026-05-25T18:06:00.374828+00:00",
+      "success_count": 62,
       "fail_count": 0
     }
   },
