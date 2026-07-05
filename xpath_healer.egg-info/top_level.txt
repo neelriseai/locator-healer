@@ -1,3 +1,0 @@
-adapters
-service
-xpath_healer
